@@ -1,0 +1,102 @@
+
+set surround
+set multiple-cursors
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+set number
+set relativenumber
+set scrolloff=3
+set history=100000
+
+" Matchpairs
+nnoremap M %
+" Comment for python code
+nnoremap gcc I#<Space><Esc>
+" Move
+noremap H ^
+noremap L $
+noremap! H ^
+noremap! L $
+" Redo
+nnoremap U <C-r>
+" Go to mark
+nnoremap ' `
+" 查找时将结果置于屏幕中央
+nnoremap  n nzz
+nnoremap  N Nzz
+nnoremap  * *zz
+nnoremap  # #zz
+nnoremap  g* g*zz
+" 编辑 vimrc not works
+" noremap ;ve :edit   ~/.ideavimrc<CR>
+" source vimrc
+nnoremap ;vs :source ~/.ideavimrc<CR>
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+nnoremap < V<
+nnoremap > V>
+" 将选中文本块复制至系统剪贴板
+nnoremap ;y "+yy
+vnoremap ;y "+y
+nnoremap ;Y "+y$
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nnoremap ;p "+p
+nnoremap ;P "+P
+" 全选
+nnoremap <silent> ;sa <Esc>ggVG
+" 复制当前到行尾
+nnoremap Y y$
+" 快速退出
+nnoremap ;q  <Esc>:q<CR>
+nnoremap <C-w> <Esc>:q<CR>
+" 移动整行
+" nnoremap J ddp
+" nnoremap K ddkP
+" tab切换
+nnoremap gn gt
+nnoremap gp gT
+noremap <C-n> gt
+noremap <C-p> gT
+
+" Normal mode
+inoremap jj <Esc>
+inoremap jk <Esc>
+" 插入模式下的左右移动
+inoremap <C-k> <Esc>ka
+inoremap <C-j> <Esc>ja
+" IntelliJ 上会卡。。。
+" inoremap <C-h> <Esc>ha
+inoremap <C-l> <Esc>la
+" 词首词尾: forward; bachward
+inoremap <C-b> <Esc>bi
+inoremap <C-f> <Esc>ea
+" 另开一行
+" inoremap <C-o> <Esc>o
+" 行首行尾:
+inoremap <C-a> <Esc>I
+inoremap <C-e> <End>
+" 清除整行
+inoremap <C-u> <Esc>cc
+
+" 命令行模式增强
+" Ctrl-a 到行首，-e 到行尾
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+" 回溯历史命令时用 C-p 和 C-n 达到像 Up Down 一样的过滤效果
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+" 前进后退一个单词
+cnoremap <C-b> <S-Left>
+cnoremap <C-f> <S-Right>
+
+nnoremap <C-j> <C-]>
+nnoremap ;d <Esc>:q<CR>
+" 平滑滚屏
+nnoremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+nnoremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+inoremap <C-d> <Esc>ddi

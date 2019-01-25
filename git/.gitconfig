@@ -1,0 +1,25 @@
+[user]
+	name = voldikss
+	email = dyzplus@gmail.com
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    type = cat-file -t
+    dump = cat-file -p
+[credential]
+	helper = cache
+[core]
+    editor = nvim
+[color]
+	ui = auto
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[gpg]
+	program = gpg
+[github]
+    user = voldikss

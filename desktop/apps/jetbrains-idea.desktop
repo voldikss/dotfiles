@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=IntelliJ IDEA Ultimate Edition
+Icon=/home/clouduan/idea-IU-181.5281.24/bin/idea.png
+Exec="/home/clouduan/idea-IU-181.5281.24/bin/idea.sh" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-idea
+OnlyShowIn=Old;
