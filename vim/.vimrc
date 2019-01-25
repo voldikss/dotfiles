@@ -470,8 +470,6 @@ inoremap <C-c> <Esc>C
 
 " 快速退出
 noremap <Leader>q  <Esc>:q<CR>
-" 快速保存退出
-noremap <Leader>wq <Esc>:wq<CR>
 " 快速退不做任何保存
 noremap <Leader>Q  <Esc>:qa!<CR>
 " 快速保存
