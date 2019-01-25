@@ -1127,30 +1127,6 @@ let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid err
 let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
 " ]]]
 
-" vim-searchme
-" [[[
-" noremap  <Leader>s :<C-u>SearchCurrentText<CR>
-" vnoremap <Leader>s :<C-u>SearchVisualText<CR>
-" noremap  <Leader>sm :Search<space>
-
-let g:search = 'google'
-let g:query = {
-            \ 'google':'https://google.com/search\?q\={query}',
-            \ 'github':'https://github.com/search\?q\={query}',
-            \ 'stackoverflow':'https://stackoverflow.com/search\?q\={query}',
-            \ 'bilibili':'http://search.bilibili.com/all\?keyword\={query}',
-            \ 'askubuntu': 'https://askubuntu.com/search\?q\={query}',
-            \ 'wikipedia': 'https://en.wikipedia.org/wiki/{query}',
-            \ 'duckduckgo': 'https://duckduckgo.com/\?q\={query}',
-            \ 'twitter-search': 'https://twitter.com/search/{query}',
-            \ 'twitter-user': 'https://twitter.com/{query}',
-            \ 'reddit':'https://www.reddit.com/search\?q\={query}',
-            \ 'youtube':'https://www.youtube.com/results\?search_query\={query}\&page\=\&utm_source\=opensearch',
-            \ 'zhihu':'https://www.zhihu.com/search\?q\={query}',
-            \ 'baidu':'https://www.baidu.com/s\?ie\=UTF-8\&wd\={query}'
-            \}
-" ]]]
-
 " vim-signify
 " [[[
 " 跳转
@@ -1210,7 +1186,7 @@ endif
 " vim-youdao-translater
 " [[[
 vnoremap <silent> <Leader>tv :<C-u>Ydv<CR>
-nnoremap <silent> <Leader>tt :<C-u>Ydc<CR>
+nnoremap <silent> <Leader>tc :<C-u>Ydc<CR>
 noremap  <silent> <Leader>te <Esc>:Yde<CR>
 " ]]]
 
