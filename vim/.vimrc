@@ -739,11 +739,10 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " [[[
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
-let g:fileheader_default_author='voldikss'
+let g:fileheader_author='voldikss'
 let g:fileheader_default_email = 'dyzplus@gmail'
 let g:fileheader_show_email = 0
-let g:fileheader_date_format = '%Y-%m-%d'
-let g:fileheader_by_git_config = 0
+let g:fileheader_by_git_config = 1
 let g:fileheader_new_line_at_end = 1
 let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
@@ -794,6 +793,11 @@ let g:Lf_Ctags = "/usr/local/bin/ctags"
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator = {'left': '', 'right': '', 'font': ''}
 " ]]]
+
+" markdown-preview
+" [[[
+let g:mkdp_auto_close = 0
+"" ]]]
 
 " NERDTree
 " [[[
