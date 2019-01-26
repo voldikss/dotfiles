@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-01-21 19:23:07
+" @Last Modified time: 2019-01-26 09:35:19
 
 " Preface
 " ======================================================================
@@ -366,10 +366,10 @@ noremap U <C-r>
 " 跳转标记更方便
 noremap ' `
 
-" C-j 跳转函数定义
-noremap <C-j> <C-]>
-" C-k 跳转帮助
-noremap <C-k> K
+" C-j 跳转函数定义: Go to definition
+noremap <Leader>g <C-]>
+" C-k 跳转帮助: Help
+noremap <Leader>h K
 
 " 平滑滚屏
 noremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
@@ -407,15 +407,15 @@ noremap <Leader>9 :9b<CR>
 noremap <silent> <Leader>d :bd!<CR>
 
 " 切换窗口
-noremap <M-h> <Esc><C-w>h
-noremap <M-j> <Esc><C-w>j
-noremap <M-k> <Esc><C-w>k
-noremap <M-l> <Esc><C-w>l
+noremap <C-h> <Esc><C-w>h
+noremap <C-j> <Esc><C-w>j
+noremap <C-k> <Esc><C-w>k
+noremap <C-l> <Esc><C-w>l
 " 调整窗口大小
-noremap <M-up>    <C-w>+
-noremap <M-down>  <C-w>-
-noremap <M-left>  <C-w>10<
-noremap <M-right> <C-w>10>
+noremap <M-k> <C-w>+
+noremap <M-j> <C-w>-
+noremap <M-h> <C-w>10<
+noremap <M-l> <C-w>10>
 
 " 新建 tab  Ctrl+T
 noremap  <C-t>     <Esc>:tabnew<CR>
@@ -884,8 +884,8 @@ let g:rainbow_conf = {
 
 " sideways.vim
 " [[[
-nnoremap <C-h>  :SidewaysLeft<CR>
-nnoremap <C-l>  :SidewaysRight<CR>
+nnoremap <C-left>  :SidewaysLeft<CR>
+nnoremap <C-right>  :SidewaysRight<CR>
 " ]]]
 
 " vim-argwrap
@@ -1077,19 +1077,6 @@ nmap J <Plug>MoveLineDown
 nmap K <Plug>MoveLineUp
 "]]]
 
-" vim-multiple-cursor
-" [[[
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-" ]]]
-
 " vim-nerdtree-syntax-highlight
 " [[[
 let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -1128,8 +1115,8 @@ let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets th
 " vim-signify
 " [[[
 " 跳转
-nmap <C-right> <Plug>(signify-next-hunk)
-nmap <C-left>  <Plug>(signify-prev-hunk)
+nmap <C-up>  <Plug>(signify-prev-hunk)
+nmap <C-down> <Plug>(signify-next-hunk)
 " ! 改成 ~
 let g:signify_sign_change = '~'
 " 两次按键间隔大于 updatetime 时自动写入磁盘并显示状态
@@ -1179,6 +1166,14 @@ call textobj#user#plugin('datetime', {
             \   },
             \ })
 endif
+" ]]]
+
+" vim-visual-multi
+" [[[
+let g:VM_leader = ";"
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_maps["Select All"] = '<leader>A'
 " ]]]
 
 " vim-youdao-translater
