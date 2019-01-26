@@ -87,7 +87,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " ColorScheme
 Plug 'chxuan/change-colorscheme'
 " 彩虹括号
-" Plug 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 " CSS 颜色高亮
 Plug 'ap/vim-css-color'
 " 格式化
@@ -144,11 +144,11 @@ Plug 'chrisbra/sudoedit.vim'
 Plug 'ludovicchabant/vim-gutentags'
 " fuzzy finder
 Plug 'Yggdroot/LeaderF'
-"Light web search
-Plug 'VoldikSS/vim-searchme'
-" 翻译
-Plug 'ianva/vim-youdao-translater'
-" File header
+" Lightweight web search
+Plug 'voldikss/vim-search-me'
+" Translator
+Plug 'iamcco/dict.vim'
+" Fileheader
 Plug 'ahonn/fileheader.nvim'
 " 空白符提示
 Plug 'ntpeters/vim-better-whitespace'
@@ -736,6 +736,22 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " ]]]
 
+" dict.vim
+" [[[
+" --普通模式下，<Leader>d 即可翻译光标下的文本，并在命令行回显
+nmap <silent> <Leader>tt <Plug>DictSearch
+" --可视化模式下，<Leader>d 即可翻译选中的文本，并在命令行回显
+vmap <silent> <Leader>tt <Plug>DictVSearch
+" --普通模式下，<Leader>w 即可翻译光标下的文本，并且在Dict新窗口显示
+nmap <silent> <Leader>tw <Plug>DictWSearch
+" --可视化模式下，<Leader>w 即可翻译选中的文本，并且在Dict新窗口显示
+vmap <silent> <Leader>tw <Plug>DictWVSearch
+" --普通模式下，<Leader><Leader>r 即可翻译光标下的单词，并替换为翻译的结果
+nmap <silent> <Leader><Leader>r <Plug>DictRSearch
+" --可视化模式下，<Leader><Leader>r 即可翻译光标下的单词，并替换为翻译的结果
+vmap <silent> <Leader><Leader>r <Plug>DictRVSearch
+" ]]]
+
 " fileheader
 " [[[
 let g:fileheader_auto_add = 0
@@ -1177,13 +1193,6 @@ let g:VM_leader = ";"
 let g:VM_default_mappings = 0
 let g:VM_maps = {}
 let g:VM_maps["Select All"] = '<leader>A'
-" ]]]
-
-" vim-youdao-translater
-" [[[
-vnoremap <silent> <Leader>tv :<C-u>Ydv<CR>
-nnoremap <silent> <Leader>tc :<C-u>Ydc<CR>
-noremap  <silent> <Leader>te <Esc>:Yde<CR>
 " ]]]
 
 " undotree
