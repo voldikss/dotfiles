@@ -366,6 +366,9 @@ noremap U <C-r>
 " 跳转标记更方便
 noremap ' `
 
+" 清楚搜索高亮
+nnoremap <silent> <esc> :noh<return><esc>
+
 " C-j 跳转函数定义: Go to definition
 noremap <Leader>g <C-]>
 " C-k 跳转帮助: Help
