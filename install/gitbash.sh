@@ -6,7 +6,7 @@ cp -f ../inputrc/.inputrc $HOME
 cp -f ../git/.gitconfig $HOME
 cp -f ../intellij/.ideavimrc $HOME
  # vim
-cp -f ../vim/.vimrc.gitbash $HOME/.vimrc
+cp -f ../vim/.vimrc $HOME/.vimrc
 cp -rf ../vim/.vim $HOME
 vim -c ':PlugInstall --sync | :qa!'
 

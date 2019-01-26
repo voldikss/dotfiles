@@ -50,3 +50,16 @@ unset _ps1_symbol
 # Fixup git-bash in non login env
 shopt -q login_shell || . /etc/profile.d/git-prompt.sh
 
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias rmf='rm -rf'
+alias ga='git add'
+alias gs='git status'
+alias gc='git commit'
+alias gp='git push'
+alias gpf='git push -f'
+alias gf='git fetch'
+alias gr='git reset --hard HEAD'
+

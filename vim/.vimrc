@@ -3,6 +3,7 @@
 " @Last Modified by: voldikss
 " @Last Modified time: 2019-01-26 09:35:19
 
+" ======================================================================
 " Preface
 " ======================================================================
 " [[[
@@ -19,7 +20,7 @@
 " Init
 " ======================================================================
 " [[[
-function! IsWindows()
+function! s:IsWindows()
     if has('win32') || has('win64') || has('win32unix')
         return 1
     else
@@ -28,10 +29,10 @@ function! IsWindows()
 
 let mapleader   = ';'
 let g:mapleader = ';'
-let g:python3_host_prog='/usr/bin/python3'
-" let g:node_host_prog='~/.nvm/versions/node/v8.11.1/bin/neovim-node-host'
-if IsWindows()
+if s:IsWindows()
     set pythonthreedll=/d/Applications/Python35/python35.dll
+else
+    let g:python3_host_prog='/usr/bin/python3'
 endif
 " ]]]
 
@@ -63,8 +64,10 @@ Plug 'mattn/emmet-vim',  {'for': ['html','vue','css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'Valloric/MatchTagAlways',{'for':['xml','html']}
 " JavaScript
-Plug 'pangloss/vim-javascript',{'for':'javascript'}
-Plug 'ternjs/tern_for_vim',{'for':'javascript','do':'npm install'}
+if !s:IsWindows()
+    Plug 'pangloss/vim-javascript',{'for':'javascript'}
+    Plug 'ternjs/tern_for_vim',{'for':'javascript','do':'npm install'}
+endif
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
 " Wolfram
@@ -72,7 +75,7 @@ Plug 'VoldikSS/vim-mma',{'for':'mma'}
 " ]]]
 
 " [[[ Completion
-if !IsWindows()
+if !s:IsWindows()
 Plug 'Shougo/denite.nvim'
 Plug 'sirver/ultisnips'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
@@ -80,7 +83,6 @@ else
 Plug 'vim-scripts/AutoComplPop'
 endif
 " ]]]
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " ]]]
 
 " [[[ ColorScheme && Format && Display && Interface
@@ -441,7 +443,6 @@ nnoremap <Leader>P "+P
 nnoremap Y y$
 
 " 选中
-" noremap <silent> <C-a> <Esc>ggVG
 noremap <silent> <Leader>sa <Esc>ggVG
 " 拷贝
 vnoremap <silent> <C-c> "+y
@@ -499,7 +500,7 @@ tnoremap <Esc>  <C-\><C-n>
 " 终端打开
 noremap <silent> <Leader><Space> <Esc>:vsplit term://zsh<CR>
 noremap <silent> ,<Space> <Esc>:split term://zsh<CR>
-if IsWindows()
+if s:IsWindows()
     noremap <silent> <Leader><Space> <Esc>:terminal<CR>
 endif
 
@@ -626,7 +627,7 @@ endfunction
 command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
 function! BrowserOpen(obj)
     " windows(mingw)
-    if IsWindows()
+    if s:IsWindows()
         let cmd = 'start rundll32 url.dll,FileProtocolHandler ' . a:obj
     elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
         let cmd = 'open' . a:obj
@@ -986,7 +987,7 @@ let g:gutentags_ctags_tagfile = '.tags'
 
 " 默认会在当前文件夹产生 .tags 文件
 " 将自动生成的 tags 文件全部放入 ~/.vim/tags 目录中，避免污染工程目录
-if !IsWindows()
+if !s:IsWindows()
 let s:vim_tags = expand('~/.vim/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 endif
@@ -1235,8 +1236,6 @@ endif
 " n      <C-l>             :<vim-sideways> SidewaysRight<CR>
 " n      <C-left>          <Plug>(signify-prev-hunk)
 " n      <C-right>         <Plug>(signify-next-hunk)
-"Deprecated" n      <C-up>            <Plug>(ale_previous_wrap)
-"Deprecated" n      <C-down>          <Plug>(ale_next_wrap)
 " n      <M-h>             <Esc><C-w>h
 " n      <M-j>             <Esc><C-w>j
 " n      <M-k>             <Esc><C-w>k
