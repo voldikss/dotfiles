@@ -159,6 +159,8 @@ Plug 'ntpeters/vim-better-whitespace'
 " Mark + 高亮
 Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
+" LeetCode
+Plug 'iandingx/leetcode.vim'
 " ]]]
 
 " [[[ Move
@@ -679,6 +681,7 @@ let g:airline_theme = 'aurora'
 " let g:airline_theme = 'base16_spacemacs'
 " let g:airline_theme = 'cool'
 " let g:airline_theme = 'light'
+" let g:airline_theme = 'vice'
 "
 " buffer 编号显示
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -812,6 +815,11 @@ let g:Lf_Ctags = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator = {'left': '', 'right': '', 'font': ''}
+" ]]]
+
+" LeetCode.vim
+" [[[
+let g:leetcode_solution_filetype = 'python'
 " ]]]
 
 " markdown-preview
@@ -1302,4 +1310,3 @@ endif
 "
 " ]]]
 " ]]]
-
