@@ -76,11 +76,13 @@ Plug 'VoldikSS/vim-mma',{'for':'mma'}
 
 " [[[ Completion
 if !s:IsWindows()
-Plug 'Shougo/denite.nvim'
-Plug 'sirver/ultisnips'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'Shougo/denite.nvim'
+    Plug 'sirver/ultisnips'
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'Shougo/neco-vim'
+    Plug 'neoclide/coc-neco'
 else
-Plug 'vim-scripts/AutoComplPop'
+    Plug 'vim-scripts/AutoComplPop'
 endif
 " ]]]
 " ]]]
