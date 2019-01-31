@@ -1,10 +1,10 @@
-<scheme name="Monokai" version="142" parent_scheme="Darcula">
+<scheme name="Monokai copy" version="142" parent_scheme="Darcula">
   <metaInfo>
-    <property name="created">2018-07-03T13:09:48</property>
+    <property name="created">2019-01-31T18:48:35</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2018.1.5.0.0</property>
-    <property name="modified">2018-07-03T13:09:57</property>
-    <property name="originalScheme">Monokai</property>
+    <property name="ideVersion">2018.3.2.0.0</property>
+    <property name="modified">2019-01-31T18:48:48</property>
+    <property name="originalScheme">Monokai copy</property>
   </metaInfo>
   <colors>
     <option name="CARET_COLOR" value="f8f8f0" />
@@ -703,6 +703,9 @@
         <option name="FONT_TYPE" value="1" />
       </value>
     </option>
+    <option name="HTML_CODE">
+      <value />
+    </option>
     <option name="HTML_COMMENT">
       <value>
         <option name="FOREGROUND" value="75715e" />
@@ -826,6 +829,28 @@
         <option name="FOREGROUND" value="ae81ff" />
       </value>
     </option>
+    <option name="JS.CLASS">
+      <value>
+        <option name="FOREGROUND" value="a6e22e" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="JS.DECORATOR">
+      <value>
+        <option name="FOREGROUND" value="f8f8f2" />
+        <option name="BACKGROUND" value="272822" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="JS.DOT">
+      <value />
+    </option>
+    <option name="JS.GLOBAL_FUNCTION">
+      <value>
+        <option name="FOREGROUND" value="a6e22e" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
     <option name="JS.GLOBAL_VARIABLE">
       <value>
         <option name="FOREGROUND" value="fd971f" />
@@ -837,9 +862,26 @@
         <option name="FOREGROUND" value="a6e22e" />
       </value>
     </option>
-    <option name="JS.LOCAL_VARIABLE">
+    <option name="JS.INSTANCE_MEMBER_VARIABLE">
       <value>
         <option name="FOREGROUND" value="fd971f" />
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="JS.INTERFACE">
+      <value>
+        <option name="FOREGROUND" value="a6e22e" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="JS.KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="f92672" />
+      </value>
+    </option>
+    <option name="JS.LOCAL_VARIABLE">
+      <value>
+        <option name="FOREGROUND" value="3ab3f0" />
         <option name="FONT_TYPE" value="2" />
       </value>
     </option>
@@ -853,6 +895,9 @@
       <value>
         <option name="FOREGROUND" value="e6db74" />
       </value>
+    </option>
+    <option name="KOTLIN_LABEL">
+      <value />
     </option>
     <option name="LABEL">
       <value>
@@ -959,7 +1004,8 @@
     </option>
     <option name="MATCHED_BRACE_ATTRIBUTES">
       <value>
-        <option name="BACKGROUND" value="3a6da0" />
+        <option name="BACKGROUND" value="3b514d" />
+        <option name="FONT_TYPE" value="1" />
       </value>
     </option>
     <option name="NOT_USED_ELEMENT_ATTRIBUTES">
@@ -1127,6 +1173,7 @@
     <option name="PY.CLASS_DEFINITION">
       <value>
         <option name="FOREGROUND" value="a6e22e" />
+        <option name="FONT_TYPE" value="1" />
       </value>
     </option>
     <option name="PY.DECORATOR">
