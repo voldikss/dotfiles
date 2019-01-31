@@ -1,5 +1,5 @@
 " my filetype file
-if exists("did_load_filetypes")
+if exists("did_load_my_filetypes")
     finish
 endif
 
@@ -16,4 +16,4 @@ augroup filetypedetect
 
 augroup END
 
-let did_load_filetypes=1
+let did_load__my_filetypes=1
