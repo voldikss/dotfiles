@@ -372,9 +372,6 @@ noremap U <C-r>
 " 跳转标记更方便
 noremap ' `
 
-" 清楚搜索高亮
-nnoremap <silent> <esc> :noh<return><esc>
-
 " C-j 跳转函数定义: Go to definition
 noremap <Leader>g <C-]>
 " C-k 跳转帮助: Help
@@ -555,6 +552,12 @@ augroup no_comment
     set formatoptions-=r
     set formatoptions-=c
     set formatoptions-=o
+augroup END
+
+" 清除搜索高亮
+augroup clear_hl
+    autocmd!
+    autocmd InsertEnter * :let @/=""
 augroup END
 
 " 不同模式行号显示
