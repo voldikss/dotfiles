@@ -471,11 +471,9 @@ inoremap <C-u> <Esc>cc
 inoremap <C-c> <Esc>C
 
 " 快速退出
-nnoremap q  <Esc>:q<CR>
+nnoremap <Leader>q  <Esc>:q<CR>
 " 快速退不做任何保存
-nnoremap Q  <Esc>:qa!<CR>
-" 录制宏
-nnoremap <Leader>q q
+nnoremap <Leader>Q  <Esc>:qa!<CR>
 " 快速保存
 noremap <Leader>w  <Esc>:w<CR>
 " 快速 grep TODO:异步
