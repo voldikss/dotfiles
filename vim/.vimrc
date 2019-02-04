@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-04 11:07:31
+" @Last Modified time: 2019-02-02 14:24:00
 
 " ======================================================================
 " Preface
@@ -20,18 +20,15 @@
 " Init
 " ======================================================================
 " [[[
-function! s:IsWindows()
-    if has('win32') || has('win64') || has('win32unix')
-        return 1
-    else
-        return 0
-endfunction
-
 let mapleader   = ';'
 let g:mapleader = ';'
-if s:IsWindows()
-    set pythonthreedll=/d/Applications/Python35/python35.dll
-else
+if has('win32') || has('win64') || has('win32unix') " If Windows OS
+    if has('nvim')
+        let g:python3_host_prog='D:/Applications/Python36/python.exe'
+    else
+        set pythonthreedll=/d/Applications/Python36/python36.dll
+    endif
+else  " Not Windows OS
     let g:python3_host_prog='/usr/bin/python3'
 endif
 " ]]]
@@ -64,7 +61,7 @@ Plug 'mattn/emmet-vim',  {'for': ['html','vue','css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'Valloric/MatchTagAlways',{'for':['xml','html']}
 " JavaScript
-if !s:IsWindows()
+if has('win32') || has('win64') || has('win32unix')
     Plug 'pangloss/vim-javascript',{'for':'javascript'}
     Plug 'ternjs/tern_for_vim',{'for':'javascript','do':'npm install'}
 endif
@@ -75,7 +72,7 @@ Plug 'VoldikSS/vim-mma',{'for':'mma'}
 " ]]]
 
 " [[[ Completion
-if !s:IsWindows()
+if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'sirver/ultisnips'
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
@@ -633,7 +630,7 @@ endfunction
 command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
 function! BrowserOpen(obj)
     " windows(mingw)
-    if s:IsWindows()
+    if has('win32') || has('win64') || has('win32unix')
         let cmd = 'start rundll32 url.dll,FileProtocolHandler ' . a:obj
     elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
         let cmd = 'open' . a:obj
@@ -999,10 +996,8 @@ let g:gutentags_ctags_tagfile = '.tags'
 
 " 默认会在当前文件夹产生 .tags 文件
 " 将自动生成的 tags 文件全部放入 ~/.vim/tags 目录中，避免污染工程目录
-if !s:IsWindows()
 let s:vim_tags = expand('~/.vim/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
-endif
 
 " 配置 ctags 的参数
 let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
