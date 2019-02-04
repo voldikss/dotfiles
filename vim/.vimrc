@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-01-26 09:35:19
+" @Last Modified time: 2019-02-04 11:07:31
 
 " ======================================================================
 " Preface
@@ -25,7 +25,7 @@ function! s:IsWindows()
         return 1
     else
         return 0
-    endfunction
+endfunction
 
 let mapleader   = ';'
 let g:mapleader = ';'
@@ -474,9 +474,11 @@ inoremap <C-u> <Esc>cc
 inoremap <C-c> <Esc>C
 
 " 快速退出
-noremap <Leader>q  <Esc>:q<CR>
+nnoremap q  <Esc>:q<CR>
 " 快速退不做任何保存
-noremap <Leader>Q  <Esc>:qa!<CR>
+nnoremap Q  <Esc>:qa!<CR>
+" 录制宏
+nnoremap <Leader>q q
 " 快速保存
 noremap <Leader>w  <Esc>:w<CR>
 " 快速 grep TODO:异步
@@ -499,11 +501,8 @@ cnoremap ww! w !sudo tee >/dev/null %
 " 终端模式
 tnoremap <Esc>  <C-\><C-n>
 " 终端打开
-noremap <silent> <Leader><Space> <Esc>:vsplit term://zsh<CR>
-noremap <silent> ,<Space> <Esc>:split term://zsh<CR>
-if s:IsWindows()
-    noremap <silent> <Leader><Space> <Esc>:terminal<CR>
-endif
+noremap <silent> <Leader>n <Esc>:vert term<CR>
+noremap <silent> ,n <Esc>:term<CR>
 
 " 安装、更新、删除插件
 nnoremap <Leader><Leader>i :PlugInstall<CR>
@@ -705,7 +704,7 @@ let g:asyncrun_open = 8
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
 " 设置 F12 打开/关闭 Quickfix 窗口
-nnoremap <F12> :call asyncrun#quickfix_toggle(8)<CR>
+nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 " ]]]
 
 " auto-pairs
