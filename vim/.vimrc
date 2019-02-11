@@ -59,7 +59,6 @@ Plug 'xuhdev/SingleCompile'
 Plug 'othree/html5.vim',{'for':'html'}
 Plug 'mattn/emmet-vim',  {'for': ['html','vue','css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
-Plug 'Valloric/MatchTagAlways',{'for':['xml','html']}
 " JavaScript
 if has('win32') || has('win64') || has('win32unix')
     Plug 'pangloss/vim-javascript',{'for':'javascript'}

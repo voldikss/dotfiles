@@ -10,12 +10,10 @@ set showmode
 set number
 set relativenumber
 set scrolloff=3
-set history=100000
+set history=1000
 
 " Matchpairs
 nnoremap M %
-" Comment for python code
-nnoremap gcc I#<Space><Esc>
 " Move
 noremap H ^
 noremap L $
@@ -65,7 +63,6 @@ noremap <C-p> gT
 
 " Normal mode
 inoremap jj <Esc>
-inoremap jk <Esc>
 " 插入模式下的左右移动
 inoremap <C-k> <Esc>ka
 inoremap <C-j> <Esc>ja
