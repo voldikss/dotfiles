@@ -70,7 +70,8 @@ function vim_install(){
     sudo cp -rf ../vim/.config/ $HOME
 
     nvim -c ':PlugInstall --sync | :qa!'
-    nvim -c 'UpdateRemotePlugin  | :qa!'
+    nvim -c ':UpdateRemotePlugin  | :qa!'
+    nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls  | :qa!'
 }
 
 function tmux_install(){

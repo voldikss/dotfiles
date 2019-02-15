@@ -46,7 +46,8 @@ function vim_install(){
     sudo mkdir -p $HOME/.vim/plugged
 
     nvim -c ':PlugInstall --sync | :qa!'
-    nvim -c 'UpdateRemotePlugin  | :qa!'
+    nvim -c ':UpdateRemotePlugin  | :qa!'
+    nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls  | :qa!'
 }
 
 function python_install(){
