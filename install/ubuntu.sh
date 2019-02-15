@@ -15,8 +15,9 @@ function oh_my_zsh_install(){
     sudo apt install zsh -y
     # oh-my-zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    # sudo cp -f ../zsh/agnoster.zsh-theme $HOME/.oh-my-zsh/themes
+    sudo cp -f ../zsh/.af-magic.zsh-theme $HOME/
     sudo cp -f ../zsh/.zshrc $HOME
+    sudo cp -f ../zsh/.myzshrc $HOME
     source ~/.zshrc
 }
 
