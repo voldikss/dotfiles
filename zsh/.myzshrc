@@ -120,5 +120,3 @@ alias unproxy='unset all_proxy'
 # 自动进入和关闭 tmux
 # if [ $(command -v tmux) ] && [ -t 0 ] && [[ -z $TMUX ]] && [[ $- = *i* ]]; then exec tmux; fi
 # cd ~/code
-#
-cd ~
