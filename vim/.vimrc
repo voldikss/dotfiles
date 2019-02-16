@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-02 14:24:00
+" @Last Modified time: 2019-02-16 11:58:27
 
 " ======================================================================
 " Preface
@@ -22,14 +22,40 @@
 " [[[
 let mapleader   = ';'
 let g:mapleader = ';'
-if has('win32') || has('win64') || has('win32unix') " If Windows OS
+
+" If Windows
+if has('win32') || has('win64') || has('win32unix')
+    " If Windows NeoVim
     if has('nvim')
         let g:python3_host_prog='D:/Applications/Python36/python.exe'
-    else
+    " If Windows Git Bash Vim
+    elseif has('win32unix')
         set pythonthreedll=/d/Applications/Python36/python36.dll
+    " If Windows Vim/GVim
+    else
+        set pythonthreedll=D:\Applications\Python36\python36.dll
     endif
-else  " Not Windows OS
+" If Linux
+else
     let g:python3_host_prog='/usr/bin/python3'
+endif
+
+" GVIM Settings
+if has('gui_running')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    set encoding=utf-8
+    au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m " 隐藏菜单栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions-=L " 隐藏左侧滚动条
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=b " 隐藏底部滚动条
+    set guifont=Monaco\ for\ Powerline:h11:b
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
 endif
 " ]]]
 
@@ -71,14 +97,34 @@ Plug 'VoldikSS/vim-mma',{'for':'mma'}
 " ]]]
 
 " [[[ Completion
+" NEOVIM "
 if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'sirver/ultisnips'
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
+" VIM"
 else
-    Plug 'vim-scripts/AutoComplPop'
+    "=======================Use Coc================================
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+    "=======================Use AutoComplPop=======================
+    " Plug 'vim-scripts/AutoComplPop'
+
+    "=======================Use Deoplete===========================
+    set pyxversion=3
+    let g:python3_host_prog='D:/Applications/Python36/python.exe'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Rip-Rip/clang_complete'
+    Plug 'deoplete-plugins/deoplete-jedi'
+    Plug 'davidhalter/jedi'
+    Plug 'fszymanski/deoplete-emoji'
+    Plug 'Shougo/neopairs.vim'
+    Plug 'Shougo/echodoc.vim'
+    let g:deoplete#enable_at_startup = 1
 endif
 " ]]]
 " ]]]
@@ -738,6 +784,13 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " ]]]
 
+" Deoplete
+" [[[
+if exists('g:loaded_deoplete')
+
+endif
+" ]]]
+
 " dict.vim
 " [[[
 " --普通模式下，<Leader>d 即可翻译光标下的文本，并在命令行回显
@@ -1211,19 +1264,6 @@ let g:undotree_SplitWidth = 25
 " ]]]
 " ]]]
 
-" ======================================================================
-" GVIM Settings
-" ======================================================================
-" [[[
-" gvim 下 TODO: 待验证
-if has('gui_running')
-    inoremap <S-CR> <Esc>o
-    inoremap <C-CR> <Esc>O
-    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-    "set guifont=Fira_Code:h12
-endif
-" ]]]
-"
 " =====================================================================
 " Cheet Sheet
 " =====================================================================
