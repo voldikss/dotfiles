@@ -625,18 +625,12 @@ augroup last_pos
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
-" 自动进入当前文件的目录
-augroup auto_ch_dir
-    autocmd!
-    autocmd BufEnter * silent! lcd %:p:h
-augroup END
-
-关键词高亮
-augroup syntax_highlight
-    autocmd!
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
-    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-augroup END
+" 关键词高亮
+" augroup syntax_highlight
+"     autocmd!
+"     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+"     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+" augroup END
 
 " 个人 gitignore 默认配置
 autocmd BufNewFile *.gitignore exec "call InitGitignore()"
@@ -656,39 +650,26 @@ noremap  <silent> <F5> <Esc>:call QuickRun()<CR>
 noremap! <silent> <F5> <Esc>:call QuickRun()<CR>
 function! QuickRun()
     exec 'w'
-    if &filetype == 'c'
-        exec "AsyncRun gcc % -o %<; ./%<"
-        " 执行后聚焦 Quickfix 窗口
-        " exec "AsyncRun gcc % -o %<; ./%<" | wincmd p
-    elseif &filetype == 'cpp'
-        exec "AsyncRun g++ % -o %<; ./%<"
-    elseif &filetype == 'java'
-        exec "AsyncRun javac %; java %<"
-    elseif &filetype == 'sh'
-        exec "AsyncRun bash %"
-    elseif &filetype == 'lua'
-        exec "AsyncRun lua %"
-    elseif &filetype == 'python'
-        exec "AsyncRun python %"
-    elseif &filetype == 'html' || &filetype == 'htmldjango'
+    if &filetype == 'html' || &filetype == 'htmldjango'
         exec "BrowserOpen " . expand("%:p")
-    elseif &filetype == 'go'
-        exec "AsyncRun go run %"
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
+    else
+        exec "SCCompileRun"
     endif
 endfunction
+
 command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
 function! BrowserOpen(obj)
     " windows(mingw)
     if has('win32') || has('win64') || has('win32unix')
-        let cmd = 'start rundll32 url.dll,FileProtocolHandler ' . a:obj
+        let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
     elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-        let cmd = 'open' . a:obj
+        let cmd = 'open ' . a:obj
     elseif executable('xdg-open')
         let cmd = 'xdg-open ' . a:obj
     else
-        echoerr "No browser path found, please contact the developer."
+        echoerr "No browser found, please contact the developer."
     endif
 
     if exists('*jobstart')
