@@ -23,3 +23,5 @@
 	program = gpg
 [github]
     user = voldikss
+[credential]
+    helper = winstore
