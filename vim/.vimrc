@@ -77,7 +77,11 @@ Plug 'fatih/vim-go',{'for':'go'}
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown',{'for':'markdown'}
 Plug 'iamcco/mathjax-support-for-mkdp',{'for':'markdown'}
-Plug 'iamcco/markdown-preview.nvim',{'for':'markdown'}
+if has('nvim')
+    Plug 'iamcco/markdown-preview.nvim',{'for':'markdown'}
+else
+    Plug 'iamcco/markdown-preview.vim',{'for':'markdown'}
+endif
 Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
 Plug 'xuhdev/SingleCompile'
 " HTML
