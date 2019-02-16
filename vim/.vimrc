@@ -45,7 +45,7 @@ if has('gui_running')
     inoremap <S-CR> <Esc>o
     inoremap <C-CR> <Esc>O
     set encoding=utf-8
-    au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    " au GUIEnter * simalt ~x " 窗口启动时自动最大化
     set guioptions-=m " 隐藏菜单栏
     set guioptions-=T " 隐藏工具栏
     set guioptions-=L " 隐藏左侧滚动条
@@ -541,8 +541,15 @@ cnoremap ww! w !sudo tee >/dev/null %
 " 终端模式
 tnoremap <Esc>  <C-\><C-n>
 " 终端打开
-noremap <silent> <Leader>n <Esc>:vert term<CR>
-noremap <silent> ,n <Esc>:term<CR>
+" Windows: Git bash
+if has('win32') || has('win64')
+    noremap <silent> <Leader>n <Esc>:vert term bash<CR>
+    noremap <silent> ,n <Esc>:term bash<CR>
+" Linux
+else
+    noremap <silent> <Leader>n <Esc>:vert term<CR>
+    noremap <silent> ,n <Esc>:term<CR>
+endif
 
 " 安装、更新、删除插件
 nnoremap <Leader><Leader>i :PlugInstall<CR>
