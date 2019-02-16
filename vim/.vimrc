@@ -672,7 +672,7 @@ function! QuickRun()
     elseif &filetype == 'lua'
         exec "AsyncRun lua %"
     elseif &filetype == 'python'
-        exec "AsyncRun python3 %"
+        exec "AsyncRun python %"
     elseif &filetype == 'html' || &filetype == 'htmldjango'
         exec "BrowserOpen " . expand("%:p")
     elseif &filetype == 'go'
