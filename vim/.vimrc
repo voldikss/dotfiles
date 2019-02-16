@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-16 11:58:27
+" @Last Modified time: 2019-02-16 16:14:28
 
 " ======================================================================
 " Preface
@@ -145,9 +145,6 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
 " 界面
 Plug 'justinmk/vim-dirvish'
-Plug 'scrooloose/nerdtree',{'on': ['NERDTreeFind','NERDTreeToggle']}
-Plug 'Xuyuanp/nerdtree-git-plugin',{'on':['NERDTreeFind','NERDTreeToggle']}
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'mhinz/vim-startify'
 " 沉浸模式
 Plug 'junegunn/goyo.vim'
@@ -628,18 +625,18 @@ augroup last_pos
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
 
-" 自动进入当前文件的目录，更好滴使用 NERDTree
+" 自动进入当前文件的目录
 augroup auto_ch_dir
     autocmd!
     autocmd BufEnter * silent! lcd %:p:h
 augroup END
 
-" 关键词高亮
-" augroup syntax_highlight
-"     autocmd!
-"     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
-"     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-" augroup END
+关键词高亮
+augroup syntax_highlight
+    autocmd!
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+augroup END
 
 " 个人 gitignore 默认配置
 autocmd BufNewFile *.gitignore exec "call InitGitignore()"
@@ -887,64 +884,6 @@ let g:leetcode_solution_filetype = 'python'
 let g:mkdp_auto_close = 0
 "" ]]]
 
-" NERDTree
-" [[[
-" 显示行号
-let NERDTreeShowLineNumbers = 1
-let NERDTreeAutoCenter = 1
-" 是否显示隐藏文件
-let NERDTreeShowHidden = 0
-" 设置宽度
-let NERDTreeWinSize = 28
-" 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup = 1
-" 忽略以下文件的显示
-let NERDTreeIgnore = [
-            \ '\.git$', '\.hg$', '\.svn$', '\.stversions$', '\.pyc$', '\.svn$','\~$',
-	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
-	        \ ]
-" 显示书签列表
-let NERDTreeShowBookmarks = 1
-" 文件前面的标志符号"
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-" 打开目录时自动打开 NERDTree
-autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" 如果只剩下NERDTree则关闭vim
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 切换 NERDTree
-noremap  <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
-noremap! <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
-function! NERDTreeToggler()
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-    exe ":NERDTreeClose"
-  else
-    if (expand("%:t") != '')
-      exe ":NERDTreeFind"
-    else
-      exe ":NERDTreeToggle"
-    endif
-  endif
-endfunction
-" ]]]
-
-" nerdtree-git-plugin
-" [[[
-let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ 'Ignored'   : '☒',
-            \ "Unknown"   : "?"
-            \ }
-" ]]]
-
 " rainbow
 " [[[
 let g:rainbow_active = 1
@@ -1164,41 +1103,6 @@ vmap K <Plug>MoveBlockUp
 nmap J <Plug>MoveLineDown
 nmap K <Plug>MoveLineUp
 "]]]
-
-" vim-nerdtree-syntax-highlight
-" [[[
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
-
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
-
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
-" ]]]
 
 " vim-signify
 " [[[
