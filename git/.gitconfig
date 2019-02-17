@@ -13,6 +13,8 @@
 	helper = cache
 [core]
     editor = nvim
+    filemode = false
+    autocrlf = true
 [color]
 	ui = auto
 [diff]
