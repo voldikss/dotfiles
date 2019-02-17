@@ -939,12 +939,12 @@ let g:autoformat_remove_trailing_space = 0
 " [[[
 " 重新定义按键映射
 let g:bookmark_no_default_key_mappings = 1
-nmap <Leader>mm <Plug>BookmarkToggle
-nmap <Leader>mi <Plug>BookmarkAnnotate
-nmap <Leader>ma <Plug>BookmarkShowAll
-nmap <Leader>mj <Plug>BookmarkNext
-nmap <Leader>mk <Plug>BookmarkPrev
-nmap <Leader>mx <Plug>BookmarkClearAll
+nmap <Leader>bm <Plug>BookmarkToggle
+nmap <Leader>bi <Plug>BookmarkAnnotate
+nmap <Leader>ba <Plug>BookmarkShowAll
+nmap <Leader>bn <Plug>BookmarkNext
+nmap <Leader>bp <Plug>BookmarkPrev
+nmap <Leader>bc <Plug>BookmarkClearAll
 " 显示
 highlight BookmarkSign ctermbg=NONE ctermfg=160
 highlight BookmarkLine ctermbg=194 ctermfg=NONE
@@ -1197,12 +1197,12 @@ let g:undotree_SplitWidth = 25
 " n      <Leader>fb        <Esc>:LeaderfBufferAll<CR>
 " n      <Leader>aw        <Esc>:ArgWrap<CR>
 " n      <Leader>ms        <Plug>MarkSet
-" n      <Leader>mm        <Plug>BookmarkToggle
-" n      <Leader>mi        <Plug>BookmarkAnnotate
-" n      <Leader>ma        <Plug>BookmarkShowAll
-" n      <Leader>mj        <Plug>BookmarkNext
-" n      <Leader>mk        <Plug>BookmarkPrev
-" n      <Leader>mx        <Plug>BookmarkClearAll
+" n      <Leader>bm        <Plug>BookmarkToggle
+" n      <Leader>bi        <Plug>BookmarkAnnotate
+" n      <Leader>ba        <Plug>BookmarkShowAll
+" n      <Leader>bn        <Plug>BookmarkNext
+" n      <Leader>bp        <Plug>BookmarkPrev
+" n      <Leader>bc        <Plug>BookmarkClearAll
 " n      <Leader>ss        :<C-u>SearchCurrentText<CR>
 " n      <Leader>ss        :<C-u>SearchCurrentText<CR>
 " v      <Leader>sv        :<C-u>SearchVisualText<CR>
