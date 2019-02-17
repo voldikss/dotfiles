@@ -83,7 +83,6 @@ else
     Plug 'iamcco/markdown-preview.vim',{'for':'markdown'}
 endif
 Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
-Plug 'xuhdev/SingleCompile'
 " HTML
 " Plug 'rstacruz/sparkup',{ 'for':'html' } " 在markdown中也会生效，占用 ctrl-e
 Plug 'othree/html5.vim',{'for':'html'}
@@ -204,6 +203,8 @@ Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 " LeetCode
 Plug 'iandingx/leetcode.vim'
+" Quick run
+Plug 'xuhdev/SingleCompile'
 " ]]]
 
 " [[[ Move
@@ -626,11 +627,17 @@ augroup last_pos
 augroup END
 
 " 关键词高亮
-" augroup syntax_highlight
-"     autocmd!
-"     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
-"     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-" augroup END
+augroup syntax_highlight
+    autocmd!
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+augroup END
+
+" 自动进入当前文件的目录
+augroup auto_ch_dir
+    autocmd!
+    autocmd BufEnter * silent! lcd %:p:h
+augroup END
 
 " 个人 gitignore 默认配置
 autocmd BufNewFile *.gitignore exec "call InitGitignore()"
