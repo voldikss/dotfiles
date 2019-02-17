@@ -6,7 +6,11 @@
 " Note: Based on the Monokai theme for TextMate
 " by Wimer Hazenberg and its darker variant
 " by Hamish Stuart Macpherson
-"
+
+" ===================================================================
+" Added by voldikss
+let g:rehash256 = 1
+" ===================================================================
 
 hi clear
 
