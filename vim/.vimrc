@@ -748,6 +748,7 @@ nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>','（':'）','《':'》','‘':'’','“':'”'}
 autocmd FileType python let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '（':'）','《':'》','‘':'’','“':'”'}
 autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>','（':'）','《':'》','‘':'’','“':'”','*':'*','~':'~'}
+au FileType vim let b:AutoPairs = AutoPairsDefine({'\v^\s*\zs"': ''})
 " 防止 C-h 被映射为 <BS>
 let g:AutoPairsMapCh = 0
 let g:AutoPairsMapSpace = 0
