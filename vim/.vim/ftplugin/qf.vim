@@ -6,7 +6,7 @@ if exists('b:did_ftplugin')
 endif
 
 " quit vim if the last window is qf
-autocmd BufEnter * if winnr('$') < 2| q | endif
+autocmd BufEnter <buffer> if winnr('$') < 2| q | endif
 
 let b:did_ftplugin = 1
 
