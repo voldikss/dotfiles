@@ -51,7 +51,7 @@ if has('gui_running')
     set guioptions-=L " 隐藏左侧滚动条
     set guioptions-=r " 隐藏右侧滚动条
     set guioptions-=b " 隐藏底部滚动条
-    set guifont=Monaco\ for\ Powerline:h11:b
+    set guifont=Monaco\ for\ Powerline:h10:b
     " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
@@ -203,6 +203,8 @@ Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 " LeetCode
 Plug 'iandingx/leetcode.vim'
+" Shanbay
+Plug 'voldikss-bot/sb.vim'
 " Quick run
 Plug 'xuhdev/SingleCompile'
 " ]]]
@@ -304,7 +306,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 " ]]]
 
 " Display [[[
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme molokai
 
 set termguicolors
 
@@ -416,10 +419,10 @@ noremap U <C-r>
 " 跳转标记更方便
 noremap ' `
 
-" C-j 跳转函数定义: Go to definition
-noremap <Leader>g <C-]>
-" C-k 跳转帮助: Help
-noremap <Leader>h K
+" " C-j 跳转函数定义: Go to definition
+noremap <C-j> <C-]>
+" " C-k 跳转帮助: Help
+noremap <C-k> K
 
 " 平滑滚屏
 noremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
@@ -441,31 +444,31 @@ noremap <Leader>vs :source ~/.vimrc<CR>
 " noremap / /\v
 
 " 切换 buffer
-noremap <silent> gj      :bnext<CR>
-noremap <silent> gk      :bprev<CR>
-noremap <silent> <S-Tab> :bnext<CR>
-noremap <Leader>1 :1b<CR>
-noremap <Leader>2 :2b<CR>
-noremap <Leader>3 :3b<CR>
-noremap <Leader>4 :4b<CR>
-noremap <Leader>5 :5b<CR>
-noremap <Leader>6 :6b<CR>
-noremap <Leader>7 :7b<CR>
-noremap <Leader>8 :8b<CR>
-noremap <Leader>9 :9b<CR>
+nnoremap <C-h>     :bprev<CR>
+nnoremap <C-l>     :bnext<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
 " 删除当前 buffer
 noremap <silent> <Leader>d :bd!<CR>
 
 " 切换窗口
-noremap <C-h> <Esc><C-w>h
-noremap <C-j> <Esc><C-w>j
-noremap <C-k> <Esc><C-w>k
-noremap <C-l> <Esc><C-w>l
+noremap <M-h> <Esc><C-w>h
+noremap <M-j> <Esc><C-w>j
+noremap <M-k> <Esc><C-w>k
+noremap <M-l> <Esc><C-w>l
+
 " 调整窗口大小
-noremap <M-k> <C-w>+
-noremap <M-j> <C-w>-
-noremap <M-h> <C-w>10<
-noremap <M-l> <C-w>10>
+noremap <M-up> <C-w>+
+noremap <M-down> <C-w>-
+noremap <M-left> <C-w>10<
+noremap <M-right> <C-w>10>
 
 " 新建 tab  Ctrl+T
 noremap  <C-t>     <Esc>:tabnew<CR>
@@ -474,8 +477,8 @@ noremap! <C-t>     <Esc>:tabnew<CR>
 " 调整缩进后自动选中
 vnoremap < <gv
 vnoremap > >gv
-" nnoremap < V<
-" nnoremap > V>
+" nnoremap < <V
+" nnoremap > >V
 
 " 将选中文本块复制至系统剪贴板
 nnoremap <Leader>y "+yy
@@ -791,17 +794,19 @@ endif
 " dict.vim
 " [[[
 " --普通模式下，<Leader>d 即可翻译光标下的文本，并在命令行回显
-nmap <silent> <Leader>tt <Plug>DictSearch
+nnoremap <silent> <Leader>tt <Plug>DictSearch
 " --可视化模式下，<Leader>d 即可翻译选中的文本，并在命令行回显
-vmap <silent> <Leader>tt <Plug>DictVSearch
+vnoremap <silent> <Leader>tt <Plug>DictVSearch
 " --普通模式下，<Leader>w 即可翻译光标下的文本，并且在Dict新窗口显示
-nmap <silent> <Leader>tw <Plug>DictWSearch
+nnoremap <silent> <Leader>tw <Plug>DictWSearch
 " --可视化模式下，<Leader>w 即可翻译选中的文本，并且在Dict新窗口显示
-vmap <silent> <Leader>tw <Plug>DictWVSearch
-" --普通模式下，<Leader><Leader>r 即可翻译光标下的单词，并替换为翻译的结果
-nmap <silent> <Leader><Leader>r <Plug>DictRSearch
-" --可视化模式下，<Leader><Leader>r 即可翻译光标下的单词，并替换为翻译的结果
-vmap <silent> <Leader><Leader>r <Plug>DictRVSearch
+vnoremap <silent> <Leader>tw <Plug>DictWVSearch
+" --普通模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
+nnoremap <silent> <Leader>tr <Plug>DictRSearch
+" --可视化模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
+vnoremap <silent> <Leader>tr <Plug>DictRVSearch
+" --<Leader>td 命令行翻译
+nnoremap <Leader>td :Dict<Space>
 " ]]]
 
 " fileheader
@@ -819,7 +824,6 @@ let g:fileheader_last_modified_time = 1
 
 " goyo.vim
 " [[[
-noremap <Leader>gy :Goyo<CR>
 let g:goyo_width = '85'
 let g:goyo_height = '85%'
 let g:goyo_linenr = 1
@@ -827,7 +831,6 @@ let g:goyo_linenr = 1
 
 " gv.vim
 " [[[
-noremap <Leader>gv :GV<CR>
 " ]]]
 
 " indentLine
