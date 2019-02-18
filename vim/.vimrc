@@ -110,24 +110,24 @@ if has('nvim')
 " VIM"
 else
     "=======================Use Coc================================
-    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
     "=======================Use AutoComplPop=======================
     " Plug 'vim-scripts/AutoComplPop'
 
     "=======================Use Deoplete===========================
-    set pyxversion=3
-    let g:python3_host_prog='D:/Applications/Python36/python.exe'
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-    Plug 'Rip-Rip/clang_complete'
-    Plug 'deoplete-plugins/deoplete-jedi'
-    Plug 'davidhalter/jedi'
-    Plug 'fszymanski/deoplete-emoji'
-    Plug 'Shougo/neopairs.vim'
-    Plug 'Shougo/echodoc.vim'
-    let g:deoplete#enable_at_startup = 1
+    " set pyxversion=3
+    " let g:python3_host_prog='D:/Applications/Python36/python.exe'
+    " Plug 'Shougo/deoplete.nvim'
+    " Plug 'roxma/nvim-yarp'
+    " Plug 'roxma/vim-hug-neovim-rpc'
+    " Plug 'Rip-Rip/clang_complete'
+    " Plug 'deoplete-plugins/deoplete-jedi'
+    " Plug 'davidhalter/jedi'
+    " Plug 'fszymanski/deoplete-emoji'
+    " Plug 'Shougo/neopairs.vim'
+    " Plug 'Shougo/echodoc.vim'
+    " let g:deoplete#enable_at_startup = 1
 endif
 " ]]]
 " ]]]
@@ -387,7 +387,7 @@ set formatoptions-=o
 " ]]]
 
 " Others [[[
-set completeopt=noinsert,longest
+set completeopt-=noselect
 
 " 命令行使用tab时显示单行补全菜单
 set wildmenu
@@ -769,6 +769,12 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Integrated with airline
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions = ['branch', 'hunks', 'coc']
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 " ]]]
 
 " Deoplete
