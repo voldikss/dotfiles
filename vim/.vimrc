@@ -465,9 +465,12 @@ noremap <M-down> <C-w>-
 noremap <M-left> <C-w>10<
 noremap <M-right> <C-w>10>
 
-" 新建 tab  Ctrl+T
+" tab 新建
 noremap  <C-t>     <Esc>:tabnew<CR>
 noremap! <C-t>     <Esc>:tabnew<CR>
+" tab 移动
+nnoremap gj :tabnext<CR>
+nnoremap gk :tabprevious<CR>
 
 " 调整缩进后自动选中
 vnoremap < <gv
@@ -1239,3 +1242,4 @@ let g:undotree_SplitWidth = 25
 "
 " ]]]
 " ]]]
+ let g:SingleCompile_asyncrunmode = 'python'
