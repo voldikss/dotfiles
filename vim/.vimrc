@@ -388,6 +388,7 @@ set formatoptions-=o
 
 " Others [[[
 set completeopt-=noselect
+set completeopt-=preview
 
 " 命令行使用tab时显示单行补全菜单
 set wildmenu
@@ -769,12 +770,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Integrated with airline
-let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions = ['branch', 'hunks', 'coc']
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 " ]]]
 
 " Deoplete
