@@ -96,7 +96,7 @@ endif
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
 " Wolfram
-Plug 'VoldikSS/vim-mma',{'for':'mma'}
+Plug 'voldikss/vim-mma',{'for':'mma'}
 " ]]]
 
 " [[[ Completion
@@ -158,8 +158,6 @@ Plug 'mbbill/undotree'
 Plug 'kshenoy/vim-signature'
 " bookmarks
 Plug 'mattesgroeger/vim-bookmarks'
-
-Plug 'osyo-manga/vim-over'
 " ]]]
 
 " [[[ Integrations && Enhancements
@@ -184,6 +182,8 @@ Plug 'tpope/vim-commentary'
 " Plug 'w0rp/ale'
 " 异步运行
 Plug 'skywind3000/asyncrun.vim'
+" EasyGrep
+Plug 'dkprice/vim-easygrep'
 " sudo
 Plug 'chrisbra/sudoedit.vim'
 " ctag
@@ -237,7 +237,6 @@ Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap'
 " 自动闭合括号
 Plug 'jiangmiao/auto-pairs'
-
 " 对齐
 Plug 'junegunn/vim-easy-align'
 " 文本对象 Text objects
@@ -259,7 +258,7 @@ Plug 'mg979/vim-visual-multi'
 " [[[ Misc
 " 中文帮助文档
 Plug 'yianwillis/vimcdoc'
-" Plug 'skywind3000/vim-keysound'
+Plug 'skywind3000/vim-keysound'
 " ]]]
 
 call plug#end()
@@ -362,7 +361,7 @@ set relativenumber number
 set lazyredraw
 " ]]]
 
-" Files [[[
+" Files & Format [[[
 set isfname-==
 " 设置新文件的编码为 UTF-8
 set encoding=utf-8
@@ -378,6 +377,13 @@ set nrformats=
 set hidden
 " 命令行文件名忽略大小写
 set fileignorecase
+
+" 合并两行中文时，不在中间加空格
+set formatoptions+=B
+" 禁止自动加注释符号
+set formatoptions-=r
+set formatoptions-=c
+set formatoptions-=o
 " ]]]
 
 " Others [[[
@@ -404,14 +410,15 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " ======================================================================
 " [[[
 " 禁用 "Entering ex mode"
-nnoremap Q <Nop>
-" 禁用 <CR> 向下一行的功能，主要是为了使 <Leader>w<CR> 快速保存时防止光标跳到下一行
-" https://vi.stackexchange.com/questions/3127/how-to-map-enter-to-custom-command-except-in-quick-fix
-noremap <silent> <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : '\<Nop>'
+" nnoremap Q <Nop>
+
+" 防止 <CR> 进入下一行
+noremap <silent> <expr> <CR> &buftype ==# 'quickfix' ? '\<CR>' : '\<Nop>'
 
 " 行首和行末快捷键
 noremap H ^
 noremap L $
+
 " jj 替换 Esc
 inoremap jj <Esc>
 " U 为 redo
@@ -419,9 +426,9 @@ noremap U <C-r>
 " 跳转标记更方便
 noremap ' `
 
-" " C-j 跳转函数定义: Go to definition
+" C-j 跳转函数定义: Go to definition
 noremap <C-j> <C-]>
-" " C-k 跳转帮助: Help
+" C-k 跳转帮助: Help
 noremap <C-k> K
 
 " 平滑滚屏
@@ -439,22 +446,9 @@ noremap <Leader>ve :edit   ~/.vimrc<CR>
 " source vimrc
 noremap <Leader>vs :source ~/.vimrc<CR>
 
-" 搜索使用模式匹配
-" 还是使用 magic 模式
-" noremap / /\v
-
 " 切换 buffer
 nnoremap <C-h>     :bprev<CR>
 nnoremap <C-l>     :bnext<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
 " 删除当前 buffer
 noremap <silent> <Leader>d :bd!<CR>
 
@@ -477,8 +471,6 @@ noremap! <C-t>     <Esc>:tabnew<CR>
 " 调整缩进后自动选中
 vnoremap < <gv
 vnoremap > >gv
-" nnoremap < <V
-" nnoremap > >V
 
 " 将选中文本块复制至系统剪贴板
 nnoremap <Leader>y "+yy
@@ -498,6 +490,7 @@ vnoremap <silent> <C-c> "+y
 nnoremap <silent> <C-s> :update<CR>
 inoremap <silent> <C-s> <ESC>:update<CR>
 vnoremap <silent> <C-s> <ESC>:update<CR>
+
 " 插入模式下的左右移动
 inoremap <C-k> <Esc>ka
 inoremap <C-j> <Esc>ja
@@ -526,9 +519,8 @@ nnoremap <Leader>q  <Esc>:q<CR>
 nnoremap <Leader>Q  <Esc>:qa!<CR>
 " 快速保存
 noremap <Leader>w  <Esc>:w<CR>
-" 快速 grep TODO:异步
-" noremap <Leader>gg :silent execute "AsyncRun grep -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
-noremap <Leader>gg :silent execute "grep -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
+" 快速保存并退出
+noremap <Leader>W  <Esc>:wq<CR>
 
 " 命令行模式增强
 " Ctrl-a 到行首，-e 到行尾
@@ -546,11 +538,11 @@ cnoremap ww! w !sudo tee >/dev/null %
 " 终端模式
 tnoremap <Esc>  <C-\><C-n>
 " 终端打开
-" Windows: Git bash
+" Windows:
 if has('win32') || has('win64')
     noremap <silent> <Leader>n <Esc>:vert term bash<CR>
     noremap <silent> ,n <Esc>:term bash<CR>
-" Linux
+" Linux:
 else
     noremap <silent> <Leader>n <Esc>:vert term<CR>
     noremap <silent> ,n <Esc>:term<CR>
@@ -569,7 +561,6 @@ command! PC PlugClean
 " Custom Functions
 " ======================================================================
 " [[[
-
 " vimrc 采用 marker 折叠方式
 augroup foldmethod_settings
     autocmd!
@@ -578,31 +569,10 @@ augroup foldmethod_settings
     autocmd BufNewFile,BufRead *.vimrc setlocal foldtext='+'.substitute(getline(v:foldstart),'[\[\"]','','g').v:folddashes
 augroup END
 
-" 不同文件不同颜色主题
-" 会导致 airline bug
-" augroup colorscheme_change
-"     autocmd!
-"     autocmd BufEnter * if &filetype=='vim'      | colorscheme molokai | endif
-"     autocmd BufEnter * if &filetype=='mma'      | colorscheme molokai | endif
-"     autocmd BufEnter * if &filetype=='python'   | colorscheme gruvbox | endif
-"     autocmd BufEnter * if &filetype=='startify' | colorscheme gruvbox | endif
-"     autocmd BufEnter * if &filetype=='markdown' | colorscheme gruvbox | endif
-" augroup END
-
 " 保存 vimrc 时自动 source
 augroup source_vimrc
     autocmd!
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
-augroup END
-
-augroup no_comment
-    autocmd!
-    " 合并两行中文时，不在中间加空格
-    set formatoptions+=B
-    " 禁止自动加注释符号
-    set formatoptions-=r
-    set formatoptions-=c
-    set formatoptions-=o
 augroup END
 
 " 清除搜索高亮
@@ -643,30 +613,43 @@ augroup auto_ch_dir
 augroup END
 
 " 个人 gitignore 默认配置
-autocmd BufNewFile *.gitignore exec "call InitGitignore()"
+command! InitGitignore call InitGitignore()
+autocmd BufNewFile .gitignore exec "call InitGitignore()"
 function! InitGitignore()
-    let s:ignore = ['################################################################',
-                \ ' Generated by Vim function: InitGitignore',
-                \ '.tags', '.idea/', '/.idea', '__pycache__', '*.pyc', '*.o', '*.out',
-                \ 'build/',
-                \ '################################################################']
-    let s:lines = line('$')
-    normal O
-    call append(0, s:ignore)
+    if &filetype ==# 'gitignore'
+        let s:ignore = ['################################################################',
+                    \ ' Generated by Vim function: InitGitignore',
+                    \ '.tags', '.idea/', '/.idea', '__pycache__', '*.pyc', '*.o', '*.out',
+                    \ 'build/',
+                    \ '################################################################']
+        let s:lines = line('$')
+        normal O
+        call append(0, s:ignore)
+    endif
 endfunction
 
 " 一键运行
+command! QuickRun call QuickRun()
 noremap  <silent> <F5> <Esc>:call QuickRun()<CR>
 noremap! <silent> <F5> <Esc>:call QuickRun()<CR>
 function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        exec "BrowserOpen " . expand("%:p")
+        call BrowserOpen(expand("<cfile>:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     else
         exec "SCCompileRun"
     endif
+endfunction
+
+" 在文件浏览器中打开当前目录
+noremap <F2> <Esc>:call FileExplore()<CR>
+command! FileExplore call FileExplore()
+function FileExplore()
+    let l:path = expand('<cfile>:p:h')
+    echom l:path
+    call BrowserOpen(l:path)
 endfunction
 
 command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
@@ -744,6 +727,10 @@ let g:asyncrun_open = 8
 let g:asyncrun_bell = 1
 " 设置 F12 打开/关闭 Quickfix 窗口
 nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
+" 快速 grep
+noremap <Leader>gg :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
+noremap <Leader>gr :exec "AsyncRun rg -r " . shellescape(expand("<cword>"))  <CR>:copen<CR>
+
 " ]]]
 
 " auto-pairs
