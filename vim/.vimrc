@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-16 16:14:28
+" @Last Modified time: 2019-02-18 09:17:41
 
 " ======================================================================
 " Preface
@@ -793,20 +793,20 @@ endif
 
 " dict.vim
 " [[[
-" --普通模式下，<Leader>d 即可翻译光标下的文本，并在命令行回显
-nnoremap <silent> <Leader>tt <Plug>DictSearch
-" --可视化模式下，<Leader>d 即可翻译选中的文本，并在命令行回显
-vnoremap <silent> <Leader>tt <Plug>DictVSearch
-" --普通模式下，<Leader>w 即可翻译光标下的文本，并且在Dict新窗口显示
-nnoremap <silent> <Leader>tw <Plug>DictWSearch
-" --可视化模式下，<Leader>w 即可翻译选中的文本，并且在Dict新窗口显示
-vnoremap <silent> <Leader>tw <Plug>DictWVSearch
+" --普通模式下，<Leader>tt 即可翻译光标下的文本，并在命令行回显
+nmap <silent> <Leader>tt <Plug>DictSearch
+" --可视化模式下，<Leader>tt 即可翻译选中的文本，并在命令行回显
+vmap <silent> <Leader>tt <Plug>DictVSearch
+" --普通模式下，<Leader>tw 即可翻译光标下的文本，并且在Dict新窗口显示
+nmap <silent> <Leader>tw <Plug>DictWSearch
+" --可视化模式下，<Leader>tw 即可翻译选中的文本，并且在Dict新窗口显示
+vmap <silent> <Leader>tw <Plug>DictWVSearch
 " --普通模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-nnoremap <silent> <Leader>tr <Plug>DictRSearch
+nmap <silent> <Leader>tr <Plug>DictRSearch
 " --可视化模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-vnoremap <silent> <Leader>tr <Plug>DictRVSearch
+vmap <silent> <Leader>tr <Plug>DictRVSearch
 " --<Leader>td 命令行翻译
-nnoremap <Leader>td :Dict<Space>
+nmap <Leader>td :Dict<Space>
 " ]]]
 
 " fileheader
