@@ -19,7 +19,7 @@ function fonts_install(){
     # emoji font
     sudo pacman -S noto-fonts-emoji --noconfirm
     # Monaco font
-    sudo cp ../fonts/Monaco_Linux-Powerline.ttf /usr/share/fonts/TTF/
+    sudo cp ../fonts/Monaco\ for\ Powerline.ttf /usr/share/fonts/TTF/
     # nerd fonts
     sudo mkdir -p /usr/share/fonts/NerdFonts/
     sudo cp ../fonts/Droid Sans Mono Nerd Font Complete Mono.otf /usr/share/fonts/NerdFonts/

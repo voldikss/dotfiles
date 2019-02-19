@@ -28,10 +28,13 @@ function vim_install(){
     sudo apt update
     sudo apt install neovim -y
 
-    sudo pip3 install pynvim
-    sudo pip3 install yapf
-    sudo pip3 install flake8
-    sudo pip3 install autopep8
+    sudo -H pip3 install pynvim
+    sudo -H pip3 install yapf
+    sudo -H pip3 install flake8
+    sudo -H pip3 install autopep8
+
+    # for keysound
+    sudo apt install python3-sdl2 -y
 
     # zsh complete
     if command -v zmodload; then
@@ -56,10 +59,10 @@ function python_install(){
     sudo apt install python3-pip -y
     sudo apt install idle3 -y
 
-    sudo -H pip3 install requests
-    sudo -H pip3 install numpy
-    sudo -H pip3 install scipy
-    sudo -H pip3 install matplotlib
+    sudo -H -H pip3 install requests
+    sudo -H -H pip3 install numpy
+    sudo -H -H pip3 install scipy
+    sudo -H -H pip3 install matplotlib
 }
 
 function tmux_install(){

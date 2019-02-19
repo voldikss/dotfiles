@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-18 09:17:41
+" @Last Modified time: 2019-02-19 19:40:01
 
 " ======================================================================
 " Preface
@@ -95,6 +95,11 @@ if has('win32') || has('win64') || has('win32unix')
 endif
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
+" Python
+Plug 'vim-python/python-syntax'
+if has('nvim')
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+endif
 " Wolfram
 Plug 'voldikss/vim-mma',{'for':'mma'}
 " ]]]
@@ -260,7 +265,7 @@ Plug 'mg979/vim-visual-multi'
 " [[[ Misc
 " 中文帮助文档
 Plug 'yianwillis/vimcdoc'
-Plug 'skywind3000/vim-keysound'
+" Plug 'skywind3000/vim-keysound'
 " ]]]
 
 call plug#end()
@@ -655,7 +660,7 @@ endfunction
 " 在文件浏览器中打开当前目录
 noremap <F2> <Esc>:call FileExplore()<CR>
 command! FileExplore call FileExplore()
-function FileExplore()
+function! FileExplore()
     let l:path = expand('<cfile>:p:h')
     echom l:path
     call BrowserOpen(l:path)
@@ -1107,6 +1112,11 @@ vmap K <Plug>MoveBlockUp
 nmap J <Plug>MoveLineDown
 nmap K <Plug>MoveLineUp
 "]]]
+
+" vim-python
+" [[
+let g:python_highlight_all = 1
+" ]]
 
 " vim-signify
 " [[[

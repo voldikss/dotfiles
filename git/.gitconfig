@@ -14,7 +14,8 @@
 [core]
     editor = nvim
     filemode = false
-    autocrlf = true
+    # onlu for Windows
+    # autocrlf = true
 [color]
 	ui = auto
 [diff]
