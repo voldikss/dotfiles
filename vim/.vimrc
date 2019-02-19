@@ -111,6 +111,8 @@ if has('nvim')
 else
     "=======================Use Coc================================
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'Shougo/neco-vim'
+    Plug 'neoclide/coc-neco'
 
     "=======================Use AutoComplPop=======================
     " Plug 'vim-scripts/AutoComplPop'
@@ -380,10 +382,6 @@ set fileignorecase
 
 " 合并两行中文时，不在中间加空格
 set formatoptions+=B
-" 禁止自动加注释符号
-set formatoptions-=r
-set formatoptions-=c
-set formatoptions-=o
 " ]]]
 
 " Others [[[
@@ -585,6 +583,13 @@ augroup clear_hl
     autocmd InsertEnter * :let @/=""
 augroup END
 
+" 禁止自动插入注释
+augroup disable_auto_comment
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
+
+
 " 不同模式行号显示
 augroup line_number
     autocmd!
@@ -639,7 +644,7 @@ noremap! <silent> <F5> <Esc>:call QuickRun()<CR>
 function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        call BrowserOpen(expand("<cfile>:p"))
+        call BrowserOpen(getcwd())
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     else
@@ -732,8 +737,22 @@ let g:asyncrun_bell = 1
 " 设置 F12 打开/关闭 Quickfix 窗口
 nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 " 快速 grep
-noremap <Leader>gg :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
-noremap <Leader>gr :exec "AsyncRun rg -r " . shellescape(expand("<cword>"))  <CR>:copen<CR>
+noremap <Leader>gg :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " %"<CR>:copen<CR>
+noremap <Leader>gr :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
+" Rg 命令
+command! -nargs=+ Rg call Rg(<q-args>)
+function! Rg(cmd)
+    let l:cmd = split(a:cmd)
+    if len(l:cmd) == 1
+        execute "AsyncRun rg " . l:cmd[0] . " %"
+        copen
+    elseif len(l:cmd) == 2
+        execute "AsyncRun rg " . l:cmd[1] . " ."
+        copen
+    endif
+endfunction
+
+
 
 " ]]]
 
@@ -979,8 +998,10 @@ let g:gutentags_ctags_tagfile = '.tags'
 
 " 默认会在当前文件夹产生 .tags 文件
 " 将自动生成的 tags 文件全部放入 ~/.vim/tags 目录中，避免污染工程目录
-let s:vim_tags = expand('~/.vim/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
+if has('unix')
+    let s:vim_tags = expand('~/.vim/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+endif
 
 " 配置 ctags 的参数
 let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
@@ -1242,4 +1263,3 @@ let g:undotree_SplitWidth = 25
 "
 " ]]]
 " ]]]
- let g:SingleCompile_asyncrunmode = 'python'
