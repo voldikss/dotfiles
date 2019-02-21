@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-21 10:31:45
+" @Last Modified time: 2019-02-21 11:18:20
 
 " ======================================================================
 " Preface
@@ -171,6 +171,7 @@ Plug 'mattesgroeger/vim-bookmarks'
 " [[[ Git
 " Git operators
 Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 " GitHub(fugitive Gbrose support)
 Plug 'tpope/vim-rhubarb'
 " Git commit
