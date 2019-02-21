@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-20 20:28:54
+" @Last Modified time: 2019-02-21 10:31:45
 
 " ======================================================================
 " Preface
@@ -763,10 +763,10 @@ endfunction
 
 " auto-pairs
 " [[[
-autocmd FileType html let b:AutoPairs = {'{%':'%}'}
+autocmd FileType html let b:AutoPairs = {'{%':'%}', '<':'>'}
 autocmd FileType html,javascript let b:AutoPairs = {'<!--':'-->'}
 autocmd FileType javascript,css let b:AutoPairs = {'/*':'*/'}
-autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '<':'>', '*':'*','~':'~'}
+autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '*':'*','~':'~'}
 autocmd FileType vim let b:AutoPairs = AutoPairsDefine({'\v^\s*\zs"': ''})
 " 防止 C-h 被映射为 <BS>
 let g:AutoPairsMapCh = 0

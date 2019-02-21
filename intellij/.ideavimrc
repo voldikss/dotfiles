@@ -56,8 +56,8 @@ nnoremap <C-w> <Esc>:q<CR>
 " nnoremap J ddp
 " nnoremap K ddkP
 " tab切换
-nnoremap gn gt
-nnoremap gp gT
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 noremap <C-n> gt
 noremap <C-p> gT
 
