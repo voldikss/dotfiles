@@ -764,7 +764,7 @@ endfunction
 
 " auto-pairs
 " [[[
-autocmd FileType html let b:AutoPairs = {'{%':'%}', '<':'>','{%':'%}'}
+autocmd FileType html let b:AutoPairs = {'{%':'%}', '<':'>', '<!--':'-->'}
 autocmd FileType javascript,css let b:AutoPairs = {'/*':'*/'}
 autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '*':'*','~':'~', '```':'```'}
 autocmd FileType vim let b:AutoPairs = AutoPairsDefine({'\v^\s*\zs"': ''})
