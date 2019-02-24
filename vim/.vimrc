@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-21 21:59:34
+" @Last Modified time: 2019-02-24 17:32:52
 
 " ======================================================================
 " Preface
@@ -84,7 +84,7 @@ else
 endif
 Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
 " HTML
-" Plug 'rstacruz/sparkup',{ 'for':'html' } " 在markdown中也会生效，占用 ctrl-e
+Plug 'rstacruz/sparkup',{ 'for':'html' }
 Plug 'othree/html5.vim',{'for':'html'}
 Plug 'mattn/emmet-vim',  {'for': ['html','vue','css']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
@@ -923,6 +923,12 @@ let g:rainbow_conf = {
 " [[[
 nnoremap <C-left>  :SidewaysLeft<CR>
 nnoremap <C-right>  :SidewaysRight<CR>
+" ]]]
+
+" sparkup
+" [[[
+" default: <c-e>
+let g:sparkupExecuteMapping = '<c-i>'
 " ]]]
 
 " vim-argwrap
