@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-24 17:32:52
+" @Last Modified time: 2019-02-24 19:09:24
 
 " ======================================================================
 " Preface
@@ -650,7 +650,7 @@ noremap! <silent> <F5> <Esc>:call QuickRun()<CR>
 function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        call BrowserOpen(getcwd())
+        call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     else
@@ -662,8 +662,7 @@ endfunction
 noremap <F2> <Esc>:call FileExplore()<CR>
 command! FileExplore call FileExplore()
 function! FileExplore()
-    let l:path = expand('<cfile>:p:h')
-    echom l:path
+    let l:path = expand(getcwd())
     call BrowserOpen(l:path)
 endfunction
 
