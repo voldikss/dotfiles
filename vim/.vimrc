@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-24 19:09:24
+" @Last Modified time: 2019-02-25 19:44:17
 
 " ======================================================================
 " Preface
@@ -653,6 +653,8 @@ function! QuickRun()
         call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
+    elseif has('unix')
+        exec "SCCompileRunAsync"
     else
         exec "SCCompileRun"
     endif
