@@ -59,6 +59,8 @@ function vim_install(){
     sudo -H pip install autopep8
     sudo -H pip install jedi
 
+    sudo npm -g install js-beautify
+
     # zsh complete
     if command -v zmodload; then
         zmodload zsh/zpty

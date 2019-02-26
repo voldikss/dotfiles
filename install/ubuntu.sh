@@ -33,6 +33,8 @@ function vim_install(){
     sudo -H pip3 install flake8
     sudo -H pip3 install autopep8
 
+    sudo npm -g install js-beautify
+
     # for keysound
     sudo apt install python3-sdl2 -y
 
