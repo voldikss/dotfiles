@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 15:47:01
+" @Last Modified time: 2019-02-26 15:50:31
 
 " ======================================================================
 " Preface
@@ -186,8 +186,6 @@ Plug 'tpope/vim-commentary'
 " ]]]
 
 " [[[ Enhancements
-" Syntax
-Plug 'w0rp/ale'
 " 异步运行
 Plug 'skywind3000/asyncrun.vim'
 " EasyGrep
@@ -733,12 +731,6 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensioin#tabline#right_sep = ''
 let g:airline#extensioin#tabline#right_alt_sep = ''
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-" ]]]
-
-" ale
-" [[[
-" disable ale by default
-let ale_enabled = 0
 " ]]]
 
 " AsyncRun
