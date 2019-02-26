@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 16:03:49
+" @Last Modified time: 2019-02-26 15:50:31
 
 " ======================================================================
 " Preface
@@ -960,6 +960,8 @@ noremap! <F6> <Esc>:Autoformat<CR>
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_space = 0
+" for c, cpp, c#, object-c
+let g:formatterpath=['/home/voldikss/Applications/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-18.04/bin']
 " ]]]
 
 " vim-bookmarks
@@ -1223,7 +1225,7 @@ let g:undotree_SplitWidth = 25
 " n      <M-k>             <Esc><C-w>k
 " n      <M-l>             <Esc><C-w>l
 " n      <M-n>             <Plug>(coc-diagnostic-next)
-" n      <M-p>             <Plug>(coc-diagnostic-prev)
+" n      <M-p>             <Plug>(coc-diagnostic-next)
 " n      <M-up>            <C-w>+
 " n      <M-down>          <C-w>-
 " n      <M-left>          <C-w>10<
