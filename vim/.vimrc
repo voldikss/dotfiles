@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 15:50:31
+" @Last Modified time: 2019-02-26 16:03:49
 
 " ======================================================================
 " Preface
@@ -773,7 +773,7 @@ let g:AutoPairsMapSpace = 0
 " Alt-e 快速加括号
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 " Alt-p 开关插件
-let g:AutoPairsShortcutToggle = '<M-p>'
+let g:AutoPairsShortcutToggle = 'Disable'
 " 解除一系列映射键
 let g:AutoPairsShortcutJump = 'Disable'
 let g:AutoPairsShortcutBackInsert = 'Disable'
@@ -797,6 +797,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+map <M-n> <Plug>(coc-diagnostic-next)
+map <M-p> <Plug>(coc-diagnostic-prev)
 " ]]]
 
 " Deoplete
@@ -1219,6 +1222,8 @@ let g:undotree_SplitWidth = 25
 " n      <M-j>             <Esc><C-w>j
 " n      <M-k>             <Esc><C-w>k
 " n      <M-l>             <Esc><C-w>l
+" n      <M-n>             <Plug>(coc-diagnostic-next)
+" n      <M-p>             <Plug>(coc-diagnostic-prev)
 " n      <M-up>            <C-w>+
 " n      <M-down>          <C-w>-
 " n      <M-left>          <C-w>10<
