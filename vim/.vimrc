@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-25 19:44:17
+" @Last Modified time: 2019-02-26 11:56:47
 
 " ======================================================================
 " Preface
@@ -214,7 +214,7 @@ Plug 'iandingx/leetcode.vim'
 " Shanbay
 Plug 'voldikss-bot/sb.vim'
 " Quick run
-Plug 'xuhdev/SingleCompile'
+Plug 'voldikss/SingleCompile'
 " ]]]
 
 " [[[ Move
