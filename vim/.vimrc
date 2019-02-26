@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 14:56:31
+" @Last Modified time: 2019-02-26 15:47:01
 
 " ======================================================================
 " Preface
@@ -285,7 +285,7 @@ set modifiable
 
 set autoread
 set autowrite
-set updatetime=5000
+set updatetime=100
 set nospell
 
 set nobackup
