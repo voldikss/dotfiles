@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 15:50:31
+" @Last Modified time: 2019-02-26 21:03:02
 
 " ======================================================================
 " Preface
@@ -416,7 +416,10 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " nnoremap Q <Nop>
 
 " 防止 <CR> 进入下一行
-noremap <silent> <expr> <CR> &buftype ==# 'quickfix' ? '\<CR>' : '\<Nop>'
+nnoremap <silent> <expr> <CR> &filetype==#'quickfix' ? '\<CR>' : '\<Nop>'
+
+" 回车换行自动缩进
+inoremap <expr> <CR> trim(getline('.')) ==# '}' ? "<Esc>O" : "<CR>"
 
 " 行首和行末快捷键
 noremap H ^
@@ -763,9 +766,9 @@ endfunction
 
 " auto-pairs
 " [[[
-autocmd FileType html let b:AutoPairs = {'{%':'%}', '<':'>', '<!--':'-->'}
-autocmd FileType javascript,css let b:AutoPairs = {'/*':'*/'}
-autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '*':'*','~':'~', '```':'```'}
+autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<':'>', '<!--':'-->'}
+autocmd FileType javascript,css let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
+autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
 autocmd FileType vim let b:AutoPairs = AutoPairsDefine({'\v^\s*\zs"': ''})
 " 防止 C-h 被映射为 <BS>
 let g:AutoPairsMapCh = 0
@@ -794,7 +797,8 @@ noremap! <silent> <F9>  <Esc>:PreviousColorScheme<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <enter> to confirm complete
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" NOTE: This has conflicts with `inoremap <expr> <CR> trim(getline('.')) ==# '}' ? "<Esc>O" : "<CR>"`
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
