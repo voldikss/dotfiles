@@ -34,6 +34,10 @@ function vim_install(){
     sudo -H pip3 install autopep8
 
     sudo npm -g install js-beautify
+    sudo npm -g install eslint
+    sudo npm -g install html-beautify
+    sudo npm -g install css-beautify
+    sudo npm -g install remark-cli
 
     # for keysound
     sudo apt install python3-sdl2 -y
