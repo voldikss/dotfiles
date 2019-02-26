@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 21:03:02
+" @Last Modified time: 2019-02-26 22:30:20
 
 " ======================================================================
 " Preface
@@ -415,11 +415,23 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " 禁用 "Entering ex mode"
 " nnoremap Q <Nop>
 
-" 防止 <CR> 进入下一行
+" Normal 模式下回车键映射
+" 阻止 <CR> 进入下一行
 nnoremap <silent> <expr> <CR> &filetype==#'quickfix' ? '\<CR>' : '\<Nop>'
 
-" 回车换行自动缩进
-inoremap <expr> <CR> trim(getline('.')) ==# '}' ? "<Esc>O" : "<CR>"
+" Insert 模式下回车键映射
+inoremap <expr> <cr> MapForEnter()
+function! MapForEnter()
+    " 补全菜单
+    if pumvisible()
+        return "\<C-y>"
+    " 自动缩进大括号 {}
+    elseif trim(getline('.')) ==# '}'
+        return "\<Esc>O"
+    else
+        return "\<CR>"
+    endif
+endfunction
 
 " 行首和行末快捷键
 noremap H ^
@@ -796,12 +808,11 @@ noremap! <silent> <F9>  <Esc>:PreviousColorScheme<CR>
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use <enter> to confirm complete
-" NOTE: This has conflicts with `inoremap <expr> <CR> trim(getline('.')) ==# '}' ? "<Esc>O" : "<CR>"`
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+" 语法检查跳转
 map <M-n> <Plug>(coc-diagnostic-next)
 map <M-p> <Plug>(coc-diagnostic-prev)
 " ]]]
