@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-26 22:30:20
+" @Last Modified time: 2019-02-27 14:14:04
 
 " ======================================================================
 " Preface
@@ -415,23 +415,10 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " 禁用 "Entering ex mode"
 " nnoremap Q <Nop>
 
-" Normal 模式下回车键映射
-" 阻止 <CR> 进入下一行
-nnoremap <silent> <expr> <CR> &filetype==#'quickfix' ? '\<CR>' : '\<Nop>'
-
-" Insert 模式下回车键映射
-inoremap <expr> <cr> MapForEnter()
-function! MapForEnter()
-    " 补全菜单
-    if pumvisible()
-        return "\<C-y>"
-    " 自动缩进大括号 {}
-    elseif trim(getline('.')) ==# '}'
-        return "\<Esc>O"
-    else
-        return "\<CR>"
-    endif
-endfunction
+" Insert 模式 ;<CR> 插入分号
+inoremap <expr> ;<cr> getline('.')[-1:] == ';' ? ';<CR>' : '<End>;<CR>'
+" Insert 模式 ;; 调到行尾
+inoremap ;; <End>
 
 " 行首和行末快捷键
 noremap H ^
@@ -717,6 +704,42 @@ function! TabMessage(cmd)
     silent put=message
   endif
 endfunction
+" ]]]
+
+" NormalMapForEnter: Normal 模式下回车键映射
+" [[[
+nnoremap <expr> <CR> NormalMapForEnter() . "\<Esc>"
+function! NormalMapForEnter()
+    if &filetype ==# 'quickfix'
+    " quickfix 窗口正常
+        return '\<CR>'
+    " 在语句末尾加分号
+    elseif index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+        if getline('.')[-1:] != ';'
+            return 'A;'
+        endif
+    " 阻止 <CR> 进入下一行
+    else
+        return '\<Nop>'
+    endif
+endfunction
+" ]]]
+
+" InsertMapForEnter: Insert 模式下回车键映射
+" [[[
+inoremap <expr> <CR> InsertMapForEnter()
+function! InsertMapForEnter()
+    " 补全菜单
+    if pumvisible()
+        return "\<C-y>"
+    " 自动缩进大括号 {}
+    elseif getline('.')[-1:] == '}'
+        return "\<CR>\<Esc>O"
+    else
+        return "\<CR>"
+    endif
+endfunction
+" ]]]
 " ]]]
 
 " ======================================================================
