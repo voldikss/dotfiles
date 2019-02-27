@@ -525,6 +525,7 @@ inoremap ;o <Esc>o
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
 inoremap ;c <Esc>cc
+inoremap ;i <Esc>I
 
 " Insert 模式 jj 替换 Esc
 inoremap jj <Esc>
