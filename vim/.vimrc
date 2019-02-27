@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-27 15:48:30
+" @Last Modified time: 2019-02-27 17:07:05
 
 " ======================================================================
 " Preface
@@ -765,7 +765,7 @@ function! InsertMapForEnter()
     if pumvisible()
         return "\<C-y>"
     " 自动缩进大括号 {}
-    elseif getline('.')[-1:] == '}'
+    elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
         return "\<CR>\<Esc>O"
     else
         return "\<CR>"
