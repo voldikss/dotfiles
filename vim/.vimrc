@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-27 14:25:08
+" @Last Modified time: 2019-02-27 15:48:30
 
 " ======================================================================
 " Preface
@@ -171,11 +171,10 @@ Plug 'mattesgroeger/vim-bookmarks'
 " [[[ Git
 " Git operators
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
-" GitHub(fugitive Gbrose support)
+" GitHub(fugitive :Gbrose support)
 Plug 'tpope/vim-rhubarb'
-" Git commit
-Plug 'junegunn/gv.vim'
+" Git commit browser
+Plug 'cohama/agit.vim'
 " Git diff
 Plug 'mhinz/vim-signify'
 " Gist
