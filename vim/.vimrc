@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-27 17:07:05
+" @Last Modified time: 2019-02-27 19:30:14
 
 " ======================================================================
 " Preface
@@ -414,17 +414,10 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " 禁用 "Entering ex mode"
 " nnoremap Q <Nop>
 
-" Insert 模式 ;<CR> 插入分号
-inoremap <expr> ;<cr> getline('.')[-1:] == ';' ? ';<CR>' : '<End>;<CR>'
-" Insert 模式 ;; 调到行尾
-inoremap ;; <End>
-
 " 行首和行末快捷键
 noremap H ^
 noremap L $
 
-" jj 替换 Esc
-inoremap jj <Esc>
 " U 为 redo
 noremap U <C-r>
 " 跳转标记更方便
@@ -519,6 +512,22 @@ inoremap <C-d> <Esc>ddi
 inoremap <C-u> <Esc>cc
 " 删除当前到行尾
 inoremap <C-c> <Esc>C
+
+" Insert 模式 ;* 的映射
+inoremap ;; <End>;
+inoremap ;a <Home>
+inoremap ;e <End>
+inoremap ;h <Left>
+inoremap ;j <Down>
+inoremap ;k <Up>
+inoremap ;l <Right>
+inoremap ;o <Esc>o
+inoremap ;O <Esc>O
+inoremap ;u <C-u>
+inoremap ;c <Esc>cc
+
+" Insert 模式 jj 替换 Esc
+inoremap jj <Esc>
 
 " 快速退出
 nnoremap <Leader>q  <Esc>:q<CR>
@@ -752,7 +761,7 @@ function! NormalMapForEnter()
         endif
     " 阻止 <CR> 进入下一行
     else
-        return '\<Nop>'
+        return "\<Nop>"
     endif
 endfunction
 " ]]]
@@ -769,6 +778,29 @@ function! InsertMapForEnter()
         return "\<CR>\<Esc>O"
     else
         return "\<CR>"
+    endif
+endfunction
+" ]]]
+
+" MapForSemicolonEnter: Insert 模式 ;<CR> 插入 ;
+" [[[
+inoremap <expr> ;<CR> MapForSemicolonEnter()
+function! MapForSemicolonEnter()
+    if (getline('.')[-1:] != ';') && (index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0)
+        return "\<End>;\<CR>"
+    else
+        return "\<Esc>o"
+endfunction
+" ]]]
+
+" MapForSemicolonP: Insert 模式 ;p 行尾插入 {}
+" [[[
+inoremap <expr> ;p MapForSemicolonP()
+function! MapForSemicolonP()
+    if index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+        return "\<End>{}\<Left>"
+    else
+        return ";p"
     endif
 endfunction
 " ]]]
@@ -834,9 +866,10 @@ endfunction
 " auto-pairs
 " [[[
 autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<':'>', '<!--':'-->'}
-autocmd FileType javascript,css let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
+autocmd FileType javascript,css,c,cpp let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
 autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
-autocmd FileType vim let b:AutoPairs = AutoPairsDefine({'\v^\s*\zs"': ''})
+autocmd FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
+
 " 防止 C-h 被映射为 <BS>
 let g:AutoPairsMapCh = 0
 let g:AutoPairsMapSpace = 0
