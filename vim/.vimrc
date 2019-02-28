@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-27 19:30:14
+" @Last Modified time: 2019-02-28 16:28:22
 
 " ======================================================================
 " Preface
@@ -679,16 +679,20 @@ endfunction
 
 " QuickRun: 一键运行
 " [[[
-command! QuickRun call QuickRun()
-noremap  <silent> <F5> <Esc>:call QuickRun()<CR>
-noremap! <silent> <F5> <Esc>:call QuickRun()<CR>
-function! QuickRun()
+command! QuickRun call QuickRun(0)
+noremap  <silent> <F5> <Esc>:call QuickRun(0)<CR>
+noremap! <silent> <F5> <Esc>:call QuickRun(0)<CR>
+noremap <silent> <Leader>rs <Esc>:call QuickRun(0)<CR>
+" 异步执行
+noremap <silent> <Leader>ra <Esc>:call QuickRun(1)<CR>
+function! QuickRun(async)
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
         call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
-    elseif has('unix') && &filetype == 'python'
+    elseif a:async == 1
+        echo "QuickRunAsync (Use :SCViewResultAsync to view the result)"
         exec "SCCompileRunAsync"
     else
         exec "SCCompileRun"
@@ -1154,21 +1158,21 @@ let g:keysound_volume = 1000
 " 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
 " 以及其他冲突
 " 解除 <Leader>*
-nmap <Plug>DisableMarkSearchCurrentNext <Plug>MarkSearchCurrentNext
+map <Plug>DisableMarkSearchCurrentNext <Plug>MarkSearchCurrentNext
 " 解除 <Leader>r
-nmap <Plug>DisableMarkRegex <Plug>MarkRegex
+map <Plug>DisableMarkRegex <Plug>MarkRegex
 " 解除 <Leader>n
-nmap <Plug>DisableMarkClear <Plug>MarkClear
+map <Plug>DisableMarkClear <Plug>MarkClear
 " 解除 <Leader>/
-nmap <Plug>DisableMarkSearchAnyNext <Plug>MarkSearchAnyNext
+map <Plug>DisableMarkSearchAnyNext <Plug>MarkSearchAnyNext
 " 解除 <Leader>?
-nmap <Plug>DisableMarkSearchAnyPrev <Plug>MarkSearchAnyPrev
+map <Plug>DisableMarkSearchAnyPrev <Plug>MarkSearchAnyPrev
 " 解除 *
-nmap <Plug>DisableMarkSearchNext <Plug>MarkSearchNext
+map <Plug>DisableMarkSearchNext <Plug>MarkSearchNext
 " 解除 #
-nmap <Plug>DisableMarkSearchPrev <Plug>MarkSearchPrev
+map <Plug>DisableMarkSearchPrev <Plug>MarkSearchPrev
 " 重新定义映射
-nmap <Leader>ms                  <Plug>MarkSet
+map <Leader>ms                  <Plug>MarkSet
 " ]]]
 
 " vim-markdown
