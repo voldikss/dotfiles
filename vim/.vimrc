@@ -86,7 +86,7 @@ Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
 " HTML
 Plug 'rstacruz/sparkup',{ 'for':'html' }
 Plug 'othree/html5.vim',{'for':'html'}
-Plug 'mattn/emmet-vim',  {'for': ['html','vue','css']}
+Plug 'mattn/emmet-vim',  {'for': ['html','vue','css','wxml']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 " JavaScript
 if has('win32') || has('win64') || has('win32unix')
@@ -102,6 +102,8 @@ if has('nvim')
 endif
 " Wolfram
 Plug 'voldikss/vim-mma',{'for':'mma'}
+" WXML
+Plug 'chemzqm/wxapp.vim'
 " ]]]
 
 " [[[ Completion
@@ -515,6 +517,7 @@ inoremap <C-c> <Esc>C
 
 " Insert 模式 ;* 的映射
 inoremap ;; <End>;
+inoremap ;, <End>,
 inoremap ;a <Home>
 inoremap ;e <End>
 inoremap ;h <Left>
