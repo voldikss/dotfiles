@@ -780,6 +780,8 @@ function! InsertMapForEnter()
     " 自动缩进大括号 {}
     elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
         return "\<CR>\<Esc>O"
+    elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
+        return "\<CR>\<Esc>O"
     else
         return "\<CR>"
     endif
@@ -864,7 +866,7 @@ endfunction
 
 " auto-pairs
 " [[[
-autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<':'>', '<!--':'-->'}
+autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
 autocmd FileType javascript,css,c,cpp let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
 autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
 autocmd FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
