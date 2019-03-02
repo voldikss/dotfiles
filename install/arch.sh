@@ -72,7 +72,7 @@ function vim_install(){
 
     nvim -c ':PlugInstall --sync | :qa!'
     nvim -c ':UpdateRemotePlugin  | :qa!'
-    nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls  | :qa!'
+    nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-wxml coc-css coc-json coc-html'
 }
 
 function tmux_install(){
