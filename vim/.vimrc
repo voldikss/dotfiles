@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-02-28 16:28:22
+" @Last Modified time: 2019-03-02 16:18:23
 
 " ======================================================================
 " Preface
@@ -189,8 +189,6 @@ Plug 'tpope/vim-commentary'
 " [[[ Enhancements
 " 异步运行
 Plug 'skywind3000/asyncrun.vim'
-" EasyGrep
-Plug 'dkprice/vim-easygrep'
 " sudo
 Plug 'chrisbra/sudoedit.vim'
 " ctag
@@ -214,6 +212,8 @@ Plug 'iandingx/leetcode.vim'
 Plug 'voldikss-bot/sb.vim'
 " Quick run
 Plug 'voldikss/SingleCompile'
+" Keep window when buffer was deleted
+Plug 'moll/vim-bbye'
 " ]]]
 
 " [[[ Move
@@ -232,8 +232,6 @@ Plug 'andrewradev/sideways.vim'
 " [[[ Edit
 " 增强替换功能，:S
 Plug 'tpope/vim-abolish'
-" 增强按键，扩展
-Plug 'tpope/vim-unimpaired'
 " 增强搜索，快速搜索光标下的词
 Plug 'bronson/vim-visual-star-search'
 " 成对符号编辑
@@ -250,8 +248,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-lastpat'
-Plug 'kana/vim-textobj-fold'
 Plug 'glts/vim-textobj-comment'
 Plug 'jceb/vim-textobj-uri'
 Plug 'reedes/vim-textobj-sentence'
@@ -449,7 +445,7 @@ noremap <Leader>vs :source ~/.vimrc<CR>
 nnoremap <C-h>     :bprev<CR>
 nnoremap <C-l>     :bnext<CR>
 " 删除当前 buffer
-noremap <silent> <Leader>d :bd!<CR>
+noremap <silent> <Leader>d :Bdelete<CR>
 
 " 切换窗口
 noremap <M-h> <Esc><C-w>h
@@ -852,23 +848,18 @@ let g:asyncrun_bell = 1
 " 设置 F12 打开/关闭 Quickfix 窗口
 nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 " 快速 grep
-noremap <Leader>gg :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " %"<CR>:copen<CR>
-noremap <Leader>gr :exec "AsyncRun rg " . shellescape(expand("<cword>")) . " ."<CR>:copen<CR>
-" Rg 命令
-command! -nargs=+ Rg call Rg(<q-args>)
-function! Rg(cmd)
-    let l:cmd = split(a:cmd)
-    if len(l:cmd) == 1
-        execute "AsyncRun rg " . l:cmd[0] . " %"
-        copen
-    elseif len(l:cmd) == 2
-        execute "AsyncRun rg " . l:cmd[1] . " ."
-        copen
+noremap <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
+" Grep 命令
+command! -nargs=+ Grep call Grep(<q-args>)
+function! Grep(string)
+    if executable('rg')
+        execute "AsyncRun! rg -n " . a:string . " * "
+    elseif has('win32') || has('win64')
+        execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
+    else
+        execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
     endif
 endfunction
-
-
-
 " ]]]
 
 " auto-pairs
