@@ -51,7 +51,8 @@ nnoremap <silent> ;sa <Esc>ggVG
 nnoremap Y y$
 " 快速退出
 nnoremap ;q  <Esc>:q<CR>
-nnoremap <C-w> <Esc>:q<CR>
+nnoremap Q <Esc>:q<CR>
+" nnoremap <C-w> <Esc>:q<CR>
 " 移动整行
 " nnoremap J ddp
 " nnoremap K ddkP
