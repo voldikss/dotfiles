@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-02 16:18:23
+" @Last Modified time: 2019-03-03 10:19:58
 
 " ======================================================================
 " Preface
@@ -445,7 +445,7 @@ noremap <Leader>vs :source ~/.vimrc<CR>
 nnoremap <C-h>     :bprev<CR>
 nnoremap <C-l>     :bnext<CR>
 " 删除当前 buffer
-noremap <silent> <Leader>d :Bdelete<CR>
+noremap <silent> <Leader>d :Bdelete!<CR>
 
 " 切换窗口
 noremap <M-h> <Esc><C-w>h
