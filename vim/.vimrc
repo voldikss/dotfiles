@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-06 17:25:02
+" @Last Modified time: 2019-03-08 12:39:31
 
 " ======================================================================
 " Preface
@@ -560,8 +560,13 @@ if has('win32') || has('win64')
     noremap <silent> ,n <Esc>:term bash<CR>
 " Linux:
 else
-    noremap <silent> <Leader>n <Esc>:vert term<CR>
-    noremap <silent> ,n <Esc>:term<CR>
+    if executable("zsh")
+        noremap <silent> <Leader>n <Esc>:vsplit term://zsh<CR>
+        noremap <silent> ,n <Esc>:edit term://zsh<CR>
+    else
+        noremap <silent> <Leader>n <Esc>:vsplit term://bash<CR>
+        noremap <silent> ,n <Esc>:edit term://bash<CR>
+    endif
 endif
 
 " 安装、更新、删除插件
