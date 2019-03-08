@@ -862,7 +862,7 @@ noremap <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
 command! -nargs=+ Grep call Grep(<q-args>)
 function! Grep(string)
     if executable('rg')
-        execute "AsyncRun! rg -n " . a:string . " * "
+        execute "AsyncRun! rg -n " . a:string . " . "
     elseif has('win32') || has('win64')
         execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
     else
