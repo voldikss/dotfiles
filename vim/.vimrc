@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-08 12:39:31
+" @Last Modified time: 2019-03-12 10:24:26
 
 " ======================================================================
 " Preface
@@ -674,8 +674,8 @@ function! InitGitignore()
                     \ '.tags', '*.pyc', '*.o', '*.out', '*.log',
                     \ '.idea/', '/.idea',
                     \ 'build/',
-                    \ '__pycache__',
-                    ]
+                    \ '__pycache__'
+                    \]
         let s:lines = line('$')
         normal O
         call append(0, s:ignore)
@@ -862,7 +862,7 @@ noremap <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
 command! -nargs=+ Grep call Grep(<q-args>)
 function! Grep(string)
     if executable('rg')
-        execute "AsyncRun! rg -n " . a:string . " . "
+        execute "AsyncRun! rg -n " . a:string . " * "
     elseif has('win32') || has('win64')
         execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
     else
