@@ -1,1 +1,6 @@
-=template=.c
+#include <iostream>
+
+int main()
+{
+    %HERE%
+}
