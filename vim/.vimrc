@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-12 10:24:26
+" @Last Modified time: 2019-03-14 09:45:17
 
 " ======================================================================
 " Preface
@@ -104,6 +104,10 @@ endif
 Plug 'voldikss/vim-mma',{'for':'mma'}
 " WXML
 Plug 'chemzqm/wxapp.vim'
+" Language Template
+Plug 'aperezdc/vim-template'
+" Language pack
+Plug 'sheerun/vim-polyglot'
 " ]]]
 
 " [[[ Completion
@@ -412,6 +416,9 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " 禁用 "Entering ex mode"
 " nnoremap Q <Nop>
 
+" 清楚搜索高亮
+nnoremap <esc> :noh<return><esc>
+
 " 行首和行末快捷键
 noremap H ^
 noremap L $
@@ -597,14 +604,6 @@ augroup END
 augroup SourceVimrc
     autocmd!
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
-augroup END
-" ]]]
-
-" ClearHighlight: 清除搜索高亮
-" [[[
-augroup clear_hl
-    autocmd!
-    autocmd InsertEnter * :let @/=""
 augroup END
 " ]]]
 
@@ -1277,6 +1276,13 @@ noremap <silent> <Space> <Esc>:Startify<CR>
 " [[[
 " for Markdown
 let g:table_mode_corner = '|'
+" ]]]
+
+" vim-templates
+" [[[
+let g:templates_directory = ['~/.vim/templates']
+let g:templates_no_autocmd = 1
+let g:templates_no_builtin_templates = 1
 " ]]]
 
 " vim-textobj-user
