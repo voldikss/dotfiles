@@ -1295,7 +1295,7 @@ let g:templates_no_builtin_templates = 1
 
 " vim-textobj-user
 " [[[
-if !empty(glob('~/.vim/plugged/vim-textobj-user'))
+if exists("*textobj#user#plugin")
 " datetime
 call textobj#user#plugin('datetime', {
             \   'date': {
