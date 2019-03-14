@@ -624,6 +624,14 @@ augroup LineNumber
 augroup END
 " ]]]
 
+" DisableMatchHighlight: 禁用 match 高亮
+augroup DisableMatchHighlight
+    autocmd!
+    autocmd BufReadPost * NoMatchParen
+    autocmd InsertEnter * DoMatchParen
+    autocmd InsertLeave * NoMatchParen
+augroup END
+
 " EqualWindowsSize: 终端窗口大小变化时保持所有窗口同等大小
 " [[[
 augroup EqualWindowsSize
@@ -1401,5 +1409,4 @@ let g:undotree_SplitWidth = 25
 " 端增加空格: ys*<Space><Space>
 " ]]]
 "
-" ]]]
 " ]]]
