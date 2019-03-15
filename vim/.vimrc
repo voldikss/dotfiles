@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-15 21:58:04
+" @Last Modified time: 2019-03-15 23:35:43
 
 " ======================================================================
 " Preface
@@ -1098,7 +1098,7 @@ let g:bookmark_auto_save_file = $HOME . '/.vim/.cache/vim_bookmarks'
 " vim-commentary
 " [[[
 autocmd FileType python,shell,coffee setlocal commentstring=#\ %s
-autocmd FileType java,c,cpp          setlocal commentstring=//\ %s
+autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
 " ]]]
 
 " vim-easy-align
