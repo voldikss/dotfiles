@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-14 09:45:17
+" @Last Modified time: 2019-03-15 21:58:04
 
 " ======================================================================
 " Preface
@@ -74,9 +74,10 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " Go
 Plug 'fatih/vim-go',{'for':'go'}
 " Markdown
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown',{'for':'markdown'}
 Plug 'iamcco/mathjax-support-for-mkdp',{'for':'markdown'}
+Plug 'mzlogin/vim-markdown-toc', {'for':'markdown'}
 if has('nvim')
     Plug 'iamcco/markdown-preview.nvim',{'for':'markdown'}
 else
@@ -624,14 +625,6 @@ augroup LineNumber
 augroup END
 " ]]]
 
-" DisableMatchHighlight: 禁用 match 高亮
-augroup DisableMatchHighlight
-    autocmd!
-    autocmd BufReadPost * NoMatchParen
-    autocmd InsertEnter * DoMatchParen
-    autocmd InsertLeave * NoMatchParen
-augroup END
-
 " EqualWindowsSize: 终端窗口大小变化时保持所有窗口同等大小
 " [[[
 augroup EqualWindowsSize
@@ -774,7 +767,8 @@ function! NormalMapForEnter()
         return '\<CR>'
     " 在语句末尾加分号
     elseif index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
-        if getline('.')[-1:] != ';'
+        let l:line = getline('.')
+        if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return 'A;'
         endif
     " 阻止 <CR> 进入下一行
