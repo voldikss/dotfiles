@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-15 23:35:43
+" @Last Modified time: 2019-03-16 21:45:31
 
 " ======================================================================
 " Preface
@@ -773,7 +773,7 @@ function! NormalMapForEnter()
         endif
     " 阻止 <CR> 进入下一行
     else
-        return "\<Nop>"
+        return '\<Nop>'
     endif
 endfunction
 " ]]]
