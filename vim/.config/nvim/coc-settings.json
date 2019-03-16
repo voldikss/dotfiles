@@ -7,19 +7,19 @@
             "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
             "initializationOptions": {
                 "cache": {
-                    "directory": ".ccls-cache"
+                    "directory": "~/.vim/.cache/.ccls-cache"
                 }
             }
         },
-//        "cquery": {
-//            "command": "cquery",
-//            "args": ["--log-file=/tmp/cq.log"],
-//            "filetypes": ["c", "cpp"],
-//            "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-//            "initializationOptions": {
-//                "cacheDirectory": "/tmp/cquery"
-//            }
-//        },
+        "cquery": {
+            "command": "/home/voldikss/Applications/cquery/build/release/bin/cquery",
+            "args": ["--log-file=/tmp/cq.log"],
+            "filetypes": ["c", "cpp"],
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+            "initializationOptions": {
+                "cacheDirectory": "/tmp/cquery"
+            }
+        },
         "flow": {
             "command": "flow",
             "args": ["lsp"],
