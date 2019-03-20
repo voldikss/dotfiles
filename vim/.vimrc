@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-20 14:25:45
+" @Last Modified time: 2019-03-20 14:27:15
 
 " ======================================================================
 " Preface
@@ -117,6 +117,7 @@ if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'sirver/ultisnips'
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
 " VIM"
@@ -324,6 +325,7 @@ set t_Co=256
 set title
 set ruler
 set showcmd
+set noshowmode
 set cursorline
 set laststatus=2
 set shortmess+=c
