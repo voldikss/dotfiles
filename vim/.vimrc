@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-16 21:45:31
+" @Last Modified time: 2019-03-20 14:25:45
 
 " ======================================================================
 " Preface
@@ -910,8 +910,13 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " 语法检查跳转
-map <M-n> <Plug>(coc-diagnostic-next)
-map <M-p> <Plug>(coc-diagnostic-prev)
+nmap <M-n> <Plug>(coc-diagnostic-next)
+nmap <M-p> <Plug>(coc-diagnostic-prev)
+" 定义声明实现跳转
+nmap <Leader>cd <Plug>(coc-definition)
+nmap <Leader>ci <Plug>(coc-implementation)
+nmap <Leader>cr <Plug>(cc-references)
+nmap <Leader>cf <Plug>(coc-fix-current)
 " ]]]
 
 " Deoplete

@@ -1,5 +1,8 @@
 {
     "suggest.noselect": false,
+    "suggest.echodocSupport": true,
+    "suggest.triggerAfterInsertEnter": true,
+    "suggest.timeout": 500,
     "languageserver": {
         "ccls": {
             "command": "/home/voldikss/Applications/ccls/Release/ccls",
