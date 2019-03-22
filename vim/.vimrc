@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-20 14:27:15
+" @Last Modified time: 2019-03-22 12:54:34
 
 " ======================================================================
 " Preface
@@ -466,8 +466,8 @@ noremap <M-l> <Esc><C-w>l
 " 调整窗口大小
 noremap <M-up> <C-w>+
 noremap <M-down> <C-w>-
-noremap <M-left> <C-w>10<
-noremap <M-right> <C-w>10>
+noremap <M-left> <C-w>5<
+noremap <M-right> <C-w>5>
 
 " tab 新建
 noremap  <C-t>     <Esc>:tabnew<CR>
@@ -538,6 +538,7 @@ inoremap ;i <Esc>I
 
 " Insert 模式 jj 替换 Esc
 inoremap jj <Esc>
+inoremap jk <Esc>
 
 " 快速退出
 nnoremap <Leader>q  <Esc>:q<CR>

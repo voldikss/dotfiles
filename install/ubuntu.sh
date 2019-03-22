@@ -10,13 +10,41 @@ function copy_files(){
     sudo cp -f ../shadowsocks/.shadowsocks.json $HOME
 }
 
+function common_install(){
+    # common tools
+    sudo apt install openssh-client git wget curl unrar unzip tree -y
+    # trash
+    sudo apt install trash-cli -y
+    # nnn
+    sudo apt install nnn -y
+    # bat
+    curl -o bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+    sudo dpkg -i bat.deb
+    # catimg
+    sudo apt install catimg -y
+    # fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+}
+
 function oh_my_zsh_install(){
     # zsh
     sudo apt install zsh -y
     # oh-my-zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    sudo cp -f ../zsh/.af-magic.zsh-theme $HOME/
-    sudo cp -f ../zsh/.myzshrc $HOME
+    sudo cp -f ../zsh/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
+    sudo cp -f ../zsh/.zshrc $HOME
+    ### Plugins
+    # zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    # zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    # fasd
+    sudo add-apt-repository ppa:aacebedo/fasd -y
+    sudo apt update
+    sudo apt install fasd -y
+    # extract
+    sudo apt install extract -y
     source ~/.zshrc
 }
 
@@ -126,8 +154,7 @@ function ubuntu_install()
     sudo apt update -y
     sudo apt upgrade -y
 
-    # Install
-    sudo apt install openssh-client git wget curl unrar unzip tree -y
+    common_install
     python_install
     vim_install
 
@@ -139,5 +166,6 @@ function ubuntu_install()
     echo "Others include: gnome-tweak | chrome"
     confirm_install others others_install
 
+    # oh_my_zsh
     oh_my_zsh_install
 }
