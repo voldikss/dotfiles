@@ -422,7 +422,8 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " nnoremap Q <Nop>
 
 " 清楚搜索高亮
-nnoremap <esc> :noh<return><esc>
+inoremap <esc> <Esc>:noh<CR>
+nnoremap <esc> <Esc>:noh<CR>
 
 " 行首和行末快捷键
 noremap H ^
