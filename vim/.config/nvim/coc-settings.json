@@ -2,7 +2,6 @@
     "suggest.noselect": false,
     "suggest.echodocSupport": true,
     "suggest.triggerAfterInsertEnter": true,
-    "suggest.timeout": 500,
     "languageserver": {
         "ccls": {
             "command": "/home/voldikss/Applications/ccls/Release/ccls",
@@ -10,7 +9,7 @@
             "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
             "initializationOptions": {
                 "cache": {
-                    "directory": "~/.vim/.cache/.ccls-cache"
+                    "directory": "/home/voldikss/.vim/.cache/.ccls-cache"
                 }
             }
         },
