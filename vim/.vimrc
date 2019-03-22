@@ -1,7 +1,7 @@
 " @Author: VoldikSS
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-22 12:54:34
+" @Last Modified time: 2019-03-16 21:45:31
 
 " ======================================================================
 " Preface
@@ -173,6 +173,8 @@ Plug 'mbbill/undotree'
 Plug 'kshenoy/vim-signature'
 " bookmarks
 Plug 'mattesgroeger/vim-bookmarks'
+" Xterm Color preview
+Plug 'guns/xterm-color-table.vim'
 " ]]]
 
 " [[[ Integrations && Enhancements
