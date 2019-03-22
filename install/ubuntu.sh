@@ -15,8 +15,6 @@ function common_install(){
     sudo apt install openssh-client git wget curl unrar unzip tree -y
     # trash
     sudo apt install trash-cli -y
-    # nnn
-    sudo apt install nnn -y
     # bat
     curl -o bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
     sudo dpkg -i bat.deb
@@ -25,6 +23,28 @@ function common_install(){
     # fzf
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
+    # prettyping
+    git clone https://github.com/denilsonsa/prettyping.git
+    sudo cp ./prettyping/prettyping /usr/bin/
+    # htop
+    sudo apt install htop -y
+    # ranger
+    sudo apt install ranger -y
+    # ncdu
+    curl -o ncdu.tar https://dev.yorhel.nl/download/ncdu-1.14.tar.gz
+    tar -xf ncdu.tar
+    cd ncdu-1.14
+    ./configure --prefix=/usr
+    sudo make
+    sudo make install
+    cd ..
+    # nnn
+    git clone https://github.com/jarun/nnn
+    cd nnn
+    sudo apt install pkg-config libncursesw5-dev libreadline6-dev
+    make
+    sudo make install
+    cd ..
 }
 
 function oh_my_zsh_install(){
@@ -80,6 +100,7 @@ function vim_install(){
     sudo cp -rf ../vim/.config/ $HOME
 
     sudo mkdir -p $HOME/.vim/plugged
+    sudo chmod -R 777 $HOME/.vim
 
     nvim -c ':PlugInstall --sync | :qa!'
     nvim -c ':UpdateRemotePlugin  | :qa!'
@@ -93,10 +114,12 @@ function python_install(){
     sudo apt install python3-pip -y
     sudo apt install idle3 -y
 
-    sudo -H -H pip3 install requests
-    sudo -H -H pip3 install numpy
-    sudo -H -H pip3 install scipy
-    sudo -H -H pip3 install matplotlib
+    sudo -H pip3 install requests
+    sudo -H pip3 install numpy
+    sudo -H pip3 install scipy
+    sudo -H pip3 install matplotlib
+    # thefuck
+    sudo -H pip3 install thefuck
 }
 
 function tmux_install(){
@@ -131,7 +154,7 @@ function others_install(){
     sudo apt install gnome-tweak-tool -y
     sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
-    sudo apt-get update
+    sudo apt update
     sudo apt install google-chrome-stable -y
 }
 

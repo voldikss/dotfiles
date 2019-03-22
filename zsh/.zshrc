@@ -10,7 +10,6 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 # My modified theme
-# ZSH_CUSTOM=$HOME
 ZSH_THEME="af-magic"
 # ZSH_THEME="agnoster"
 
@@ -92,11 +91,10 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-export DEFAULT_USER="VoldikSS"
-#eval $(thefuck --alias)
-# alias mma="/usr/local/bin/wolframscript"
-# alias vim=nvim
-# alias vi=nvim
+export DEFAULT_USER="VOLDIKSS"
+eval $(thefuck --alias fk)
+alias vim=nvim
+alias vi=nvim
 alias python=python3
 alias pip=pip3
 alias rmf='rm -rf'
@@ -119,6 +117,14 @@ alias m='f -e mplayer' # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
 # fzf
 alias vimfzf='vim $(fzf)'
+# prettyping
+alias ping='prettyping'
+# htop
+alias top='htop'
+# ncdu
+alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+# nnn
+alias nnn='nnn -d'
 
 #disable zsh correction
 unsetopt correct_all
@@ -131,8 +137,15 @@ alias unproxy='unset all_proxy'
 # if [ $(command -v tmux) ] && [ -t 0 ] && [[ -z $TMUX ]] && [[ $- = *i* ]]; then exec tmux; fi
 # cd ~/code
 
+# man 着色
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
