@@ -73,6 +73,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 " Cpp
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+" Debug
+Plug 'hiberabyss/NeovimGdb'
 " Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown',{'for':'markdown'}
