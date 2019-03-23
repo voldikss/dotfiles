@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-23 11:03:48
+" @Last Modified time: 2019-03-23 16:35:30
 
 " ======================================================================
 " Preface
@@ -253,7 +253,6 @@ Plug 'mg979/vim-visual-multi'
 " 中文帮助文档
 Plug 'yianwillis/vimcdoc'
 " ]]]
-
 call plug#end()
 " ]]]
 
@@ -1018,6 +1017,25 @@ let g:rainbow_conf = {
 " [[[
 nnoremap <C-left>  :SidewaysLeft<CR>
 nnoremap <C-right>  :SidewaysRight<CR>
+" ]]]
+
+" SingleCompile
+" [[[
+if has("unix")
+    let s:common_run_command = "./a.out"
+    let s:common_out_file = "a.out"
+else
+    let s:common_run_command = "./a.exe"
+    let s:common_out_file = "a.exe"
+endif
+
+call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler','gcc', '-g', s:common_run_command)
+call SingleCompile#SetOutfile('c', 'gcc', s:common_out_file)
+call SingleCompile#ChooseCompiler('c', 'gcc')
+
+call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU CPP Compiler','g++', '-g', s:common_run_command)
+call SingleCompile#SetOutfile('cpp', 'g++', s:common_out_file)
+call SingleCompile#ChooseCompiler('cpp', 'g++')
 " ]]]
 
 " sparkup
