@@ -20,6 +20,8 @@ function common_install(){
     sudo dpkg -i bat.deb
     # catimg
     sudo apt install catimg -y
+    # ripgrep
+    sudo apt install ripgrep -y
     # fzf
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
