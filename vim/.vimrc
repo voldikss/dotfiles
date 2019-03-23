@@ -1,7 +1,7 @@
-" @Author: VoldikSS
+" @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-16 21:45:31
+" @Last Modified time: 2019-03-23 11:03:48
 
 " ======================================================================
 " Preface
@@ -69,46 +69,31 @@ let &packpath = &runtimepath
 call plug#begin('~/.vim/plugged')
 " [[[ Languages && Completion
 " [[[ Languages
+" Language pack
+Plug 'sheerun/vim-polyglot'
 " Cpp
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Go
-Plug 'fatih/vim-go',{'for':'go'}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown',{'for':'markdown'}
-Plug 'iamcco/mathjax-support-for-mkdp',{'for':'markdown'}
 Plug 'mzlogin/vim-markdown-toc', {'for':'markdown'}
-if has('nvim')
-    Plug 'iamcco/markdown-preview.nvim',{'for':'markdown'}
-else
-    Plug 'iamcco/markdown-preview.vim',{'for':'markdown'}
-endif
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
 " HTML
 Plug 'rstacruz/sparkup',{ 'for':'html' }
 Plug 'othree/html5.vim',{'for':'html'}
 Plug 'mattn/emmet-vim',  {'for': ['html','vue','css','wxml']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
-" JavaScript
-if has('win32') || has('win64') || has('win32unix')
-    Plug 'pangloss/vim-javascript',{'for':'javascript'}
-    Plug 'ternjs/tern_for_vim',{'for':'javascript','do':'npm install'}
-endif
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
 " Python
-Plug 'vim-python/python-syntax'
 if has('nvim')
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 endif
 " Wolfram
 Plug 'voldikss/vim-mma',{'for':'mma'}
-" WXML
-Plug 'chemzqm/wxapp.vim'
 " Language Template
 Plug 'aperezdc/vim-template'
-" Language pack
-Plug 'sheerun/vim-polyglot'
 " ]]]
 
 " [[[ Completion
@@ -148,8 +133,6 @@ endif
 " ]]]
 
 " [[[ ColorScheme && Format && Display && Interface
-" ColorScheme
-Plug 'chxuan/change-colorscheme'
 " 彩虹括号
 Plug 'luochen1990/rainbow'
 " CSS 颜色高亮
@@ -212,14 +195,14 @@ Plug 'ahonn/fileheader.nvim'
 " 空白符提示
 Plug 'ntpeters/vim-better-whitespace'
 " Mark + 高亮
-Plug 'inkarkat/vim-mark'
-Plug 'inkarkat/vim-ingo-library'
+" Plug 'inkarkat/vim-mark'
+" Plug 'inkarkat/vim-ingo-library'
 " LeetCode
 Plug 'iandingx/leetcode.vim'
 " Shanbay
 Plug 'voldikss-bot/sb.vim'
 " Quick run
-Plug 'voldikss/SingleCompile'
+Plug 'xuhdev/SingleCompile'
 " Keep window when buffer was deleted
 Plug 'moll/vim-bbye'
 " ]]]
@@ -269,7 +252,6 @@ Plug 'mg979/vim-visual-multi'
 " [[[ Misc
 " 中文帮助文档
 Plug 'yianwillis/vimcdoc'
-" Plug 'skywind3000/vim-keysound'
 " ]]]
 
 call plug#end()
@@ -898,14 +880,6 @@ let g:AutoPairsShortcutBackInsert = 'Disable'
 let g:AutoPairsMapCR = 'Disable'
 " ]]]
 
-" change-colorscheme
-" [[[
-noremap  <silent> <F10> <Esc>:NextColorScheme<CR>
-noremap! <silent> <F10> <Esc>:NextColorScheme<CR>
-noremap  <silent> <F9>  <Esc>:PreviousColorScheme<CR>
-noremap! <silent> <F9>  <Esc>:PreviousColorScheme<CR>
-" ]]]
-
 " coc
 " [[[
 " Use <Tab> and <S-Tab> for navigate completion list:
@@ -970,10 +944,6 @@ let g:goyo_height = '85%'
 let g:goyo_linenr = 1
 " ]]]
 
-" gv.vim
-" [[[
-" ]]]
-
 " indentLine
 " [[[
 let g:indentLine_enabled = 1
@@ -1012,7 +982,7 @@ let g:Lf_StlSeparator = {'left': '', 'right': '', 'font': ''}
 let g:leetcode_solution_filetype = 'python'
 " ]]]
 
-" markdown-preview
+" markdown-preview.nvim
 " [[[
 let g:mkdp_auto_close = 0
 "" ]]]
@@ -1112,6 +1082,15 @@ autocmd FileType python,shell,coffee setlocal commentstring=#\ %s
 autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
 " ]]]
 
+" vim-cpp-enhanced-highlight
+" [[[
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+" ]]]
+
 " vim-easy-align
 " [[[
 xmap ga <Plug>(EasyAlign)
@@ -1120,11 +1099,10 @@ nmap ga <Plug>(EasyAlign)
 
 " vim-exchange
 " [[[
-noremap  cx  <Plug>(Exchange)
-vnoremap X   <Plug>(Exchange)
-noremap  cxc <Plug>(ExchangeClear)
-noremap  cxx <Plug>(ExchangeLine)
-let g:exchange_no_mappings = 1
+nmap cx <Plug>(Exchange)
+xmap X <Plug>(Exchange)
+nmap cxc <Plug>(ExchangeClear)
+nmap cxx <Plug>(ExchangeLine)
 " ]]]
 
 " vim-gutentags
@@ -1148,24 +1126,10 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " ]]]
 
-" vim-javascript
-" [[[
-let javascript_enable_domhtmlcss = 1
-let g:javascript_plugin_flow = 1
-" ]]]
-
 " vim-json
 " [[[
 " 避免引号被隐藏
 let g:vim_json_syntax_conceal = 0
-" ]]]
-
-" vim-keysound
-" [[[
-let g:keysound_enable = 1
-let g:keysound_theme = 'default'
-let g:keysound_py_version = 3
-let g:keysound_volume = 1000
 " ]]]
 
 " vim-mark
@@ -1246,11 +1210,6 @@ vmap K <Plug>MoveBlockUp
 nmap J <Plug>MoveLineDown
 nmap K <Plug>MoveLineUp
 "]]]
-
-" vim-python
-" [[[
-let g:python_highlight_all = 1
-" ]]]
 
 " vim-signify
 " [[[
@@ -1377,41 +1336,5 @@ let g:undotree_SplitWidth = 25
 " n      <Leader>sm        :Search<space>
 " v      <Leader>sv        :<C-u>SearchVisualText<CR>
 " n      <Leader>sm        :Search<space>
-" v      <Leader>tv        :Ydv<CR>
-" n      <Leader>tc        :Ydc<CR>
-" n      <Leader>te        sc>:Yde<CR>
 " ]]]
-
-" 插件命令小计
-" [[[
-" gv.vim
-" [[[
-" GV: 查看 commits
-" GV!: 只与当前文件有关的 commits
-" ]]]
-"
-" vim-fugitive
-" [[[
-" Git: 同一切 git 命令，加 ! 可以在一个临时文件里显示结果 Git add, Git log, Git rm ...
-" Gblame: = Git blame
-" Gcommit: = Git commit
-" Gdelete: = Git delete
-" Gdiff: Gvdiff, Gsdiff. 可以选择范围或者直接执行 diffget/diffput 命令消除差异; 也可用 Gread/Gwrite, 但是是全部更新
-" Gfetch:
-" Ggrep: Ggrep 'find me'
-" Glog: Git log
-" Gmove: 移动或者重命名
-" Gpull:
-" Gpush:
-" Gstatus: = Git status, 在 status 窗口可以用 - 键快速 add; <Enter> 打开光标下文件; p 相当于 git add --patch; C 会调用 Gcommit(由于本人键映射的原因，C 被映射为其他键了)
-" Gread: = Git checkout -- filename
-" Gwrite: = Git add
-" ]]]
-"
-" vim-surround
-" [[[
-" 一般用法: ys**; cs**; ds*
-" 端增加空格: ys*<Space><Space>
-" ]]]
-"
 " ]]]
