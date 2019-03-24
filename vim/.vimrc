@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-23 16:35:30
+" @Last Modified time: 2019-03-24 08:36:01
 
 " ======================================================================
 " Preface
@@ -74,7 +74,7 @@ Plug 'sheerun/vim-polyglot'
 " Cpp
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " Debug
-Plug 'hiberabyss/NeovimGdb'
+Plug 'cpiger/NeoDebug'
 " Markdown
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown',{'for':'markdown'}
@@ -987,6 +987,23 @@ let g:leetcode_solution_filetype = 'python'
 " [[[
 let g:mkdp_auto_close = 0
 "" ]]]
+
+" NeoDebug
+" [[[
+let g:neodbg_keymap_continue           = '<F5>'         " run or continue
+let g:neodbg_keymap_toggle_breakpoint  = '<F9>'         " toggle breakpoint on current line
+let g:neodbg_keymap_next               = '<F10>'        " next
+let g:neodbg_keymap_terminate_debugger = '<F12>'        " terminate debugger
+" following are unuseful
+let g:neodbg_keymap_run_to_cursor      = '<Nop1>'      " run to cursor (tb and c)
+let g:neodbg_keymap_jump               = '<Nop2>'    " set next statement (tb and jump)
+let g:neodbg_keymap_step_into          = '<Nop3>'        " step into
+let g:neodbg_keymap_step_out           = '<Nop4>'      " setp out
+let g:neodbg_keymap_print_variable     = '<Nop5>'        " view variable under the cursor
+let g:neodbg_keymap_stop_debugging     = '<Nop6>'        " stop debugging (kill)
+let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console window
+noremap <F8> <Esc>:NeoDebug ./a.out<CR>
+" ]]]
 
 " rainbow
 " [[[
