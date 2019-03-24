@@ -1,168 +1,249 @@
 #! /bin/bash
 
-function copy_files(){
-    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-    sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
+# Reset
+Reset='\033[0m'           # Text Reset
 
-    sudo cp -rf ../pip/.pip/ $HOME
-    sudo cp -f ../inputrc/.inputrc $HOME
-    sudo cp -f ../git/.gitconfig $HOME
-    sudo cp -f ../shadowsocks/.shadowsocks.json $HOME
+# Regular Colors
+Black='\033[0;30m'        # Black
+Red='\033[0;31m'          # Red
+Green='\033[0;32m'        # Green
+Yellow='\033[0;33m'       # Yellow
+Blue='\033[0;34m'         # Blue
+Purple='\033[0;35m'       # Purple
+Cyan='\033[0;36m'         # Cyan
+White='\033[0;37m'        # White
+
+cecho() {
+    echo -e "${Yellow}$@"${Reset};
+}
+
+cfence(){
+    echo -e "${Green}$@"${Reset};
+}
+crun() {
+    echo -e "${Purple}\$${Reset} ${Cyan}$@"${Reset} ; "$@" ;
+}
+
+function initialize(){
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Initializing..."
+    crun sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+    crun sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
+
+    crun sudo cp -rf ../pip/.pip/ $HOME
+    crun sudo cp -f ../inputrc/.inputrc $HOME
+    crun sudo cp -f ../git/.gitconfig $HOME
+    crun sudo cp -f ../shadowsocks/.shadowsocks.json $HOME
+    crun sudo apt update -y
+    crun sudo apt upgrade -y
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function common_install(){
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing common used tools..."
     # common tools
-    sudo apt install openssh-client git wget curl unrar unzip tree -y
+    crun sudo apt install openssh-client git wget curl unrar unzip tree -y
     # trash
-    sudo apt install trash-cli -y
+    crun sudo apt install trash-cli -y
     # bat
-    curl -o bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
-    sudo dpkg -i bat.deb
+    crun curl -LO https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+    crun sudo dpkg -i bat_0.10.0_amd64.deb
+    crun rm bat_0.10.0_amd64.deb
     # catimg
-    sudo apt install catimg -y
+    crun sudo apt install catimg -y
     # ripgrep
-    sudo apt install ripgrep -y
+    crun curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+    crun sudo dpkg -i ripgrep_0.10.0_amd64.deb
+    crun rm ripgrep_0.10.0_amd64.deb
     # fzf
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    crun git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    crun ~/.fzf/install --all --64
     # prettyping
-    git clone https://github.com/denilsonsa/prettyping.git
-    sudo cp ./prettyping/prettyping /usr/bin/
+    crun git clone https://github.com/denilsonsa/prettyping.git
+    crun sudo cp ./prettyping/prettyping /usr/bin/
+    crun rm -r prettyping
     # htop
-    sudo apt install htop -y
+    crun sudo apt install htop -y
     # ranger
-    sudo apt install ranger -y
+    crun sudo apt install ranger -y
     # ncdu
-    curl -o ncdu.tar https://dev.yorhel.nl/download/ncdu-1.14.tar.gz
-    tar -xf ncdu.tar
-    cd ncdu-1.14
-    ./configure --prefix=/usr
-    sudo make
-    sudo make install
-    cd ..
+    crun curl -LO https://dev.yorhel.nl/download/ncdu-1.14.tar.gz
+    crun tar -xf ncdu-1.14.tar.gz
+    crun cd ncdu-1.14
+    crun sudo apt install libncurses5-dev libncursesw5-dev -y
+    crun ./configure --prefix=/usr
+    crun sudo make
+    crun sudo make install
+    crun cd ..
+    crun rm -r ncdu*
     # nnn
-    git clone https://github.com/jarun/nnn
-    cd nnn
-    sudo apt install pkg-config libncursesw5-dev libreadline6-dev
-    make
-    sudo make install
-    cd ..
+    crun git clone https://github.com/jarun/nnn
+    crun cd nnn
+    crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev
+    crun make
+    crun sudo make install
+    crun cd ..
+    crun rm -r nnn
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function oh_my_zsh_install(){
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing Oh-my-zsh and others..."
     # zsh
-    sudo apt install zsh -y
+    crun sudo apt install zsh -y
     # oh-my-zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    sudo cp -f ../zsh/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
-    sudo cp -f ../zsh/.zshrc $HOME
-    ### Plugins
-    # zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    # zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    # fasd
-    sudo add-apt-repository ppa:aacebedo/fasd -y
-    sudo apt update
-    sudo apt install fasd -y
-    # extract
-    sudo apt install extract -y
-    source ~/.zshrc
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+        crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        crun sudo cp -f ../zsh/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
+        crun sudo cp -f ../zsh/.zshrc $HOME
+        ### Plugins
+        # zsh-autosuggestions
+        crun git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        # zsh-syntax-highlighting
+        crun git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        # fasd
+        crun sudo add-apt-repository ppa:aacebedo/fasd -y
+        crun sudo apt update
+        crun sudo apt install fasd -y
+        # extract
+        crun sudo apt install extract -y
+        crun source ~/.zshrc
+    else
+        cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
+    fi
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function vim_install(){
-    sudo apt remove vim -y
-    sudo apt remove vim-gtk -y
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing NeoVim and others..."
+    crun sudo apt remove vim -y
+    crun sudo apt remove vim-gtk -y
 
-    sudo add-apt-repository ppa:neovim-ppa/unstable -y
-    sudo apt update
-    sudo apt install neovim -y
+    crun sudo add-apt-repository ppa:neovim-ppa/unstable -y
+    crun sudo apt update
+    crun sudo apt install neovim -y
 
-    sudo -H pip3 install pynvim
-    sudo -H pip3 install yapf
-    sudo -H pip3 install flake8
-    sudo -H pip3 install autopep8
+    crun sudo -H pip3 install pynvim yapf flake8 autopep8
 
-    sudo npm -g install js-beautify
-    sudo npm -g install eslint
-    sudo npm -g install html-beautify
-    sudo npm -g install css-beautify
-    sudo npm -g install remark-cli
+    if command -v npm; then
+        crun sudo npm -g install js-beautify eslint html-beautify css-beautify remark-cli
+    else
+        cecho "NOTE: npm was not installed, so some packages won't be installed here"
+    fi
 
     # for keysound
-    sudo apt install python3-sdl2 -y
+    crun sudo apt install python3-sdl2 -y
 
     # zsh complete
     if command -v zmodload; then
         zmodload zsh/zpty
     fi
 
-    sudo cp -f ../vim/.vimrc $HOME
-    sudo cp -rf ../vim/.vim $HOME
-    sudo cp -rf ../vim/.config/ $HOME
+    crun sudo cp -f ../vim/.vimrc $HOME
+    crun sudo cp -rf ../vim/.vim $HOME
+    crun sudo cp -rf ../vim/.config/ $HOME
 
-    sudo mkdir -p $HOME/.vim/plugged
-    sudo chmod -R 777 $HOME/.vim
+    crun sudo mkdir -p $HOME/.vim/plugged
+    crun sudo chmod -R 777 $HOME/.vim
 
-    nvim -c ':PlugInstall --sync | :qa!'
-    nvim -c ':UpdateRemotePlugin  | :qa!'
-    nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-wxml coc-css coc-json coc-html'
+    crun nvim -c ':PlugInstall --sync | :qa!'
+    crun nvim -c ':UpdateRemotePlugin  | :qa!'
+    crun nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-wxml coc-css coc-json coc-html'
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function python_install(){
-    sudo apt install python-dev -y
-    sudo apt install python3-dev -y
-    sudo apt install python-pip -y
-    sudo apt install python3-pip -y
-    sudo apt install idle3 -y
-
-    sudo -H pip3 install requests
-    sudo -H pip3 install numpy
-    sudo -H pip3 install scipy
-    sudo -H pip3 install matplotlib
-    # thefuck
-    sudo -H pip3 install thefuck
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing Python and others..."
+    crun sudo apt install python-dev python3-dev python-pip python3-pip idle3 -y
+    crun sudo -H pip3 install requests numpy scipy matplotlib thefuck
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function tmux_install(){
-    sudo apt install tmux -y
-    sudo cp -f ../tmux/.tmux.conf $HOME
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    crun sudo apt install tmux -y
+    crun sudo cp -f ../tmux/.tmux.conf $HOME
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function nodejs_install(){
-    sudo apt install nodejs -y
-    sudo apt install npm -y
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing nodejs and others..."
+    # nodejs
+    crun curl -LO install-node.now.sh/lts
+    crun sudo bash ./lts --yes
+    crun rm ./lts
+    # yarn
+    crun curl --compressed -LO https://yarnpkg.com/install.sh
+    crun sudo bash ./install.sh
+    crun rm ./install.sh
+    # npm
+    crun sudo apt install npm -y
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function ctags_install(){
-    git clone https://github.com/universal-ctags/ctags.git --depth=1
-    sudo apt install autoconf -y
-    sudo apt install pkg-config -y
-    cd ctags
-    ./autogen.sh
-    ./configure
-    sudo make
-    sudo make install
-    cd -
-    rm -r ctags
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing ctags and others..."
+    crun git clone https://github.com/universal-ctags/ctags.git --depth=1
+    crun sudo apt install autoconf -y
+    crun sudo apt install pkg-config -y
+    crun cd ctags
+    crun ./autogen.sh
+    crun ./configure
+    crun sudo make
+    crun sudo make install
+    crun cd -
+    crun rm -r ctags
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function nerdfont_install(){
-    sudo mkdir -p ~/.local/share/fonts
-    sudo cp ../fonts/* ~/.local/share/fonts
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing NerdFonts..."
+    crun sudo mkdir -p ~/.local/share/fonts
+    crun sudo cp ../fonts/* ~/.local/share/fonts
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function others_install(){
-    sudo apt install gnome-tweak-tool -y
-    sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
-    sudo apt update
-    sudo apt install google-chrome-stable -y
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cecho "Installing others(gnome-tweak-tool, chrome)..."
+    crun sudo apt install gnome-tweak-tool -y
+    crun sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
+    crun wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
+    crun sudo apt update
+    crun sudo apt install google-chrome-stable -y
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    cfence "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 }
 
 function confirm_install(){
     while true; do
-        echo "Install $1?"
+        echo "Install $1?[y/n]"
         read ans
         case $ans in
             [Yy]* ) $2; break;;
@@ -175,11 +256,11 @@ function confirm_install(){
 function ubuntu_install()
 {
     # Initial
-    copy_files
-    sudo apt update -y
-    sudo apt upgrade -y
+    initialize
 
+    # Install by default
     common_install
+    nerdfont_install
     python_install
     vim_install
 
@@ -187,7 +268,6 @@ function ubuntu_install()
     confirm_install tmux tmux_install
     confirm_install nodejs nodejs_install
     confirm_install ctags ctags_install
-    confirm_install nerdfont nerdfont_install
     echo "Others include: gnome-tweak | chrome"
     confirm_install others others_install
 
