@@ -669,21 +669,15 @@ endfunction
 
 " QuickRun: 一键运行
 " [[[
-command! QuickRun call QuickRun(0)
-noremap  <silent> <F5>       <Esc>:call QuickRun(0)<CR>
-noremap! <silent> <F5>       <Esc>:call QuickRun(0)<CR>
-noremap  <silent> <Leader>rs <Esc>:call QuickRun(0)<CR>
-" 异步执行
-noremap <silent> <Leader>ra <Esc>:call QuickRun(1)<CR>
-function! QuickRun(async)
+command! QuickRun call QuickRun()
+noremap  <silent> <F5>       <Esc>:call QuickRun()<CR>
+noremap! <silent> <F5>       <Esc>:call QuickRun()<CR>
+function! QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
         call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
-    elseif a:async == 1
-        echo "QuickRunAsync (Use :SCViewResultAsync to view the result)"
-        exec "SCCompileRunAsync"
     else
         exec "SCCompileRun"
     endif
