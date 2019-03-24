@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-24 11:58:09
+" @Last Modified time: 2019-03-24 13:01:26
 
 " ======================================================================
 " Preface
@@ -102,7 +102,7 @@ Plug 'aperezdc/vim-template'
 " NEOVIM "
 if has('nvim')
     Plug 'Shougo/denite.nvim'
-    Plug 'sirver/ultisnips'
+    Plug 'honza/vim-snippets'
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neco-vim'
@@ -886,6 +886,9 @@ let g:AutoPairsMapCR = 'Disable'
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" snippets jump
+let g:coc_snippet_next = '<tab>'
 
 " Close preview window when completion is done.
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
