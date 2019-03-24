@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-24 08:36:01
+" @Last Modified time: 2019-03-24 11:58:09
 
 " ======================================================================
 " Preface
@@ -1048,13 +1048,16 @@ else
     let s:common_out_file = "a.exe"
 endif
 
-call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler','gcc', '-g', s:common_run_command)
-call SingleCompile#SetOutfile('c', 'gcc', s:common_out_file)
-call SingleCompile#ChooseCompiler('c', 'gcc')
+" Only for c/cpp: start time optimization
+if index(['c', 'cpp'], &filetype) >= 0 && exists("g:loaded_SingleCompile")
+    call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler','gcc', '-g', s:common_run_command)
+    call SingleCompile#SetOutfile('c', 'gcc', s:common_out_file)
+    call SingleCompile#ChooseCompiler('c', 'gcc')
 
-call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU CPP Compiler','g++', '-g', s:common_run_command)
-call SingleCompile#SetOutfile('cpp', 'g++', s:common_out_file)
-call SingleCompile#ChooseCompiler('cpp', 'g++')
+    call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU CPP Compiler','g++', '-g', s:common_run_command)
+    call SingleCompile#SetOutfile('cpp', 'g++', s:common_out_file)
+    call SingleCompile#ChooseCompiler('cpp', 'g++')
+endif
 " ]]]
 
 " sparkup
