@@ -203,10 +203,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " Plug 'inkarkat/vim-ingo-library'
 " LeetCode
 Plug 'iandingx/leetcode.vim'
-" Shanbay
-Plug 'voldikss-bot/sb.vim'
-" Quick run
-Plug 'xuhdev/SingleCompile'
 " Keep window when buffer was deleted
 Plug 'moll/vim-bbye'
 " ]]]
@@ -681,8 +677,24 @@ function! QuickRun()
         call BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
+    elseif &filetype == 'tex'
+        :AsyncRun xelatex %
+    elseif &filetype == 'c'
+        :AsyncRun gcc -g % && ./a.out
+    elseif &filetype == 'cpp'
+        :AsyncRun g++ -g % && ./a.out
+    elseif &filetype == 'sh'
+        :AsyncRun bash %
+    elseif &filetype == 'python'
+        if has("unix")
+            " unix
+            :AsyncRun -raw python3 %
+        else
+            " windows
+            :AsyncRun -raw python %
+        endif
     else
-        exec "SCCompileRun"
+        echo "Not supported filetype"
     endif
 endfunction
 " ]]]
@@ -834,6 +846,8 @@ let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " [[[
 " 自动打开 quickfix window ，高度为 10
 let g:asyncrun_open = 8
+" 看到 Python 实时输出
+let $PYTHONUNBUFFERED=1
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
 " 设置 <Leader><Space> 打开/关闭 Quickfix 窗口
@@ -1058,28 +1072,6 @@ let g:rainbow_conf = {
 " [[[
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right>  :SidewaysRight<CR>
-" ]]]
-
-" SingleCompile
-" [[[
-if has("unix")
-    let s:common_run_command = "./a.out"
-    let s:common_out_file    = "a.out"
-else
-    let s:common_run_command = "./a.exe"
-    let s:common_out_file    = "a.exe"
-endif
-
-" Only for c/cpp: start time optimization
-if index(['c', 'cpp'], &filetype) >= 0 && exists("g:loaded_SingleCompile")
-    call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler','gcc', '-g', s:common_run_command)
-    call SingleCompile#SetOutfile('c', 'gcc', s:common_out_file)
-    call SingleCompile#ChooseCompiler('c', 'gcc')
-
-    call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU CPP Compiler','g++', '-g', s:common_run_command)
-    call SingleCompile#SetOutfile('cpp', 'g++', s:common_out_file)
-    call SingleCompile#ChooseCompiler('cpp', 'g++')
-endif
 " ]]]
 
 " sparkup
