@@ -943,8 +943,8 @@ let g:fileheader_last_modified_time = 1
 
 " goyo.vim
 " [[[
-let g:goyo_width = '85'
-let g:goyo_height = '85%'
+let g:goyo_width = '50%'
+let g:goyo_height = '100%'
 let g:goyo_linenr = 1
 " ]]]
 
