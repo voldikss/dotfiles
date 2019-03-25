@@ -61,7 +61,7 @@ function common_install(){
     crun git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     crun ~/.fzf/install --all --64
     # prettyping
-    crun git clone https://github.com/denilsonsa/prettyping.git
+    crun git clone https://github.com/denilsonsa/prettyping.git --depth 1
     crun sudo cp ./prettyping/prettyping /usr/bin/
     crun rm -r prettyping
     # htop
@@ -79,13 +79,15 @@ function common_install(){
     crun cd ..
     crun rm -r ncdu*
     # nnn
-    crun git clone https://github.com/jarun/nnn
+    crun git clone https://github.com/jarun/nnn --depth 1
     crun cd nnn
     crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev
     crun make
     crun sudo make install
     crun cd ..
     crun rm -r nnn
+    # zathura
+    crun git clone https://github.com/pwmt/zathura.git --depth 1
 }
 
 function oh_my_zsh_install(){
