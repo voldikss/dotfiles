@@ -405,8 +405,8 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " nnoremap Q <Nop>
 
 " 清楚搜索高亮
-inoremap <esc> <Esc>:noh<CR>
-nnoremap <esc> <Esc>:noh<CR>
+inoremap <silent> <esc> <Esc>:noh<CR>
+nnoremap <silent> <esc> <Esc>:noh<CR>
 
 " 行首和行末快捷键
 noremap H ^
@@ -426,20 +426,15 @@ noremap <C-k> K
 noremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 noremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 " 查找时将结果置于屏幕中央
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
+nnoremap <silent> n  nzz
+nnoremap <silent> N  Nzz
+nnoremap <silent> *  *zz
+nnoremap <silent> #  #zz
 nnoremap <silent> g* g*zz
 
-" 编辑 vimrc
-noremap <Leader>ve :edit   ~/.vimrc<CR>
-" source vimrc
-noremap <Leader>vs :source ~/.vimrc<CR>
-
 " 切换 buffer
-nnoremap <C-h>     :bprev<CR>
-nnoremap <C-l>     :bnext<CR>
+nnoremap <silent> <C-h>     :bprev<CR>
+nnoremap <silent> <C-l>     :bnext<CR>
 " 删除当前 buffer
 noremap <silent> <Leader>d :Bdelete!<CR>
 
@@ -450,17 +445,17 @@ noremap <M-k> <Esc><C-w>k
 noremap <M-l> <Esc><C-w>l
 
 " 调整窗口大小
-noremap <M-up> <C-w>+
-noremap <M-down> <C-w>-
-noremap <M-left> <C-w>5<
+noremap <M-up>    <C-w>+
+noremap <M-down>  <C-w>-
+noremap <M-left>  <C-w>5<
 noremap <M-right> <C-w>5>
 
 " tab 新建
-noremap  <C-t>     <Esc>:tabnew<CR>
-noremap! <C-t>     <Esc>:tabnew<CR>
+noremap  <silent> <C-t> <Esc>:tabnew<CR>
+noremap! <silent> <C-t> <Esc>:tabnew<CR>
 " tab 移动
-nnoremap gj :tabnext<CR>
-nnoremap gk :tabprevious<CR>
+nnoremap <silent> gj :tabnext<CR>
+nnoremap <silent> gk :tabprevious<CR>
 
 " 调整缩进后自动选中
 vnoremap < <gv
@@ -527,13 +522,13 @@ inoremap jj <Esc>
 inoremap jk <Esc>
 
 " 快速退出
-nnoremap <Leader>q  <Esc>:q<CR>
+nnoremap <silent> <Leader>q  <Esc>:q<CR>
 " 快速退不做任何保存
-nnoremap <Leader>Q  <Esc>:qa!<CR>
+nnoremap <silent> <Leader>Q  <Esc>:qa!<CR>
 " 快速保存
-noremap <Leader>w  <Esc>:w<CR>
+noremap <silent>  <Leader>w  <Esc>:w<CR>
 " 快速保存并退出
-noremap <Leader>W  <Esc>:wq<CR>
+noremap <silent>  <Leader>W  <Esc>:wq<CR>
 
 " 命令行模式增强
 " Ctrl-a 到行首，-e 到行尾
@@ -567,9 +562,9 @@ else
 endif
 
 " 安装、更新、删除插件
-nnoremap <Leader><Leader>i :PlugInstall<CR>
-nnoremap <Leader><Leader>u :PlugUpdate<CR>
-nnoremap <Leader><Leader>c :PlugClean<CR>
+nnoremap <silent> <Leader><Leader>i :PlugInstall<CR>
+nnoremap <silent> <Leader><Leader>u :PlugUpdate<CR>
+nnoremap <silent> <Leader><Leader>c :PlugClean<CR>
 command! PU PlugUpdate | PlugUpgrade
 command! PS PlugStatus
 command! PC PlugClean
@@ -675,9 +670,9 @@ endfunction
 " QuickRun: 一键运行
 " [[[
 command! QuickRun call QuickRun(0)
-noremap  <silent> <F5> <Esc>:call QuickRun(0)<CR>
-noremap! <silent> <F5> <Esc>:call QuickRun(0)<CR>
-noremap <silent> <Leader>rs <Esc>:call QuickRun(0)<CR>
+noremap  <silent> <F5>       <Esc>:call QuickRun(0)<CR>
+noremap! <silent> <F5>       <Esc>:call QuickRun(0)<CR>
+noremap  <silent> <Leader>rs <Esc>:call QuickRun(0)<CR>
 " 异步执行
 noremap <silent> <Leader>ra <Esc>:call QuickRun(1)<CR>
 function! QuickRun(async)
@@ -697,7 +692,7 @@ endfunction
 
 " FileExplore: 在文件浏览器中打开当前目录
 " [[[
-noremap <F2> <Esc>:call FileExplore()<CR>
+noremap <silent> <F2> <Esc>:call FileExplore()<CR>
 command! FileExplore call FileExplore()
 function! FileExplore()
     let l:path = expand(getcwd())
@@ -815,12 +810,12 @@ endfunction
 " [[[
 " airline
 " [[[
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+let g:airline_left_sep        = ''
+let g:airline_left_alt_sep    = ''
+let g:airline_right_sep       = ''
+let g:airline_right_alt_sep   = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'aurora'
+let g:airline_theme           = 'aurora'
 " let g:airline_theme = 'base16_spacemacs'
 " let g:airline_theme = 'cool'
 " let g:airline_theme = 'light'
@@ -830,12 +825,12 @@ let g:airline_theme = 'aurora'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " tab 编号显示
 " let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensioin#tabline#right_sep = ''
+let g:airline#extensions#tabline#enabled       = 1
+let g:airline#extensions#tabline#left_sep      = ''
+let g:airline#extensions#tabline#left_alt_sep  = ''
+let g:airline#extensioin#tabline#right_sep     = ''
 let g:airline#extensioin#tabline#right_alt_sep = ''
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " ]]]
 
 " AsyncRun
@@ -844,10 +839,10 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:asyncrun_open = 8
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
-" 设置 F12 打开/关闭 Quickfix 窗口
-nnoremap <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
+" 设置 <Leader><Space> 打开/关闭 Quickfix 窗口
+nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 " 快速 grep
-noremap <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
+noremap <silent> <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
 " Grep 命令
 command! -nargs=+ Grep call Grep(<q-args>)
 function! Grep(string)
@@ -869,22 +864,22 @@ autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"
 autocmd FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
 
 " 防止 C-h 被映射为 <BS>
-let g:AutoPairsMapCh = 0
+let g:AutoPairsMapCh    = 0
 let g:AutoPairsMapSpace = 0
 " Alt-e 快速加括号
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 " Alt-p 开关插件
 let g:AutoPairsShortcutToggle = 'Disable'
 " 解除一系列映射键
-let g:AutoPairsShortcutJump = 'Disable'
+let g:AutoPairsShortcutJump       = 'Disable'
 let g:AutoPairsShortcutBackInsert = 'Disable'
-let g:AutoPairsMapCR = 'Disable'
+let g:AutoPairsMapCR              = 'Disable'
 " ]]]
 
 " coc
 " [[[
 " Use <Tab> and <S-Tab> for navigate completion list:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " snippets jump
@@ -894,13 +889,13 @@ let g:coc_snippet_next = '<tab>'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " 语法检查跳转
-nmap <M-n> <Plug>(coc-diagnostic-next)
-nmap <M-p> <Plug>(coc-diagnostic-prev)
+nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
+nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
 " 定义声明实现跳转
-nmap <Leader>cd <Plug>(coc-definition)
-nmap <Leader>ci <Plug>(coc-implementation)
-nmap <Leader>cr <Plug>(cc-references)
-nmap <Leader>cf <Plug>(coc-fix-current)
+nmap <silent> <Leader>cd <Plug>(coc-definition)
+nmap <silent> <Leader>ci <Plug>(coc-implementation)
+nmap <silent> <Leader>cr <Plug>(cc-references)
+nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 " ]]]
 
 " Deoplete
@@ -956,29 +951,29 @@ let g:indentLine_color_term = 238
 
 " LeaderF
 " [[[
-noremap <Leader>ff <Esc>:LeaderfFile<CR>
-noremap <Leader>ft <Esc>:LeaderfBufTagAll<CR>
-noremap <Leader>fb <Esc>:LeaderfBufferAll<CR>
+noremap <silent> <Leader>ff <Esc>:LeaderfFile<CR>
+noremap <silent> <Leader>ft <Esc>:LeaderfBufTagAll<CR>
+noremap <silent> <Leader>fb <Esc>:LeaderfBufferAll<CR>
 
-let g:Lf_StlSeparator = {'left': '', 'right': '', 'font': ''}
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
+let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
             \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
             \}
 let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/.cache')
-let g:Lf_ShowRelativePath = 1
-let g:Lf_HideHelp = 1
-let g:Lf_ShowHidden = 1
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-let g:Lf_IndexTimeLimit = 10
-let g:Lf_Ctags = "/usr/local/bin/ctags"
+let g:Lf_WindowHeight         = 0.30
+let g:Lf_CacheDirectory       = expand('~/.vim/.cache')
+let g:Lf_ShowRelativePath     = 1
+let g:Lf_HideHelp             = 1
+let g:Lf_ShowHidden           = 1
+let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+let g:Lf_IndexTimeLimit       = 10
+let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_StlSeparator = {'left': '', 'right': '', 'font': ''}
+let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 " ]]]
 
 " LeetCode.vim
@@ -1005,50 +1000,59 @@ let g:neodbg_keymap_step_out           = '<Nop4>'      " setp out
 let g:neodbg_keymap_print_variable     = '<Nop5>'        " view variable under the cursor
 let g:neodbg_keymap_stop_debugging     = '<Nop6>'        " stop debugging (kill)
 let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console window
-noremap <F8> <Esc>:NeoDebug ./a.out<CR>
+noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
 " ]]]
 
 " rainbow
 " [[[
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-            \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-            \   'operators': '_,_',
-            \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-            \   'separately': {
-            \       '*': {},
-            \       'tex': {
-            \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-            \       },
-            \       'lisp': {
-            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-            \       },
-            \       'vim': {
-            \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-            \       },
-            \       'html': {
-            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-            \       },
-            \       'css': 0,
-            \   }
-            \}
+    \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+    \'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+    \'operators': '_,_',
+    \'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+    \'separately': {
+        \'*': {},
+        \'tex': {
+            \'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/']
+        \},
+        \'lisp': {
+            \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3']
+        \},
+        \'vim': {
+            \'parentheses': [
+                \'start=/(/ end=/)/',
+                \'start=/\[/ end=/\]/',
+                \'start=/{/ end=/}/ fold',
+                \'start=/(/ end=/)/ containedin=vimFuncBody',
+                \'start=/\[/ end=/\]/ containedin=vimFuncBody',
+                \'start=/{/ end=/}/ fold containedin=vimFuncBody'
+            \]
+        \},
+        \'html': {
+            \'parentheses': [
+                \'start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'
+            \],
+        \},
+        \'css': 0,
+    \}
+\}
 " ]]]
 
 " sideways.vim
 " [[[
-nnoremap <C-left>  :SidewaysLeft<CR>
-nnoremap <C-right>  :SidewaysRight<CR>
+nnoremap <silent> <C-left>  :SidewaysLeft<CR>
+nnoremap <silent> <C-right>  :SidewaysRight<CR>
 " ]]]
 
 " SingleCompile
 " [[[
 if has("unix")
     let s:common_run_command = "./a.out"
-    let s:common_out_file = "a.out"
+    let s:common_out_file    = "a.out"
 else
     let s:common_run_command = "./a.exe"
-    let s:common_out_file = "a.exe"
+    let s:common_out_file    = "a.exe"
 endif
 
 " Only for c/cpp: start time optimization
@@ -1091,10 +1095,10 @@ function! ToggleAutoformat()
         echo "Autoformat enabled"
     endif
 endfunction
-noremap  <F6> <Esc>:Autoformat<CR>
-noremap! <F6> <Esc>:Autoformat<CR>
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
+noremap  <silent> <F6> <Esc>:Autoformat<CR>
+noremap! <silent> <F6> <Esc>:Autoformat<CR>
+let g:autoformat_autoindent            = 0
+let g:autoformat_retab                 = 0
 let g:autoformat_remove_trailing_space = 0
 " for c, cpp, c#, object-c
 let g:formatterpath=['/home/voldikss/Applications/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-18.04/bin']
@@ -1104,16 +1108,16 @@ let g:formatterpath=['/home/voldikss/Applications/clang+llvm-7.0.1-x86_64-linux-
 " [[[
 " 重新定义按键映射
 let g:bookmark_no_default_key_mappings = 1
-nmap <Leader>bm <Plug>BookmarkToggle
-nmap <Leader>bi <Plug>BookmarkAnnotate
-nmap <Leader>ba <Plug>BookmarkShowAll
-nmap <Leader>bn <Plug>BookmarkNext
-nmap <Leader>bp <Plug>BookmarkPrev
-nmap <Leader>bc <Plug>BookmarkClearAll
+nmap <silent> <Leader>bm <Plug>BookmarkToggle
+nmap <silent> <Leader>bi <Plug>BookmarkAnnotate
+nmap <silent> <Leader>ba <Plug>BookmarkShowAll
+nmap <silent> <Leader>bn <Plug>BookmarkNext
+nmap <silent> <Leader>bp <Plug>BookmarkPrev
+nmap <silent> <Leader>bc <Plug>BookmarkClearAll
 " 显示
 highlight BookmarkSign ctermbg=NONE ctermfg=160
-highlight BookmarkLine ctermbg=194 ctermfg=NONE
-let g:bookmark_sign = '⚑'
+highlight BookmarkLine ctermbg=194  ctermfg=NONE
+let g:bookmark_sign            = '⚑'
 let g:bookmark_highlight_lines = 1
 " 缓存地址
 let g:bookmark_auto_save_file = $HOME . '/.vim/.cache/vim_bookmarks'
@@ -1127,25 +1131,25 @@ autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
 
 " vim-cpp-enhanced-highlight
 " [[[
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
+let g:cpp_class_scope_highlight                  = 1
+let g:cpp_member_variable_highlight              = 1
+let g:cpp_class_decl_highlight                   = 1
 let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_concepts_highlight = 1
+let g:cpp_concepts_highlight                     = 1
 " ]]]
 
 " vim-easy-align
 " [[[
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+xmap <silent> ga <Plug>(EasyAlign)
+nmap <silent> ga <Plug>(EasyAlign)
 " ]]]
 
 " vim-exchange
 " [[[
-nmap cx <Plug>(Exchange)
-xmap X <Plug>(Exchange)
-nmap cxc <Plug>(ExchangeClear)
-nmap cxx <Plug>(ExchangeLine)
+nmap <silent> cx  <Plug>(Exchange)
+xmap <silent> X   <Plug>(Exchange)
+nmap <silent> cxc <Plug>(ExchangeClear)
+nmap <silent> cxx <Plug>(ExchangeLine)
 " ]]]
 
 " vim-gutentags
@@ -1204,10 +1208,10 @@ let g:vim_markdown_fenced_languages = ['python=py']
 let g:vim_markdown_fenced_languages = ['javascript=js']
 let g:vim_markdown_fenced_languages = ['c=c']
 " 避免标志符号被隐藏
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal             = 0
 let g:vim_markdown_conceal_code_blocks = 0
-let g:tex_conceal = ""
-let g:vim_markdown_math = 1
+let g:tex_conceal                      = ""
+let g:vim_markdown_math                = 1
 " ]]]
 
 " vim-matchup
@@ -1246,19 +1250,19 @@ autocmd FileType c,cpp let b:match_words =
 
 " vim-move
 " [[[
-let g:move_map_keys = 0
+let g:move_map_keys    = 0
 let g:move_auto_indent = 1
-vmap J <Plug>MoveBlockDown
-vmap K <Plug>MoveBlockUp
-nmap J <Plug>MoveLineDown
-nmap K <Plug>MoveLineUp
+vmap <silent> J <Plug>MoveBlockDown
+vmap <silent> K <Plug>MoveBlockUp
+nmap <silent> J <Plug>MoveLineDown
+nmap <silent> K <Plug>MoveLineUp
 "]]]
 
 " vim-signify
 " [[[
 " 跳转
-nmap <C-up>  <Plug>(signify-prev-hunk)
-nmap <C-down> <Plug>(signify-next-hunk)
+nmap <silent> <C-up>   <Plug>(signify-prev-hunk)
+nmap <silent> <C-down> <Plug>(signify-next-hunk)
 " ! 改成 ~
 let g:signify_sign_change = '~'
 " 两次按键间隔大于 updatetime 时自动写入磁盘并显示状态
@@ -1295,8 +1299,8 @@ let g:table_mode_corner = '|'
 
 " vim-templates
 " [[[
-let g:templates_directory = ['~/.vim/templates']
-let g:templates_no_autocmd = 1
+let g:templates_directory            = ['~/.vim/templates']
+let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
 " ]]]
 
@@ -1319,9 +1323,9 @@ endif
 
 " vim-visual-multi
 " [[[
-let g:VM_leader = ";"
-let g:VM_default_mappings = 0
-let g:VM_maps = {}
+let g:VM_leader             = ";"
+let g:VM_default_mappings   = 0
+let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<leader>A'
 " ]]]
 
@@ -1329,10 +1333,10 @@ let g:VM_maps["Select All"] = '<leader>A'
 " [[[
 noremap  <silent> <F3> <Esc>:UndotreeToggle<CR>
 noremap! <silent> <F3> <Esc>:UndotreeToggle<CR>
-let g:undotree_WindowLayout = 2
+let g:undotree_WindowLayout       = 2
 let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-let g:undotree_SplitWidth = 25
+let g:undotree_ShortIndicators    = 1
+let g:undotree_SplitWidth         = 25
 " ]]]
 " ]]]
 
