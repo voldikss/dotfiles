@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-24 13:01:26
+" @Last Modified time: 2019-03-24 17:53:02
 
 " ======================================================================
 " Preface
@@ -205,6 +205,8 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'iandingx/leetcode.vim'
 " Keep window when buffer was deleted
 Plug 'moll/vim-bbye'
+" 通过延迟计算来加快fold
+Plug 'Konfekt/FastFold'
 " ]]]
 
 " [[[ Move
@@ -932,6 +934,26 @@ nmap <silent> <Leader>tr <Plug>DictRSearch
 vmap <silent> <Leader>tr <Plug>DictRVSearch
 " --<Leader>td 命令行翻译
 nmap <Leader>td :Dict<Space>
+" ]]]
+
+" [[[
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:ruby_fold = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+let g:php_folding = 1
 " ]]]
 
 " fileheader
