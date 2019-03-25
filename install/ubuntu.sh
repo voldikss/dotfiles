@@ -213,6 +213,27 @@ function nerdfont_install(){
     crun sudo cp ../fonts/* ~/.local/share/fonts
 }
 
+function ccls_install() {
+    cecho "Installing ccls..."
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    if [ ! -d "$HOME/Applications/ccls" ]; then
+        crun git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+        crun cd ccls
+        crun wget -c http://releases.llvm.org/7.0.1/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+        crun tar xf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+        crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        crun cmake --build Release
+        crun rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
+        crun rm -r clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        crun cd ..
+        crun mkdir -p ~/Applications
+        crun mv ccls ~/Applications/
+    else
+        cecho "NOTE: ccls has already been installed and won't be installed here"
+    fi
+}
+
 function others_install(){
     cecho "Installing others(gnome-tweak-tool, chrome)..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -251,6 +272,7 @@ function ubuntu_install()
     confirm_install tmux tmux_install
     confirm_install nodejs nodejs_install
     confirm_install ctags ctags_install
+    confirm_install ccls ccls_install
     echo "Others include: gnome-tweak | chrome"
     confirm_install others others_install
 
