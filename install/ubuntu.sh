@@ -87,7 +87,7 @@ function common_install(){
     crun cd ..
     crun rm -r nnn
     # zathura
-    crun git clone https://github.com/pwmt/zathura.git --depth 1
+    crun sudo apt install zathura -y
 }
 
 function oh_my_zsh_install(){
