@@ -156,7 +156,7 @@ Plug 'vim-airline/vim-airline-themes'
 " 图标
 Plug 'ryanoasis/vim-devicons'
 " undotree 可视化
-Plug 'mbbill/undotree'
+Plug 'simnalamburt/vim-mundo'
 " mark 可视化
 Plug 'kshenoy/vim-signature'
 " bookmarks
@@ -1037,24 +1037,6 @@ let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console windo
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
 " ]]]
 
-" vim-polyglot
-" [[[
-" to be compatible with vimtex plgin
-let g:polyglot_disabled = ["latex"]
-" ]]]
-
-" vimtex
-" [[[
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_mappings_enabled = 0
-let g:vimtex_format_enabled = 1
-let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:vimtex_fold_enabled = 1
-let g:tex_conceal='abdmg'
-" ]]]
-
 " rainbow
 " [[[
 let g:rainbow_active = 1
@@ -1293,6 +1275,23 @@ nmap <silent> J <Plug>MoveLineDown
 nmap <silent> K <Plug>MoveLineUp
 "]]]
 
+" vim-mundo
+" [[[
+noremap  <silent> <F3> <Esc>:MundoToggle<CR>
+noremap! <silent> <F3> <Esc>:MundoToggle<CR>
+let g:mundo_width              = 30
+let g:mundo_preview_height     = 10
+let g:mundo_right              = 0
+let g:mundo_preview_bottom     = 1
+let g:mundo_auto_preview_delay = 10
+" ]]]
+
+" vim-polyglot
+" [[[
+" to be compatible with vimtex plgin
+let g:polyglot_disabled = ["latex"]
+" ]]]
+
 " vim-signify
 " [[[
 " 跳转
@@ -1339,6 +1338,18 @@ let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
 " ]]]
 
+" vimtex
+" [[[
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_mappings_enabled = 0
+let g:vimtex_format_enabled = 1
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:vimtex_fold_enabled = 1
+let g:tex_conceal='abdmg'
+" ]]]
+
 " vim-textobj-user
 " [[[
 if exists("*textobj#user#plugin")
@@ -1362,16 +1373,6 @@ let g:VM_leader             = ";"
 let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<leader>A'
-" ]]]
-
-" undotree
-" [[[
-noremap  <silent> <F3> <Esc>:UndotreeToggle<CR>
-noremap! <silent> <F3> <Esc>:UndotreeToggle<CR>
-let g:undotree_WindowLayout       = 2
-let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators    = 1
-let g:undotree_SplitWidth         = 25
 " ]]]
 " ]]]
 
