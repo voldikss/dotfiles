@@ -419,6 +419,7 @@ noremap ' `
 
 " C-j 跳转函数定义: Go to definition
 noremap <C-j> <C-]>
+noremap <C-W><C-j> <C-W><C-]>
 " C-k 跳转帮助: Help
 noremap <C-k> K
 
