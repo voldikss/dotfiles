@@ -8,3 +8,5 @@ nmap <buffer> q :quit<CR>
 " open help file in the left window
 " alternative: e.g. vert help syntax
 autocmd BufWinEnter <buffer> wincmd H
+
+setlocal number
