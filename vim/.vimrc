@@ -93,7 +93,8 @@ if has('nvim')
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 endif
 " Tex
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 " Wolfram
 Plug 'voldikss/vim-mma',{'for':'mma'}
 " Language Template
@@ -1206,6 +1207,11 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " [[[
 " 避免引号被隐藏
 let g:vim_json_syntax_conceal = 0
+" ]]]
+
+" vim-latex-live-preview
+" [[[
+let g:livepreview_previewer = 'zathura'
 " ]]]
 
 " vim-mark
