@@ -92,6 +92,8 @@ Plug 'elzr/vim-json',{'for':'json'}
 if has('nvim')
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 endif
+" Tex
+Plug 'lervag/vimtex'
 " Wolfram
 Plug 'voldikss/vim-mma',{'for':'mma'}
 " Language Template
@@ -996,6 +998,24 @@ let g:neodbg_keymap_print_variable     = '<Nop5>'        " view variable under t
 let g:neodbg_keymap_stop_debugging     = '<Nop6>'        " stop debugging (kill)
 let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console window
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
+" ]]]
+
+" vim-polyglot
+" [[[
+" to be compatible with vimtex plgin
+let g:polyglot_disabled = ["latex"]
+" ]]]
+
+" vimtex
+" [[[
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_mappings_enabled = 0
+let g:vimtex_format_enabled = 1
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:vimtex_fold_enabled = 1
+let g:tex_conceal='abdmg'
 " ]]]
 
 " rainbow
