@@ -125,6 +125,8 @@ alias top='htop'
 alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
 # nnn
 alias nnn='nnn -d'
+# bat
+alias cat='bat'
 
 #disable zsh correction
 unsetopt correct_all
@@ -147,7 +149,6 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 # fzf integrated with rg
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
