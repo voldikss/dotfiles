@@ -832,12 +832,24 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '⭡'
 let g:airline_powerline_fonts = 1
-let g:airline_theme           = 'aurora'
-" let g:airline_theme = 'base16_spacemacs'
-" let g:airline_theme = 'cool'
-" let g:airline_theme = 'light'
-" let g:airline_theme = 'vice'
-"
+
+function! Randnum(max) abort
+  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+endfunction
+
+" Note: This is my customized function
+" Feature: Random airline theme
+let g:airline_themes_list = ['aurora', 'base16_spacemacs', 'cool', 'light', 'vice']
+let g:randomn = Randnum(len(g:airline_themes_list))
+
+if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~")
+    " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
+    " 但是不能只用这个，因为vim启动的时候并没有加载 AirlineTheme 命令
+    exec "AirlineTheme " . g:airline_themes_list[g:randomn]
+else
+    let g:airline_theme = g:airline_themes_list[g:randomn]
+endif
+
 " buffer 编号显示
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " tab 编号显示
