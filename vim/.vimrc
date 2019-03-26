@@ -73,6 +73,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 " Cpp
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+" CSV
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " Debug
 Plug 'cpiger/NeoDebug'
 " Markdown
@@ -197,8 +199,6 @@ Plug 'voldikss/vim-search-me'
 Plug 'iamcco/dict.vim'
 " Fileheader
 Plug 'ahonn/fileheader.nvim'
-" 空白符提示
-Plug 'ntpeters/vim-better-whitespace'
 " Mark + 高亮
 " Plug 'inkarkat/vim-mark'
 " Plug 'inkarkat/vim-ingo-library'
