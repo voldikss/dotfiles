@@ -839,7 +839,7 @@ endfunction
 
 " Note: This is my customized function
 " Feature: Random airline theme
-let g:airline_themes_list = ['aurora', 'base16_spacemacs', 'cool', 'light', 'vice']
+let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
 let g:randomn = Randnum(len(g:airline_themes_list))
 
 if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~")
