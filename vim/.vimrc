@@ -833,14 +833,26 @@ let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '⭡'
 let g:airline_powerline_fonts = 1
 
-function! Randnum(max) abort
-  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % a:max
+function! s:Rand(max) abort
+  if has("reltime")
+    let timerstr=reltimestr(reltime())
+    let number=split(timerstr, '\.')[1]+0
+  elseif has("win32") && &shell =~ 'cmd'
+    let number=system("echo %random%")+0
+  else
+    " best effort, bash and zsh provide $RANDOM
+    " cmd.exe on windows provides %random%, but expand()
+    " does not seem to be able to expand this correctly.
+    " In the worst case, this always returns zero
+    let number=expand("$RANDOM")+0
+  endif
+  return number % a:max
 endfunction
 
 " Note: This is my customized function
 " Feature: Random airline theme
 let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
-let g:randomn = Randnum(len(g:airline_themes_list))
+let g:randomn = s:Rand(len(g:airline_themes_list))
 
 if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~")
     " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
@@ -855,10 +867,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " tab 编号显示
 " let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#left_sep      = ''
-let g:airline#extensions#tabline#left_alt_sep  = ''
-let g:airline#extensioin#tabline#right_sep     = ''
-let g:airline#extensioin#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#left_sep      = '⮀'
+let g:airline#extensions#tabline#left_alt_sep  = '⮁'
+let g:airline#extensioin#tabline#right_sep     = '⮂'
+let g:airline#extensioin#tabline#right_alt_sep = '⮃'
 let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " ]]]
 
