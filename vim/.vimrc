@@ -1019,6 +1019,7 @@ let g:indentLine_color_term = 238
 noremap <silent> <Leader>ff <Esc>:LeaderfFile<CR>
 noremap <silent> <Leader>ft <Esc>:LeaderfBufTagAll<CR>
 noremap <silent> <Leader>fb <Esc>:LeaderfBufferAll<CR>
+noremap <silent> <Leader>fr <Esc>:Leaderf rg<CR>
 
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
@@ -1038,7 +1039,7 @@ let g:Lf_IndexTimeLimit       = 10
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
+let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
 " ]]]
 
 " LeetCode.vim
