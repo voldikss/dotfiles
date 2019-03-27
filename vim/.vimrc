@@ -402,8 +402,9 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " Key Mappings
 " ======================================================================
 " [[[
-" 禁用 "Entering ex mode"
-" nnoremap Q <Nop>
+" Disable `Q` for Entering ex mode
+" type `gQ` to enter the ex mode
+nnoremap Q <Nop>
 
 " 清楚搜索高亮
 inoremap <silent> <esc> <Esc>:noh<CR>
@@ -651,35 +652,35 @@ augroup END
 " [[[
 " InitGitignore: 个人 gitignore 默认配置
 " [[[
-command! InitGitignore call InitGitignore()
-autocmd BufNewFile .gitignore exec "call InitGitignore()"
-function! InitGitignore()
+command! InitGitignore call <SID>InitGitignore()
+autocmd BufNewFile .gitignore exec "call <SID>InitGitignore()"
+function! s:InitGitignore()
     if &filetype ==# 'gitignore'
-        let s:ignore = [
+        let l:ignore = [
                     \'test.*', 'tmp.*',
                     \ '.tags', '*.pyc', '*.o', '*.out', '*.log',
                     \ '.idea/', '/.idea',
                     \ 'build/',
                     \ '__pycache__'
                     \]
-        let s:lines = line('$')
+        let l:lines = line('$')
         normal O
-        call append(0, s:ignore)
+        call append(0, l:ignore)
     endif
 endfunction
 " ]]]
 
 " QuickRun: 一键运行
 " [[[
-command! QuickRun call QuickRun()
-noremap  <silent> <F5>       <Esc>:call QuickRun()<CR>
-noremap! <silent> <F5>       <Esc>:call QuickRun()<CR>
-function! QuickRun()
+command! QuickRun call <SID>QuickRun()
+noremap  <silent> <F5>       <Esc>:call <SID>QuickRun()<CR>
+noremap! <silent> <F5>       <Esc>:call <SID>QuickRun()<CR>
+function! s:QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        call BrowserOpen(expand("%:p"))
+        call <SID>BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
-        exec "MarkdownPreview"
+        :MarkdownPreview
     elseif &filetype == 'tex'
         :AsyncRun xelatex %
     elseif &filetype == 'c'
@@ -704,43 +705,43 @@ endfunction
 
 " FileExplore: 在文件浏览器中打开当前目录
 " [[[
-noremap <silent> <F2> <Esc>:call FileExplore()<CR>
-command! FileExplore call FileExplore()
-function! FileExplore()
+noremap <silent> <F2> <Esc>:call <SID>FileExplore()<CR>
+command! FileExplore call <SID>FileExplore()
+function! s:FileExplore()
     let l:path = expand(getcwd())
-    call BrowserOpen(l:path)
+    call <SID>BrowserOpen(l:path)
 endfunction
 " ]]]
 
 " BrowserOpen: 打开文件或网址
 " [[[
-command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
-function! BrowserOpen(obj)
+command! -nargs=+ BrowserOpen call <SID>BrowserOpen(<q-args>)
+function! s:BrowserOpen(obj)
     " windows(mingw)
     if has('win32') || has('win64') || has('win32unix')
-        let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
+        let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
     elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-        let cmd = 'open ' . a:obj
+        let l:cmd = 'open ' . a:obj
     elseif executable('xdg-open')
-        let cmd = 'xdg-open ' . a:obj
+        let l:cmd = 'xdg-open ' . a:obj
     else
         echoerr "No browser found, please contact the developer."
     endif
 
     if exists('*jobstart')
-        call jobstart(cmd)
+        call jobstart(l:cmd)
     elseif exists('*job_start')
-        call job_start(cmd)
+        call job_start(l:cmd)
     else
-        call system(cmd)
+        call system(l:cmd)
     endif
 endfunction
 " ]]]
 
 " TabMessage: 捕获 Ex 命令的输出
 " [[[
-command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-function! TabMessage(cmd)
+command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
+function! s:TabMessage(cmd)
   redir => message
   silent execute a:cmd
   redir END
@@ -756,8 +757,8 @@ endfunction
 
 " NormalMapForEnter: Normal 模式下回车键映射
 " [[[
-nnoremap <expr> <CR> NormalMapForEnter() . "\<Esc>"
-function! NormalMapForEnter()
+nnoremap <expr> <CR> <SID>NormalMapForEnter() . "\<Esc>"
+function! s:NormalMapForEnter()
     if &filetype ==# 'quickfix'
     " quickfix 窗口正常
         return '\<CR>'
@@ -776,8 +777,8 @@ endfunction
 
 " InsertMapForEnter: Insert 模式下回车键映射
 " [[[
-inoremap <expr> <CR> InsertMapForEnter()
-function! InsertMapForEnter()
+inoremap <expr> <CR> <SID>InsertMapForEnter()
+function! s:InsertMapForEnter()
     " 补全菜单
     if pumvisible()
         return "\<C-y>"
@@ -794,9 +795,10 @@ endfunction
 
 " MapForSemicolonEnter: Insert 模式 ;<CR> 插入 ;
 " [[[
-inoremap <expr> ;<CR> MapForSemicolonEnter()
-function! MapForSemicolonEnter()
-    if (getline('.')[-1:] != ';') && (index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0)
+inoremap <expr> ;<CR> <SID>MapForSemicolonEnter()
+function! s:MapForSemicolonEnter()
+    if (getline('.')[-1:] != ';') && 
+                \(index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
@@ -805,8 +807,8 @@ endfunction
 
 " MapForSemicolonP: Insert 模式 ;p 行尾插入 {}
 " [[[
-inoremap <expr> ;p MapForSemicolonP()
-function! MapForSemicolonP()
+inoremap <expr> ;p <SID>MapForSemicolonP()
+function! s:MapForSemicolonP()
     if index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
         return "\<End>{}\<Left>"
     else
@@ -835,24 +837,24 @@ let g:airline_powerline_fonts = 1
 
 function! s:Rand(max) abort
   if has("reltime")
-    let timerstr=reltimestr(reltime())
-    let number=split(timerstr, '\.')[1]+0
+    let l:timerstr=reltimestr(reltime())
+    let l:number=split(l:timerstr, '\.')[1]+0
   elseif has("win32") && &shell =~ 'cmd'
-    let number=system("echo %random%")+0
+    let l:number=system("echo %random%")+0
   else
     " best effort, bash and zsh provide $RANDOM
     " cmd.exe on windows provides %random%, but expand()
     " does not seem to be able to expand this correctly.
     " In the worst case, this always returns zero
-    let number=expand("$RANDOM")+0
+    let l:number=expand("$RANDOM")+0
   endif
-  return number % a:max
+  return l:number % a:max
 endfunction
 
 " Note: This is my customized function
 " Feature: Random airline theme
 let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
-let g:randomn = s:Rand(len(g:airline_themes_list))
+let g:randomn = <SID>Rand(len(g:airline_themes_list))
 
 if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~")
     " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
@@ -885,10 +887,10 @@ let g:asyncrun_bell = 1
 " 设置 <Leader><Space> 打开/关闭 Quickfix 窗口
 nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
 " 快速 grep
-noremap <silent> <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
+noremap <silent> <Leader>gg :call <SID>Grep(shellescape(expand("<cword>")))<CR>
 " Grep 命令
-command! -nargs=+ Grep call Grep(<q-args>)
-function! Grep(string)
+command! -nargs=+ Grep call <SID>Grep(<q-args>)
+function! s:Grep(string)
     if executable('rg')
         execute "AsyncRun! rg -n " . a:string . " * "
     elseif has('win32') || has('win64')
@@ -1126,8 +1128,9 @@ autocmd FileType vim let b:argwrap_tail_indent_braces = '('
 " 保存文件时 FORMAT
 let g:autoformat_enabled = 0
 " noremap <C-p> <Esc>:call ToggleAutoformat()<CR>
+command! ToggleAutoformat call <SID>ToggleAutoformat()
 autocmd BufWrite * if g:autoformat_enabled | exec "Autoformat" | endif
-function! ToggleAutoformat()
+function! s:ToggleAutoformat()
     if g:autoformat_enabled
         let g:autoformat_enabled = 0
         echo "Autoformat disabled"
