@@ -154,7 +154,7 @@ function vim_install(){
 
     crun nvim -c ':PlugInstall --sync | :qa!'
     crun nvim -c ':UpdateRemotePlugin  | :qa!'
-    crun nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-css coc-json coc-html coc-snippets'
+    crun nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-css coc-json coc-html coc-snippets coc-emmet coc-vimtex'
 }
 
 function python_install(){
