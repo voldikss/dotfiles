@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-26 15:05:04
+" @Last Modified time: 2019-03-28 20:52:13
 
 " ======================================================================
 " Preface
@@ -763,7 +763,7 @@ function! s:NormalMapForEnter()
     " quickfix 窗口正常
         return '\<CR>'
     " 在语句末尾加分号
-    elseif index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+    elseif index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return 'A;'
@@ -798,7 +798,7 @@ endfunction
 inoremap <expr> ;<CR> <SID>MapForSemicolonEnter()
 function! s:MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') && 
-                \(index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0)
+                \(index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
@@ -809,7 +809,7 @@ endfunction
 " [[[
 inoremap <expr> ;p <SID>MapForSemicolonP()
 function! s:MapForSemicolonP()
-    if index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+    if index(['c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
         return "\<End>{}\<Left>"
     else
         return ";p"
