@@ -932,26 +932,26 @@ let g:AutoPairsMapCR              = 'Disable'
 
 " coc
 " [[[
-if exists('g:did_coc_loaded')
-    " Use <Tab> and <S-Tab> for navigate completion list:
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <Tab> and <S-Tab> for navigate completion list:
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-    " snippets jump
-    let g:coc_snippet_next = '<tab>'
+" snippets jump
+let g:coc_snippet_next = '<tab>'
 
-    " Close preview window when completion is done.
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" Close preview window when completion is done.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-    " 语法检查跳转
-    nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
-    nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
-    " 定义声明实现跳转
-    nmap <silent> <Leader>cd <Plug>(coc-definition)
-    nmap <silent> <Leader>ci <Plug>(coc-implementation)
-    nmap <silent> <Leader>cr <Plug>(cc-references)
-    nmap <silent> <Leader>cf <Plug>(coc-fix-current)
-    " Install coc extensions
+" 语法检查跳转
+nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
+nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
+" 定义声明实现跳转
+nmap <silent> <Leader>cd <Plug>(coc-definition)
+nmap <silent> <Leader>ci <Plug>(coc-implementation)
+nmap <silent> <Leader>cr <Plug>(cc-references)
+nmap <silent> <Leader>cf <Plug>(coc-fix-current)
+" Install coc extensions
+if exists("*coc#add_extension")
     call coc#add_extension(
         \'coc-dictionary',
         \'coc-tag',
@@ -967,13 +967,6 @@ if exists('g:did_coc_loaded')
         \'coc-emmet',
         \'coc-vimtex',
         \)
-endif
-" ]]]
-
-" Deoplete
-" [[[
-if exists('g:loaded_deoplete')
-
 endif
 " ]]]
 
