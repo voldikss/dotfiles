@@ -352,6 +352,7 @@ set softtabstop=4
 set smarttab
 set expandtab
 set shiftround
+let g:vim_indent_cont = &sw
 
 set relativenumber number
 
@@ -658,12 +659,18 @@ autocmd BufNewFile .gitignore exec "call <SID>InitGitignore()"
 function! s:InitGitignore()
     if &filetype ==# 'gitignore'
         let l:ignore = [
-                    \'test.*', 'tmp.*',
-                    \ '.tags', '*.pyc', '*.o', '*.out', '*.log',
-                    \ '.idea/', '/.idea',
-                    \ 'build/',
-                    \ '__pycache__'
-                    \]
+            \'test.*',
+            \'tmp.*',
+            \'.tags',
+            \'*.pyc',
+            \'*.o',
+            \'*.out',
+            \'*.log',
+            \'.idea/',
+            \'/.idea',
+            \'build/',
+            \'__pycache__'
+        \]
         let l:lines = line('$')
         normal O
         call append(0, l:ignore)
@@ -799,7 +806,7 @@ endfunction
 inoremap <expr> ;<CR> <SID>MapForSemicolonEnter()
 function! s:MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') && 
-                \(index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0)
+        \(index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
@@ -1046,9 +1053,9 @@ let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
-            \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
-            \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
-            \}
+    \'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
+    \'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
+\}
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight         = 0.30
 let g:Lf_CacheDirectory       = expand('~/.vim/.cache')
@@ -1290,33 +1297,33 @@ let g:vim_markdown_math                = 1
 " 跳转成对括号，此处不能用非递归模式，因为在 mathit.vim 里用了非递归映射
 nmap M %
 autocmd FileType vim let b:match_words =
-            \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
-            \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
-            \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
-            \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
-            \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
+    \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
+    \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
+    \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
+    \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
+    \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
 autocmd FileType python let b:match_words =
-            \ '\<if\>:\<el\%[seif]\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<while\>:\<continue\>:\<break\>,' .
-            \ '\<def\>:\<return\>,' .
-            \ '\<try\>:\<except\>:\<finally\>'
+    \ '\<if\>:\<el\%[seif]\>,' .
+    \ '\<for\>:\<continue\>:\<break\>,' .
+    \ '\<while\>:\<continue\>:\<break\>,' .
+    \ '\<def\>:\<return\>,' .
+    \ '\<try\>:\<except\>:\<finally\>'
 " \< \> 标志单词的边界，此处 ; 左边与别的字符直接接触
 autocmd FileType javascript let b:match_words =
-            \ '=:;,' .
-            \ '\<if\>:\<else\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<while\>:\<continue\>:\<break\>,' .
-            \ '\<function\>:\<return\>,' .
-            \ '\<switch\>:\<case\>:\<default\>,' .
-            \ '\<\\\*\>:\<\*\\\>'
+    \ '=:;,' .
+    \ '\<if\>:\<else\>,' .
+    \ '\<for\>:\<continue\>:\<break\>,' .
+    \ '\<while\>:\<continue\>:\<break\>,' .
+    \ '\<function\>:\<return\>,' .
+    \ '\<switch\>:\<case\>:\<default\>,' .
+    \ '\<\\\*\>:\<\*\\\>'
 autocmd FileType c,cpp let b:match_words =
-            \ '=:;,' .
-            \ '\<if\>:\<else\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
-            \ '\<switch\>:\<case\>:\<default\>,' .
-            \ '\<\\\*\>:\<\*\\\>'
+    \ '=:;,' .
+    \ '\<if\>:\<else\>,' .
+    \ '\<for\>:\<continue\>:\<break\>,' .
+    \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
+    \ '\<switch\>:\<case\>:\<default\>,' .
+    \ '\<\\\*\>:\<\*\\\>'
 " ]]]
 
 " vim-move
@@ -1369,8 +1376,8 @@ let g:signify_vcs_list = [ 'git']
 " Windows 下 VCS 的路径设置
 if !has('unix')
     let g:signify_vcs_cmds = {
-                \ 'git': '"C:\Program Files (x86)\Git\bin\git.exe" diff --no-color --no-ext-diff -U0 -- %f'
-                \ }
+        \'git': '"C:\Program Files (x86)\Git\bin\git.exe" diff --no-color --no-ext-diff -U0 -- %f'
+    \}
 endif
 " ]]]
 
@@ -1409,15 +1416,15 @@ let g:tex_conceal='abdmg'
 if exists("*textobj#user#plugin")
 " datetime
 call textobj#user#plugin('datetime', {
-            \   'date': {
-            \     'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
-            \     'select': ['ad', 'id'],
-            \   },
-            \   'time': {
-            \     'pattern': '\<\d\d:\d\d:\d\d\>',
-            \     'select': ['at', 'it'],
-            \   },
-            \ })
+    \'date': {
+        \'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
+        \'select': ['ad', 'id']
+    \},
+    \'time': {
+        \'pattern': '\<\d\d:\d\d:\d\d\>',
+        \'select': ['at', 'it']
+    \}
+\})
 endif
 " ]]]
 
