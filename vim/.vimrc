@@ -14,6 +14,8 @@
 "    -> Load Plugin
 "    -> Plugin Settings
 " Todo:
+"    -> Lower Vim start time cost: remove some plugins...
+"    -> Extra some language support files from polyglot plugin...
 " ]]]
 
 " ======================================================================
