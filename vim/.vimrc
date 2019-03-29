@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-28 21:13:13
+" @Last Modified time: 2019-03-28 21:19:40
 
 " ======================================================================
 " Preface
@@ -857,7 +857,9 @@ endfunction
 let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
 let g:randomn = <SID>Rand(len(g:airline_themes_list))
 
-if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~")
+" 加载的正是在使用的vimrc而非用来备份的vimrc
+" 确保 airline 要已经加载才能用 AirlineTheme 命令，否则不行，如 `vim ~/.vimrc` 会出错
+if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~") && exists("g:airline_theme")
     " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
     " 但是不能只用这个，因为vim启动的时候并没有加载 AirlineTheme 命令
     exec "AirlineTheme " . g:airline_themes_list[g:randomn]
