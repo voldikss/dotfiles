@@ -1,7 +1,7 @@
 " @Author: voldikss
 " @Date: 2019-01-04 16:32:15
 " @Last Modified by: voldikss
-" @Last Modified time: 2019-03-28 20:52:13
+" @Last Modified time: 2019-03-28 21:13:13
 
 " ======================================================================
 " Preface
@@ -108,7 +108,8 @@ Plug 'aperezdc/vim-template'
 if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'honza/vim-snippets'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
     Plug 'Shougo/echodoc.vim'
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
@@ -923,24 +924,42 @@ let g:AutoPairsMapCR              = 'Disable'
 
 " coc
 " [[[
-" Use <Tab> and <S-Tab> for navigate completion list:
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+if exists('g:did_coc_loaded')
+    " Use <Tab> and <S-Tab> for navigate completion list:
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" snippets jump
-let g:coc_snippet_next = '<tab>'
+    " snippets jump
+    let g:coc_snippet_next = '<tab>'
 
-" Close preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " Close preview window when completion is done.
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" 语法检查跳转
-nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
-nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
-" 定义声明实现跳转
-nmap <silent> <Leader>cd <Plug>(coc-definition)
-nmap <silent> <Leader>ci <Plug>(coc-implementation)
-nmap <silent> <Leader>cr <Plug>(cc-references)
-nmap <silent> <Leader>cf <Plug>(coc-fix-current)
+    " 语法检查跳转
+    nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
+    nmap <silent> <M-p> <Plug>(coc-diagnostic-prev)
+    " 定义声明实现跳转
+    nmap <silent> <Leader>cd <Plug>(coc-definition)
+    nmap <silent> <Leader>ci <Plug>(coc-implementation)
+    nmap <silent> <Leader>cr <Plug>(cc-references)
+    nmap <silent> <Leader>cf <Plug>(coc-fix-current)
+    " Install coc extensions
+    call coc#add_extension(
+        \'coc-dictionary',
+        \'coc-tag',
+        \'coc-word',
+        \'coc-emoji',
+        \'coc-omni',
+        \'coc-pyls',
+        \'coc-tsserver',
+        \'coc-css',
+        \'coc-json',
+        \'coc-html',
+        \'coc-snippets',
+        \'coc-emmet',
+        \'coc-vimtex',
+        \)
+endif
 " ]]]
 
 " Deoplete
