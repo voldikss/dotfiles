@@ -1138,12 +1138,6 @@ nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right>  :SidewaysRight<CR>
 " ]]]
 
-" sparkup
-" [[[
-" default: <c-e>
-let g:sparkupExecuteMapping = '<c-i>'
-" ]]]
-
 " vim-argwrap
 " [[[
 noremap <silent> <Leader>aw <Esc>:ArgWrap<CR>
