@@ -198,7 +198,7 @@ Plug 'Yggdroot/LeaderF'
 " Lightweight web search
 Plug 'voldikss/vim-search-me'
 " Translator
-Plug 'iamcco/dict.vim'
+Plug 'voldikss/dict.vim'
 " Fileheader
 Plug 'ahonn/fileheader.nvim'
 " Mark + 高亮
