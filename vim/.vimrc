@@ -86,7 +86,6 @@ Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
 " HTML
 Plug 'rstacruz/sparkup',{ 'for':'html' }
 Plug 'othree/html5.vim',{'for':'html'}
-Plug 'mattn/emmet-vim',  {'for': ['html','vue','css','wxml']}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
