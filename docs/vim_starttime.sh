@@ -1,7 +1,5 @@
 if [ -f "vim_startup.log" ]; then
     rm ./vim_startup.log
-else
-    ls -la
 fi
 
 vim --startuptime ~/vim_startup.log && awk -F'[ /]' '/\.vim\/plugged/ {print $3,$12}' vim_startup.log | \
