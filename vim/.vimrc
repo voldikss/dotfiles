@@ -14,8 +14,6 @@
 "    -> Load Plugin
 "    -> Plugin Settings
 " Todo:
-"    -> Lower Vim start time cost: remove some plugins...
-"    -> Extra some language support files from polyglot plugin...
 " ]]]
 
 " ======================================================================
@@ -71,55 +69,57 @@ let &packpath = &runtimepath
 call plug#begin('~/.vim/plugged')
 " [[[ Languages && Completion
 " [[[ Languages
-" Language pack
-Plug 'sheerun/vim-polyglot'
+" Reference: https://github.com/sheerun/vim-polyglot/blob/master/README.md
 " Cpp
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 " CSV
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 " Debug
-Plug 'cpiger/NeoDebug'
+Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 " Markdown
-Plug 'godlygeek/tabular', {'for': 'markdown'}
-Plug 'plasticboy/vim-markdown',{'for':'markdown'}
-Plug 'mzlogin/vim-markdown-toc', {'for':'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
+Plug 'godlygeek/tabular',         { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown',   { 'for': 'markdown' }
+Plug 'mzlogin/vim-markdown-toc',  { 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': { -> mkdp#util#install() }}
+Plug 'dhruvasagar/vim-table-mode',{ 'for': 'markdown' }
 " HTML
-Plug 'rstacruz/sparkup',{ 'for':'html' }
-Plug 'othree/html5.vim',{'for':'html'}
-Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
+Plug 'rstacruz/sparkup',   { 'for':'html' }
+Plug 'othree/html5.vim',   { 'for':'html' }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'xml']}
+" Javascript
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " JSON
 Plug 'elzr/vim-json',{'for':'json'}
+" Log
+Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
 " Python
+Plug 'vim-python/python-syntax', {'for':'python'}
 if has('nvim')
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 endif
 " Tex
-Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'lervag/vimtex',                 { 'for': 'tex' }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 " Wolfram
-Plug 'voldikss/vim-mma',{'for':'mma'}
+Plug 'voldikss/vim-mma',              { 'for':'mma'}
 " Language Template
 Plug 'aperezdc/vim-template'
 " ]]]
 
 " [[[ Completion
-" NEOVIM "
+" NeoVim "
 if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'honza/vim-snippets'
-    " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
     Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/neco-vim'
-    Plug 'neoclide/coc-neco'
-" VIM"
+    Plug 'Shougo/neco-vim',   { 'for': 'vim' }
+    Plug 'neoclide/coc-neco', { 'for': 'vim' }
+" Vim"
 else
     "=======================Use Coc================================
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-    Plug 'Shougo/neco-vim'
-    Plug 'neoclide/coc-neco'
+    Plug 'Shougo/neco-vim',   { 'for': 'vim' }
+    Plug 'neoclide/coc-neco', { 'for': 'vim' }
 
     "=======================Use AutoComplPop=======================
     " Plug 'vim-scripts/AutoComplPop'
@@ -142,12 +142,11 @@ endif
 " ]]]
 
 " [[[ ColorScheme && Format && Display && Interface
-" 彩虹括号
-Plug 'luochen1990/rainbow'
 " CSS 颜色高亮
 Plug 'ap/vim-css-color'
 " 格式化
 Plug 'Chiel92/vim-autoformat'
+" 缩进线
 Plug 'Yggdroot/indentLine'
 " 界面
 Plug 'justinmk/vim-dirvish'
@@ -171,29 +170,25 @@ Plug 'guns/xterm-color-table.vim'
 
 " [[[ Integrations && Enhancements
 " [[[ Git
-" Git operators
+" Git common operators
 Plug 'tpope/vim-fugitive'
 " GitHub(fugitive :Gbrose support)
 Plug 'tpope/vim-rhubarb'
 " Git commit browser
 Plug 'cohama/agit.vim'
-" Git diff
+" Git diff/stage/unstage
 Plug 'airblade/vim-gitgutter'
 " Gist
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-" Quick comment
-Plug 'tpope/vim-commentary'
 " ]]]
 
 " [[[ Enhancements
 " 异步运行
 Plug 'skywind3000/asyncrun.vim'
-" sudo
-Plug 'chrisbra/sudoedit.vim'
-" ctag
+" Tags generate
 Plug 'ludovicchabant/vim-gutentags'
-" fuzzy finder
+" Fuzzy finder
 Plug 'Yggdroot/LeaderF'
 " Lightweight web search
 Plug 'voldikss/vim-search-me'
@@ -202,14 +197,10 @@ Plug 'voldikss/dict.vim'
 " Fileheader
 Plug 'ahonn/fileheader.nvim'
 " Mark + 高亮
-" Plug 'inkarkat/vim-mark'
-" Plug 'inkarkat/vim-ingo-library'
-" LeetCode
-Plug 'iandingx/leetcode.vim'
+Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-ingo-library'
 " Keep window when buffer was deleted
 Plug 'moll/vim-bbye'
-" 通过延迟计算来加快fold
-Plug 'Konfekt/FastFold'
 " ]]]
 
 " [[[ Move
@@ -228,6 +219,8 @@ Plug 'andrewradev/sideways.vim'
 " [[[ Edit
 " 增强替换功能，:S
 Plug 'tpope/vim-abolish'
+" Quick comment
+Plug 'tpope/vim-commentary'
 " 增强搜索，快速搜索光标下的词
 Plug 'bronson/vim-visual-star-search'
 " 成对符号编辑
@@ -240,6 +233,8 @@ Plug 'foosoft/vim-argwrap'
 Plug 'jiangmiao/auto-pairs'
 " 对齐
 Plug 'junegunn/vim-easy-align'
+" 多光标编辑
+Plug 'mg979/vim-visual-multi'
 " 文本对象 Text objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
@@ -250,7 +245,6 @@ Plug 'reedes/vim-textobj-sentence'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'wellle/targets.vim'
-Plug 'mg979/vim-visual-multi'
 " ]]]
 " ]]]
 
@@ -581,6 +575,15 @@ command! PC PlugClean
 " Auto Commands
 " ======================================================================
 " [[[
+" ParenthesisColor:
+augroup ParenthesisColor
+    autocmd!
+    autocmd VimEnter,BufWinEnter * syntax match parens1 /[{}]/   | hi parens1 guifg=#FF00FF
+    autocmd VimEnter,BufWinEnter * syntax match parens2 /[()]/   | hi parens2 guifg=#DF8700
+    autocmd VimEnter,BufWinEnter * syntax match parens3 /[<>]/   | hi parens3 guifg=#0087FF
+    autocmd VimEnter,BufWinEnter * syntax match parens4 /[\[\]]/ | hi parens4 guifg=#00FF5F
+augroup END
+
 " Foldmethod: vimrc 采用 marker 折叠方式
 " [[[
 augroup Foldmethod
@@ -998,27 +1001,7 @@ vmap <silent> <Leader>tr <Plug>DictRVSearch
 nmap <Leader>td :Dict<Space>
 " ]]]
 
-" [[[
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-
-let g:markdown_folding = 1
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:sh_fold_enabled= 7
-let g:ruby_fold = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:r_syntax_folding = 1
-let g:rust_fold = 1
-let g:php_folding = 1
-" ]]]
-
-" fileheader
+" fileheader.nvim
 " [[[
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
@@ -1099,40 +1082,9 @@ let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console windo
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
 " ]]]
 
-" rainbow
+" python-syntax
 " [[[
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-    \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-    \'operators': '_,_',
-    \'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-    \'separately': {
-        \'*': {},
-        \'tex': {
-            \'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/']
-        \},
-        \'lisp': {
-            \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3']
-        \},
-        \'vim': {
-            \'parentheses': [
-                \'start=/(/ end=/)/',
-                \'start=/\[/ end=/\]/',
-                \'start=/{/ end=/}/ fold',
-                \'start=/(/ end=/)/ containedin=vimFuncBody',
-                \'start=/\[/ end=/\]/ containedin=vimFuncBody',
-                \'start=/{/ end=/}/ fold containedin=vimFuncBody'
-            \]
-        \},
-        \'html': {
-            \'parentheses': [
-                \'start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'
-            \],
-        \},
-        \'css': 0,
-    \}
-\}
+let g:python_highlight_all = 1
 " ]]]
 
 " sideways.vim
@@ -1228,9 +1180,9 @@ nmap <silent> <C-Down>      <Plug>GitGutterNextHunk
 imap <silent> <C-Up>   <Esc><Plug>GitGutterPrevHunk
 imap <silent> <C-Down> <Esc><Plug>GitGutterNextHunk
 
-highlight GitGutterAdd    guifg=#009900 guibg=237 ctermfg=2 ctermbg=237
-highlight GitGutterChange guifg=#bbbb00 guibg=237 ctermfg=3 ctermbg=237
-highlight GitGutterDelete guifg=#ff2222 guibg=237 ctermfg=1 ctermbg=237
+highlight GitGutterAdd    guifg=#009900 guibg=237
+highlight GitGutterChange guifg=#bbbb00 guibg=237
+highlight GitGutterDelete guifg=#ff2222 guibg=237
 " ]]]
 
 " vim-gutentags
@@ -1254,6 +1206,13 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " ]]]
 
+" vim-javascript
+" [[[
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow  = 1
+" ]]]
+
 " vim-json
 " [[[
 " 避免引号被隐藏
@@ -1269,22 +1228,19 @@ let g:livepreview_previewer = 'zathura'
 " [[[
 " 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
 " 以及其他冲突
-" 解除 <Leader>*
-map <Plug>DisableMarkSearchCurrentNext <Plug>MarkSearchCurrentNext
 " 解除 <Leader>r
-map <Plug>DisableMarkRegex <Plug>MarkRegex
-" 解除 <Leader>n
-map <Plug>DisableMarkClear <Plug>MarkClear
+map <Plug>DisableMarkRegex         <Plug>MarkRegex
 " 解除 <Leader>/
 map <Plug>DisableMarkSearchAnyNext <Plug>MarkSearchAnyNext
 " 解除 <Leader>?
 map <Plug>DisableMarkSearchAnyPrev <Plug>MarkSearchAnyPrev
-" 解除 *
-map <Plug>DisableMarkSearchNext <Plug>MarkSearchNext
-" 解除 #
-map <Plug>DisableMarkSearchPrev <Plug>MarkSearchPrev
+" 解除 */#
+map <Plug>DisableMarkSearchNext    <Plug>MarkSearchNext
+map <Plug>DisableMarkSearchPrev    <Plug>MarkSearchPrev
 " 重新定义映射
-map <Leader>ms                  <Plug>MarkSet
+map ms                             <Plug>MarkSet
+map mn                             <Plug>MarkSearchCurrentNext
+map mc                             <Plug>MarkClear
 " ]]]
 
 " vim-markdown
@@ -1353,12 +1309,6 @@ let g:mundo_preview_height     = 10
 let g:mundo_right              = 0
 let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
-" ]]]
-
-" vim-polyglot
-" [[[
-" to be compatible with vimtex plgin
-let g:polyglot_disabled = ["latex"]
 " ]]]
 
 " vim-startify
