@@ -816,6 +816,53 @@ endfunction
 " ]]]
 
 " ======================================================================
+" Abbreviates
+" ======================================================================
+" [[[
+function! s:SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+
+call s:SetupCommandAbbrs('As', 'AsyncRun')
+call s:SetupCommandAbbrs('CC', 'CocCommand')
+call s:SetupCommandAbbrs('CL', 'CocList')
+call s:SetupCommandAbbrs('CR', 'CocRestart')
+call s:SetupCommandAbbrs('D', 'Dict')
+call s:SetupCommandAbbrs('Gap', 'Git add -p')
+call s:SetupCommandAbbrs('Gd', 'Gvdiff')
+call s:SetupCommandAbbrs('Gl', 'Git lg')
+call s:SetupCommandAbbrs('Gs', 'Gstatus')
+call s:SetupCommandAbbrs('Gc', 'Gcommit -v')
+call s:SetupCommandAbbrs('Gca', 'Gcommit -a -v')
+call s:SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
+call s:SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
+call s:SetupCommandAbbrs('Gpush', 'AsyncRun git push')
+call s:SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
+call s:SetupCommandAbbrs('Grm', 'Gremove')
+call s:SetupCommandAbbrs('Gmv', 'Gmove')
+
+call s:SetupCommandAbbrs('as', 'AsyncRun')
+call s:SetupCommandAbbrs('cc', 'CocCommand')
+call s:SetupCommandAbbrs('cl', 'CocList')
+call s:SetupCommandAbbrs('cr', 'CocRestart')
+call s:SetupCommandAbbrs('d', 'Dict')
+call s:SetupCommandAbbrs('gap', 'Git add -p')
+call s:SetupCommandAbbrs('gd', 'Gvdiff')
+call s:SetupCommandAbbrs('gl', 'Git lg')
+call s:SetupCommandAbbrs('gs', 'Gstatus')
+call s:SetupCommandAbbrs('gc', 'Gcommit -v')
+call s:SetupCommandAbbrs('gca', 'Gcommit -a -v')
+call s:SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
+call s:SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
+call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
+call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
+call s:SetupCommandAbbrs('grm', 'Gremove')
+call s:SetupCommandAbbrs('gmv', 'Gmove')
+" ]]]
+
+" ======================================================================
 " Plugin Settings
 " ======================================================================
 " [[[
@@ -900,11 +947,16 @@ function! s:Grep(string)
 endfunction
 
 " Git operation with vim-fugitive
+command! Gap Git add -p
+command! Gd Gvdiff
+command! Gl Git lg
 command! Gs Gstatus
-command! Gc Gcommit
-command! Gp Git add -p
-command! -nargs=? Gpl execute "AsyncRun git pull" . " " . <q-args>
-command! -nargs=? Gps execute "AsyncRun git push" . " " . <q-args>
+command! Gc Gcommit -v
+command! Gca Gcommit -a -v
+command! Gcaa Gcommit --amend -a -v
+command! Gco execute "AsyncRun git checkout ."
+command! Grm Gremove
+command! Gmv Gmove
 " ]]]
 
 " auto-pairs
