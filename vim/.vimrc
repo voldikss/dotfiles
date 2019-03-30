@@ -370,8 +370,7 @@ set wildignore+=__pycache__,*.egg-info
 " ctags, I use gutentags
 " set tags=./.tags;,.tags
 " 字典补全
-" set dictionary+=~/.vim/dict/words.txt
-set dictionary+=~/.vim/dict/user_defined_words.txt
+set dictionary+=~/.vim/dict/dictionary.txt
 " ]]]
 " ]]]
 
