@@ -178,7 +178,7 @@ Plug 'tpope/vim-rhubarb'
 " Git commit browser
 Plug 'cohama/agit.vim'
 " Git diff
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 " Gist
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
@@ -1221,6 +1221,18 @@ nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " ]]]
 
+" vim-gitgutter
+" [[[
+nmap <silent> <C-Up>        <Plug>GitGutterPrevHunk
+nmap <silent> <C-Down>      <Plug>GitGutterNextHunk
+imap <silent> <C-Up>   <Esc><Plug>GitGutterPrevHunk
+imap <silent> <C-Down> <Esc><Plug>GitGutterNextHunk
+
+highlight GitGutterAdd    guifg=#009900 guibg=237 ctermfg=2 ctermbg=237
+highlight GitGutterChange guifg=#bbbb00 guibg=237 ctermfg=3 ctermbg=237
+highlight GitGutterDelete guifg=#ff2222 guibg=237 ctermfg=1 ctermbg=237
+" ]]]
+
 " vim-gutentags
 " [[[
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
@@ -1349,34 +1361,6 @@ let g:mundo_auto_preview_delay = 10
 let g:polyglot_disabled = ["latex"]
 " ]]]
 
-" vim-signify
-" [[[
-" 跳转
-nmap <silent> <C-up>   <Plug>(signify-prev-hunk)
-nmap <silent> <C-down> <Plug>(signify-next-hunk)
-" ! 改成 ~
-let g:signify_sign_change = '~'
-" 两次按键间隔大于 updatetime 时自动写入磁盘并显示状态
-let g:signify_cursorhold_normal = 1
-let g:signify_cursorhold_insert = 1
-" " 高亮行
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=156
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-" 高亮侧栏符号
-highlight SignifySignAdd    cterm=bold ctermbg=38   ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=38   ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=38   ctermfg=227
-" VCS
-let g:signify_vcs_list = [ 'git']
-" Windows 下 VCS 的路径设置
-if !has('unix')
-    let g:signify_vcs_cmds = {
-        \'git': '"C:\Program Files (x86)\Git\bin\git.exe" diff --no-color --no-ext-diff -U0 -- %f'
-    \}
-endif
-" ]]]
-
 " vim-startify
 " [[[
 noremap <silent> <Space> <Esc>:Startify<CR>
@@ -1447,8 +1431,8 @@ let g:VM_maps["Select All"] = '<leader>A'
 " n      <C-k>             跳转帮助
 " n      <C-h>             :<vim-sideways> SidewaysLeft<CR>
 " n      <C-l>             :<vim-sideways> SidewaysRight<CR>
-" n      <C-left>          <Plug>(signify-prev-hunk)
-" n      <C-right>         <Plug>(signify-next-hunk)
+" n      <C-up>            <Plug>(GitGutterPrevHunk)
+" n      <C-down>          <Plug>(GitGutterNextHunk)
 " n      <M-h>             <Esc><C-w>h
 " n      <M-j>             <Esc><C-w>j
 " n      <M-k>             <Esc><C-w>k
