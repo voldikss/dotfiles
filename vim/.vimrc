@@ -20,9 +20,6 @@
 " Init
 " ======================================================================
 " [[[
-let mapleader   = ';'
-let g:mapleader = ';'
-
 " If Windows
 if has('win32') || has('win64') || has('win32unix')
     " If Windows NeoVim
@@ -38,24 +35,6 @@ if has('win32') || has('win64') || has('win32unix')
 " If Linux
 else
     let g:python3_host_prog='/usr/bin/python3'
-endif
-
-" GVIM Settings
-if has('gui_running')
-    inoremap <S-CR> <Esc>o
-    inoremap <C-CR> <Esc>O
-    set encoding=utf-8
-    " au GUIEnter * simalt ~x " 窗口启动时自动最大化
-    set guioptions-=m " 隐藏菜单栏
-    set guioptions-=T " 隐藏工具栏
-    set guioptions-=L " 隐藏左侧滚动条
-    set guioptions-=r " 隐藏右侧滚动条
-    set guioptions-=b " 隐藏底部滚动条
-    set guifont=Monaco\ for\ Powerline:h10:b
-    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    language messages zh_CN.utf-8
 endif
 " ]]]
 
@@ -111,15 +90,15 @@ Plug 'aperezdc/vim-template'
 if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'honza/vim-snippets'
-    Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
-    Plug 'Shougo/neco-vim',   { 'for': 'vim' }
-    Plug 'neoclide/coc-neco', { 'for': 'vim' }
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
+    Plug 'Shougo/neco-vim',   {'for': 'vim'}
+    Plug 'neoclide/coc-neco', {'for': 'vim'}
 " Vim"
 else
     "=======================Use Coc================================
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-    Plug 'Shougo/neco-vim',   { 'for': 'vim' }
-    Plug 'neoclide/coc-neco', { 'for': 'vim' }
+    Plug 'Shougo/neco-vim',   {'for': 'vim'}
+    Plug 'neoclide/coc-neco', {'for': 'vim'}
 
     "=======================Use AutoComplPop=======================
     " Plug 'vim-scripts/AutoComplPop'
@@ -400,6 +379,9 @@ set dictionary+=~/.vim/dict/user_defined_words.txt
 " Key Mappings
 " ======================================================================
 " [[[
+let mapleader   = ';'
+let g:mapleader = ';'
+
 " Disable `Q` for Entering ex mode
 " type `gQ` to enter the ex mode
 nnoremap Q <Nop>
@@ -576,6 +558,7 @@ command! PC PlugClean
 " ======================================================================
 " [[[
 " ParenthesisColor:
+" [[[
 augroup ParenthesisColor
     autocmd!
     autocmd VimEnter,BufWinEnter * syntax match parens1 /[{}]/   | hi parens1 guifg=#FF00FF
@@ -583,6 +566,7 @@ augroup ParenthesisColor
     autocmd VimEnter,BufWinEnter * syntax match parens3 /[<>]/   | hi parens3 guifg=#0087FF
     autocmd VimEnter,BufWinEnter * syntax match parens4 /[\[\]]/ | hi parens4 guifg=#00FF5F
 augroup END
+" ]]]
 
 " Foldmethod: vimrc 采用 marker 折叠方式
 " [[[
@@ -1365,6 +1349,27 @@ let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
 let g:VM_maps["Select All"] = '<leader>A'
 " ]]]
+" ]]]
+
+" =====================================================================
+" GVim Settings
+" =====================================================================
+" [[[
+if has('gui_running')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    " au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m " 隐藏菜单栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions-=L " 隐藏左侧滚动条
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=b " 隐藏底部滚动条
+    set guifont=Monaco\ for\ Powerline:h10:b
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
+endif
 " ]]]
 
 " =====================================================================
