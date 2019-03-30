@@ -969,20 +969,12 @@ endif
 
 " dict.vim
 " [[[
-" --普通模式下，<Leader>tt 即可翻译光标下的文本，并在命令行回显
-nmap <silent> <Leader>tt <Plug>DictSearch
-" --可视化模式下，<Leader>tt 即可翻译选中的文本，并在命令行回显
-vmap <silent> <Leader>tt <Plug>DictVSearch
-" --普通模式下，<Leader>tw 即可翻译光标下的文本，并且在Dict新窗口显示
-nmap <silent> <Leader>tw <Plug>DictWSearch
-" --可视化模式下，<Leader>tw 即可翻译选中的文本，并且在Dict新窗口显示
-vmap <silent> <Leader>tw <Plug>DictWVSearch
-" --普通模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-nmap <silent> <Leader>tr <Plug>DictRSearch
-" --可视化模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-vmap <silent> <Leader>tr <Plug>DictRVSearch
-" --<Leader>td 命令行翻译
-nmap <Leader>td :Dict<Space>
+nmap <silent> <Leader>t                 <Plug>DictSearch
+vmap <silent> <Leader>t                 <Plug>DictVSearch
+nmap <silent> <Plug>DisableDictWSearch  <Plug>DictWSearch
+vmap <silent> <Plug>DisableDictWVSearch <Plug>DictWVSearch
+nmap <silent> <Plug>DisableDictRSearch  <Plug>DictRSearch
+vmap <silent> <Plug>DisableDictRVSearch <Plug>DictRVSearch
 " ]]]
 
 " fileheader.nvim
@@ -1013,10 +1005,10 @@ let g:indentLine_color_term = 238
 
 " LeaderF
 " [[[
-noremap <silent> <Leader>ff <Esc>:LeaderfFile<CR>
-noremap <silent> <Leader>ft <Esc>:LeaderfBufTagAll<CR>
-noremap <silent> <Leader>fb <Esc>:LeaderfBufferAll<CR>
-noremap <silent> <Leader>fr <Esc>:Leaderf rg<CR>
+noremap <silent> ,f <Esc>:LeaderfFile<CR>
+noremap <silent> ,t <Esc>:LeaderfBufTagAll<CR>
+noremap <silent> ,b <Esc>:LeaderfBufferAll<CR>
+noremap <silent> ,r <Esc>:Leaderf rg<CR>
 
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
@@ -1147,6 +1139,17 @@ let g:cpp_concepts_highlight                     = 1
 " [[[
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
+" ]]]
+
+" vim-easymotion
+" [[[
+map  <Leader><Leader> <Plug>(easymotion-prefix)
+map  <Leader>e        <Plug>(easymotion-bd-w)
+nmap <Leader>e        <Plug>(easymotion-overwin-w)
+map  <Leader>f        <Plug>(easymotion-bd-f)
+nmap <Leader>f        <Plug>(easymotion-overwin-f)
+map  <Leader>l        <Plug>(easymotion-bd-jk)
+nmap <Leader>l        <Plug>(easymotion-overwin-line)
 " ]]]
 
 " vim-exchange
