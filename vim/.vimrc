@@ -911,6 +911,13 @@ function! s:Grep(string)
         execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
     endif
 endfunction
+
+" Git operation with vim-fugitive
+command! Gs Gstatus
+command! Gc Gcommit
+command! Gp Git add -p
+command! -nargs=? Gpl execute "AsyncRun git pull" . " " . <q-args>
+command! -nargs=? Gps execute "AsyncRun git push" . " " . <q-args>
 " ]]]
 
 " auto-pairs
