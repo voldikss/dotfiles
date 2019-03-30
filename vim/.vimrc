@@ -257,6 +257,7 @@ Plug 'mg979/vim-visual-multi'
 " [[[ Misc
 " 中文帮助文档
 Plug 'yianwillis/vimcdoc'
+Plug 'tweekmonster/startuptime.vim'
 " ]]]
 call plug#end()
 " ]]]
