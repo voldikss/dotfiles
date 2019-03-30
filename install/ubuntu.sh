@@ -153,8 +153,6 @@ function vim_install(){
     crun sudo chmod -R 777 $HOME/.vim
 
     crun nvim -c ':PlugInstall --sync | :qa!'
-    crun nvim -c ':UpdateRemotePlugin  | :qa!'
-    crun nvim -c ':CocInstall coc-dictionary coc-tag coc-word coc-emoji coc-omni coc-pyls coc-tsserver coc-css coc-json coc-html coc-snippets'
 }
 
 function python_install(){

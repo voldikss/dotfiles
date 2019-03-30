@@ -1,28 +1,12 @@
-" @Author: voldikss
-" @Date: 2019-01-04 16:32:15
-" @Last Modified by: voldikss
-" @Last Modified time: 2019-03-24 17:53:02
-
-" ======================================================================
-" Preface
-" ======================================================================
-" [[[
-" Sections:
-"    -> Basic Settings
-"    -> Key Mappings
-"    -> Customized Functions
-"    -> Load Plugin
-"    -> Plugin Settings
+" ========================================================================
+" Introduction:
+"    -> Author: voldikss
+"    -> Blog: https://voldikss.github.io
+"    -> GitHub: https://github.com/voldikss
 " Todo:
-" ]]]
+" ========================================================================
 
-" ======================================================================
-" Init
-" ======================================================================
-" [[[
-let mapleader   = ';'
-let g:mapleader = ';'
-
+" Init: Python & Nodejs path [[[1
 " If Windows
 if has('win32') || has('win64') || has('win32unix')
     " If Windows NeoVim
@@ -39,83 +23,43 @@ if has('win32') || has('win64') || has('win32unix')
 else
     let g:python3_host_prog='/usr/bin/python3'
 endif
-
-" GVIM Settings
-if has('gui_running')
-    inoremap <S-CR> <Esc>o
-    inoremap <C-CR> <Esc>O
-    set encoding=utf-8
-    " au GUIEnter * simalt ~x " 窗口启动时自动最大化
-    set guioptions-=m " 隐藏菜单栏
-    set guioptions-=T " 隐藏工具栏
-    set guioptions-=L " 隐藏左侧滚动条
-    set guioptions-=r " 隐藏右侧滚动条
-    set guioptions-=b " 隐藏底部滚动条
-    set guifont=Monaco\ for\ Powerline:h10:b
-    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    language messages zh_CN.utf-8
-endif
-" ]]]
-
-" ======================================================================
-" Load Plugins
-" ======================================================================
-" [[[
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-
+" PluginLoad: [[[1
 call plug#begin('~/.vim/plugged')
-" [[[ Languages && Completion
-" [[[ Languages
-" Language pack
-Plug 'sheerun/vim-polyglot'
-" Cpp
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
-" Debug
-Plug 'cpiger/NeoDebug'
-" Markdown
+" Languages [[[2
+" Reference: https://github.com/sheerun/vim-polyglot/blob/master/README.md
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
+Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
-Plug 'plasticboy/vim-markdown',{'for':'markdown'}
-Plug 'mzlogin/vim-markdown-toc', {'for':'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-Plug 'dhruvasagar/vim-table-mode',{'for':'markdown'}
-" HTML
-Plug 'rstacruz/sparkup',{ 'for':'html' }
-Plug 'othree/html5.vim',{'for':'html'}
-Plug 'mattn/emmet-vim',  {'for': ['html','vue','css','wxml']}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}}
+Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown'}
+Plug 'rstacruz/sparkup', {'for':'html'}
+Plug 'othree/html5.vim', {'for':'html'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
-" JSON
-Plug 'elzr/vim-json',{'for':'json'}
-" Python
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'elzr/vim-json' ,{'for':'json'}
+Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
+Plug 'vim-python/python-syntax', {'for':'python'}
 if has('nvim')
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 endif
-" Tex
-Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-" Wolfram
-Plug 'voldikss/vim-mma',{'for':'mma'}
-" Language Template
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template'
-" ]]]
-
-" [[[ Completion
-" NEOVIM "
+" Completion [[[2
 if has('nvim')
     Plug 'Shougo/denite.nvim'
     Plug 'honza/vim-snippets'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-    Plug 'Shougo/echodoc.vim'
-    Plug 'Shougo/neco-vim'
-    Plug 'neoclide/coc-neco'
-" VIM"
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
+    Plug 'Shougo/neco-vim', {'for': 'vim'}
+    Plug 'neoclide/coc-neco', {'for': 'vim'}
 else
     "=======================Use Coc================================
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-    Plug 'Shougo/neco-vim'
-    Plug 'neoclide/coc-neco'
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': {-> coc#util#install()}}
+    Plug 'Shougo/neco-vim', {'for': 'vim'}
+    Plug 'neoclide/coc-neco', {'for': 'vim'}
 
     "=======================Use AutoComplPop=======================
     " Plug 'vim-scripts/AutoComplPop'
@@ -134,111 +78,53 @@ else
     " Plug 'Shougo/echodoc.vim'
     " let g:deoplete#enable_at_startup = 1
 endif
-" ]]]
-" ]]]
-
-" [[[ ColorScheme && Format && Display && Interface
-" 彩虹括号
-Plug 'luochen1990/rainbow'
-" CSS 颜色高亮
+" Style [[[2
 Plug 'ap/vim-css-color'
-" 格式化
 Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
-" 界面
 Plug 'justinmk/vim-dirvish'
 Plug 'mhinz/vim-startify'
-" 沉浸模式
 Plug 'junegunn/goyo.vim'
-" Statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" 图标
 Plug 'ryanoasis/vim-devicons'
-" undotree 可视化
 Plug 'simnalamburt/vim-mundo'
-" mark 可视化
 Plug 'kshenoy/vim-signature'
-" bookmarks
 Plug 'mattesgroeger/vim-bookmarks'
-" Xterm Color preview
 Plug 'guns/xterm-color-table.vim'
-" ]]]
-
-" [[[ Integrations && Enhancements
-" [[[ Git
-" Git operators
+" Git [[[2
 Plug 'tpope/vim-fugitive'
-" GitHub(fugitive :Gbrose support)
 Plug 'tpope/vim-rhubarb'
-" Git commit browser
 Plug 'cohama/agit.vim'
-" Git diff
-Plug 'mhinz/vim-signify'
-" Gist
+Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-" Quick comment
-Plug 'tpope/vim-commentary'
-" ]]]
-
-" [[[ Enhancements
-" 异步运行
+" Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
-" sudo
-Plug 'chrisbra/sudoedit.vim'
-" ctag
 Plug 'ludovicchabant/vim-gutentags'
-" fuzzy finder
 Plug 'Yggdroot/LeaderF'
-" Lightweight web search
 Plug 'voldikss/vim-search-me'
-" Translator
-Plug 'iamcco/dict.vim'
-" Fileheader
+Plug 'voldikss/dict.vim'
 Plug 'ahonn/fileheader.nvim'
-" 空白符提示
-Plug 'ntpeters/vim-better-whitespace'
-" Mark + 高亮
-" Plug 'inkarkat/vim-mark'
-" Plug 'inkarkat/vim-ingo-library'
-" LeetCode
-Plug 'iandingx/leetcode.vim'
-" Keep window when buffer was deleted
+Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
-" 通过延迟计算来加快fold
-Plug 'Konfekt/FastFold'
-" ]]]
-
-" [[[ Move
-" 增强跳转
+" Move [[[2
 Plug 'easymotion/vim-easymotion'
-" 增强在匹配符之间的跳转，比 matchit 更强大
 Plug 'andymass/vim-matchup'
-" 交换单词等
 Plug 'tommcdo/vim-exchange'
-" 移动整行/块
 Plug 'matze/vim-move'
-" 左右移动函数参数、列表元素等
 Plug 'andrewradev/sideways.vim'
-" ]]]
-
-" [[[ Edit
-" 增强替换功能，:S
+" Edit [[[2
 Plug 'tpope/vim-abolish'
-" 增强搜索，快速搜索光标下的词
+Plug 'tpope/vim-commentary'
 Plug 'bronson/vim-visual-star-search'
-" 成对符号编辑
 Plug 'tpope/vim-surround'
-" 让点范式(.)支持插件中的键映射，特别是对 vim-surround
 Plug 'tpope/vim-repeat'
-" 包装和解包列表、字典等
 Plug 'foosoft/vim-argwrap'
-" 自动闭合括号
 Plug 'jiangmiao/auto-pairs'
-" 对齐
 Plug 'junegunn/vim-easy-align'
-" 文本对象 Text objects
+Plug 'mg979/vim-visual-multi'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-line'
@@ -248,66 +134,51 @@ Plug 'reedes/vim-textobj-sentence'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'wellle/targets.vim'
-Plug 'mg979/vim-visual-multi'
-" ]]]
-" ]]]
-
-" [[[ Misc
-" 中文帮助文档
+" Misc [[[2
 Plug 'yianwillis/vimcdoc'
-" ]]]
+Plug 'tweekmonster/startuptime.vim'
 call plug#end()
-" ]]]
-
-" ======================================================================
-" Basic Settings
-" ======================================================================
-" [[[
-" Generic [[[
+" General: [[[1
+" file & directory & format [[[2
 set history=2000
-
-" 兼容 Dirvish 而关闭，由后面函数实现
-set noautochdir
+set pumheight=15
+set updatetime=100
+set noautochdir " compatible with dirvish
 set modifiable
-
 set autoread
 set autowrite
-set updatetime=100
-set nospell
-
 set nobackup
 set noswapfile
 set nowritebackup
 set undodir=~/.vim/.cache/undo_dir/
 set undofile
-
-" 映射超时和键码超时
+set lazyredraw
+set isfname-==
+set encoding=utf-8
+set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set fileformats=unix,dos,mac
+set nrformats=
+set hidden
+set fileignorecase
+set formatoptions+=m
+set formatoptions+=B
+" key [[[2
 set timeout
 set ttimeout
 set timeoutlen=500
 set ttimeoutlen=20
-
 set mouse=a
 set mousehide
 set selectmode=mouse
-" 不适用系统剪切板，由 <Leader> 组合键实现
 set clipboard=
-
 set backspace=2
 set backspace=eol,start,indent
-
-set whichwrap=b,s,h,l,<,>,[,]
-" ]]]
-
-" Display [[[
-" colorscheme gruvbox
+set whichwrap=b,s,<,>,[,]
+" style [[[2
 colorscheme molokai
-
 set termguicolors
-
-set background=dark
-set t_Co=256
-
+set signcolumn=yes
+set pumheight=15
 set title
 set ruler
 set showcmd
@@ -315,14 +186,9 @@ set noshowmode
 set cursorline
 set laststatus=2
 set shortmess+=c
-
 set scrolloff=6
 set wrap
-" 不设置自动折行
-set textwidth=1000
-" 设置提示线
-" set colorcolumn=100
-
+" match & search [[[2
 set showmatch
 set matchtime=1
 set matchpairs+=<:>
@@ -331,180 +197,112 @@ set matchpairs+=（:）
 set matchpairs+=【:】
 set matchpairs+=“:”
 set matchpairs+=‘:’
-
 set hlsearch
 set incsearch
 set wrapscan
 set ignorecase
 set smartcase
-
-set foldlevel=99
-set conceallevel=0
-
-set autoindent
-set smartindent
-
-" tab -> space
+" tab & space & indent [[[2
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set smarttab
 set expandtab
 set shiftround
-
 set relativenumber number
-
-set lazyredraw
-" ]]]
-
-" Files & Format [[[
-set isfname-==
-" 设置新文件的编码为 UTF-8
-set encoding=utf-8
-" 自动判断编码时，依次尝试以下编码：
-set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-" 使用Unix文件格式
-set fileformats=unix,dos,mac
-" 如遇Unicode值大于255的文本，不必等到空格再折行
-set formatoptions+=m
-" 使用十进制
-set nrformats=
-" 自动保存文件改动跳转其他文件
-set hidden
-" 命令行文件名忽略大小写
-set fileignorecase
-
-" 合并两行中文时，不在中间加空格
-set formatoptions+=B
-" ]]]
-
-" Others [[[
-set completeopt-=noselect
-set completeopt-=preview
-
-" 命令行使用tab时显示单行补全菜单
+set foldlevel=99
+set conceallevel=0
+set autoindent
+set smartindent
+let g:vim_indent_cont = &sw
+" command window [[[2
 set wildmenu
-set wildmode=longest,full
-" 命令行补全文件名/目录等忽略大小写
+set wildmode=list:full
 set wildignorecase
 set wildignore+=.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=__pycache__,*.egg-info
-" ctags, I use gutentags
-" set tags=./.tags;,.tags
-" 字典补全
-" set dictionary+=~/.vim/dict/words.txt
-set dictionary+=~/.vim/dict/user_defined_words.txt
-" ]]]
-" ]]]
-
-" ======================================================================
-" Key Mappings
-" ======================================================================
-" [[[
-" 禁用 "Entering ex mode"
-" nnoremap Q <Nop>
-
-" 清楚搜索高亮
+" complete [[[2
+set dictionary+=~/.vim/dict/dictionary.txt
+" Keymap: [[[1
+let mapleader   = ';'
+let g:mapleader = ';'
+" ClearnSearchHighlight:  [[[2
 inoremap <silent> <esc> <Esc>:noh<CR>
 nnoremap <silent> <esc> <Esc>:noh<CR>
-
-" 行首和行末快捷键
-noremap H ^
-noremap L $
-
-" U 为 redo
-noremap U <C-r>
-" 跳转标记更方便
-noremap ' `
-
-" C-j 跳转函数定义: Go to definition
-noremap <C-j> <C-]>
-noremap <C-W><C-j> <C-W><C-]>
-" C-k 跳转帮助: Help
-noremap <C-k> K
-
-" 平滑滚屏
+" General: [[[2
+noremap  H  ^
+noremap  L  $
+"cannot use noremap
+nmap     M  %
+noremap  U  <C-R>
+noremap  '  `
+inoremap jj <Esc>
+inoremap jk <Esc>
+vnoremap <  <gv
+vnoremap >  >gv
 noremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 noremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-" 查找时将结果置于屏幕中央
+" Jump: [[[2
+noremap <C-j>      <C-]>
+noremap <C-W><C-j> <C-W><C-]>
+noremap <C-k>      K
+" Search: [[[2
 nnoremap <silent> n  nzz
 nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
-nnoremap <silent> g* g*zz
-
-" 切换 buffer
+" BufferOperation: [[[2
 nnoremap <silent> <C-h>     :bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
-" 删除当前 buffer
-noremap <silent> <Leader>d :Bdelete!<CR>
-
-" 切换窗口
-noremap <M-h> <Esc><C-w>h
-noremap <M-j> <Esc><C-w>j
-noremap <M-k> <Esc><C-w>k
-noremap <M-l> <Esc><C-w>l
-
-" 调整窗口大小
+noremap  <silent> <Leader>d :Bdelete!<CR>
+" WindowOperation: [[[2
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+inoremap <M-h> <Esc><C-w>h
+inoremap <M-j> <Esc><C-w>j
+inoremap <M-k> <Esc><C-w>k
+inoremap <M-l> <Esc><C-w>l
+tnoremap <M-h> <C-\><C-n><C-w>h
+tnoremap <M-j> <C-\><C-n><C-w>j
+tnoremap <M-k> <C-\><C-n><C-w>k
+tnoremap <M-l> <C-\><C-n><C-w>l
+" WindowSize: [[[2
 noremap <M-up>    <C-w>+
 noremap <M-down>  <C-w>-
 noremap <M-left>  <C-w>5<
 noremap <M-right> <C-w>5>
-
-" tab 新建
+" TabOperation: [[[2
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 noremap! <silent> <C-t> <Esc>:tabnew<CR>
-" tab 移动
 nnoremap <silent> gj :tabnext<CR>
 nnoremap <silent> gk :tabprevious<CR>
-
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
-
-" 将选中文本块复制至系统剪贴板
+" TextCopy: [[[2
+nnoremap Y y$
 nnoremap <Leader>y "+yy
 vnoremap <Leader>y "+y
 nnoremap <Leader>Y "+y$
-" 设置快捷键将系统剪贴板内容粘贴至 vim
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
-" 复制当前到行尾
-nnoremap Y y$
-
-" 选中
 noremap <silent> <Leader>sa <Esc>ggVG
-" 拷贝
 vnoremap <silent> <C-c> "+y
-" 保存
-nnoremap <silent> <C-s> :update<CR>
-inoremap <silent> <C-s> <ESC>:update<CR>
-vnoremap <silent> <C-s> <ESC>:update<CR>
-
-" 插入模式下的左右移动
+" InsertMode: move [[[2
 inoremap <C-k> <Esc>ka
 inoremap <C-j> <Esc>ja
 inoremap <C-h> <Esc>ha
 inoremap <C-l> <Esc>la
-" 词首词尾: forward; bachward
 inoremap <C-b> <Esc>bi
 inoremap <C-f> <Esc>ea
-" 行首行尾:
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
-" 新开一行
 inoremap <C-o> <Esc>o
-" 往下插入空行
 inoremap <M-o> <Esc>O
-" 删除整行
 inoremap <C-d> <Esc>ddi
-" 清除整行
 inoremap <C-u> <Esc>cc
-" 删除当前到行尾
 inoremap <C-c> <Esc>C
-
-" Insert 模式 ;* 的映射
+" InsertMode: ;* [[[2
 inoremap ;; <End>;
 inoremap ;, <End>,
 inoremap ;a <Home>
@@ -518,229 +316,224 @@ inoremap ;O <Esc>O
 inoremap ;u <C-u>
 inoremap ;c <Esc>cc
 inoremap ;i <Esc>I
-
-" Insert 模式 jj 替换 Esc
-inoremap jj <Esc>
-inoremap jk <Esc>
-
-" 快速退出
-nnoremap <silent> <Leader>q  <Esc>:q<CR>
-" 快速退不做任何保存
-nnoremap <silent> <Leader>Q  <Esc>:qa!<CR>
-" 快速保存
-noremap <silent>  <Leader>w  <Esc>:w<CR>
-" 快速保存并退出
-noremap <silent>  <Leader>W  <Esc>:wq<CR>
-
-" 命令行模式增强
-" Ctrl-a 到行首，-e 到行尾
+" SaveAndQuit: [[[2
+nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>q :q<CR>
+nnoremap <silent> <Leader>Q :qa!<CR>
+nnoremap <silent> Q         :qa!<CR>
+" CommandMode: [[[2
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-" 回溯历史命令时用 C-p 和 C-n 达到像 Up Down 一样的过滤效果
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-" 前进后退一个单词
 cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
-" W 以 sudo 权限写入
-cnoremap ww! w !sudo tee >/dev/null %
-
-" 终端模式
+" TerminalMode: [[[2
 tnoremap <Esc>  <C-\><C-n>
-" 终端打开
-" Windows:
 if has('win32') || has('win64')
-    noremap <silent> <Leader>n <Esc>:vert term bash<CR>
-    noremap <silent> ,n <Esc>:term bash<CR>
-" Linux:
+    nnoremap <silent> <Leader>n :vert term bash<CR>
+    nnoremap <silent> ,n        :term bash<CR>
 else
-    if executable("zsh")
-        noremap <silent> <Leader>n <Esc>:vsplit term://zsh<CR>
-        noremap <silent> ,n <Esc>:edit term://zsh<CR>
-    else
-        noremap <silent> <Leader>n <Esc>:vsplit term://bash<CR>
-        noremap <silent> ,n <Esc>:edit term://bash<CR>
-    endif
+    nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
+    nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
-
-" 安装、更新、删除插件
-nnoremap <silent> <Leader><Leader>i :PlugInstall<CR>
-nnoremap <silent> <Leader><Leader>u :PlugUpdate<CR>
-nnoremap <silent> <Leader><Leader>c :PlugClean<CR>
-command! PU PlugUpdate | PlugUpgrade
-command! PS PlugStatus
-command! PC PlugClean
-" ]]]
-
-" ======================================================================
-" Auto Commands
-" ======================================================================
-" [[[
-" Foldmethod: vimrc 采用 marker 折叠方式
-" [[[
-augroup Foldmethod
+" Customized function [[[2
+noremap  <silent> <F2>  <Esc>:call <SID>FileExplore()<CR>
+noremap  <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
+noremap! <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
+nnoremap <expr>   <CR>  <SID>NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>  <SID>InsertMapForEnter()
+inoremap <expr>   ;<CR> <SID>MapForSemicolonEnter()
+inoremap <expr>   ;p    <SID>MapForSemicolonP()
+" Autocmd: [[[1
+augroup AutocmdGroup
     autocmd!
-    autocmd BufNewFile,BufRead *.vimrc setlocal foldmarker=[[[,]]]
-    autocmd BufNewFile,BufRead *.vimrc setlocal foldmethod=marker
-    autocmd BufNewFile,BufRead *.vimrc setlocal foldtext='+'.substitute(getline(v:foldstart),'[\[\"]','','g').v:folddashes
-augroup END
-" ]]]
-
-" SourceVimrc: 保存 vimrc 时自动 source
-" [[[
-augroup SourceVimrc
-    autocmd!
+" ParenthesisColor: [[[2
+    autocmd VimEnter,BufWinEnter *
+        \ if &filetype != 'tex' |
+            \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
+            \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
+            \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
+            \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
+        \ endif
+" SourceVimrc: [[[2
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
-augroup END
-" ]]]
-
-" DisableAutoComment: 禁止自动插入注释
-" [[[
-augroup DisableAutoComment
-    autocmd!
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-augroup END
-" ]]]
-
-" LineNumber: 不同模式行号显示
-" [[[
-augroup LineNumber
-    autocmd!
-    autocmd InsertEnter * :set norelativenumber number
-    autocmd InsertLeave * :set relativenumber
-augroup END
-" ]]]
-
-" EqualWindowsSize: 终端窗口大小变化时保持所有窗口同等大小
-" [[[
-augroup EqualWindowsSize
-    autocmd!
-    autocmd VimResized * exec "normal \<c-w>="
-augroup END
-" ]]]
-
-" LastPosition: 打开自动定位到最后编辑的位置
-" [[[
-augroup LastPosition
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-augroup END
-" ]]]
-
-" KeywordHighlight: 关键词高亮
-" [[[
-augroup KeywordHighlight
-    autocmd!
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|note\|NOTE\|Note\|XXX\|BUG\|HACK\)')
-    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-augroup END
-" ]]]
-
-" AutoChdir: 自动进入当前文件的目录
-" [[[
-augroup AutoChdir
-    autocmd!
+" DisableAutoComment: [[[2
+    autocmd FileType * set formatoptions-=cro
+" LineNumber: [[[2
+    autocmd InsertEnter * set norelativenumber number
+    autocmd InsertLeave * set relativenumber
+" EqualWindowsSize: [[[2
+    autocmd VimResized * exec "normal \<C-w>="
+" LastPosition: [[[2
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \ exe "normal! g'\"" |
+        \ endif
+" KeywordHighlight: [[[2
+    autocmd Syntax *
+        \ call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+        \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
+        \ call matchadd('Note',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
+" AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
+" GitIgnore: [[[2
+    autocmd BufNewFile .gitignore InitGitignore
+" LaTexLivePreview: [[[2
+    autocmd BufWritePost * 
+        \ if &filetype=='tex' && exists('g:latex_live_preview') |
+        \ exec 'AsyncRun xelatex %' | 
+        \ endif
+" Plugins: [[[2
+    " auto-pairs [[[3
+    autocmd FileType html let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
+    autocmd FileType javascript,css,c,cpp let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
+    autocmd FileType markdown let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
+    autocmd FileType vim let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
+    " coc.nvim [[[3
+    " Close preview window when completion is done.
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " vim-argwrap [[[3
+    autocmd FileType vim let b:argwrap_line_prefix = '\'
+    autocmd FileType vim let b:argwrap_tail_indent_braces = '('
+    " vim-autoformat [[[3
+    autocmd BufWrite * if g:autoformat_enabled | Autoformat | endif
+    " vim-commentary [[[3
+    autocmd FileType python,shell,coffee setlocal commentstring=#\ %s
+    autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
+    " vim-matchup [[[3
+    autocmd FileType vim let b:match_words =
+        \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
+        \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
+        \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
+        \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
+        \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
+    autocmd FileType python let b:match_words =
+        \ '\<if\>:\<el\%[seif]\>,' .
+        \ '\<for\>:\<continue\>:\<break\>,' .
+        \ '\<while\>:\<continue\>:\<break\>,' .
+        \ '\<def\>:\<return\>,' .
+        \ '\<try\>:\<except\>:\<finally\>'
+    " \< \> 标志单词的边界，此处 ; 左边与别的字符直接接触
+    autocmd FileType javascript let b:match_words =
+        \ '=:;,' .
+        \ '\<if\>:\<else\>,' .
+        \ '\<for\>:\<continue\>:\<break\>,' .
+        \ '\<while\>:\<continue\>:\<break\>,' .
+        \ '\<function\>:\<return\>,' .
+        \ '\<switch\>:\<case\>:\<default\>,' .
+        \ '\<\\\*\>:\<\*\\\>'
+    autocmd FileType c,cpp let b:match_words =
+        \ '=:;,' .
+        \ '\<if\>:\<else\>,' .
+        \ '\<for\>:\<continue\>:\<break\>,' .
+        \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
+        \ '\<switch\>:\<case\>:\<default\>,' .
+        \ '\<\\\*\>:\<\*\\\>'
 augroup END
-" ]]]
-" ]]]
+"
+" Command: [[[1
+" Commons: [[[2
+command! InitGitignore    call <SID>InitGitignore()
+command! QuickRun         call <SID>QuickRun()
+command! FileExplore      call <SID>FileExplore()
+command! ToggleAutoformat call <SID>ToggleAutoformat()
+command! LaTexPreview     let g:latex_live_preview=1 | AsyncRun zathura %:r.pdf &
 
-" ======================================================================
-" Functions
-" ======================================================================
-" [[[
-" InitGitignore: 个人 gitignore 默认配置
-" [[[
-command! InitGitignore call InitGitignore()
-autocmd BufNewFile .gitignore exec "call InitGitignore()"
-function! InitGitignore()
+command! -nargs=+ Grep        call <SID>Grep(<q-args>)
+command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
+" GitOperation: [[[2
+command! Gap  Git add -p
+command! Cd   Gcd
+command! Gd   Gvdiff
+command! Gl   Git lg
+command! Gs   Gstatus
+command! Gc   Gcommit -v
+command! Gca  Gcommit -a -v
+command! Gcaa Gcommit --amend -a -v
+command! Gco  execute "AsyncRun -post=copen\ 8 git checkout ."
+command! Grm  Gremove
+command! Gmv  Gmove
+" VimPlug: [[[2
+command! PI  PlugInstall
+command! PU  PlugUpdate
+command! PUU PlugUpgrade
+command! PS  PlugStatus
+command! PC  PlugClean
+" Function: [[[1
+" InitGitignore: default gitignore [[[2
+function! s:InitGitignore()
     if &filetype ==# 'gitignore'
-        let s:ignore = [
-                    \'test.*', 'tmp.*',
-                    \ '.tags', '*.pyc', '*.o', '*.out', '*.log',
-                    \ '.idea/', '/.idea',
-                    \ 'build/',
-                    \ '__pycache__'
-                    \]
-        let s:lines = line('$')
+        let l:ignore = [
+            \'test.*',
+            \'tmp.*',
+            \'.tags',
+            \'*.pyc',
+            \'*.o',
+            \'*.out',
+            \'*.log',
+            \'.idea/',
+            \'/.idea',
+            \'build/',
+            \'__pycache__'
+        \]
+        let l:lines = line('$')
         normal O
-        call append(0, s:ignore)
+        call append(0, l:ignore)
     endif
 endfunction
-" ]]]
-
-" QuickRun: 一键运行
-" [[[
-command! QuickRun call QuickRun()
-noremap  <silent> <F5>       <Esc>:call QuickRun()<CR>
-noremap! <silent> <F5>       <Esc>:call QuickRun()<CR>
-function! QuickRun()
+" QuickRun: one key to run [[[2
+function! s:QuickRun()
     exec 'w'
     if &filetype == 'html' || &filetype == 'htmldjango'
-        call BrowserOpen(expand("%:p"))
+        call <SID>BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
-        exec "MarkdownPreview"
+        MarkdownPreview
     elseif &filetype == 'tex'
-        :AsyncRun xelatex %
+        let g:latex_live_preview = 1 
+        AsyncRun xelatex % && zathura %:r.pdf &
     elseif &filetype == 'c'
-        :AsyncRun gcc -g % && ./a.out
+        AsyncRun -post=copen\ 8 gcc -g % && ./a.out
     elseif &filetype == 'cpp'
-        :AsyncRun g++ -g % && ./a.out
+        AsyncRun -post=copen\ 8 g++ -g % && ./a.out
     elseif &filetype == 'sh'
-        :AsyncRun bash %
+        AsyncRun -post=copen\ 8 bash %
     elseif &filetype == 'python'
         if has("unix")
-            " unix
-            :AsyncRun -raw python3 %
+            AsyncRun -raw -post=copen\ 8 python3 %
         else
-            " windows
-            :AsyncRun -raw python %
+            AsyncRun -raw -post=copen\ 8 python %
         endif
     else
-        echo "Not supported filetype"
+        echo "Not supported filetype:" . " " . &filetype
     endif
 endfunction
-" ]]]
-
-" FileExplore: 在文件浏览器中打开当前目录
-" [[[
-noremap <silent> <F2> <Esc>:call FileExplore()<CR>
-command! FileExplore call FileExplore()
-function! FileExplore()
+" FileExplore: open cwd in file explore [[[2
+function! s:FileExplore()
     let l:path = expand(getcwd())
-    call BrowserOpen(l:path)
+    call <SID>BrowserOpen(l:path)
 endfunction
-" ]]]
-
-" BrowserOpen: 打开文件或网址
-" [[[
-command! -nargs=+ BrowserOpen call BrowserOpen(<q-args>)
-function! BrowserOpen(obj)
+" BrowserOpen: open file or url [[[2
+function! s:BrowserOpen(obj)
     " windows(mingw)
     if has('win32') || has('win64') || has('win32unix')
-        let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
+        let l:cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
     elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-        let cmd = 'open ' . a:obj
+        let l:cmd = 'open ' . a:obj
     elseif executable('xdg-open')
-        let cmd = 'xdg-open ' . a:obj
+        let l:cmd = 'xdg-open ' . a:obj
     else
         echoerr "No browser found, please contact the developer."
     endif
 
-    if exists('*jobstart')
-        call jobstart(cmd)
-    elseif exists('*job_start')
-        call job_start(cmd)
-    else
-        call system(cmd)
-    endif
+    exec 'AsyncRun' . ' ' . l:cmd
 endfunction
-" ]]]
-
-" TabMessage: 捕获 Ex 命令的输出
-" [[[
-command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-function! TabMessage(cmd)
+" TabMessage: capture command output [[[2
+function! s:TabMessage(cmd)
   redir => message
   silent execute a:cmd
   redir END
@@ -752,36 +545,29 @@ function! TabMessage(cmd)
     silent put=message
   endif
 endfunction
-" ]]]
-
-" NormalMapForEnter: Normal 模式下回车键映射
-" [[[
-nnoremap <expr> <CR> NormalMapForEnter() . "\<Esc>"
-function! NormalMapForEnter()
+" SetupCommandAbbrs: [[[2
+function! s:SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+" NormalMapForEnter: <CR> [[[2
+function! s:NormalMapForEnter()
     if &filetype ==# 'quickfix'
-    " quickfix 窗口正常
         return '\<CR>'
-    " 在语句末尾加分号
-    elseif index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+    elseif index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return 'A;'
         endif
-    " 阻止 <CR> 进入下一行
     else
-        return '\<Nop>'
+        return '\<Nop>' " prevent entering to the next line
     endif
 endfunction
-" ]]]
-
-" InsertMapForEnter: Insert 模式下回车键映射
-" [[[
-inoremap <expr> <CR> InsertMapForEnter()
-function! InsertMapForEnter()
-    " 补全菜单
+" InsertMapForEnter: <CR> [[[2
+function! s:InsertMapForEnter()
     if pumvisible()
         return "\<C-y>"
-    " 自动缩进大括号 {}
     elseif strcharpart(getline('.'),getpos('.')[2]-1,1) == '}'
         return "\<CR>\<Esc>O"
     elseif strcharpart(getline('.'),getpos('.')[2]-1,2) == '</'
@@ -790,76 +576,40 @@ function! InsertMapForEnter()
         return "\<CR>"
     endif
 endfunction
-" ]]]
-
-" MapForSemicolonEnter: Insert 模式 ;<CR> 插入 ;
-" [[[
-inoremap <expr> ;<CR> MapForSemicolonEnter()
-function! MapForSemicolonEnter()
-    if (getline('.')[-1:] != ';') && (index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0)
+" MapForSemicolonEnter: ;<CR> [[[2
+function! s:MapForSemicolonEnter()
+    if (getline('.')[-1:] != ';') &&
+        \(index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
 endfunction
-" ]]]
-
-" MapForSemicolonP: Insert 模式 ;p 行尾插入 {}
-" [[[
-inoremap <expr> ;p MapForSemicolonP()
-function! MapForSemicolonP()
-    if index(['c', 'cpp', 'cs', 'javascript', 'java'],&filetype) >= 0
+" MapForSemicolonP: ;p [[[2
+function! s:MapForSemicolonP()
+    if index(['c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
         return "\<End>{}\<Left>"
     else
         return ";p"
     endif
 endfunction
-" ]]]
-" ]]]
-
-" ======================================================================
-" Plugin Settings
-" ======================================================================
-" [[[
-" airline
-" [[[
-let g:airline_left_sep        = ''
-let g:airline_left_alt_sep    = ''
-let g:airline_right_sep       = ''
-let g:airline_right_alt_sep   = ''
-let g:airline_powerline_fonts = 1
-let g:airline_theme           = 'aurora'
-" let g:airline_theme = 'base16_spacemacs'
-" let g:airline_theme = 'cool'
-" let g:airline_theme = 'light'
-" let g:airline_theme = 'vice'
-"
-" buffer 编号显示
-let g:airline#extensions#tabline#buffer_nr_show = 1
-" tab 编号显示
-" let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#enabled       = 1
-let g:airline#extensions#tabline#left_sep      = ''
-let g:airline#extensions#tabline#left_alt_sep  = ''
-let g:airline#extensioin#tabline#right_sep     = ''
-let g:airline#extensioin#tabline#right_alt_sep = ''
-let g:airline#extensions#tabline#formatter     = 'unique_tail'
-" ]]]
-
-" AsyncRun
-" [[[
-" 自动打开 quickfix window ，高度为 10
-let g:asyncrun_open = 8
-" 看到 Python 实时输出
-let $PYTHONUNBUFFERED=1
-" 任务结束时候响铃提醒
-let g:asyncrun_bell = 1
-" 设置 <Leader><Space> 打开/关闭 Quickfix 窗口
-nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
-" 快速 grep
-noremap <silent> <Leader>gg :call Grep(shellescape(expand("<cword>")))<CR>
-" Grep 命令
-command! -nargs=+ Grep call Grep(<q-args>)
-function! Grep(string)
+" Random: [[[2
+function! s:Rand(max) abort
+  if has("reltime")
+    let l:timerstr=reltimestr(reltime())
+    let l:number=split(l:timerstr, '\.')[1]+0
+  elseif has("win32") && &shell =~ 'cmd'
+    let l:number=system("echo %random%")+0
+  else
+    " best effort, bash and zsh provide $RANDOM
+    " cmd.exe on windows provides %random%, but expand()
+    " does not seem to be able to expand this correctly.
+    " In the worst case, this always returns zero
+    let l:number=expand("$RANDOM")+0
+  endif
+  return l:number % a:max
+endfunction
+" Grep: [[[2
+function! s:Grep(string)
     if executable('rg')
         execute "AsyncRun! rg -n " . a:string . " * "
     elseif has('win32') || has('win64')
@@ -868,39 +618,116 @@ function! Grep(string)
         execute "AsyncRun! -cwd=<root> grep -n -s -R " . a:string . " * " . "--exclude='*.so' --exclude='.git' --exclude='.idea' --exclude='.cache' --exclude='.IntelliJIdea' --exclude='*.py[co]'"
     endif
 endfunction
-" ]]]
+" ToggleAutoformat: [[[2
+function! s:ToggleAutoformat()
+    if g:autoformat_enabled
+        let g:autoformat_enabled = 0
+        echo "Autoformat disabled"
+    else
+        let g:autoformat_enabled = 1
+        echo "Autoformat enabled"
+    endif
+endfunction
+" Abbreviate: [[[1
+call s:SetupCommandAbbrs('As', 'AsyncRun -post=copen\ 8')
+call s:SetupCommandAbbrs('CC', 'CocCommand')
+call s:SetupCommandAbbrs('CI', 'CocInstall')
+call s:SetupCommandAbbrs('CU', 'CocUninstall')
+call s:SetupCommandAbbrs('CL', 'CocList')
+call s:SetupCommandAbbrs('CR', 'CocRestart')
+call s:SetupCommandAbbrs('D', 'Dict')
+call s:SetupCommandAbbrs('Gap', 'Git add -p')
+call s:SetupCommandAbbrs('Cd', 'Gcd')
+call s:SetupCommandAbbrs('Gd', 'Gvdiff')
+call s:SetupCommandAbbrs('Gl', 'Git lg')
+call s:SetupCommandAbbrs('Gs', 'Gstatus')
+call s:SetupCommandAbbrs('Gc', 'Gcommit -v')
+call s:SetupCommandAbbrs('Gca', 'Gcommit -a -v')
+call s:SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
+call s:SetupCommandAbbrs('Gco', 'AsyncRun -post=copen\ 8 git checkout .')
+call s:SetupCommandAbbrs('Gpush', 'AsyncRun -post=copen\ 8 git push')
+call s:SetupCommandAbbrs('Gpull', 'AsyncRun -post=copen\ 8 git pull')
+call s:SetupCommandAbbrs('Grm', 'Gremove')
+call s:SetupCommandAbbrs('Gmv', 'Gmove')
 
-" auto-pairs
-" [[[
-autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
-autocmd FileType javascript,css,c,cpp let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
-autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
-autocmd FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
+call s:SetupCommandAbbrs('as', 'AsyncRun -post=copen\ 8')
+call s:SetupCommandAbbrs('cc', 'CocCommand')
+call s:SetupCommandAbbrs('ci', 'CocInstall')
+call s:SetupCommandAbbrs('cu', 'CocUninstall')
+call s:SetupCommandAbbrs('cl', 'CocList')
+call s:SetupCommandAbbrs('cr', 'CocRestart')
+call s:SetupCommandAbbrs('d', 'Dict')
+call s:SetupCommandAbbrs('gap', 'Git add -p')
+call s:SetupCommandAbbrs('gd', 'Gvdiff')
+call s:SetupCommandAbbrs('gl', 'Git lg')
+call s:SetupCommandAbbrs('gs', 'Gstatus')
+call s:SetupCommandAbbrs('gc', 'Gcommit -v')
+call s:SetupCommandAbbrs('gca', 'Gcommit -a -v')
+call s:SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
+call s:SetupCommandAbbrs('gco', 'AsyncRun -post=copen\ 8 git checkout .')
+call s:SetupCommandAbbrs('gpush', 'AsyncRun -post=copen\ 8 git push')
+call s:SetupCommandAbbrs('gpull', 'AsyncRun -post=copen\ 8 git pull')
+call s:SetupCommandAbbrs('grm', 'Gremove')
+call s:SetupCommandAbbrs('gmv', 'Gmove')
+" PluginConfig: [[[1
+" airline [[[2
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep      = '⮀'
+let g:airline_left_alt_sep  = '⮁'
+let g:airline_right_sep     = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '⭡'
+let g:airline_powerline_fonts = 1
 
-" 防止 C-h 被映射为 <BS>
-let g:AutoPairsMapCh    = 0
-let g:AutoPairsMapSpace = 0
-" Alt-e 快速加括号
-let g:AutoPairsShortcutFastWrap = '<M-e>'
-" Alt-p 开关插件
-let g:AutoPairsShortcutToggle = 'Disable'
+" Random airline theme
+let g:airline_themes_list = ['aurora', 'badwolf', 'dark', 'light', 'xtermlight']
+let g:randomn = <SID>Rand(len(g:airline_themes_list))
+
+" 加载的正是在使用的vimrc而非用来备份的vimrc
+" 确保 airline 要已经加载才能用 AirlineTheme 命令，否则不行，如 `vim ~/.vimrc` 会出错
+if expand("%:t") == '.vimrc' && expand("%:p:h") ==# expand("~") && exists("g:airline_theme")
+    " 保存 vimrc 的时候会自动source, 用下面的方法会报错，所以这里用命令
+    " 但是不能只用这个，因为vim启动的时候并没有加载 AirlineTheme 命令
+    exec "AirlineTheme " . g:airline_themes_list[g:randomn]
+else
+    let g:airline_theme = g:airline_themes_list[g:randomn]
+endif
+
+" buffer 编号显示
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" tab 编号显示
+" let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#enabled       = 1
+let g:airline#extensions#tabline#left_sep      = '⮀'
+let g:airline#extensions#tabline#left_alt_sep  = '⮁'
+let g:airline#extensioin#tabline#right_sep     = '⮂'
+let g:airline#extensioin#tabline#right_alt_sep = '⮃'
+let g:airline#extensions#tabline#formatter     = 'unique_tail'
+" AsyncRun [[[2
+nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
+" 看到 Python 实时输出
+let $PYTHONUNBUFFERED=1
+" airline 集成
+let g:asyncrun_status = ''
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+" auto-pairs [[[2
 " 解除一系列映射键
 let g:AutoPairsShortcutJump       = 'Disable'
 let g:AutoPairsShortcutBackInsert = 'Disable'
+let g:AutoPairsShortcutToggle     = 'Disable'
 let g:AutoPairsMapCR              = 'Disable'
-" ]]]
-
-" coc
-" [[[
-" Use <Tab> and <S-Tab> for navigate completion list:
+" 防止 C-h 被映射为 <BS>
+let g:AutoPairsMapCh    = 0
+let g:AutoPairsMapSpace = 0
+" coc.nvim [[[2
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " snippets jump
 let g:coc_snippet_next = '<tab>'
-
-" Close preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " 语法检查跳转
 nmap <silent> <M-n> <Plug>(coc-diagnostic-next)
@@ -910,55 +737,33 @@ nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
 nmap <silent> <Leader>cr <Plug>(cc-references)
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
-" ]]]
 
-" Deoplete
-" [[[
-if exists('g:loaded_deoplete')
-
+" Install coc extensions
+if exists("*coc#add_extension")
+    call coc#add_extension(
+        \'coc-dictionary',
+        \'coc-tag',
+        \'coc-word',
+        \'coc-emoji',
+        \'coc-omni',
+        \'coc-pyls',
+        \'coc-tsserver',
+        \'coc-css',
+        \'coc-json',
+        \'coc-html',
+        \'coc-snippets',
+        \'coc-emmet',
+        \'coc-vimtex',
+        \)
 endif
-" ]]]
-
-" dict.vim
-" [[[
-" --普通模式下，<Leader>tt 即可翻译光标下的文本，并在命令行回显
-nmap <silent> <Leader>tt <Plug>DictSearch
-" --可视化模式下，<Leader>tt 即可翻译选中的文本，并在命令行回显
-vmap <silent> <Leader>tt <Plug>DictVSearch
-" --普通模式下，<Leader>tw 即可翻译光标下的文本，并且在Dict新窗口显示
-nmap <silent> <Leader>tw <Plug>DictWSearch
-" --可视化模式下，<Leader>tw 即可翻译选中的文本，并且在Dict新窗口显示
-vmap <silent> <Leader>tw <Plug>DictWVSearch
-" --普通模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-nmap <silent> <Leader>tr <Plug>DictRSearch
-" --可视化模式下，<Leader>tr 即可翻译光标下的单词，并替换为翻译的结果
-vmap <silent> <Leader>tr <Plug>DictRVSearch
-" --<Leader>td 命令行翻译
-nmap <Leader>td :Dict<Space>
-" ]]]
-
-" [[[
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-
-let g:markdown_folding = 1
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:sh_fold_enabled= 7
-let g:ruby_fold = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:r_syntax_folding = 1
-let g:rust_fold = 1
-let g:php_folding = 1
-" ]]]
-
-" fileheader
-" [[[
+" dict.vim [[[2
+nmap <silent> ,t                 <Plug>DictSearch
+vmap <silent> ,t                 <Plug>DictVSearch
+nmap <silent> <Plug>DisableDictWSearch  <Plug>DictWSearch
+vmap <silent> <Plug>DisableDictWVSearch <Plug>DictWVSearch
+nmap <silent> <Plug>DisableDictRSearch  <Plug>DictRSearch
+vmap <silent> <Plug>DisableDictRVSearch <Plug>DictRVSearch
+" fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
 let g:fileheader_author='voldikss'
@@ -968,34 +773,26 @@ let g:fileheader_by_git_config = 1
 let g:fileheader_new_line_at_end = 1
 let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
-" ]]]
-
-" goyo.vim
-" [[[
+" goyo.vim [[[2
 let g:goyo_width = '50%'
 let g:goyo_height = '100%'
 let g:goyo_linenr = 1
-" ]]]
-
-" indentLine
-" [[[
+" indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-" ]]]
-
-" LeaderF
-" [[[
-noremap <silent> <Leader>ff <Esc>:LeaderfFile<CR>
-noremap <silent> <Leader>ft <Esc>:LeaderfBufTagAll<CR>
-noremap <silent> <Leader>fb <Esc>:LeaderfBufferAll<CR>
+" LeaderF [[[2
+let g:Lf_ShortcutF = '<Leader>f'
+let g:Lf_ShortcutB = '<Leader>b'
+noremap <silent> <Leader>t :LeaderfBufTagAll<CR>
+noremap <silent> <Leader>r :Leaderf rg<CR>
 
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_RootMarkers    = ['.project', '.root', '.svn', '.git']
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_WildIgnore = {
-            \ 'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
-            \ 'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
-            \}
+    \'dir': ['.svn','.git','.hg','.cache','.idea','.android','.gradle','.IntelliJIdea*'],
+    \'file': ['*.sw?','~$*','*.exe','*.o','*.so','*.py[co]']
+\}
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight         = 0.30
 let g:Lf_CacheDirectory       = expand('~/.vim/.cache')
@@ -1007,106 +804,35 @@ let g:Lf_IndexTimeLimit       = 10
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 " let g:Lf_PreviewCode = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
-" ]]]
-
-" LeetCode.vim
-" [[[
-let g:leetcode_solution_filetype = 'python'
-" ]]]
-
-" markdown-preview.nvim
-" [[[
+let g:Lf_StlSeparator   = {'left': '⮀', 'right': '⮂', 'font': ''}
+" markdown-preview.nvim [[[2
 let g:mkdp_auto_close = 0
-"" ]]]
-
-" NeoDebug
-" [[[
-let g:neodbg_keymap_continue           = '<F5>'         " run or continue
-let g:neodbg_keymap_toggle_breakpoint  = '<F9>'         " toggle breakpoint on current line
-let g:neodbg_keymap_next               = '<F10>'        " next
-let g:neodbg_keymap_terminate_debugger = '<F12>'        " terminate debugger
+"" NeoDebug [[[2
+let g:neodbg_keymap_continue           = '<F5>'   " run or continue
+let g:neodbg_keymap_toggle_breakpoint  = '<F9>'   " toggle breakpoint on current line
+let g:neodbg_keymap_next               = '<F10>'  " next
+let g:neodbg_keymap_terminate_debugger = '<F12>'  " terminate debugger
 " following are unuseful
-let g:neodbg_keymap_run_to_cursor      = '<Nop1>'      " run to cursor (tb and c)
-let g:neodbg_keymap_jump               = '<Nop2>'    " set next statement (tb and jump)
-let g:neodbg_keymap_step_into          = '<Nop3>'        " step into
-let g:neodbg_keymap_step_out           = '<Nop4>'      " setp out
-let g:neodbg_keymap_print_variable     = '<Nop5>'        " view variable under the cursor
-let g:neodbg_keymap_stop_debugging     = '<Nop6>'        " stop debugging (kill)
-let g:neodbg_keymap_toggle_console_win = '<Nop7>'         " toggle console window
+let g:neodbg_keymap_run_to_cursor      = '<Nop1>' " run to cursor (tb and c)
+let g:neodbg_keymap_jump               = '<Nop2>' " set next statement (tb and jump)
+let g:neodbg_keymap_step_into          = '<Nop3>' " step into
+let g:neodbg_keymap_step_out           = '<Nop4>' " setp out
+let g:neodbg_keymap_print_variable     = '<Nop5>' " view variable under the cursor
+let g:neodbg_keymap_stop_debugging     = '<Nop6>' " stop debugging (kill)
+let g:neodbg_keymap_toggle_console_win = '<Nop7>' " toggle console window
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
-" ]]]
-
-" rainbow
-" [[[
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-    \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-    \'operators': '_,_',
-    \'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-    \'separately': {
-        \'*': {},
-        \'tex': {
-            \'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/']
-        \},
-        \'lisp': {
-            \'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3']
-        \},
-        \'vim': {
-            \'parentheses': [
-                \'start=/(/ end=/)/',
-                \'start=/\[/ end=/\]/',
-                \'start=/{/ end=/}/ fold',
-                \'start=/(/ end=/)/ containedin=vimFuncBody',
-                \'start=/\[/ end=/\]/ containedin=vimFuncBody',
-                \'start=/{/ end=/}/ fold containedin=vimFuncBody'
-            \]
-        \},
-        \'html': {
-            \'parentheses': [
-                \'start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'
-            \],
-        \},
-        \'css': 0,
-    \}
-\}
-" ]]]
-
-" sideways.vim
-" [[[
+" python-syntax [[[2
+let g:python_highlight_all = 1
+" sideways.vim [[[2
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
-nnoremap <silent> <C-right>  :SidewaysRight<CR>
-" ]]]
-
-" sparkup
-" [[[
-" default: <c-e>
-let g:sparkupExecuteMapping = '<c-i>'
-" ]]]
-
-" vim-argwrap
-" [[[
-noremap <silent> <Leader>aw <Esc>:ArgWrap<CR>
-autocmd FileType vim let b:argwrap_line_prefix = '\'
-autocmd FileType vim let b:argwrap_tail_indent_braces = '('
-" ]]]
-
-" vim-autoformat
-" [[[
+nnoremap <silent> <C-right> :SidewaysRight<CR>
+" sparkup [[[2
+let g:sparkupExecuteMapping = '<Tab>'
+" vim-argwrap [[[2
+noremap <silent> <Leader>aw :ArgWrap<CR>
+" vim-autoformat [[[2
 " 保存文件时 FORMAT
 let g:autoformat_enabled = 0
-" noremap <C-p> <Esc>:call ToggleAutoformat()<CR>
-autocmd BufWrite * if g:autoformat_enabled | exec "Autoformat" | endif
-function! ToggleAutoformat()
-    if g:autoformat_enabled
-        let g:autoformat_enabled = 0
-        echo "Autoformat disabled"
-    else
-        let g:autoformat_enabled = 1
-        echo "Autoformat enabled"
-    endif
-endfunction
 noremap  <silent> <F6> <Esc>:Autoformat<CR>
 noremap! <silent> <F6> <Esc>:Autoformat<CR>
 let g:autoformat_autoindent            = 0
@@ -1114,58 +840,51 @@ let g:autoformat_retab                 = 0
 let g:autoformat_remove_trailing_space = 0
 " for c, cpp, c#, object-c
 let g:formatterpath=['/home/voldikss/Applications/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-18.04/bin']
-" ]]]
-
-" vim-bookmarks
-" [[[
+" vim-bookmarks [[[2
 " 重新定义按键映射
 let g:bookmark_no_default_key_mappings = 1
-nmap <silent> <Leader>bm <Plug>BookmarkToggle
-nmap <silent> <Leader>bi <Plug>BookmarkAnnotate
-nmap <silent> <Leader>ba <Plug>BookmarkShowAll
-nmap <silent> <Leader>bn <Plug>BookmarkNext
-nmap <silent> <Leader>bp <Plug>BookmarkPrev
-nmap <silent> <Leader>bc <Plug>BookmarkClearAll
-" 显示
-highlight BookmarkSign ctermbg=NONE ctermfg=160
-highlight BookmarkLine ctermbg=194  ctermfg=NONE
+nmap <silent> ,bm <Plug>BookmarkToggle
+nmap <silent> ,bi <Plug>BookmarkAnnotate
+nmap <silent> ,ba <Plug>BookmarkShowAll
+nmap <silent> ,bn <Plug>BookmarkNext
+nmap <silent> ,bp <Plug>BookmarkPrev
+nmap <silent> ,bc <Plug>BookmarkClearAll
 let g:bookmark_sign            = '⚑'
 let g:bookmark_highlight_lines = 1
 " 缓存地址
 let g:bookmark_auto_save_file = $HOME . '/.vim/.cache/vim_bookmarks'
-" ]]]
-
-" vim-commentary
-" [[[
-autocmd FileType python,shell,coffee setlocal commentstring=#\ %s
-autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
-" ]]]
-
-" vim-cpp-enhanced-highlight
-" [[[
+" vim-cpp-enhanced-highlight [[[2
 let g:cpp_class_scope_highlight                  = 1
 let g:cpp_member_variable_highlight              = 1
 let g:cpp_class_decl_highlight                   = 1
 let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_concepts_highlight                     = 1
-" ]]]
-
-" vim-easy-align
-" [[[
+" vim-easy-align [[[2
 xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
-" ]]]
-
-" vim-exchange
-" [[[
+" vim-easymotion [[[2
+map  <Plug>NoPrefix <Plug>(easymotion-prefix)
+map  ,e      <Plug>(easymotion-bd-w)
+nmap ,e      <Plug>(easymotion-overwin-w)
+map  ,f      <Plug>(easymotion-bd-f)
+nmap ,f      <Plug>(easymotion-overwin-f)
+map  ,l      <Plug>(easymotion-bd-jk)
+nmap ,l      <Plug>(easymotion-overwin-line)
+" vim-exchange [[[2
 nmap <silent> cx  <Plug>(Exchange)
 xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
-" ]]]
+" vim-gitgutter [[[2
+nmap <silent> <C-Up>        <Plug>GitGutterPrevHunk
+nmap <silent> <C-Down>      <Plug>GitGutterNextHunk
+imap <silent> <C-Up>   <Esc><Plug>GitGutterPrevHunk
+imap <silent> <C-Down> <Esc><Plug>GitGutterNextHunk
 
-" vim-gutentags
-" [[[
+highlight GitGutterAdd    guifg=#009900 guibg=237
+highlight GitGutterChange guifg=#bbbb00 guibg=237
+highlight GitGutterDelete guifg=#ff2222 guibg=237
+" vim-gutentags [[[2
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project','.idea']
 
@@ -1183,43 +902,33 @@ endif
 let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" ]]]
-
-" vim-json
-" [[[
+" vim-javascript [[[2
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow  = 1
+" vim-json [[[2
 " 避免引号被隐藏
 let g:vim_json_syntax_conceal = 0
-" ]]]
-
-" vim-latex-live-preview
-" [[[
-let g:livepreview_previewer = 'zathura'
-" ]]]
-
-" vim-mark
-" [[[
+" vim-mark [[[2
 " 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
 " 以及其他冲突
-" 解除 <Leader>*
-map <Plug>DisableMarkSearchCurrentNext <Plug>MarkSearchCurrentNext
 " 解除 <Leader>r
-map <Plug>DisableMarkRegex <Plug>MarkRegex
-" 解除 <Leader>n
-map <Plug>DisableMarkClear <Plug>MarkClear
+map <Plug>DisableMarkRegex         <Plug>MarkRegex
 " 解除 <Leader>/
 map <Plug>DisableMarkSearchAnyNext <Plug>MarkSearchAnyNext
 " 解除 <Leader>?
 map <Plug>DisableMarkSearchAnyPrev <Plug>MarkSearchAnyPrev
-" 解除 *
-map <Plug>DisableMarkSearchNext <Plug>MarkSearchNext
-" 解除 #
-map <Plug>DisableMarkSearchPrev <Plug>MarkSearchPrev
+" 解除 <Leader>n
+map <Plug>DisableMarkClear         <Plug>MarkClear
+" 解除 */#
+map <Plug>DisableMarkSearchNext    <Plug>MarkSearchNext
+map <Plug>DisableMarkSearchPrev    <Plug>MarkSearchPrev
 " 重新定义映射
-map <Leader>ms                  <Plug>MarkSet
-" ]]]
-
-" vim-markdown
-" [[[
+map ms                             <Plug>MarkSet
+map mn                             <Plug>MarkSearchCurrentNext
+map mp                             <Plug>MarkSearchCurrentPrev
+map mc                             <Plug>MarkAllClear
+" vim-markdown [[[2
 " 代码块高亮
 let g:vim_markdown_fenced_languages = ['python=py']
 let g:vim_markdown_fenced_languages = ['javascript=js']
@@ -1229,54 +938,14 @@ let g:vim_markdown_conceal             = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:tex_conceal                      = ""
 let g:vim_markdown_math                = 1
-" ]]]
-
-" vim-matchup
-" [[[
-" 跳转成对括号，此处不能用非递归模式，因为在 mathit.vim 里用了非递归映射
-nmap M %
-autocmd FileType vim let b:match_words =
-            \ '\<fu\%[nction]\>:\<retu\%[rn]\>:\<endf\%[unction]\>,' .
-            \ '\<\(wh\%[ile]\|for\)\>:\<brea\%[k]\>:\<con\%[tinue]\>:\<end\(w\%[hile]\|fo\%[r]\)\>,' .
-            \ '\<if\>:\<el\%[seif]\>:\<en\%[dif]\>,' .
-            \ '\<try\>:\<cat\%[ch]\>:\<fina\%[lly]\>:\<endt\%[ry]\>,' .
-            \ '\<aug\%[roup]\s\+\%(END\>\)\@!\S:\<aug\%[roup]\s\+END\>'
-autocmd FileType python let b:match_words =
-            \ '\<if\>:\<el\%[seif]\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<while\>:\<continue\>:\<break\>,' .
-            \ '\<def\>:\<return\>,' .
-            \ '\<try\>:\<except\>:\<finally\>'
-" \< \> 标志单词的边界，此处 ; 左边与别的字符直接接触
-autocmd FileType javascript let b:match_words =
-            \ '=:;,' .
-            \ '\<if\>:\<else\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<while\>:\<continue\>:\<break\>,' .
-            \ '\<function\>:\<return\>,' .
-            \ '\<switch\>:\<case\>:\<default\>,' .
-            \ '\<\\\*\>:\<\*\\\>'
-autocmd FileType c,cpp let b:match_words =
-            \ '=:;,' .
-            \ '\<if\>:\<else\>,' .
-            \ '\<for\>:\<continue\>:\<break\>,' .
-            \ '\<do\>:\<while\>:\<continue\>:\<break\>,' .
-            \ '\<switch\>:\<case\>:\<default\>,' .
-            \ '\<\\\*\>:\<\*\\\>'
-" ]]]
-
-" vim-move
-" [[[
+" vim-move [[[2
 let g:move_map_keys    = 0
 let g:move_auto_indent = 1
 vmap <silent> J <Plug>MoveBlockDown
 vmap <silent> K <Plug>MoveBlockUp
 nmap <silent> J <Plug>MoveLineDown
 nmap <silent> K <Plug>MoveLineUp
-"]]]
-
-" vim-mundo
-" [[[
+" vim-mundo [[[2
 noremap  <silent> <F3> <Esc>:MundoToggle<CR>
 noremap! <silent> <F3> <Esc>:MundoToggle<CR>
 let g:mundo_width              = 30
@@ -1284,140 +953,108 @@ let g:mundo_preview_height     = 10
 let g:mundo_right              = 0
 let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
-" ]]]
-
-" vim-polyglot
-" [[[
-" to be compatible with vimtex plgin
-let g:polyglot_disabled = ["latex"]
-" ]]]
-
-" vim-signify
-" [[[
-" 跳转
-nmap <silent> <C-up>   <Plug>(signify-prev-hunk)
-nmap <silent> <C-down> <Plug>(signify-next-hunk)
-" ! 改成 ~
-let g:signify_sign_change = '~'
-" 两次按键间隔大于 updatetime 时自动写入磁盘并显示状态
-let g:signify_cursorhold_normal = 1
-let g:signify_cursorhold_insert = 1
-" " 高亮行
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=156
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-" 高亮侧栏符号
-highlight SignifySignAdd    cterm=bold ctermbg=38   ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=38   ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=38   ctermfg=227
-" VCS
-let g:signify_vcs_list = [ 'git']
-" Windows 下 VCS 的路径设置
-if !has('unix')
-    let g:signify_vcs_cmds = {
-                \ 'git': '"C:\Program Files (x86)\Git\bin\git.exe" diff --no-color --no-ext-diff -U0 -- %f'
-                \ }
-endif
-" ]]]
-
-" vim-startify
-" [[[
+" vim-startify [[[2
 noremap <silent> <Space> <Esc>:Startify<CR>
-" ]]]
-
-" vim-table-mode
-" [[[
+" vim-table-mode [[[2
 " for Markdown
 let g:table_mode_corner = '|'
-" ]]]
-
-" vim-templates
-" [[[
+" vim-templates [[[2
 let g:templates_directory            = ['~/.vim/templates']
 let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
-" ]]]
-
-" vimtex
-" [[[
+" vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_mappings_enabled = 0
 let g:vimtex_format_enabled = 1
 let g:vimtex_quickfix_mode=0
-set conceallevel=1
 let g:vimtex_fold_enabled = 1
 let g:tex_conceal='abdmg'
-" ]]]
-
-" vim-textobj-user
-" [[[
-if exists("*textobj#user#plugin")
-" datetime
-call textobj#user#plugin('datetime', {
-            \   'date': {
-            \     'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
-            \     'select': ['ad', 'id'],
-            \   },
-            \   'time': {
-            \     'pattern': '\<\d\d:\d\d:\d\d\>',
-            \     'select': ['at', 'it'],
-            \   },
-            \ })
-endif
-" ]]]
-
-" vim-visual-multi
-" [[[
+" vim-visual-multi [[[2
 let g:VM_leader             = ";"
 let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
-let g:VM_maps["Select All"] = '<leader>A'
-" ]]]
-" ]]]
+let g:VM_maps["Select All"] = '<Leader>A'
+" Gvim: [[[1
+if has('gui_running')
+    inoremap <S-CR> <Esc>o
+    inoremap <C-CR> <Esc>O
+    " autocmd GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m " 隐藏菜单栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions-=L " 隐藏左侧滚动条
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=b " 隐藏底部滚动条
+    set guifont=Monaco\ for\ Powerline:h10:b
+    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
+endif
+" CheatSheet: [[[1
+" J                 移动整行
+" K                 移动整行
+" H                 行首
+" L                 行尾
 
-" =====================================================================
-" Cheet Sheet
-" =====================================================================
-" [[[
-" 易混淆快捷键总览
-" [[[
-" n      <S-h>                  行首
-" n      <S-j>             :<vim-move> move up
-" n      <S-k>             :<vim-move> move down
-" n      <S-l>             行尾
-" n      <C-j>             跳转函数定义
-" n      <C-k>             跳转帮助
-" n      <C-h>             :<vim-sideways> SidewaysLeft<CR>
-" n      <C-l>             :<vim-sideways> SidewaysRight<CR>
-" n      <C-left>          <Plug>(signify-prev-hunk)
-" n      <C-right>         <Plug>(signify-next-hunk)
-" n      <M-h>             <Esc><C-w>h
-" n      <M-j>             <Esc><C-w>j
-" n      <M-k>             <Esc><C-w>k
-" n      <M-l>             <Esc><C-w>l
-" n      <M-n>             <Plug>(coc-diagnostic-next)
-" n      <M-p>             <Plug>(coc-diagnostic-next)
-" n      <M-up>            <C-w>+
-" n      <M-down>          <C-w>-
-" n      <M-left>          <C-w>10<
-" n      <M-right>         <C-w>10>
-" n      <Leader>ff        <Esc>:LeaderfFile<CR>
-" n      <Leader>ft        <Esc>:LeaderfBufTagAll<CR>
-" n      <Leader>fb        <Esc>:LeaderfBufferAll<CR>
-" n      <Leader>aw        <Esc>:ArgWrap<CR>
-" n      <Leader>ms        <Plug>MarkSet
-" n      <Leader>bm        <Plug>BookmarkToggle
-" n      <Leader>bi        <Plug>BookmarkAnnotate
-" n      <Leader>ba        <Plug>BookmarkShowAll
-" n      <Leader>bn        <Plug>BookmarkNext
-" n      <Leader>bp        <Plug>BookmarkPrev
-" n      <Leader>bc        <Plug>BookmarkClearAll
-" n      <Leader>ss        :<C-u>SearchCurrentText<CR>
-" n      <Leader>ss        :<C-u>SearchCurrentText<CR>
-" v      <Leader>sv        :<C-u>SearchVisualText<CR>
-" n      <Leader>sm        :Search<space>
-" v      <Leader>sv        :<C-u>SearchVisualText<CR>
-" n      <Leader>sm        :Search<space>
-" ]]]
-" ]]]
+" <C-j>             跳转函数定义
+" <C-k>             跳转帮助
+" <C-h>             切换buffer
+" <C-l>             切换buffer
+" <C-up>            Diff 跳转
+" <C-down>          Diff 跳转
+" <C-left>          交换单词
+" <C-right>         交换单词
+" <C-up>            <Plug>(GitGutterPrevHunk)
+" <C-down>          <Plug>(GitGutterNextHunk)
+
+" <M-h>             窗口间移动光标
+" <M-j>             窗口间移动光标
+" <M-k>             窗口间移动光标
+" <M-l>             窗口间移动光标
+" <M-up>            调整窗口大小
+" <M-down>          调整窗口大小
+" <M-left>          调整窗口大小
+" <M-right>         调整窗口大小
+" <M-n>             <Plug>(coc-diagnostic-next)
+" <M-p>             <Plug>(coc-diagnostic-next)
+
+" <Leader>cd        <Plug>(coc-definition)
+" <Leader>ci        <Plug>(coc-implementation)
+" <Leader>cr        <Plug>(cc-references)
+" <Leader>cf        <Plug>(coc-fix-current)
+
+" <Leader>f        :LeaderfFile<CR>
+" <Leader>t        :LeaderfBufTagAll<CR>
+" <Leader>b        :LeaderfBufferAll<CR>
+" <Leader>r        :Leaderf rg
+
+" ms               <Plug>MarkSet
+" mn               <Plug>MarkSearchCurrentNext
+" mp               <Plug>MarkSearchCurrentPrev
+" mc               <Plug>MarkAllClear
+
+" cx               <Plug>(Exchange)
+" X                <Plug>(Exchange)
+" cxc              <Plug>(ExchangeClear)
+" cxx              <Plug>(ExchangeLine)
+
+" ,bm              <Plug>BookmarkToggle
+" ,bi              <Plug>BookmarkAnnotate
+" ,ba              <Plug>BookmarkShowAll
+" ,bn              <Plug>BookmarkNext
+" ,bp              <Plug>BookmarkPrev
+" ,bc              <Plug>BookmarkClearAll
+
+" ,e               <Plug>(easymotion-bd-w)
+" ,e               <Plug>(easymotion-overwin-w)
+" ,f               <Plug>(easymotion-bd-f)
+" ,f               <Plug>(easymotion-overwin-f)
+" ,l               <Plug>(easymotion-bd-jk)
+" ,l               <Plug>(easymotion-overwin-line)
+
+" <Leader>aw       <Esc>:ArgWrap<CR>
+" ,t               <Plug>DictSearch
+
+" vim:fdm=marker:fmr=[[[,]]]
+
