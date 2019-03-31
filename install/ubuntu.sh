@@ -203,12 +203,17 @@ function ctags_install(){
     crun rm -r ctags
 }
 
-function nerdfont_install(){
-    cecho "Installing NerdFonts..."
+function font_install(){
+    cecho "Installing Fonts..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     crun sudo mkdir -p ~/.local/share/fonts
     crun sudo cp ../fonts/* ~/.local/share/fonts
+    crun cd ~/.local/share/fonts
+    crun sudo mkfontscale
+    crun sudo mkfontdir
+    crun fc-cache -f -v
+    crun cd -
 }
 
 function ccls_install() {
@@ -262,7 +267,7 @@ function ubuntu_install()
 
     # Install by default
     common_install
-    nerdfont_install
+    font_install
     python_install
     vim_install
 
