@@ -642,6 +642,8 @@ call s:SetupCommandAbbrs('Gmv', 'Gmove')
 
 call s:SetupCommandAbbrs('as', 'AsyncRun')
 call s:SetupCommandAbbrs('cc', 'CocCommand')
+call s:SetupCommandAbbrs('ci', 'CocInstall')
+call s:SetupCommandAbbrs('cu', 'CocUninstall')
 call s:SetupCommandAbbrs('cl', 'CocList')
 call s:SetupCommandAbbrs('cr', 'CocRestart')
 call s:SetupCommandAbbrs('d', 'Dict')
