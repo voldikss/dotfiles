@@ -350,45 +350,54 @@ inoremap <expr>   ;p    <SID>MapForSemicolonP()
 augroup AutocmdGroup
     autocmd!
 " ParenthesisColor: [[[2
-    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF | endif
-    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 | endif
-    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF | endif
-    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F | endif
+    autocmd VimEnter,BufWinEnter *
+        \ if &filetype != 'tex' |
+            \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
+            \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
+            \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
+            \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
+        \ endif
 " SourceVimrc: [[[2
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
 " DisableAutoComment: [[[2
-    autocmd FileType * set formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
     autocmd InsertEnter * set norelativenumber number
     autocmd InsertLeave * set relativenumber
 " EqualWindowsSize: [[[2
     autocmd VimResized * exec "normal \<C-w>="
 " LastPosition: [[[2
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \ exe "normal! g'\"" |
+        \ endif
 " KeywordHighlight: [[[2
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
-    autocmd Syntax * call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)')
-    autocmd Syntax * call matchadd('Note',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)')
+    autocmd Syntax *
+        \ call matchadd('Todo',  '\W\zs\(TODO\|Todo\|todo\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)') |
+        \ call matchadd('Debug', '\W\zs\(Debug\|DEBUG\)') |
+        \ call matchadd('Note',  '\W\zs\(NOTE\|Note\|INFO\|IDEA\|NOTICE\)') |
 " AutoChdir: [[[2
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
-    autocmd BufNewFile .gitignore exec "call <SID>InitGitignore()"
+    autocmd BufNewFile .gitignore InitGitignore
 " Plugins: [[[2
     " auto-pairs [[[3
-    autocmd FileType html let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
-    autocmd FileType javascript,css,c,cpp let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
-    autocmd FileType markdown let b:AutoPairs ={'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
-    " autocmd FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
-    autocmd FileType vim let b:AutoPairs = {'(':')', '{':'}',"'":"'", "`":"`", '<':'>'}
+    autocmd FileType html let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'{%':'%}', '<!--':'-->'}
+    autocmd FileType javascript,css,c,cpp let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''",'/*':'*/'}
+    autocmd FileType markdown let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
+    autocmd FileType vim let b:AutoPairs =
+        \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
     " coc.nvim [[[3
     " Close preview window when completion is done.
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    autocmd BufNewFile .gitignore exec "call <SID>InitGitignore()"
     " vim-argwrap [[[3
     autocmd FileType vim let b:argwrap_line_prefix = '\'
     autocmd FileType vim let b:argwrap_tail_indent_braces = '('
     " vim-autoformat [[[3
-    autocmd BufWrite * if g:autoformat_enabled | exec "Autoformat" | endif
+    autocmd BufWrite * if g:autoformat_enabled | Autoformat | endif
     " vim-commentary [[[3
     autocmd FileType python,shell,coffee setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
@@ -430,7 +439,6 @@ command! QuickRun         call <SID>QuickRun()
 command! FileExplore      call <SID>FileExplore()
 command! ToggleAutoformat call <SID>ToggleAutoformat()
 
-command! -nargs=+ BrowserOpen call <SID>BrowserOpen(<q-args>)
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 " GitOperation: [[[2
@@ -1047,4 +1055,5 @@ endif
 " <Leader>aw       <Esc>:ArgWrap<CR>
 " ,t               <Plug>DictSearch
 
-" vim:fdm=marker:fmr=[[[,]]]:fdl=0
+" vim:fdm=marker:fmr=[[[,]]]
+
