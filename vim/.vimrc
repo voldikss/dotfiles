@@ -46,7 +46,6 @@ if has('nvim')
     Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 endif
 Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template'
 " Completion [[[2
@@ -380,6 +379,11 @@ augroup AutocmdGroup
     autocmd BufEnter * silent! lcd %:p:h
 " GitIgnore: [[[2
     autocmd BufNewFile .gitignore InitGitignore
+" LaTexLivePreview: [[[2
+    autocmd BufWritePost * 
+        \ if &filetype=='tex' && exists('g:latex_live_preview') |
+        \ exec 'AsyncRun xelatex %' | 
+        \ endif
 " Plugins: [[[2
     " auto-pairs [[[3
     autocmd FileType html let b:AutoPairs =
@@ -438,18 +442,20 @@ command! InitGitignore    call <SID>InitGitignore()
 command! QuickRun         call <SID>QuickRun()
 command! FileExplore      call <SID>FileExplore()
 command! ToggleAutoformat call <SID>ToggleAutoformat()
+command! LaTexPreview     let g:latex_live_preview=1 | AsyncRun zathura %:r.pdf &
 
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
 " GitOperation: [[[2
 command! Gap  Git add -p
+command! Cd   Gcd
 command! Gd   Gvdiff
 command! Gl   Git lg
 command! Gs   Gstatus
 command! Gc   Gcommit -v
 command! Gca  Gcommit -a -v
 command! Gcaa Gcommit --amend -a -v
-command! Gco  execute "AsyncRun git checkout ."
+command! Gco  execute "AsyncRun -post=copen\ 8 git checkout ."
 command! Grm  Gremove
 command! Gmv  Gmove
 " VimPlug: [[[2
@@ -486,20 +492,21 @@ function! s:QuickRun()
     if &filetype == 'html' || &filetype == 'htmldjango'
         call <SID>BrowserOpen(expand("%:p"))
     elseif &filetype == 'markdown'
-        :MarkdownPreview
+        MarkdownPreview
     elseif &filetype == 'tex'
-        :AsyncRun xelatex %
+        let g:latex_live_preview = 1 
+        AsyncRun xelatex % && zathura %:r.pdf &
     elseif &filetype == 'c'
-        :AsyncRun gcc -g % && ./a.out
+        AsyncRun -post=copen\ 8 gcc -g % && ./a.out
     elseif &filetype == 'cpp'
-        :AsyncRun g++ -g % && ./a.out
+        AsyncRun -post=copen\ 8 g++ -g % && ./a.out
     elseif &filetype == 'sh'
-        :AsyncRun bash %
+        AsyncRun -post=copen\ 8 bash %
     elseif &filetype == 'python'
         if has("unix")
-            :AsyncRun -raw python3 % "unix
+            AsyncRun -raw -post=copen\ 8 python3 %
         else
-            :AsyncRun -raw python %  "windows
+            AsyncRun -raw -post=copen\ 8 python %
         endif
     else
         echo "Not supported filetype:" . " " . &filetype
@@ -523,13 +530,7 @@ function! s:BrowserOpen(obj)
         echoerr "No browser found, please contact the developer."
     endif
 
-    if exists('*jobstart')
-        call jobstart(l:cmd)
-    elseif exists('*job_start')
-        call job_start(l:cmd)
-    else
-        call system(l:cmd)
-    endif
+    exec 'AsyncRun' . ' ' . l:cmd
 endfunction
 " TabMessage: capture command output [[[2
 function! s:TabMessage(cmd)
@@ -628,7 +629,7 @@ function! s:ToggleAutoformat()
     endif
 endfunction
 " Abbreviate: [[[1
-call s:SetupCommandAbbrs('As', 'AsyncRun')
+call s:SetupCommandAbbrs('As', 'AsyncRun -post=copen\ 8')
 call s:SetupCommandAbbrs('CC', 'CocCommand')
 call s:SetupCommandAbbrs('CI', 'CocInstall')
 call s:SetupCommandAbbrs('CU', 'CocUninstall')
@@ -636,19 +637,20 @@ call s:SetupCommandAbbrs('CL', 'CocList')
 call s:SetupCommandAbbrs('CR', 'CocRestart')
 call s:SetupCommandAbbrs('D', 'Dict')
 call s:SetupCommandAbbrs('Gap', 'Git add -p')
+call s:SetupCommandAbbrs('Cd', 'Gcd')
 call s:SetupCommandAbbrs('Gd', 'Gvdiff')
 call s:SetupCommandAbbrs('Gl', 'Git lg')
 call s:SetupCommandAbbrs('Gs', 'Gstatus')
 call s:SetupCommandAbbrs('Gc', 'Gcommit -v')
 call s:SetupCommandAbbrs('Gca', 'Gcommit -a -v')
 call s:SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
-call s:SetupCommandAbbrs('Gpush', 'AsyncRun git push')
-call s:SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
+call s:SetupCommandAbbrs('Gco', 'AsyncRun -post=copen\ 8 git checkout .')
+call s:SetupCommandAbbrs('Gpush', 'AsyncRun -post=copen\ 8 git push')
+call s:SetupCommandAbbrs('Gpull', 'AsyncRun -post=copen\ 8 git pull')
 call s:SetupCommandAbbrs('Grm', 'Gremove')
 call s:SetupCommandAbbrs('Gmv', 'Gmove')
 
-call s:SetupCommandAbbrs('as', 'AsyncRun')
+call s:SetupCommandAbbrs('as', 'AsyncRun -post=copen\ 8')
 call s:SetupCommandAbbrs('cc', 'CocCommand')
 call s:SetupCommandAbbrs('ci', 'CocInstall')
 call s:SetupCommandAbbrs('cu', 'CocUninstall')
@@ -662,9 +664,9 @@ call s:SetupCommandAbbrs('gs', 'Gstatus')
 call s:SetupCommandAbbrs('gc', 'Gcommit -v')
 call s:SetupCommandAbbrs('gca', 'Gcommit -a -v')
 call s:SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
-call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
-call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
+call s:SetupCommandAbbrs('gco', 'AsyncRun -post=copen\ 8 git checkout .')
+call s:SetupCommandAbbrs('gpush', 'AsyncRun -post=copen\ 8 git push')
+call s:SetupCommandAbbrs('gpull', 'AsyncRun -post=copen\ 8 git pull')
 call s:SetupCommandAbbrs('grm', 'Gremove')
 call s:SetupCommandAbbrs('gmv', 'Gmove')
 " PluginConfig: [[[1
@@ -706,10 +708,11 @@ let g:airline#extensioin#tabline#right_alt_sep = '⮃'
 let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " AsyncRun [[[2
 nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
-" 自动打开 quickfix 高度为8
-let g:asyncrun_open = 8
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
+" airline 集成
+let g:asyncrun_status = ''
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 " auto-pairs [[[2
 " 解除一系列映射键
 let g:AutoPairsShortcutJump       = 'Disable'
@@ -906,8 +909,6 @@ let g:javascript_plugin_flow  = 1
 " vim-json [[[2
 " 避免引号被隐藏
 let g:vim_json_syntax_conceal = 0
-" vim-latex-live-preview [[[2
-let g:livepreview_previewer = 'zathura'
 " vim-mark [[[2
 " 和 visual-star-search 有 <Leader>* 冲突(MarkSet)
 " 以及其他冲突
