@@ -560,10 +560,10 @@ command! PC PlugClean
 " [[[
 augroup ParenthesisColor
     autocmd!
-    autocmd VimEnter,BufWinEnter * syntax match parens1 /[{}]/   | hi parens1 guifg=#FF00FF
-    autocmd VimEnter,BufWinEnter * syntax match parens2 /[()]/   | hi parens2 guifg=#DF8700
-    autocmd VimEnter,BufWinEnter * syntax match parens3 /[<>]/   | hi parens3 guifg=#0087FF
-    autocmd VimEnter,BufWinEnter * syntax match parens4 /[\[\]]/ | hi parens4 guifg=#00FF5F
+    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match parens1 /[{}]/   | hi parens1 guifg=#FF00FF | endif
+    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match parens2 /[()]/   | hi parens2 guifg=#DF8700 | endif
+    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match parens3 /[<>]/   | hi parens3 guifg=#0087FF | endif
+    autocmd VimEnter,BufWinEnter * if &filetype != 'tex' | syntax match parens4 /[\[\]]/ | hi parens4 guifg=#00FF5F | endif
 augroup END
 " ]]]
 
