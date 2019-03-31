@@ -10,12 +10,9 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead .eslintrc     setfiletype json
 	autocmd BufNewFile,BufRead .jscsrc       setfiletype json
 
-    autocmd BufNewFile,BufRead *.wl          setfiletype mma
-    autocmd BufNewFile,BufRead *.wls         setfiletype mma
-    autocmd BufNewFile,BufRead .gitignore    setfiletype gitignore
-
-    " to prevent vim-polyglot to setting *.js to type javascript.jsx
-    autocmd BufNewFile,BufRead *.js          setfiletype javascript
+    autocmd BufNewFile,BufRead *.wl       setfiletype mma
+    autocmd BufNewFile,BufRead *.wls       setfiletype mma
+    autocmd BufNewFile,BufRead .gitignore setfiletype gitignore
 
 augroup END
 
