@@ -813,6 +813,8 @@ let g:python_highlight_all = 1
 " sideways.vim [[[2
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right> :SidewaysRight<CR>
+" sparkup [[[2
+let g:sparkupExecuteMapping = '<Tab>'
 " vim-argwrap [[[2
 noremap <silent> <Leader>aw :ArgWrap<CR>
 " vim-autoformat [[[2
