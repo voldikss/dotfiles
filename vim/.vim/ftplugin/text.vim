@@ -1,4 +1,4 @@
-" iabbrev <buffer> i I
+iabbrev <buffer> i I
 
 setlocal spell
 setlocal spelllang=en_us
