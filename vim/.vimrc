@@ -347,7 +347,6 @@ augroup AutocmdGroup
         \ endif
 " SourceVimrc: [[[2
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
-    autocmd SourceCmd ~/.vimrc setlocal foldlevel=0
 " DisableAutoComment: [[[2
     autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
@@ -441,7 +440,7 @@ command! Gs   Gstatus
 command! Gc   Gcommit -v
 command! Gca  Gcommit -a -v
 command! Gcaa Gcommit --amend -a -v
-command! Gco  execute "AsyncRun -post=copen\ 8 git checkout ."
+command! Gco  execute "AsyncRun git checkout ."
 command! Grm  Gremove
 command! Gmv  Gmove
 " VimPlug: [[[2
@@ -482,16 +481,24 @@ function! s:QuickRun()
     elseif &filetype == 'tex'
         VimtexCompile
     elseif &filetype == 'c'
-        AsyncRun -post=copen\ 8 gcc -g % && ./a.out
+        if has('unix')
+            AsyncRun gcc -g % && ./a.out
+        else
+            AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)/a.exe"
+        endif
     elseif &filetype == 'cpp'
-        AsyncRun -post=copen\ 8 g++ -g % && ./a.out
+        if has('unix')
+            AsyncRun gcc -g % && ./a.out
+        else
+            AsyncRun gcc -g "$(VIM_FILEPATH)" -o "a.exe" && "$(VIM_FILEDIR)\a.exe"
+        endif
     elseif &filetype == 'sh'
-        AsyncRun -post=copen\ 8 bash %
+        AsyncRun bash %
     elseif &filetype == 'python'
         if has("unix")
-            AsyncRun -raw -post=copen\ 8 python3 %
+            AsyncRun -raw python3 %
         else
-            AsyncRun -raw -post=copen\ 8 python %
+            AsyncRun -raw python "$(VIM_FILEPATH)"
         endif
     else
         echo "Not supported filetype:" . " " . &filetype
@@ -597,6 +604,7 @@ endfunction
 function! s:Grep(string)
     if executable('rg')
         execute "AsyncRun! rg -n " . a:string . " * "
+        " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
     elseif has('win32') || has('win64')
         execute "AsyncRun! -cwd=<root> findstr /n /s /C:" . a:string
     else
@@ -614,7 +622,7 @@ function! s:ToggleAutoformat()
     endif
 endfunction
 " Abbreviate: [[[1
-call s:SetupCommandAbbrs('As', 'AsyncRun -post=copen\\ 8')
+call s:SetupCommandAbbrs('As', 'AsyncRun')
 call s:SetupCommandAbbrs('Ass', 'AsyncStop')
 call s:SetupCommandAbbrs('CC', 'CocConfig')
 call s:SetupCommandAbbrs('CI', 'CocInstall')
@@ -631,13 +639,13 @@ call s:SetupCommandAbbrs('Gs', 'Gstatus')
 call s:SetupCommandAbbrs('Gc', 'Gcommit -v')
 call s:SetupCommandAbbrs('Gca', 'Gcommit -a -v')
 call s:SetupCommandAbbrs('Gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('Gco', 'AsyncRun -post=copen\\ 8 git checkout .')
-call s:SetupCommandAbbrs('Gpush', 'AsyncRun -post=copen\\ 8 git push')
-call s:SetupCommandAbbrs('Gpull', 'AsyncRun -post=copen\\ 8 git pull')
+call s:SetupCommandAbbrs('Gco', 'AsyncRun git checkout .')
+call s:SetupCommandAbbrs('Gpush', 'AsyncRun git push')
+call s:SetupCommandAbbrs('Gpull', 'AsyncRun git pull')
 call s:SetupCommandAbbrs('Grm', 'Gremove')
 call s:SetupCommandAbbrs('Gmv', 'Gmove')
 
-call s:SetupCommandAbbrs('as', 'AsyncRun -post=copen\\ 8')
+call s:SetupCommandAbbrs('as', 'AsyncRun')
 call s:SetupCommandAbbrs('ass', 'AsyncStop')
 call s:SetupCommandAbbrs('cc', 'CocConfig')
 call s:SetupCommandAbbrs('ci', 'CocInstall')
@@ -653,9 +661,9 @@ call s:SetupCommandAbbrs('gs', 'Gstatus')
 call s:SetupCommandAbbrs('gc', 'Gcommit -v')
 call s:SetupCommandAbbrs('gca', 'Gcommit -a -v')
 call s:SetupCommandAbbrs('gcaa', 'Gcommit --amend -a -v')
-call s:SetupCommandAbbrs('gco', 'AsyncRun -post=copen\ 8 git checkout .')
-call s:SetupCommandAbbrs('gpush', 'AsyncRun -post=copen\ 8 git push')
-call s:SetupCommandAbbrs('gpull', 'AsyncRun -post=copen\ 8 git pull')
+call s:SetupCommandAbbrs('gco', 'AsyncRun git checkout .')
+call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
+call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetupCommandAbbrs('grm', 'Gremove')
 call s:SetupCommandAbbrs('gmv', 'Gmove')
 " Gvim: [[[1
@@ -713,6 +721,8 @@ let g:airline#extensioin#tabline#right_alt_sep = '⮃'
 let g:airline#extensions#tabline#formatter     = 'unique_tail'
 " AsyncRun [[[2
 nnoremap <silent> <Leader><Space> :call asyncrun#quickfix_toggle(8)<CR>
+" automatically open quickfix
+let g:asyncrun_open = 8
 " 看到 Python 实时输出
 let $PYTHONUNBUFFERED=1
 " airline 集成
