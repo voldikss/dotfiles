@@ -389,7 +389,7 @@ augroup AutocmdGroup
     " vim-autoformat [[[3
     autocmd BufWrite * if g:autoformat_enabled | Autoformat | endif
     " vim-commentary [[[3
-    autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
+    autocmd FileType python,shell,coffee,crontab,debsources setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
     " vim-matchup [[[3
     autocmd FileType vim let b:match_words =
