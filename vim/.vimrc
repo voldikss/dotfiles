@@ -389,7 +389,7 @@ augroup AutocmdGroup
     " vim-autoformat [[[3
     autocmd BufWrite * if g:autoformat_enabled | Autoformat | endif
     " vim-commentary [[[3
-    autocmd FileType python,shell,coffee,crontab,debsources setlocal commentstring=#\ %s
+    autocmd FileType python,shell,coffee,crontab setlocal commentstring=#\ %s
     autocmd FileType java,c,cpp,json     setlocal commentstring=//\ %s
     " vim-matchup [[[3
     autocmd FileType vim let b:match_words =
@@ -727,7 +727,9 @@ let g:asyncrun_open = 8
 let $PYTHONUNBUFFERED=1
 " airline 集成
 let g:asyncrun_status = ''
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+if exists("*airline#section#create_right")
+    let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+endif
 " auto-pairs [[[2
 " 解除一系列映射键
 let g:AutoPairsShortcutJump       = 'Disable'
