@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 " Languages [[[2
 " Reference: https://github.com/sheerun/vim-polyglot/blob/master/README.md
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
+" Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
@@ -31,10 +31,9 @@ if has('nvim')
 endif
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
-Plug 'aperezdc/vim-template'
+Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
 if has('nvim')
-    Plug 'Shougo/denite.nvim'
     Plug 'honza/vim-snippets'
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
     Plug 'Shougo/neco-vim', {'for': 'vim'}
@@ -64,24 +63,25 @@ else
 endif
 " Style [[[2
 Plug 'ap/vim-css-color'
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'Yggdroot/indentLine'
 Plug 'justinmk/vim-dirvish'
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-Plug 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'kshenoy/vim-signature'
 Plug 'mattesgroeger/vim-bookmarks'
 Plug 'guns/xterm-color-table.vim'
 " Git [[[2
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'rhysd/git-messenger.vim'
 Plug 'cohama/agit.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'mattn/gist-vim'
+Plug 'airblade/vim-gitgutter',
+Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mattn/webapi-vim'
 " Enhancements [[[2
 Plug 'skywind3000/asyncrun.vim'
@@ -89,8 +89,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
 Plug 'voldikss/dict.vim'
-Plug 'ahonn/fileheader.nvim'
-Plug 'inkarkat/vim-mark'
+Plug 'ahonn/fileheader.nvim', {'on': ['AddFileHeader', 'UpdateFileHeader']}
+Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
 Plug 'moll/vim-bbye'
 " Move [[[2
@@ -108,11 +108,9 @@ Plug 'tpope/vim-repeat'
 Plug 'foosoft/vim-argwrap'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
-Plug 'mg979/vim-visual-multi'
+Plug 'mg979/vim-visual-multi', {'on': '<Plug>VM-Find-Under'}
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-textobj-line'
-Plug 'glts/vim-textobj-comment'
 Plug 'jceb/vim-textobj-uri'
 Plug 'reedes/vim-textobj-sentence'
 Plug 'michaeljsmith/vim-indent-object'
@@ -120,7 +118,7 @@ Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'wellle/targets.vim'
 " Misc [[[2
 Plug 'yianwillis/vimcdoc'
-Plug 'tweekmonster/startuptime.vim'
+Plug 'tweekmonster/startuptime.vim', {'on': 'StartupTime'}
 call plug#end()
 " General: [[[1
 " file & directory & format [[[2
@@ -195,8 +193,6 @@ set expandtab
 set shiftround
 set relativenumber number
 set foldlevel=99
-" for ~/.vimrc only
-setlocal foldlevel=0
 set conceallevel=0
 set autoindent
 set smartindent
@@ -351,6 +347,7 @@ augroup AutocmdGroup
         \ endif
 " SourceVimrc: [[[2
     autocmd BufWritePost ~/.vimrc nested source $MYVIMRC
+    autocmd SourceCmd ~/.vimrc setlocal foldlevel=0
 " DisableAutoComment: [[[2
     autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
@@ -382,7 +379,7 @@ augroup AutocmdGroup
         \ {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '*':'*','~':'~'}
     autocmd FileType vim let b:AutoPairs =
         \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>'}
-    autocmd FileType tex let g:AutoPairs = 
+    autocmd FileType tex let g:AutoPairs =
         \ {'(':')', '[':']', '{':'}',"'":"'", "`":"`", '<':'>', '$':'$', '$$':'$$'}
     " coc.nvim [[[3
     " Close preview window when completion is done.
@@ -788,6 +785,7 @@ let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
+let g:indentLine_char = '┆'
 " LeaderF [[[2
 let g:Lf_ShortcutF = '<Leader>f'
 let g:Lf_ShortcutB = '<Leader>b'
@@ -992,6 +990,8 @@ let g:airline#extensions#vimtex#compiled = "c₁"
 let g:airline#extensions#vimtex#continuous = "c"
 let g:airline#extensions#vimtex#viewer = "v"
 " vim-visual-multi [[[2
+" for plug on-demand
+map <C-n>  <Plug>VM-Find-Under
 let g:VM_leader             = ";"
 let g:VM_default_mappings   = 0
 let g:VM_maps               = {}
