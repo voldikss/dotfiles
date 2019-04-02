@@ -66,6 +66,7 @@ Plug 'ap/vim-css-color'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'Yggdroot/indentLine'
 Plug 'justinmk/vim-dirvish'
+Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'vim-airline/vim-airline'
@@ -329,7 +330,7 @@ else
     nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " Customized function [[[2
-noremap  <silent> <F2>  <Esc>:call <SID>FileExplore()<CR>
+noremap  <silent> <F4>  <Esc>:call <SID>FileExplore()<CR>
 noremap  <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
 noremap! <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
 nnoremap <expr>   <CR>  <SID>NormalMapForEnter() . "\<Esc>"
@@ -428,7 +429,6 @@ augroup END
 " Commons: [[[2
 command! InitGitignore    call <SID>InitGitignore()
 command! QuickRun         call <SID>QuickRun()
-command! FileExplore      call <SID>FileExplore()
 command! ToggleAutoformat call <SID>ToggleAutoformat()
 
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
@@ -524,7 +524,7 @@ function! s:BrowserOpen(obj)
         echoerr "No browser found, please contact the developer."
     endif
 
-    exec 'AsyncRun' . ' ' . l:cmd
+    exec 'AsyncRun -post=cclose' . ' ' . l:cmd
 endfunction
 " TabMessage: capture command output [[[2
 function! s:TabMessage(cmd)
@@ -855,6 +855,36 @@ let g:neodbg_keymap_print_variable     = '<Nop5>' " view variable under the curs
 let g:neodbg_keymap_stop_debugging     = '<Nop6>' " stop debugging (kill)
 let g:neodbg_keymap_toggle_console_win = '<Nop7>' " toggle console window
 noremap <silent> <F8> <Esc>:NeoDebug ./a.out<CR>
+" NERDTree [[[2
+let NERDTreeShowLineNumbers = 1
+let NERDTreeAutoCenter = 1
+let NERDTreeShowHidden = 1
+let NERDTreeWinSize = 28
+" 在终端启动vim时，共享NERDTree
+let g:nerdtree_tabs_open_on_console_startup = 1
+let NERDTreeIgnore = [
+            \ '\.git$', '\.hg$', '\.svn$', '\.stversions$', '\.pyc$', '\.svn$','\~$',
+	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
+	        \ ]
+let NERDTreeShowBookmarks = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+" 如果只剩下NERDTree则关闭vim
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" 切换 NERDTree
+noremap  <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
+noremap! <silent> <F2> <Esc>:call NERDTreeToggler()<CR>
+function! NERDTreeToggler()
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+    exe ":NERDTreeClose"
+  else
+    if (expand("%:t") != '')
+      exe ":NERDTreeCWD"
+    else
+      exe ":NERDTreeToggle"
+    endif
+  endif
+endfunction
 " python-syntax [[[2
 let g:python_highlight_all = 1
 " sideways.vim [[[2
