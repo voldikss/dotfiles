@@ -352,8 +352,8 @@ augroup AutocmdGroup
 " DisableAutoComment: [[[2
     autocmd FileType * set formatoptions-=cro
 " LineNumber: [[[2
-    autocmd InsertEnter * set norelativenumber number
-    autocmd InsertLeave * set relativenumber
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 " EqualWindowsSize: [[[2
     autocmd VimResized * exec "normal \<C-w>="
 " LastPosition: [[[2
