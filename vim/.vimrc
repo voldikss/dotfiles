@@ -79,6 +79,8 @@ Plug 'guns/xterm-color-table.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
+Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
+Plug 'iamcco/git-p.nvim'
 Plug 'cohama/agit.vim'
 Plug 'airblade/vim-gitgutter',
 Plug 'mattn/gist-vim', {'on': 'Gist'}
@@ -790,6 +792,20 @@ let g:fileheader_by_git_config = 1
 let g:fileheader_new_line_at_end = 1
 let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
+" git-p.nvim [[[2
+nmap <silent> <leader>gv <Plug>(git-p-diff-preview)
+let g:gitp_blame_format = ""
+let g:gitp_add_sign = '+'
+let g:gitp_modify_sign = '~'
+let g:gitp_delete_top_sign = '‾'
+let g:gitp_delete_bottom_sign = '_'
+let g:gitp_delete_top_and_bottom_sign = '-'
+
+highlight GitPAdd                guifg=#009900 guibg=237
+highlight GitPModify             guifg=#ffff00 guibg=237
+highlight GitPDeleteTop          guifg=#ff2222 guibg=237
+highlight GitPDeleteButtom       guifg=#ff2222 guibg=237
+highlight GitPDeleteTopAndBottom guifg=#ff2222 guibg=237
 " goyo.vim [[[2
 let g:goyo_width = '50%'
 let g:goyo_height = '100%'
@@ -898,10 +914,10 @@ nmap <silent> <C-Up>        <Plug>GitGutterPrevHunk
 nmap <silent> <C-Down>      <Plug>GitGutterNextHunk
 imap <silent> <C-Up>   <Esc><Plug>GitGutterPrevHunk
 imap <silent> <C-Down> <Esc><Plug>GitGutterNextHunk
-
-highlight GitGutterAdd    guifg=#009900 guibg=237
-highlight GitGutterChange guifg=#bbbb00 guibg=237
-highlight GitGutterDelete guifg=#ff2222 guibg=237
+" highlights are managed by git-p.nvim
+" highlight GitGutterAdd    guifg=#009900 guibg=237
+" highlight GitGutterChange guifg=#bbbb00 guibg=237
+" highlight GitGutterDelete guifg=#ff2222 guibg=237
 " vim-gutentags [[[2
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project','.idea']
