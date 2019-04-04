@@ -30,6 +30,7 @@ if has('nvim')
     Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 endif
 Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
@@ -344,7 +345,7 @@ augroup AutocmdGroup
     autocmd!
 " ParenthesisColor: [[[2
     autocmd VimEnter,BufWinEnter *
-        \ if &filetype != 'tex' |
+        \ if index(['html', 'htmldjango', 'tex', 'mma'], &filetype) < 0 |
             \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
             \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
             \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
@@ -551,7 +552,7 @@ endfunction
 function! s:NormalMapForEnter()
     if &filetype ==# 'quickfix'
         return '\<CR>'
-    elseif index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0
+    elseif index(['c', 'cpp', 'cs', 'java', 'css', 'scss'],&filetype) >= 0
         let l:line = getline('.')
         if l:line != '' && l:line !~ '^\s\+$' && index([';', '{', '(', '\'], l:line[-1:]) < 0
             return 'A;'
@@ -575,7 +576,7 @@ endfunction
 " MapForSemicolonEnter: ;<CR> [[[2
 function! s:MapForSemicolonEnter()
     if (getline('.')[-1:] != ';') &&
-        \(index(['c', 'cpp', 'cs', 'java'],&filetype) >= 0)
+        \(index(['c', 'cpp', 'cs', 'java', 'css', 'scss'],&filetype) >= 0)
         return "\<End>;\<CR>"
     else
         return "\<Esc>o"
