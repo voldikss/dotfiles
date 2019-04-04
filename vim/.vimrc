@@ -249,7 +249,9 @@ nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 " BufferOperation: [[[2
 nnoremap <silent> <C-h>     :bprev<CR>
+tnoremap <silent> <C-h>     <C-\><C-n>:bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
+tnoremap <silent> <C-l>     <C-\><C-n>:bnext<CR>
 noremap  <silent> <Leader>d :Bdelete!<CR>
 " WindowOperation: [[[2
 nnoremap <M-h> <C-w>h
@@ -326,8 +328,8 @@ cnoremap <C-f> <S-Right>
 " TerminalMode: [[[2
 tnoremap <Esc>  <C-\><C-n>
 if has('win32') || has('win64')
-    nnoremap <silent> <Leader>n :vert term bash<CR>
-    nnoremap <silent> ,n        :term bash<CR>
+    nnoremap <silent> <Leader>n :vert term<CR>
+    nnoremap <silent> ,n        :term<CR>
 else
     nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
     nnoremap <silent> ,n        :edit term://zsh<CR>
@@ -671,21 +673,14 @@ call s:SetupCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetupCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetupCommandAbbrs('grm', 'Gremove')
 call s:SetupCommandAbbrs('gmv', 'Gmove')
-" Gvim: [[[1
-if has('gui_running')
+" Nvim-Qt: [[[1
+if exists('g:GuiLoaded')
     inoremap <S-CR> <Esc>o
     inoremap <C-CR> <Esc>O
-    " autocmd GUIEnter * simalt ~x " 窗口启动时自动最大化
-    set guioptions-=m " 隐藏菜单栏
-    set guioptions-=T " 隐藏工具栏
-    set guioptions-=L " 隐藏左侧滚动条
-    set guioptions-=r " 隐藏右侧滚动条
-    set guioptions-=b " 隐藏底部滚动条
-    set guifont=Monaco\ for\ Powerline:h10:b
-    " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11:b
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    language messages zh_CN.utf-8
+    GuiFont! Monaco:h11
+    GuiTabline 0
+    GuiPopupmenu 0
+    let g:GuiWindowMaximized = 1
 endif
 " PluginConfig: [[[1
 " airline [[[2
