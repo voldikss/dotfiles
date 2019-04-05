@@ -844,12 +844,12 @@ let g:mkdp_auto_close = 0
 " NeoDebug [[[2
 let g:neodbg_keymap_continue           = '<F5>'   " run or continue
 let g:neodbg_keymap_toggle_breakpoint  = '<F9>'   " toggle breakpoint on current line
-let g:neodbg_keymap_next               = '<F10>'  " next
+let g:neodbg_keymap_step_into          = '<F10>' " step into
 let g:neodbg_keymap_terminate_debugger = '<F12>'  " terminate debugger
 " following are unuseful
 let g:neodbg_keymap_run_to_cursor      = '<Nop1>' " run to cursor (tb and c)
 let g:neodbg_keymap_jump               = '<Nop2>' " set next statement (tb and jump)
-let g:neodbg_keymap_step_into          = '<Nop3>' " step into
+let g:neodbg_keymap_next               = '<Nop3>'  " next
 let g:neodbg_keymap_step_out           = '<Nop4>' " setp out
 let g:neodbg_keymap_print_variable     = '<Nop5>' " view variable under the cursor
 let g:neodbg_keymap_stop_debugging     = '<Nop6>' " stop debugging (kill)
