@@ -165,6 +165,7 @@ set whichwrap=b,s,<,>,[,]
 " style [[[2
 colorscheme molokai
 set termguicolors
+set guicursor=
 set signcolumn=yes
 set pumheight=15
 set title
