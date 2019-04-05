@@ -283,7 +283,7 @@ vnoremap <Leader>y "+y
 nnoremap <Leader>Y "+y$
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
-noremap <silent> <Leader>sa <Esc>ggVG
+noremap  <silent> <Leader>sa <Esc>ggVG
 vnoremap <silent> <C-c> "+y
 " InsertMode: move [[[2
 inoremap <C-k> <Esc>ka
@@ -297,7 +297,6 @@ inoremap <C-e> <End>
 inoremap <C-o> <Esc>o
 inoremap <M-o> <Esc>O
 inoremap <C-d> <Esc>ddi
-inoremap <C-u> <Esc>cc
 inoremap <C-c> <Esc>C
 " InsertMode: ;* [[[2
 inoremap ;; <End>;
@@ -311,7 +310,7 @@ inoremap ;l <Right>
 inoremap ;o <Esc>o
 inoremap ;O <Esc>O
 inoremap ;u <C-u>
-inoremap ;c <Esc>cc
+inoremap ;c <Esc>C
 inoremap ;i <Esc>I
 " SaveAndQuit: [[[2
 nnoremap <silent> <Leader>w :w<CR>
