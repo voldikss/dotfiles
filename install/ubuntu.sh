@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# netease cloud music
+# sougou pinyin
+
 # Reset
 Reset='\033[0m'           # Text Reset
 
@@ -44,17 +47,17 @@ function common_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     # common tools
-    crun sudo apt install openssh-client git wget curl unrar unzip tree -y
+    crun sudo apt install openssh-client git wget curl unrar unzip tree xclip -y
     # trash
     crun sudo apt install trash-cli -y
     # bat
-    crun curl -LO https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+    crun wget -O https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
     crun sudo dpkg -i bat_0.10.0_amd64.deb
     crun rm bat_0.10.0_amd64.deb
     # catimg
     crun sudo apt install catimg -y
     # ripgrep
-    crun curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+    crun wget -O https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
     crun sudo dpkg -i ripgrep_0.10.0_amd64.deb
     crun rm ripgrep_0.10.0_amd64.deb
     # fzf
@@ -63,7 +66,7 @@ function common_install(){
     # prettyping
     crun git clone https://github.com/denilsonsa/prettyping.git --depth 1
     crun sudo cp ./prettyping/prettyping /usr/bin/
-    crun rm -r prettyping
+    crun rm -rf prettyping
     # htop
     crun sudo apt install htop -y
     # ranger
@@ -77,15 +80,15 @@ function common_install(){
     crun sudo make
     crun sudo make install
     crun cd ..
-    crun rm -r ncdu*
+    crun rm -rf ncdu*
     # nnn
     crun git clone https://github.com/jarun/nnn --depth 1
     crun cd nnn
-    crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev
+    crun sudo apt install pkg-config libncursesw5-dev libreadline6-dev -y
     crun make
     crun sudo make install
     crun cd ..
-    crun rm -r nnn
+    crun rm -rf nnn
     # zathura
     crun sudo apt install zathura -y
 }
@@ -101,21 +104,21 @@ function oh_my_zsh_install(){
         crun sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         crun sudo cp -f ../zsh/af-magic.zsh-theme $HOME/.oh-my-zsh/themes
         crun sudo cp -f ../zsh/.zshrc $HOME
-        ### Plugins
-        # zsh-autosuggestions
-        crun git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        # zsh-syntax-highlighting
-        crun git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-        # fasd
-        crun sudo add-apt-repository ppa:aacebedo/fasd -y
-        crun sudo apt update
-        crun sudo apt install fasd -y
-        # extract
-        crun sudo apt install extract -y
-        crun source ~/.zshrc
     else
         cecho "NOTE: oh-my-zsh has already been installed and won't be installed here"
     fi
+    ### Plugins
+    # zsh-autosuggestions
+    crun git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    # zsh-syntax-highlighting
+    crun git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    # fasd
+    crun sudo add-apt-repository ppa:aacebedo/fasd -y
+    crun sudo apt update
+    crun sudo apt install fasd -y
+    # extract
+    crun sudo apt install extract -y
+    crun source ~/.zshrc
 }
 
 function vim_install(){
@@ -200,7 +203,7 @@ function ctags_install(){
     crun sudo make
     crun sudo make install
     crun cd -
-    crun rm -r ctags
+    crun rm -rf ctags
 }
 
 function font_install(){
@@ -228,7 +231,7 @@ function ccls_install() {
         crun cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$PWD/clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
         crun cmake --build Release
         crun rm clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-        crun rm -r clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
+        crun rm -rf clang+llvm-7.0.1-x86_64-linux-gnu-ubuntu-16.04
         crun cd ..
         crun mkdir -p ~/Applications
         crun mv ccls ~/Applications/
@@ -237,15 +240,37 @@ function ccls_install() {
     fi
 }
 
+function latex_install() {
+    cecho "Installing latex..."
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    sudo apt install texlive -y
+    sudo apt install texlive-lang-chinese -y
+    sudo apt install texlive-xetex -y
+    sudo apt install latexmk -y
+}
+
 function others_install(){
-    cecho "Installing others(gnome-tweak-tool, chrome)..."
+    cecho "Installing others..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    # gnome-tweak-tool
     crun sudo apt install gnome-tweak-tool -y
+    # google-chrome
     crun sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
     crun wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
     crun sudo apt update
     crun sudo apt install google-chrome-stable -y
+    # goldendict
+    crun sudo apt install goldendict -y
+    # netease-cloud-music
+    crun wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
+    crun sudo dpkg -i netease-cloud-music.deb
+    crun sudo apt install -f
+    # sougou-pinyin input method
+    crun wget -O sogou-pinyin.deb http://pinyin.sogou.com/linux/download.php\?f\=linux\&bit\=64
+    crun sudo dpkg -i sogou-pinyin.deb
+    crun sudo apt install -f
 }
 
 function confirm_install(){
@@ -276,7 +301,8 @@ function ubuntu_install()
     confirm_install nodejs nodejs_install
     confirm_install ctags ctags_install
     confirm_install ccls ccls_install
-    echo "Others include: gnome-tweak | chrome"
+    confirm_install latex latex_install
+    echo "Others include: gnome-tweak | chrome | goldendict | netease-cloud-music | sougou-pinyin"
     confirm_install others others_install
 
     # oh_my_zsh
