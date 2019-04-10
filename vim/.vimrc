@@ -82,7 +82,7 @@ Plug 'guns/xterm-color-table.vim'
 " Git [[[2
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/git-messenger.vim', {'branch': 'diff'}
+Plug 'rhysd/git-messenger.vim'
 Plug 'iamcco/sran.nvim', { 'do': { -> sran#util#install() } }
 Plug 'iamcco/git-p.nvim'
 Plug 'cohama/agit.vim'
@@ -585,7 +585,7 @@ function! s:MapForSemicolonEnter()
 endfunction
 " MapForSemicolonP: ;p [[[2
 function! s:MapForSemicolonP()
-    if index(['c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
+    if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
         return "\<End>{}\<Left>"
     else
         return ";p"
@@ -791,7 +791,7 @@ let g:fileheader_new_line_at_end = 1
 let g:fileheader_last_modified_by = 1
 let g:fileheader_last_modified_time = 1
 " git-messenger [[[2
-let g:git_messenger_include_diff = v:true
+let g:git_messenger_include_diff = 'current'
 " git-p.nvim [[[2
 nmap <silent> <leader>gv <Plug>(git-p-diff-preview)
 let g:gitp_blame_format = ""
@@ -813,7 +813,6 @@ let g:goyo_linenr = 1
 " indentLine [[[2
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_char = '┆'
 " LeaderF [[[2
 let g:Lf_ShortcutF = '<Leader>f'
 let g:Lf_ShortcutB = '<Leader>b'
