@@ -1,0 +1,6 @@
+deb https://mirrors.sjtug.sjtu.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+#deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main 
+#deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main 
+#deb http://raspbian.raspberrypi.org/raspbian/ stretch main contrib non-free rpi
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://raspbian.raspberrypi.org/raspbian/ stretch main contrib non-free rpi
