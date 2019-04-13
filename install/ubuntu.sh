@@ -91,6 +91,9 @@ function common_install(){
     crun rm -rf nnn
     # zathura
     crun sudo apt install zathura -y
+    # v2ray
+    crun curl -LO -s https://install.direct/go.sh
+    crun sudo bash go.sh
 }
 
 function oh_my_zsh_install(){
