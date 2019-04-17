@@ -145,6 +145,7 @@ function vim_install(){
     crun sudo apt remove vim-gtk3 -y
 
     # make NeoVim
+    crun git clone https://github.com/neovim/neovim --depth 1
     crun sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip -y
     crun make CMAKE_BUILD_TYPE=Release
     crun sudo make install

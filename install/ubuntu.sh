@@ -27,6 +27,10 @@ crun() {
     echo -e "${Purple}\$${Reset} ${Cyan}$@"${Reset} ; "$@" ;
 }
 
+function uninstall() {
+    crun sudo apt remove libreoffice libreoffice-common firefox -y
+}
+
 function initialize(){
     cecho "Initializing..."
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -47,19 +51,19 @@ function common_install(){
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     cfence ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     # common tools
-    crun sudo apt install openssh-client git wget curl unrar unzip tree xclip -y
+    crun sudo apt install openssh-client git wget curl unrar unzip tree xclip make cmake -y
     # trash
     crun sudo apt install trash-cli -y
     # bat
-    crun wget -O https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
-    crun sudo dpkg -i bat_0.10.0_amd64.deb
-    crun rm bat_0.10.0_amd64.deb
+    crun wget -O bat.deb https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+    crun sudo dpkg -i bat.deb
+    crun rm bat.deb
     # catimg
     crun sudo apt install catimg -y
     # ripgrep
-    crun wget -O https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
-    crun sudo dpkg -i ripgrep_0.10.0_amd64.deb
-    crun rm ripgrep_0.10.0_amd64.deb
+    crun wget -O rg.deb https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb
+    crun sudo dpkg -i rg.deb
+    crun rm rg.deb
     # fzf
     crun git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     crun ~/.fzf/install --all --64
@@ -116,9 +120,10 @@ function oh_my_zsh_install(){
     # zsh-syntax-highlighting
     crun git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     # fasd
-    crun sudo add-apt-repository ppa:aacebedo/fasd -y
-    crun sudo apt update
-    crun sudo apt install fasd -y
+    crun git clone https://github.com/clvv/fasd.git --depth 1
+    crun cd fasd
+    crun sudo make install
+    crun cd ..
     # extract
     crun sudo apt install extract -y
     crun source ~/.zshrc
