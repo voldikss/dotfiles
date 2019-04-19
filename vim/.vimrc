@@ -17,7 +17,7 @@ Plug 'cpiger/NeoDebug', {'for':['c', 'cpp']}
 Plug 'godlygeek/tabular', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}}
+Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#install()}, 'frozen': 1}
 Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown'}
 Plug 'rstacruz/sparkup', {'for':'html'}
 Plug 'othree/html5.vim', {'for':'html'}
@@ -26,42 +26,16 @@ Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'elzr/vim-json' ,{'for':'json'}
 Plug 'MTDL9/vim-log-highlighting', {'for': 'log'}
 Plug 'vim-python/python-syntax', {'for':'python'}
-if has('nvim')
-    Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
-endif
+Plug 'numirias/semshi', {'for':'python', 'do': ':UpdateRemotePlugins'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'voldikss/vim-mma', {'for':'mma'}
 Plug 'aperezdc/vim-template', {'on': 'Template'}
 " Completion [[[2
-if has('nvim')
-    Plug 'honza/vim-snippets'
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
-    Plug 'Shougo/neco-vim', {'for': 'vim'}
-    Plug 'neoclide/coc-neco', {'for': 'vim'}
-else
-    "=======================Use Coc================================
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': {-> coc#util#install()}}
-    Plug 'Shougo/neco-vim', {'for': 'vim'}
-    Plug 'neoclide/coc-neco', {'for': 'vim'}
-
-    "=======================Use AutoComplPop=======================
-    " Plug 'vim-scripts/AutoComplPop'
-
-    "=======================Use Deoplete===========================
-    " set pyxversion=3
-    " let g:python3_host_prog='D:/Applications/Python36/python.exe'
-    " Plug 'Shougo/deoplete.nvim'
-    " Plug 'roxma/nvim-yarp'
-    " Plug 'roxma/vim-hug-neovim-rpc'
-    " Plug 'Rip-Rip/clang_complete'
-    " Plug 'deoplete-plugins/deoplete-jedi'
-    " Plug 'davidhalter/jedi'
-    " Plug 'fszymanski/deoplete-emoji'
-    " Plug 'Shougo/neopairs.vim'
-    " Plug 'Shougo/echodoc.vim'
-    " let g:deoplete#enable_at_startup = 1
-endif
+Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'frozen':1}
+Plug 'Shougo/neco-vim', {'for': 'vim'}
+Plug 'neoclide/coc-neco', {'for': 'vim'}
 " Style [[[2
 Plug 'ap/vim-css-color'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
