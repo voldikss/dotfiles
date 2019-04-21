@@ -560,7 +560,7 @@ endfunction
 " MapForSemicolonP: ;p [[[2
 function! s:MapForSemicolonP()
     if index(['bash', 'c', 'cpp', 'cs', 'javascript', 'javascript.jsx', 'java'],&filetype) >= 0
-        return "\<End>{}\<Left>"
+        return "\<End>{}\<Left>\<CR>\<Esc>O"
     else
         return ";p"
     endif
