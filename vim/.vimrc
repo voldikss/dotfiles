@@ -21,6 +21,7 @@ Plug 'iamcco/markdown-preview.nvim', {'for':'markdown', 'do': {-> mkdp#util#inst
 Plug 'dhruvasagar/vim-table-mode',{'for': 'markdown'}
 Plug 'rstacruz/sparkup', {'for':'html'}
 Plug 'othree/html5.vim', {'for':'html'}
+Plug 'jaxbot/browserlink.vim', {'for': 'html'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'elzr/vim-json' ,{'for':'json'}
