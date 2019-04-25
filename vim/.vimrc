@@ -841,6 +841,7 @@ let NERDTreeIgnore = [
 	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
 	        \ ]
 let NERDTreeShowBookmarks = 1
+let NERDTreeQuitOnOpen = 3
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " 如果只剩下NERDTree则关闭vim
