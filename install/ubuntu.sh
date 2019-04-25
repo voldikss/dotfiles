@@ -39,6 +39,7 @@ function initialize(){
     crun sudo cp ../sources/ubuntu/sources.list /etc/apt/sources.list
 
     crun sudo cp -rf ../pip/.pip/ $HOME
+    crun sudo cp -f ../idlerc $HOME/.idlerc
     crun sudo cp -f ../inputrc/.inputrc $HOME
     crun sudo cp -f ../git/.gitconfig $HOME
     crun sudo cp -f ../shadowsocks/.shadowsocks.json $HOME
