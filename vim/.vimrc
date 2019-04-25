@@ -41,7 +41,6 @@ Plug 'neoclide/coc-neco', {'for': 'vim'}
 Plug 'ap/vim-css-color'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'Yggdroot/indentLine'
-Plug 'justinmk/vim-dirvish'
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':['NERDTreeToggle', 'NERDTreeCWD']}
@@ -106,7 +105,6 @@ call plug#end()
 set history=2000
 set pumheight=15
 set updatetime=100
-set noautochdir " compatible with dirvish
 set modifiable
 set autoread
 set autowrite
@@ -224,6 +222,7 @@ nnoremap <silent> N  Nzz
 nnoremap <silent> *  *zz
 nnoremap <silent> #  #zz
 " BufferOperation: [[[2
+nmap     <silent> -         :Explore<CR>
 nnoremap <silent> <C-h>     :bprev<CR>
 tnoremap <silent> <C-h>     <C-\><C-n>:bprev<CR>
 nnoremap <silent> <C-l>     :bnext<CR>
