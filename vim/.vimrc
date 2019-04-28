@@ -68,7 +68,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF'
 Plug 'voldikss/vim-search-me'
-Plug 'voldikss/dict.vim'
+Plug 'voldikss/vim-translate-me'
 Plug 'ahonn/fileheader.nvim'
 Plug 'inkarkat/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'inkarkat/vim-ingo-library'
@@ -753,13 +753,6 @@ if exists("*coc#add_extension")
         \'coc-vimtex',
         \)
 endif
-" dict.vim [[[2
-nmap <silent> ,t                 <Plug>DictSearch
-vmap <silent> ,t                 <Plug>DictVSearch
-nmap <silent> <Plug>DisableDictWSearch  <Plug>DictWSearch
-vmap <silent> <Plug>DisableDictWVSearch <Plug>DictWVSearch
-nmap <silent> <Plug>DisableDictRSearch  <Plug>DictRSearch
-vmap <silent> <Plug>DisableDictRVSearch <Plug>DictRVSearch
 " fileheader.nvim [[[2
 let g:fileheader_auto_add = 0
 let g:fileheader_auto_update = 0
@@ -846,7 +839,6 @@ let NERDTreeIgnore = [
 	        \ '\.DS_Store$', '\.sass-cache$', '__pycache__$', '\.egg-info$', '\.cache$'
 	        \ ]
 let NERDTreeShowBookmarks = 1
-let NERDTreeQuitOnOpen = 3
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " 如果只剩下NERDTree则关闭vim
@@ -1054,6 +1046,13 @@ let g:table_mode_corner = '|'
 let g:templates_directory            = ['~/.vim/templates']
 let g:templates_no_autocmd           = 1
 let g:templates_no_builtin_templates = 1
+" vim-translate-me [[[2
+nmap <silent>    ,t        <Plug>Translate
+nmap <silent>    ,w        <Plug>TranslateW
+nmap <silent>    ,r        <Plug>TranslateR
+vmap <silent>    ,t        <Plug>TranslateV
+vmap <silent>    ,w        <Plug>TranslateWV
+vmap <silent>    ,r        <Plug>TranslateRV
 " vimtex [[[2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
