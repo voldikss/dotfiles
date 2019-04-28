@@ -309,13 +309,14 @@ else
     nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " Customized function [[[2
-noremap  <silent> <F4>  <Esc>:call <SID>FileExplore()<CR>
-noremap  <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
-noremap! <silent> <F5>  <Esc>:call <SID>QuickRun()<CR>
-nnoremap <expr>   <CR>  <SID>NormalMapForEnter() . "\<Esc>"
-inoremap <expr>   <CR>  <SID>InsertMapForEnter()
-inoremap <expr>   ;<CR> <SID>MapForSemicolonEnter()
-inoremap <expr>   ;p    <SID>MapForSemicolonP()
+noremap  <silent> <F4>         <Esc>:call <SID>FileExplore()<CR>
+noremap  <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
+noremap! <silent> <F5>         <Esc>:call <SID>QuickRun()<CR>
+noremap  <silent> <Leader>x    <Esc>:call <SID>QuickRun()<CR>
+nnoremap <expr>   <CR>         <SID>NormalMapForEnter() . "\<Esc>"
+inoremap <expr>   <CR>         <SID>InsertMapForEnter()
+inoremap <expr>   <Leader><CR> <SID>MapForSemicolonEnter()
+inoremap <expr>   <Leader>p    <SID>MapForSemicolonP()
 " Autocmd: [[[1
 augroup AutocmdGroup
     autocmd!
@@ -412,6 +413,7 @@ command! ToggleAutoformat call <SID>ToggleAutoformat()
 
 command! -nargs=+ Grep        call <SID>Grep(<q-args>)
 command! -nargs=+ -complete=command TabMessage call <SID>TabMessage(<q-args>)
+command! -nargs=1 QuickRunPythonInterpretor  let g:asyncrun_python_interpretor=<q-args>
 " GitOperation: [[[2
 command! Gap  Git add -p
 command! Cd   Gcd
@@ -476,6 +478,10 @@ function! s:QuickRun()
     elseif &filetype == 'sh'
         AsyncRun bash %
     elseif &filetype == 'python'
+        if exists('g:asyncrun_python_interpretor')
+            exec 'AsyncRun ' . '-raw ' .  g:asyncrun_python_interpretor . ' %'
+            return
+        endif
         if has("unix")
             AsyncRun -raw python3 %
         else
