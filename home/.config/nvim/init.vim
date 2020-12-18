@@ -854,13 +854,22 @@ let g:lightline = {
       \ ['translator_status'],
     \ ]
   \ },
+  \ 'tabline': {
+    \ 'left': [['vim_logo', 'buffers']],
+    \ 'right': [['close']],
+    \ 'subseparator': {
+      \ 'left': '│',
+      \ 'right': '│'
+    \ }
+  \ },
   \ 'component': {
-    \ 'lineinfo': ' %4l,%-3v',
+    \ 'lineinfo': ' %l,%-v',
+    \ 'percent': '%p%%',
     \ 'codelf_status': '%{exists("g:codelf_status") ? g:codelf_status : ""}',
     \ 'translator_status': '%{exists("g:translator_status") ? g:translator_status : ""}',
     \ 'asyncrun_status': '%{exists("g:asyncrun_status") ? g:asyncrun_status : ""}',
-    \ 'close': '%{has("nvim") ? " NVIM 😆" : " VIM "}',
-    \ 'vim_logo': "😆 "
+    \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
+    \ 'vim_logo': "  "
   \ },
   \ 'component_function': {
     \ 'mode': 'fn#lightline#Mode',
@@ -872,14 +881,6 @@ let g:lightline = {
     \ 'fileencoding': 'fn#lightline#FileEncoding',
     \ 'filetype': 'fn#lightline#FileType',
     \ 'absolutepath': 'fn#lightline#AbsPath'
-  \ },
-  \ 'tabline': {
-    \ 'left': [['vim_logo', 'buffers']],
-    \ 'right': [['close']],
-    \ 'subseparator': {
-      \ 'left': '│',
-      \ 'right': '│'
-    \ }
   \ },
   \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
   \ 'component_type': { 'buffers': 'tabsel' },
