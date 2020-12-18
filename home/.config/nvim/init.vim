@@ -47,117 +47,76 @@ let g:winmgr_only_one_win = 0
 " }}}
 
 " Basic: {{{
-" file & directory & format
-set history=2000
-set pumheight=20
-set updatetime=100
-set autoread
-set autowrite
-set nobackup
-set noswapfile
-set nowritebackup
-set undodir=$HOME/.cache/nvim/undo_dir/
-set undofile
-set isfname-==
-set encoding=utf-8
+" Encoding
+set encoding=utf-8 fileencoding=utf-8 fileformats=unix,mac,dos
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set fileformats=unix,dos,mac
-set nrformats=
-set hidden
-set nowrap
-set fileignorecase
-set formatoptions+=m
-set formatoptions+=B
-set dictionary+=~/.config/nvim/dict/dictionary.txt
-set nospell
-set spellfile=~/.config/nvim/spell/en.utf-8.add
-set path=.,/usr/local/include,/usr/include,**3
-set tags=./tags,tags,.tags,.vim/tags,.vim/.tags
-set tagfunc=CocTagFunc
-" key
-set ttimeout
-set timeoutlen=500
-set ttimeoutlen=20
-set mouse=a
-set selectmode=mouse
-" set clipboard=unnamed
-set backspace=2
-set backspace=eol,start,indent
-set whichwrap=b,s,<,>,[,]
-set completeopt-=menu
-set completeopt+=menuone   " Show the completions UI even with only 1 item
-set completeopt-=longest   " Don't insert the longest common text
-set completeopt-=preview   " Hide the documentation preview window
-set completeopt+=noinsert  " Don't insert text automatically
-set completeopt-=noselect  " Highlight the first completion automatically
-set modeline
-" style
-set noequalalways
-set display=lastline
-set termguicolors
-set guicursor=
-set pumheight=15
-set title
-set ruler
-set cursorline
-set laststatus=2
-set showtabline=2
-set guioptions-=e
-set shortmess+=c
-set shortmess-=S
-set scrolloff=6
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
-colorscheme srcery
-" match & search
-set showmatch
-set matchtime=0
-set matchpairs+=<:>
-set matchpairs+=《:》
-set matchpairs+=（:）
-set matchpairs+=【:】
-set matchpairs+=“:”
-set matchpairs+=‘:’
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-" tab & space & indent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set smarttab
-set expandtab
-set shiftround
-set relativenumber number
-set foldlevel=99
-set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
-set conceallevel=0
-set autoindent
-set smartindent
-set cpoptions+=I
-" command window
-set wildmode=longest,full
-set wildmenu
-set wildignorecase
-set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
-set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
-set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
-set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
-set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
-set wildignore+=*DS_Store*,*.ipch
-set wildignore+=*.gem
-set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
-set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
-set wildignore+=*/.nx/**,*.app,*.git,.git
-set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
-set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
-set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
-set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
-set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
-set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
-set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
-set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+
+" Appearance
+silent! set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
+silent! set showmatch matchtime=0 showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak=
+silent! set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
+silent! set noshowcmd noruler rulerformat= laststatus=2 statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
+silent! set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
+silent! set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0 norelativenumber
+silent! set list set listchars=tab:\|\ ,trail:.,extends:>,precedes:< synmaxcol=3000 ambiwidth=double breakindent breakindentopt=
+silent! set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
+silent! set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3 nowarn noconfirm
+silent! set fillchars=vert:\|,fold:\  eventignore= helplang=en viewoptions=options,cursor virtualedit=
+silent! set termguicolors cpoptions+=I guicursor= guioptions-=e
+
+" Editing
+silent! set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
+silent! set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
+silent! set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
+silent! set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
+silent! set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
+silent! set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
+silent! set tags=./tags,tags,.tags,.vim/tags,.vim/.tags tagfunc=CocTagFunc
+
+" Clipboard
+silent! set clipboard=unnamed,unnamedplus
+
+" Data files
+silent! set history=10000 noswapfile
+silent! set nospell spellfile=$HOME/.config/nvim/spell/en.utf-8.add
+silent! set nobackup nowritebackup backupdir=$HOME/.cache/nvim/backup_dir
+silent! set undofile undolevels=1000 undodir=$HOME/.cache/nvim/undo_dir
+silent! set dictionary+=~/.config/nvim/dict/dictionary.txt
+
+" Search
+silent! set wrapscan ignorecase smartcase incsearch hlsearch magic shortmess-=S
+silent! set path=.,/usr/local/include,/usr/include,**3
+
+" Insert completion
+silent! set complete& completeopt=menuone,noinsert infercase pumheight=10 noshowfulltag shortmess+=c
+
+" Command line
+silent! set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
+silent! set wildchar=9 nowildmenu wildmode=longest,full wildmenu wildoptions= wildignorecase fileignorecase
+silent! set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
+silent! set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
+silent! set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+silent! set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+silent! set wildignore+=*DS_Store*,*.ipch
+silent! set wildignore+=*.gem
+silent! set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+silent! set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+silent! set wildignore+=*/.nx/**,*.app,*.git,.git
+silent! set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+silent! set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+silent! set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+silent! set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+silent! set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+silent! set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+silent! set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+silent! set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+
+" Performance
+silent! set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 ttyfast lazyredraw
+
+" Bell
+silent! set noerrorbells visualbell t_vb=
+
 " neovim only
 if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
   set shada='20,<50,s10
@@ -166,6 +125,8 @@ if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
   set signcolumn=yes:1
   set pumblend=0
 endif
+
+colorscheme srcery
 " }}}
 
 " Plugin: {{{
