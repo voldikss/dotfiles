@@ -42,8 +42,6 @@ let g:terminal_color_12 = '#00afff'
 let g:terminal_color_13 = '#d3869b'
 let g:terminal_color_14 = '#8ec07c'
 let g:terminal_color_15 = '#ebdbb2'
-" Others:
-let g:winmgr_only_one_win = 0
 " }}}
 
 " Basic: {{{
@@ -61,7 +59,6 @@ silent! set cursorline nocursorcolumn colorcolumn= concealcursor=nvc concealleve
 silent! set list set listchars=tab:\|\ ,trail:.,extends:>,precedes:< synmaxcol=3000 ambiwidth=double breakindent breakindentopt=
 silent! set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 silent! set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3 nowarn noconfirm
-silent! set fillchars=vert:\|,fold:\  eventignore= helplang=en viewoptions=options,cursor virtualedit=
 silent! set termguicolors cpoptions+=I guicursor= guioptions-=e
 
 " Editing
@@ -372,7 +369,6 @@ call s:SetCommandAbbrs('pu', 'PlugUpdate')
 call s:SetCommandAbbrs('sl', 'CocCommand session.load default')
 call s:SetCommandAbbrs('ss', 'CocCommand session.save default')
 call s:SetCommandAbbrs('st', 'Startify')
-call s:SetCommandAbbrs('sw', 'SwitchWindow')
 call s:SetCommandAbbrs('tm', 'TabMessage')
 call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 " }}}
@@ -380,27 +376,26 @@ call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 " Commands: {{{
 command! CwordhiToggle call CwordhiToggle()
 command! AutoFormat call fn#file#autoformat()
-command! OpenFileExplorer call fn#utils#open_file_explorer()
+command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CloseNoBuflistedBuffers call fn#buffer#close_nobuflisted_bufs()
 command! CloseNoCurrentBuffers call fn#buffer#close_nocurrent_bufs()
 command! CloseNoDisplayedBuffers call fn#buffer#close_nodisplayed_bufs()
 command! Gwa AsyncRun -cwd=<root> -silent=1 git add .
 command! Template call fn#template#TLoad()
-command! -nargs=* Zeal call fn#utils#zeal(<q-args>)
-command! -nargs=* SyntaxAt call fn#utils#syntax_at(<f-args>)
-command! -nargs=? Bline call fn#utils#insert_line('bold', <f-args>)
-command! -nargs=? Cline call fn#utils#insert_line('comment', <f-args>)
-command! -nargs=? Line call fn#utils#insert_line('light', <f-args>)
+command! -nargs=* Zeal call fn#command#zeal(<q-args>)
+command! -nargs=* SyntaxAt call fn#command#syntax_at(<f-args>)
+command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
+command! -nargs=? Cline call fn#command#insert_line('comment', <f-args>)
+command! -nargs=? Line call fn#command#insert_line('light', <f-args>)
 command! -nargs=? RenameFile call fn#file#rename(<q-args>)
 command! -nargs=? RemoveFile call fn#file#remove()
-command! -nargs=+ Grep  call fn#utils#grep(<q-args>)
-command! -nargs=+ -complete=file  SystemOpen  call fn#utils#system_open(<q-args>)
-command! -nargs=+ -complete=command Windo call fn#utils#windo(<q-args>)
-command! -nargs=+ -complete=command Bufdo call fn#utils#bufdo(<q-args>)
-command! -nargs=+ -complete=command Tabdo call fn#utils#tabdo(<q-args>)
-command! -nargs=+ -complete=command  TabMessage call fn#utils#tab_message(<q-args>)
+command! -nargs=+ Grep  call fn#command#grep(<q-args>)
+command! -nargs=+ -complete=file  SystemOpen  call fn#lib#system_open(<q-args>)
+command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
+command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
+command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
+command! -nargs=+ -complete=command  TabMessage call fn#command#tab_message(<q-args>)
 command! -nargs=? -complete=customlist,fn#quickrun#Complete QuickRun call fn#quickrun#run(<f-args>)
-command! -nargs=+ -complete=customlist,fn#window#Complete SwitchWindow call fn#window#switch_window(<q-args>)
 command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' : <q-args>, {
   \ 'on_stdout': function('fn#floaterm#watch_callback'),
   \ 'on_stderr': function('fn#floaterm#watch_callback'),
@@ -440,7 +435,7 @@ vnoremap <silent> ]]  }k
 nnoremap <silent> <C-j>      :<C-u>call fn#keymap#n#jump()<CR>
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
-nnoremap <silent> <C-w><C-o> :<C-u>call fn#utils#jumpback()<CR>
+nnoremap <silent> <C-w><C-o> :<C-u>call fn#legacy#jumpback()<CR>
 " Search:
 nnoremap <expr> n  'Nn'[v:searchforward].'zz'
 nnoremap <expr> N  'nN'[v:searchforward].'zz'
@@ -581,27 +576,26 @@ if has('nvim')
 endif
 nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
 
-noremap  <silent> <F2>             <Esc>:SwitchWindow coc-explorer<CR>
-noremap! <silent> <F2>             <Esc>:SwitchWindow coc-explorer<CR>
-tnoremap <silent> <F2>             <C-\><C-n>:SwitchWindow coc-explorer<CR>
-noremap  <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
-noremap! <silent> <F3>             <Esc>:SwitchWindow mundo<CR>
-tnoremap <silent> <F3>             <C-\><C-n>:SwitchWindow mundo<CR>
+noremap  <silent> <F2>             <Esc>:CocCommand explorer<CR>
+noremap! <silent> <F2>             <Esc>:CocCommand explorer<CR>
+tnoremap <silent> <F2>             <C-\><C-n>:CocCommand explorer<CR>
+noremap  <silent> <F3>             <Esc>:MundoToggle<CR>
+noremap! <silent> <F3>             <Esc>:MundoToggle<CR>
+tnoremap <silent> <F3>             <C-\><C-n>:MundoToggle<CR>
 noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader><Space>  <Esc>:SwitchWindow qf<CR>
-" tnoremap <silent> <Leader><Space>  <C-\><C-n>:SwitchWindow qf<CR>
+noremap  <silent> <Leader><Space>  <Esc>:copen<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
-noremap  <silent> <F10>            <Esc>:SwitchWindow vista<CR>
-noremap! <silent> <F10>            <Esc>:SwitchWindow vista<CR>
-tnoremap <silent> <F10>            <C-\><C-n>:SwitchWindow vista<CR>
-noremap  <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
-noremap! <silent> <F12>            <Esc>:SwitchWindow floaterm<CR>
-tnoremap <silent> <F12>            <C-\><C-n>:SwitchWindow floaterm<CR>
+noremap  <silent> <F10>            <Esc>:Vista!!<CR>
+noremap! <silent> <F10>            <Esc>:Vista!!<CR>
+tnoremap <silent> <F10>            <C-\><C-n>:Vista!!<CR>
+noremap  <silent> <F12>            <Esc>:FloatermToggle<CR>
+noremap! <silent> <F12>            <Esc>:FloatermToggle<CR>
+tnoremap <silent> <F12>            <C-\><C-n>:FloatermToggle<CR>
 nnoremap <expr>   <CR>             fn#keymap#n#CR() . "\<Esc>"
 inoremap <expr>   <CR>             fn#keymap#i#CR()
 inoremap <expr>   <BS>             fn#keymap#i#BS()

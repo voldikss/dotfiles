@@ -107,7 +107,7 @@ function fn#template#TLoad()
   let file_ext = matchstr(expand('%'), '\.\zs[^\.]*\ze$')
   let tfile = globpath(&rtp, 'templates/=template=.'.file_ext)
   if empty(tfile)
-    call fn#utils#show_message('No templates for this filetype', 'error')
+    call fn#lib#show_message('No templates for this filetype', 'error')
   else
     call s:TLoadTemplate(tfile)
   endif
