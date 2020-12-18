@@ -1,0 +1,33 @@
+# vim:ft=snippets:
+priority -50
+
+snippet cl "console.log"
+console.log(${0})
+endsnippet
+
+snippet cd "console.debug"
+console.debug(${0})
+endsnippet
+
+snippet ce "console.error"
+console.error(${0})
+endsnippet
+
+snippet cw "console.warn"
+console.warn(${0})
+endsnippet
+
+snippet ci "console.info"
+console.info(${0})
+endsnippet
+
+snippet ct "console.trace"
+console.trace(${0:label})
+endsnippet
+
+snippet ctime "console.time ... console.timeEnd"
+console.time("${1:label}")
+${0:${VISUAL}}
+console.timeEnd("$1")
+endsnippet
+

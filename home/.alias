@@ -1,0 +1,85 @@
+# vim:ft=sh
+# ls
+alias ll='ls -laFh'
+alias la='ls -laFh'
+alias lh='ls -lh'
+alias lR='ls -lR'
+alias l='ls -lh'
+
+# vim
+alias vim=nvim
+alias vi=nvim
+
+# python
+alias python=python3
+alias pip=pip3
+alias pip_upgrade_all_packages="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip install -U"
+alias pip_pkglist_backup='pip list > $HOME/dotfiles/misc/pip/pip_list.txt'
+alias pip_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pip/pip_list.txt); do pip install $x; done'
+
+# git
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit -v'
+alias gca='git commit --amend'
+alias gco='git checkout'
+alias gcl='git clone --depth 1'
+alias gd='git diff'
+alias gf='git fetch'
+alias gr='git reset --hard HEAD'
+alias gp='git push'
+alias gpf='git push -f'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
+alias gs='git status'
+alias gacp='git add . && git commit -m "$(date)" && git push -u origin master'
+
+# rm 进 trash
+alias rm='trash -r'
+
+# fasd
+alias v='f -e vim' # quick opening files with vim
+alias m='f -e mplayer' # quick opening files with mplayer
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+# fzf
+alias fzfvim='vim $(fzf)'
+alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+
+# prettyping
+# alias ping='prettyping'
+
+# htop
+alias top='htop'
+
+# ncdu
+alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+
+# nnn
+alias nnn='nnn -d'
+
+# where proxy
+alias proxy='export all_proxy=https://127.0.0.1:1081'
+alias unproxy='unset all_proxy'
+
+# npm registry
+alias npm_taobao='npm config set registry https://registry.npm.taobao.org'
+alias npm_origin='npm config set registry https://registry.npmjs.org'
+alias ncu_check='ncu -u && npm i' # need `npm install -g npm-check-updates`
+
+# arch
+alias p='sudo pacman'
+
+# dos2unix
+alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'
+
+# cgdb nvim
+# might need `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope`
+alias cgdb_nvim="gdb -p $(ps auxx | grep '[.]/build/bin/nvim' | awk '{print $2}')"
+
+# pacman package list backup and restore
+alias pacman_pkglist_backup='pacman -Qqe > $HOME/dotfiles/misc/pacman/package_list.txt'
+alias pacman_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pacman/package_list.txt); do sudo pacman -S $x --noconfirm; done'
+
+# screen record
+alias screenrecord='ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac'

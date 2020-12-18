@@ -1,0 +1,10 @@
+{
+    "workbench.colorTheme": "Monokai",
+    "editor.fontFamily": "Monaco",
+    "vim.insertModeKeyBindings": [
+     {
+         "before": ["j", "j"],
+         "after": ["<esc>"]
+     }
+]
+}

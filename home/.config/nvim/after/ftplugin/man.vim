@@ -1,0 +1,2 @@
+setlocal number
+setlocal relativenumber

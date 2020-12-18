@@ -1,0 +1,35 @@
+[user]
+	name = voldikss
+	email = dyzplus@gmail.com
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    type = cat-file -t
+    dump = cat-file -p
+	lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(cyan)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+[credential]
+	helper = cache
+[core]
+    editor = nvim
+	fileMode = false
+	quotepath = false
+    autocrlf = false
+    safecrlf = true
+	eol = lf
+[color]
+	ui = auto
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[gpg]
+	program = gpg
+[github]
+    user = voldikss
+[pull]
+	rebase = false

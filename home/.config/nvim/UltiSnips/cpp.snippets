@@ -1,0 +1,16 @@
+snippet class "class"
+class ${1:Class}{
+  public:
+    $1();
+    $1(const $1&);
+    $1& operator=(const $1&);
+    ~$1();
+
+  private:
+
+};
+endsnippet
+
+snippet cout "cout"
+cout << $1 << endl;
+endsnippet

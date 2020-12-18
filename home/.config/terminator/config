@@ -1,0 +1,44 @@
+[global_config]
+  window_state = maximise
+  scroll_tabbar = True
+  homogeneous_tabbar = False
+  suppress_multiple_term_dialog = True
+[keybindings]
+  zoom_normal = None
+  go_up = None
+  go_down = None
+  go_left = None
+  go_right = None
+  switch_to_tab_1 = <Alt>1
+  switch_to_tab_2 = <Alt>2
+  switch_to_tab_3 = <Alt>3
+  switch_to_tab_4 = <Alt>4
+  switch_to_tab_5 = <Alt>5
+  switch_to_tab_6 = <Alt>6
+  switch_to_tab_7 = <Alt>7
+  switch_to_tab_8 = <Alt>8
+  switch_to_tab_9 = <Alt>9
+  broadcast_off = None
+  layout_launcher = None
+[profiles]
+  [[default]]
+    icon_bell = False
+    background_color = "#282828"
+    cursor_color = "#aaaaaa"
+    font = MonacoB2 Nerd Font Mono 14
+    foreground_color = "#ebdbb2"
+    show_titlebar = False
+    palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+      profile = default
+      directory = /mnt/repo
+      command = ""
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]

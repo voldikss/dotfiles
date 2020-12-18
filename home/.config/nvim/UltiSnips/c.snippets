@@ -1,0 +1,41 @@
+snippet main "main() (main)"
+int main() {
+	${VISUAL}$0
+	return 0;
+}
+endsnippet
+
+snippet mainn "main() (main)"
+int main(int argc, char *argv[]) {
+	${VISUAL}$0
+	return 0;
+}
+endsnippet
+
+snippet for "for loop (for)"
+for (int ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fprintf "fprintf ..."
+fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet eli "else if .. (eli)"
+else if (${1:/* condition */}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n", ${2})
+endsnippet
+
+snippet fun "function" b
+${1:void} ${2:function_name}($3) {
+	${VISUAL}$0
+}
+endsnippet
+
+# vim:ft=snippets:

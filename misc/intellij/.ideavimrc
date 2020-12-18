@@ -1,0 +1,156 @@
+set ideajoin
+set surround
+set commentary
+set easymotion
+set multiple-cursors
+set number
+set relativenumber
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+set scrolloff=3
+set sidescrolloff=4
+set history=10000
+set clipboard+=unnamed
+
+let mapleader   = ';'
+let g:mapleader = ';'
+
+nmap     M  %
+omap     M  %
+xmap     M  %
+noremap  U  <C-R>
+" Move
+noremap H ^
+noremap L $
+" Redo
+" Go to mark
+nnoremap ' `
+" 查找时将结果置于屏幕中央
+nnoremap  n nzz
+nnoremap  N Nzz
+nnoremap  * *zz
+nnoremap  # #zz
+nnoremap  g* g*zz
+" 编辑 vimrc not works
+" noremap ;ve :edit   ~/.ideavimrc<CR>
+" source vimrc
+nnoremap ;vs :source ~/.ideavimrc<CR>
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+nnoremap < V<
+nnoremap > V>
+" 将选中文本块复制至系统剪贴板
+nnoremap ;y "+yy
+vnoremap ;y "+y
+nnoremap ;Y "+y$
+" 设置快捷键将系统剪贴板内容粘贴至 vim
+nnoremap ;p "+p
+nnoremap ;P "+P
+" 全选
+nnoremap <silent> ;sa <Esc>ggVG
+" 复制当前到行尾
+nnoremap Y y$
+" 快速退出
+nnoremap ;q <Esc>:q<CR>
+nnoremap gd <Esc>:q<CR>
+nnoremap Q  <Esc>:q<CR>
+" nnoremap <C-w> <Esc>:q<CR>
+" tab切换
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+noremap <C-n> gt
+noremap <C-p> gT
+
+" Normal mode
+" inoremap jj <Esc>
+" inoremap jk <Esc>
+" 插入模式下的左右移动
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+" 词首词尾: forward; bachward
+inoremap <C-b> <Esc>bi
+inoremap <C-f> <Esc>ea
+" 另开一行
+inoremap <C-o> <End><CR>
+" 行首行尾:
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+" 清除整行
+inoremap <C-u> <Esc>cc
+
+" 命令行模式增强
+" Ctrl-a 到行首，-e 到行尾
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+" 回溯历史命令时用 C-p 和 C-n 达到像 Up Down 一样的过滤效果
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+" 前进后退一个单词
+cnoremap <C-b> <S-Left>
+cnoremap <C-f> <S-Right>
+
+nnoremap <C-j> <C-]>
+nnoremap ;d <Esc>:q<CR>
+nnoremap ;w <Esc>:w<CR>
+
+noremap <c-o> :action Back<cr>
+noremap <c-i> :action Forward<cr>
+
+" easymotion
+" map \ <Plug>(easymotion-prefix)
+" nmap s <Plug>(easymotion-s)
+
+" File search
+noremap <Leader><space> :action GotoAction<CR>
+noremap <Leader>f       :action GotoFile<cr>
+noremap <Leader>c       :action GotoClass<cr>
+noremap <Leader>s       :action GotoSymbol<cr>
+noremap <Leader>o       :action FileStructurePopup<cr>
+noremap <Leader>e       :action SearchEverywhere<cr>
+noremap <Leader>g       :action Git.Menu<CR>
+noremap <Leader>b       :action RecentFiles<CR>
+
+" Run
+noremap <Leader>x :action Run<cr>
+
+" Goto
+noremap <Leader>cd :action GotoDeclaration<cr>
+noremap <Leader>ci :action GotoImplementation<cr>
+
+" Refactor
+noremap <Leader><Leader> :action ReformatCode<CR>
+noremap ,r        :action RenameElement<CR>
+nmap gj :action VcsShowNextChangeMarker<CR>
+nmap gk :action VcsShowPrevChangeMarker<CR>
+
+nmap ;hu :action Vcs.RollbackChangedLines<CR>
+nmap ;hs :action Git.Stash<CR>
+
+nmap gc :action CommentByLineComment<CR>
+vmap gc :action CommentByBlockComment<CR>
+
+nmap ;; :action ReformatCode<CR>
+
+nmap J :action MoveLineDown<CR>
+nmap K :action MoveLineUp<CR>
+vmap J :action MoveLineDown<CR>
+vmap K :action MoveLineUp<CR>
+
+nmap <A-n> :action GotoNextError<CR>
+nmap <A-p> :action GotoPreviousError<CR>
+
+" TextObject:
+" whole buffer
+xnoremap <silent> ie GoggV
+onoremap <silent> ie :normal vie<CR>
+" line
+xnoremap <silent> il g_o^
+onoremap <silent> il :normal vil<CR>
+xnoremap <silent> al $o0
+onoremap <silent> al :normal val<CR>

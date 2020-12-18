@@ -1,0 +1,34 @@
+{
+  "inbounds": [
+    {
+      "port": 443, // 建议使用 443 端口
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "", // id
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls", // security 要设置为 tls 才会启用 TLS
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件
+              "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+snippet fun "function"
+function! ${1:function_name}($2) abort
+	${0:" code}
+endfunction
+endsnippet
+
+snippet header
+" File: ${1:`!v expand('%:t')`}
+" Author: ${2:`git config --global user.name`}
+" Description: ${0: "Description}
+endsnippet
+
+snippet try "try ... catch statement"
+try
+	${1:${VISUAL}}
+catch $2
+	$3
+endtry
+endsnippet
+
+snippet for "for ... in loop"
+for ${1} in ${2}
+	${0:${VISUAL}}
+endfor
+endsnippet
+
+snippet if "if statement"
+if ${1}
+	${0:${VISUAL}}
+endif
+endsnippet
+
+snippet ife "if ... else statement"
+if ${1}
+	${2:${VISUAL}}
+else
+	${0}
+endif
+endsnippet
+
+snippet au "augroup ... autocmd block"
+augroup ${1:AU_NAME}
+	autocmd!
+	autocmd ${2}
+augroup END
+endsnippet
+
+# vim:ft=snippets:

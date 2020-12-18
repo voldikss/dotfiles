@@ -1,0 +1,50 @@
+# vim: set fenc=utf-8 ft=dosini:
+
+[start]
+command=:AsyncTask file-build-and-run
+command=:AsyncTask cmake-build-and-run
+command=:AsyncTask qmake-build-and-run
+
+[file-build-and-run]
+command:c=gcc -g "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/a.out" && "$(VIM_FILEDIR)/a.out"
+command:cpp=g++ -std=c++17 -g "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/a.out" && "$(VIM_FILEDIR)/a.out"
+command:html=:BrowserOpen %
+command:java=javac "$(VIM_FILEPATH)" && java "$(VIM_FILENOEXT)" && rm "$(VIM_PATHNOEXT).class"
+command:javascript=node "$(VIM_FILEPATH)"
+command:lua=lua "$(VIM_FILEPATH)"
+command:make=make -f "$(VIM_FILEPATH)"
+command:markdown=:MarkdownPreview
+command:mysql=:%DB
+command:python=python "$(VIM_FILEPATH)"
+command:rust=RUST_BACKTRACE=1 cargo run
+command:sh=bash "$(VIM_FILEPATH)"
+command:sql=:%DB
+command:tex=:execute(b:vimtex.compiler.is_running() ? 'VimtexView' : 'VimtexCompile')
+command:typescript=tsc %
+command:vim=:source %
+cwd=$(VIM_FILEDIR)
+output=terminal
+# silent=1
+focus=1
+notify=echo
+save=2
+
+[cmake-build-and-run]
+command=cmake --build build && "$(VIM_ROOT)"/build/"$(VIM_PRONAME)"
+cwd=<root>
+# pos=tab
+# focus=0
+output=terminal
+silent=1
+notify=echo
+save=2
+
+[qmake-build-and-run]
+command=cd build && make -j12 && "$(VIM_ROOT)"/build/"$(VIM_PRONAME)"
+cwd=<root>
+# pos=tab
+# focus=0
+output=terminal
+silent=1
+notify=echo
+save=2
