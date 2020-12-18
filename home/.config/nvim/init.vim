@@ -208,8 +208,6 @@ Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
 Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'junegunn/vim-peekaboo'
-Plug 'kristijanhusak/vim-carbon-now-sh', {'on': 'CarbonNowSh'}
-Plug 'voldikss/vim-mark', {'on': '<Plug>MarkSet'}
 Plug 'liuchengxu/vista.vim'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}

@@ -4,6 +4,8 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
+" TODO: https://github.com/itchyny/vim-cursorword/
+
 "-----------------------------------------------------------------------------
 " https://github.com/mg979/vim-mini-plugins/blob/master/plugin/cwordhi.vim
 "-----------------------------------------------------------------------------
