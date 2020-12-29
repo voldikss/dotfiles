@@ -14,6 +14,10 @@ arch_base() {
     sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc fd --noconfirm
     sudo pacman -S spectacle krunner --noconfirm
     sudo pacman -S wps-office-cn wps-office-mui-zh-cn --noconfirm
+
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
 }
 
 ubuntu_base() {
@@ -52,6 +56,7 @@ install_nvim() {
         esac
     fi
     sudo pip3 install pynvim
+    sudo pip3 install neovim-remote
     sudo pip3 install yapf
     sudo pip3 install flake8
     sudo pip3 install autopep8
@@ -86,7 +91,7 @@ install_ohmyzsh() {
 }
 
 install_vim8() {
-    if [ $OS == Ubuntu ]; then
+    if [ $OS=Ubuntu ]; then
         sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
     fi
     git clone https://github.com/vim/vim  vim-master --depth 1
@@ -147,7 +152,7 @@ install_nodejs() {
         echo Installing yarn...
         case $OS in
             Arch)
-                sudo pacman -S yarn --noconfirm;;
+                sudo pacman -S yarn npm --noconfirm;;
             Ubuntu)
                 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
                 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list

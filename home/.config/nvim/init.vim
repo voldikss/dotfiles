@@ -2,117 +2,82 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 
-" Global Variables: {{{
-" IndentCont:
-let g:vim_indent_cont = 2
-" BuiltinPlugin:
-let g:loaded_2html_plugin      = 1
-let g:loaded_logiPat           = 1
-let g:loaded_getscriptPlugin   = 1
-let g:loaded_gzip              = 1
-let g:loaded_man               = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_shada_plugin      = 1
-let g:loaded_spellfile_plugin  = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_tutor_mode_plugin = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_zipPlugin         = 1
-let g:loaded_netrwPlugin       = 1
+" Basic: {{{
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
   let g:python3_host_prog='C:\Program Files\Python38/python.exe'
 else
   let g:python3_host_prog='/usr/bin/python3'
 endif
-" NeoVimTerminalColors:
-let g:terminal_color_0  = '#282828'
-let g:terminal_color_1  = '#cc241d'
-let g:terminal_color_2  = '#00ffff'
-let g:terminal_color_3  = '#d79921'
-let g:terminal_color_4  = '#458588'
-let g:terminal_color_5  = '#b16286'
-let g:terminal_color_6  = '#689d6a'
-let g:terminal_color_7  = '#a89984'
-let g:terminal_color_8  = '#928374'
-let g:terminal_color_9  = '#fb4934'
-let g:terminal_color_10 = '#00df5f'
-let g:terminal_color_11 = '#fabd2f'
-let g:terminal_color_12 = '#00afff'
-let g:terminal_color_13 = '#d3869b'
-let g:terminal_color_14 = '#8ec07c'
-let g:terminal_color_15 = '#ebdbb2'
-" }}}
 
-" Basic: {{{
 " Encoding
 set encoding=utf-8 fileencoding=utf-8 fileformats=unix,mac,dos
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 " Appearance
-silent! set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
-silent! set showmatch matchtime=0 showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak=
-silent! set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
-silent! set noshowcmd noruler rulerformat= laststatus=2 statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
-silent! set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
-silent! set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0 norelativenumber
-silent! set list set listchars=tab:\|\ ,trail:.,extends:>,precedes:< synmaxcol=3000 ambiwidth=double breakindent breakindentopt=
-silent! set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-silent! set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3 nowarn noconfirm
-silent! set termguicolors cpoptions+=I guicursor= guioptions-=e
+set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
+set showmatch matchtime=0 showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak=
+set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
+set noshowcmd noruler rulerformat= laststatus=2 statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
+set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
+set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0 norelativenumber
+set list listchars=tab:\|\ ,trail:.,extends:>,precedes:< synmaxcol=3000 ambiwidth=single breakindent breakindentopt=
+set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
+set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3 nowarn noconfirm
+set termguicolors cpoptions+=I guicursor= guioptions-=e
 
 " Editing
-silent! set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
-silent! set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
-silent! set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
-silent! set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
-silent! set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
-silent! set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
-silent! set tags=./tags,tags,.tags,.vim/tags,.vim/.tags tagfunc=CocTagFunc
+set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
+set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
+set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
+set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
+set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
+set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
+set tags=./tags,tags,.tags,.vim/tags,.vim/.tags tagfunc=CocTagFunc
 
 " Clipboard
-silent! set clipboard=unnamed,unnamedplus
+" set clipboard=unnamed
 
 " Data files
-silent! set history=10000 noswapfile
-silent! set nospell spellfile=$HOME/.config/nvim/spell/en.utf-8.add
-silent! set nobackup nowritebackup backupdir=$HOME/.cache/nvim/backup_dir
-silent! set undofile undolevels=1000 undodir=$HOME/.cache/nvim/undo_dir
-silent! set dictionary+=~/.config/nvim/dict/dictionary.txt
+set history=10000 noswapfile
+set nospell spellfile=$HOME/.config/nvim/spell/en.utf-8.add
+set nobackup nowritebackup backupdir=$HOME/.cache/nvim/backup_dir
+set undofile undolevels=1000 undodir=$HOME/.cache/nvim/undo_dir
+set dictionary+=~/.config/nvim/dict/dictionary.txt
 
 " Search
-silent! set wrapscan ignorecase smartcase incsearch hlsearch magic shortmess-=S
-silent! set path=.,/usr/local/include,/usr/include,**3
+set wrapscan ignorecase smartcase incsearch hlsearch magic shortmess-=S
+set path=.,/usr/local/include,/usr/include,**3 isfname-==
 
 " Insert completion
-silent! set complete& completeopt=menuone,noinsert infercase pumheight=10 noshowfulltag shortmess+=c
+set complete& completeopt=menuone,noinsert infercase pumheight=10 noshowfulltag shortmess+=c
 
 " Command line
-silent! set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
-silent! set wildchar=9 nowildmenu wildmode=longest,full wildmenu wildoptions= wildignorecase fileignorecase
-silent! set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
-silent! set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
-silent! set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
-silent! set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
-silent! set wildignore+=*DS_Store*,*.ipch
-silent! set wildignore+=*.gem
-silent! set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
-silent! set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
-silent! set wildignore+=*/.nx/**,*.app,*.git,.git
-silent! set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
-silent! set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
-silent! set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
-silent! set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
-silent! set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
-silent! set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
-silent! set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
-silent! set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
+set wildchar=9 nowildmenu wildmode=longest,full wildmenu wildoptions= wildignorecase fileignorecase
+set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
+set wildignore+=__pycache__,.stversions,*.spl,*.out,%*
+set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*DS_Store*,*.ipch
+set wildignore+=*.gem
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app,*.git,.git
+set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
 " Performance
-silent! set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 ttyfast lazyredraw
+set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 ttyfast lazyredraw
 
 " Bell
-silent! set noerrorbells visualbell t_vb=
+set noerrorbells visualbell t_vb=
 
 " neovim only
 if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
@@ -129,6 +94,7 @@ colorscheme srcery
 " Plugin: {{{
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
+Plug 'itchyny/calendar.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
@@ -184,7 +150,6 @@ Plug 'voldikss/vim-fnote'
 Plug 'voldikss/vim-hello-word'
 Plug 'voldikss/vim-translator'
 Plug 'wellle/targets.vim'
-Plug 'vim-utils/vim-man'
 Plug 'yianwillis/vimcdoc'
 call plug#end()
 " }}}
@@ -362,7 +327,7 @@ call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gw', 'Gw')
 call s:SetCommandAbbrs('gwa', 'Gwa')
-call s:SetCommandAbbrs('man', 'Vman')
+call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
@@ -382,6 +347,7 @@ command! CloseNoCurrentBuffers call fn#buffer#close_nocurrent_bufs()
 command! CloseNoDisplayedBuffers call fn#buffer#close_nodisplayed_bufs()
 command! Gwa AsyncRun -cwd=<root> -silent=1 git add .
 command! Template call fn#template#TLoad()
+command! QfToggle call fn#qf#toggle()
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=* SyntaxAt call fn#command#syntax_at(<f-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
@@ -424,8 +390,8 @@ nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 nnoremap <silent> <C-g> :call fn#keymap#ctrlg#()<CR>
 " PreviewAndOpen:
-nnoremap <silent> gp  :<C-u>Skylight file<CR>
-nnoremap <silent> go  :<C-u>Skylight! file<CR>
+nnoremap <silent> gp  :<C-u>Skylight<CR>
+nnoremap <silent> go  :<C-u>Skylight!<CR>
 " Move:
 nnoremap <silent> [[  :<C-u>call fn#keymap#n#right_square_brackets()<CR>
 nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
@@ -586,7 +552,7 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader><Space>  <Esc>:copen<CR>
+noremap  <silent> <Leader><Space>  <Esc>:QfToggle<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -737,11 +703,11 @@ let g:coc_global_extensions = [
   \ 'coc-lists',
   \ 'coc-marketplace',
   \ 'coc-pairs',
-  \ 'coc-post',
   \ 'coc-prettier',
-  \ 'coc-python',
+  \ 'coc-pyright',
   \ 'coc-rust-analyzer',
   \ 'coc-syntax',
+  \ 'coc-snippets',
   \ 'coc-tag',
   \ 'coc-tasks',
   \ 'coc-todolist',
@@ -807,6 +773,19 @@ let g:lightline = {
       \ ['translator_status'],
     \ ]
   \ },
+  \ 'inactive': {
+    \ 'left': [
+      \ ['mode', 'paste'],
+      \ ['fugitive', 'readonly', 'filename'],
+      \ ['absolutepath']
+    \ ],
+    \ 'right': [
+      \ ['lineinfo'],
+      \ ['percent'],
+      \ ['fileformat', 'fileencoding'],
+      \ ['filetype']
+    \ ]
+  \ },
   \ 'tabline': {
     \ 'left': [['vim_logo', 'buffers']],
     \ 'right': [['close']],
@@ -818,13 +797,13 @@ let g:lightline = {
   \ 'component': {
     \ 'lineinfo': ' %l,%-v',
     \ 'percent': '%p%%',
-    \ 'codelf_status': '%{exists("g:codelf_status") ? g:codelf_status : ""}',
-    \ 'translator_status': '%{exists("g:translator_status") ? g:translator_status : ""}',
-    \ 'asyncrun_status': '%{exists("g:asyncrun_status") ? g:asyncrun_status : ""}',
     \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
     \ 'vim_logo': "  "
   \ },
   \ 'component_function': {
+    \ 'asyncrun_status': 'fn#lightline#AsyncRunStatus',
+    \ 'codelf_status': 'fn#lightline#PluginDefinedStatus',
+    \ 'translator_status': 'fn#lightline#Translator_Status',
     \ 'mode': 'fn#lightline#Mode',
     \ 'fugitive': 'fn#lightline#GitBranch',
     \ 'cocstatus': 'coc#status',

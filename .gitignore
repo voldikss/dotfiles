@@ -6,6 +6,8 @@
 /conf/.idlerc/*
 /nvim/plugged
 /nvim/sessions
+home/.goldendict/history
+home/.goldendict/index/
 
 # General
 # ----------------------------------------------------------------------------

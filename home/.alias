@@ -32,7 +32,7 @@ alias gpf='git push -f'
 alias gri='git rebase -i'
 alias grc='git rebase --continue'
 alias gs='git status'
-alias gacp='git add . && git commit -m "$(date)" && git push -u origin master'
+alias gacp='git add . && git commit -m "$(date)" && git push'
 
 # rm 进 trash
 alias rm='trash -r'
@@ -63,9 +63,9 @@ alias proxy='export all_proxy=https://127.0.0.1:1081'
 alias unproxy='unset all_proxy'
 
 # npm registry
-alias npm_taobao='npm config set registry https://registry.npm.taobao.org'
-alias npm_origin='npm config set registry https://registry.npmjs.org'
-alias ncu_check='ncu -u && npm i' # need `npm install -g npm-check-updates`
+alias npmtaobao='npm config set registry https://registry.npm.taobao.org'
+alias npmorigin='npm config set registry https://registry.npmjs.org'
+alias ncucheck='ncu -u && npm i' # need `npm install -g npm-check-updates`
 
 # arch
 alias p='sudo pacman'

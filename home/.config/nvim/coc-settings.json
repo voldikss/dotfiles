@@ -237,7 +237,6 @@
   "suggest.removeDuplicateItems": true,
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
-  "template.templatesDirectory": "~/.config/nvim/templates",
   "todolist.easyMode": true,
   "todolist.monitor": true,
   "todolist.promptForReminder": false,

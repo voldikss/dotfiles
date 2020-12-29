@@ -67,7 +67,7 @@ function! fn#lightline#FileFormat()
   if &filetype =~ s:special_filetypes_pattern
     return ''
   endif
-  return &fileformat
+  return &fileformat == 'unix' ? '' : &fileformat
 endfunction
 
 " FileType:
@@ -83,7 +83,7 @@ function! fn#lightline#FileEncoding()
   if &filetype =~ s:special_filetypes_pattern
     return ''
   endif
-  return &fileencoding
+  return &fileencoding == 'utf-8' ? '' : &fileencoding
 endfunction
 
 " ReadOnly:
@@ -92,4 +92,25 @@ function! fn#lightline#ReadOnly()
     return ''
   endif
   return &readonly ? '' : ''
+endfunction
+
+function! fn#lightline#AsyncRunStatus() abort
+  if &filetype =~ s:special_filetypes_pattern
+    return ''
+  endif
+  return exists('g:asyncrun_status') ? g:asyncrun_status : ''
+endfunction
+
+function! fn#lightline#Translator_Status() abort
+  if &filetype =~ s:special_filetypes_pattern
+    return ''
+  endif
+  return exists('g:translator_status') ? g:translator_status : ''
+endfunction
+
+function! fn#lightline#Codelf_Status() abort
+  if &filetype =~ s:special_filetypes_pattern
+    return ''
+  endif
+  return exists('g:codelf_status') ? g:codelf_status : ''
 endfunction
