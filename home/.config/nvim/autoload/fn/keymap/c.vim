@@ -26,3 +26,13 @@ function! fn#keymap#c#pairs(pairs) abort
   endif
 endfunction
 
+" Command: /
+function! fn#keymap#c#Slash() abort
+  let pos = getcmdpos()
+  let prechar = getcmdline()[pos-2]
+  if prechar == '/' && pumvisible()
+    return "\<Space>\<Left>"
+  else
+    return "/"
+  endif
+endfunction
