@@ -1,5 +1,8 @@
-setlocal commentstring=#\ %s
-" setlocal comments=:#
+" ============================================================================
+" FileName: dosini.vim
+" Author: voldikss <dyzplus@gmail.com>
+" GitHub: https://github.com/voldikss
+" ============================================================================
 
 function! IniFoldExpr(lnum)
   let line = getline(a:lnum)
@@ -15,5 +18,11 @@ function! IniFoldExpr(lnum)
   return '='
 endfunction
 
-setlocal foldmethod=expr
-setlocal foldexpr=IniFoldExpr(v:lnum)
+function! s:dosini_settings() abort
+  setlocal commentstring=#\ %s
+  setlocal comments=:#
+  setlocal foldmethod=expr
+  setlocal foldexpr=IniFoldExpr(v:lnum)
+endfunction
+
+call timer_start(100, { -> s:dosini_settings() })

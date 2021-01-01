@@ -16,15 +16,15 @@ set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 " Appearance
 set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
-set showmatch matchtime=0 showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak=
+set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent breakindentopt=
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
 set noshowcmd noruler rulerformat= laststatus=2 statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
-set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0 norelativenumber
-set list listchars=tab:\|\ ,trail:.,extends:>,precedes:< synmaxcol=3000 ambiwidth=single breakindent breakindentopt=
+set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
+set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3 nowarn noconfirm
-set termguicolors cpoptions+=I guicursor= guioptions-=e
+set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
+set termguicolors cpoptions+=I guicursor= guioptions-=e nowarn noconfirm
 
 " Editing
 set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
@@ -94,7 +94,6 @@ colorscheme srcery
 " Plugin: {{{
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
-Plug 'itchyny/calendar.vim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
@@ -133,6 +132,8 @@ Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'junegunn/vim-peekaboo'
 Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vim-clap'
+Plug 'vn-ki/coc-clap'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
@@ -237,11 +238,6 @@ augroup StartifyAutocmds
   autocmd User Startified setlocal buflisted
 augroup END
 
-" augroup AutoNohlsearch
-"   autocmd!
-"   autocmd CursorMoved * call fn#hlsearch#start_hl()
-" augroup END
-
 augroup CocExplorerCustom
   autocmd!
   autocmd FileType coc-explorer setlocal relativenumber
@@ -325,8 +321,8 @@ call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
-call s:SetCommandAbbrs('gw', 'Gw')
-call s:SetCommandAbbrs('gwa', 'Gwa')
+call s:SetCommandAbbrs('gw', 'Gw\|e')
+call s:SetCommandAbbrs('gwa', 'Gwa\|e')
 call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
@@ -339,7 +335,6 @@ call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
-command! CwordhiToggle call CwordhiToggle()
 command! AutoFormat call fn#file#autoformat()
 command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CloseNoBuflistedBuffers call fn#buffer#close_nobuflisted_bufs()
@@ -390,8 +385,7 @@ nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 nnoremap <silent> <C-g> :call fn#keymap#ctrlg#()<CR>
 " PreviewAndOpen:
-nnoremap <silent> gp  :<C-u>Skylight<CR>
-nnoremap <silent> go  :<C-u>Skylight!<CR>
+nnoremap <silent> gp  :<C-u>Skylight!<CR>
 " Move:
 nnoremap <silent> [[  :<C-u>call fn#keymap#n#right_square_brackets()<CR>
 nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
@@ -651,7 +645,7 @@ nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 nnoremap <silent> <Leader>gm :CocCommand git.showCommit<CR>
-nnoremap <silent> <Leader>gw :Gwrite<CR>
+nnoremap <silent> <Leader>gw :Gwrite \| e<CR>
 nnoremap <silent> <Leader>gW :silent! Bufdo Gwrite<CR>
 nnoremap <silent> <Leader>gc :Gcommit -v<CR>
 nnoremap <silent> <Leader>ga :Gcommit --amend -v<CR>
@@ -802,7 +796,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
     \ 'asyncrun_status': 'fn#lightline#AsyncRunStatus',
-    \ 'codelf_status': 'fn#lightline#PluginDefinedStatus',
+    \ 'codelf_status': 'fn#lightline#Codelf_Status',
     \ 'translator_status': 'fn#lightline#Translator_Status',
     \ 'mode': 'fn#lightline#Mode',
     \ 'fugitive': 'fn#lightline#GitBranch',

@@ -3,6 +3,8 @@
   "browser.maxLength": 30,
   "browser.priority": 0,
   "bookmark.signHl": "MyBookmarkSign",
+  "cmake.formatter": "cmake-format",
+  "cmake.lsp.enable": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
   "coc.preferences.hoverTarget": "float",
@@ -37,13 +39,19 @@
   "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
   "eslint.enable": true,
-  "eslint.filetypes": ["javascript", "javascript.jsx", "javascriptreact"],
+  "eslint.filetypes": [
+    "typescript",
+    "javascript",
+    "javascript.jsx",
+    "javascriptreact"
+  ],
   "explorer.enableFloatinput": false,
   "explorer.git.showIgnored": true,
   "explorer.git.icon.status.ignored": " ",
   "explorer.file.column.indent.indentLine": true,
   "explorer.file.showHiddenFiles": true,
   "explorer.icon.enableNerdfont": true,
+  "explorer.keyMappingMode": "none",
   "explorer.keyMappings.global": {
     "<C-k>": "nodePrev",
     "<M-k>": "indentPrev",
@@ -145,14 +153,6 @@
         "index": {"onChange": false, "initialNoLinkage": true, "threads": 2}
       }
     },
-    "cmake": {
-      "command": "cmake-language-server",
-      "filetypes": ["cmake"],
-      "rootPatterns": ["build/"],
-      "initializationOptions": {
-        "buildDirectory": "build"
-      }
-    },
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim", ".git"],
@@ -186,7 +186,6 @@
   "prettier.singleQuote": true,
   "prettier.tabWidth": 2,
   "prettier.bracketSpacing": false,
-  "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
   "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
@@ -237,9 +236,7 @@
   "suggest.removeDuplicateItems": true,
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
-  "todolist.easyMode": true,
   "todolist.monitor": true,
-  "todolist.promptForReminder": false,
   "translator.enableHover": false,
   "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,

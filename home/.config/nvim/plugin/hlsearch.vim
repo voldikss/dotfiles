@@ -2,12 +2,10 @@
 " FileName: hlsearch.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
-" Info: modified from romainl/vim-cool
+" Description: modified from romainl/vim-cool
 " ============================================================================
 
-noremap <silent> <Plug>(StopHL) :<C-U>nohlsearch<cr>
-
-function! fn#hlsearch#start_hl()
+function! s:start_hl()
   if !v:hlsearch || mode() isnot 'n'
     return
   endif
@@ -29,5 +27,12 @@ function! s:stop_hl()
   if !v:hlsearch || mode() isnot 'n'
     return
   endif
-  silent call feedkeys("\<Plug>(StopHL)", 'm')
+  silent call feedkeys("\<Plug>(stop-hl)", 'm')
 endfunction
+
+augroup auto-nohlsearch
+  autocmd!
+  autocmd CursorMoved * call s:start_hl()
+augroup END
+
+noremap <silent> <Plug>(stop-hl) :<C-U>nohlsearch<cr>

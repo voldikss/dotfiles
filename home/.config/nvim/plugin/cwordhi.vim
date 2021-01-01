@@ -76,3 +76,5 @@ function! s:cword_clear()
 endfunc "}}}
 
 call s:cword_on()
+
+command! CwordhiToggle call CwordhiToggle()

@@ -1,23 +1,27 @@
-setlocal shiftwidth=2
-setlocal nospell
+" ============================================================================
+" FileName: tex.vim
+" Author: voldikss <dyzplus@gmail.com>
+" GitHub: https://github.com/voldikss
+" ============================================================================
 
-" coc-pairs
-let g:coc_pairs = [
-  \['（', '）'],
-  \['“', '”'],
-  \['‘', '’'],
-  \['《', '》'],
-  \['*', '*'],
-  \['$', '$'],
-  \]
-
-setlocal textwidth=82
-setlocal formatoptions=jmBtl
-
-let b:match_words = '\<begin\>:\<end\>'
-
-" prevent from setting conceallevel to 2 in vimtex
-function! s:settings(...) abort
+function! s:tex_settings(...) abort
+  setlocal shiftwidth=2
+  setlocal nospell
   setlocal conceallevel=0
+  setlocal textwidth=82
+  setlocal formatoptions=jmBtl
+
+  " coc-pairs
+  let g:coc_pairs = [
+        \['（', '）'],
+        \['“', '”'],
+        \['‘', '’'],
+        \['《', '》'],
+        \['*', '*'],
+        \['$', '$'],
+        \]
+
+
+  let b:match_words = '\<begin\>:\<end\>'
 endfunction
-call timer_start(200, function('s:settings'))
+

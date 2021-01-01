@@ -10,11 +10,12 @@ let s:special_filetypes = {
   \ 'help': 'Help',
   \ 'man': 'Man',
   \ 'Mundo': 'Mundo',
+  \ 'MundoDiff': 'MundoDiff',
   \ 'qf': 'QuickFix',
   \ 'startify': 'Startify',
   \ 'vista': 'Vista',
   \ }
-let s:special_filetypes_pattern = '\v(' . join(keys(s:special_filetypes), '|') . ')'
+let s:special_filetypes_pattern = '\v^(' . join(keys(s:special_filetypes), '|') . ')$'
 
 " AbsPath:
 function! fn#lightline#AbsPath()
