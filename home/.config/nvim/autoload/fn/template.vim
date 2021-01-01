@@ -92,23 +92,27 @@ function s:NeuterFileName(filename)
 endfunction
 
 function s:TLoadTemplate(template)
-  execute "keepalt 0r " . s:NeuterFileName(a:template)
+  let tpath = s:NeuterFileName(a:template)
+  execute "keepalt 0r " . tpath
   call s:TExpandVars()
 
   " Loading a template into an empty buffer leaves an extra blank line at the
   " bottom, delete it
-  execute line('$') . "d _"
+  execute len(readfile(tpath)) + 1 . "d"
 
   call s:TPutCursor()
   setlocal nomodified
 endfunction
 
 function fn#template#TLoad()
-  let file_ext = matchstr(expand('%'), '\.\zs[^\.]*\ze$')
-  let tfile = globpath(&rtp, 'templates/=template=.'.file_ext)
-  if empty(tfile)
+  let tfiles = filter(
+    \ globpath(&rtp, 'templates/=template=*', 0, 1),
+    \ { _,v -> expand('%') =~ matchstr(v, '=template=\zs.*\ze') . '$' }
+    \ )
+  if empty(tfiles)
     call fn#lib#show_message('No templates for this filetype', 'error')
   else
+    let tfile = sort(tfiles, { a,b -> len(b) - len(a) })[0]
     call s:TLoadTemplate(tfile)
   endif
 endfunction
