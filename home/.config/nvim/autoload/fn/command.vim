@@ -115,3 +115,11 @@ function! fn#command#tabdo(command)
   execute 'tabdo ' . a:command
   execute 'tabn ' . curtab
 endfunction
+
+" GwritePlus: Gwrite and reload buffer
+" Because coc-git recently fails to update gutter after Gwrite...
+function! fn#command#gwrite_plus() abort
+  let save_view = winsaveview()
+  Gwrite | e
+  call winrestview(save_view)
+endfunction

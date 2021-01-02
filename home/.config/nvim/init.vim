@@ -321,8 +321,8 @@ call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
-call s:SetCommandAbbrs('gw', 'Gw\|e')
-call s:SetCommandAbbrs('gwa', 'Gwa\|e')
+call s:SetCommandAbbrs('gw', 'GwritePlus')
+call s:SetCommandAbbrs('gwa', 'GwriteAll')
 call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
@@ -340,9 +340,11 @@ command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CloseNoBuflistedBuffers call fn#buffer#close_nobuflisted_bufs()
 command! CloseNoCurrentBuffers call fn#buffer#close_nocurrent_bufs()
 command! CloseNoDisplayedBuffers call fn#buffer#close_nodisplayed_bufs()
-command! Gwa AsyncRun -cwd=<root> -silent=1 git add .
+command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
+command! GwritePlus call fn#command#gwrite_plus()
 command! Template call fn#template#TLoad()
 command! QfToggle call fn#qf#toggle()
+command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=* SyntaxAt call fn#command#syntax_at(<f-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
@@ -351,6 +353,7 @@ command! -nargs=? Line call fn#command#insert_line('light', <f-args>)
 command! -nargs=? RenameFile call fn#file#rename(<q-args>)
 command! -nargs=? RemoveFile call fn#file#remove()
 command! -nargs=+ Grep  call fn#command#grep(<q-args>)
+command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
 command! -nargs=+ -complete=file  SystemOpen  call fn#lib#system_open(<q-args>)
 command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
@@ -415,7 +418,6 @@ onoremap <silent> id :normal vid<CR>
 " line
 xnoremap <silent> il g_o^
 onoremap <silent> il :normal vil<CR>
-" block comment
 xnoremap i? [*o]*
 onoremap i? :<C-u>normal va?V<CR>
 " url
@@ -647,8 +649,8 @@ nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
 nnoremap <silent> <Leader>gv :CocCommand git.chunkInfo<CR>
 nnoremap <silent> <Leader>gm :CocCommand git.showCommit<CR>
-nnoremap <silent> <Leader>gw :Gwrite \| e<CR>
-nnoremap <silent> <Leader>gW :silent! Bufdo Gwrite<CR>
+nnoremap <silent> <Leader>gw :GwritePlus<CR>
+nnoremap <silent> <Leader>gW :GwriteAll<CR>
 nnoremap <silent> <Leader>gc :Gcommit -v<CR>
 nnoremap <silent> <Leader>ga :Gcommit --amend -v<CR>
 nnoremap <silent> <Leader>gp :Gpush<CR>
@@ -841,7 +843,6 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
 let g:asyncrun_rootmarks = ['.git', '.root', '.tasks']
-command! -bang -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 0
@@ -961,7 +962,6 @@ let g:floaterm_keymap_toggle = '<F12>'
 " let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
 " hi FloatermNC guibg=skyblue
 hi FloatermBorder guifg=orange
-command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 " voldikss/vim-skylight
 hi SkylightBorder guibg=skyblue guifg=black
 " simnalamburt/vim-mundo
