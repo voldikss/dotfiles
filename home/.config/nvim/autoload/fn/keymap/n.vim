@@ -68,3 +68,38 @@ function! fn#keymap#n#jump() abort
     call feedkeys("\<C-]>")
   endif
 endfunction
+
+" NextDiffOrChunk:
+function! fn#keymap#n#next_diff_or_chunk() abort
+  let curlnum = line('.')
+  if &diff == 1
+    normal! ]c
+  else
+    execute "normal \<Plug>(coc-git-nextchunk)"
+  endif
+  let s:centered_cursor = v:false
+  call timer_start(10, { -> s:put_cursor(curlnum) }, {'repeat': 3})
+endfunction
+
+" PrevDiffOrChunk:
+function! fn#keymap#n#prev_diff_or_chunk() abort
+  let curlnum = line('.')
+  if &diff == 1
+    normal! [c
+  else
+    execute "normal \<Plug>(coc-git-prevchunk)"
+  endif
+  let s:centered_cursor = v:false
+  call timer_start(20, { -> s:put_cursor(curlnum) })
+endfunction
+
+" put cursor in the vertical center of the window
+function! s:put_cursor(saved_lnum) abort
+  if s:centered_cursor
+    return
+  endif
+  if line('.') != a:saved_lnum
+    normal! zz
+    let s:centered_cursor = v:true
+  endif
+endfunction

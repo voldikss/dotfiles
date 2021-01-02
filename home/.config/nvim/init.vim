@@ -391,6 +391,11 @@ nnoremap <silent> [[  :<C-u>call fn#keymap#n#right_square_brackets()<CR>
 nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
 vnoremap <silent> [[  {j
 vnoremap <silent> ]]  }k
+" DiffOrChunk:
+nmap <silent> <C-up>   :call fn#keymap#n#prev_diff_or_chunk()<CR>
+nmap <silent> <C-down> :call fn#keymap#n#next_diff_or_chunk()<CR>
+nmap <silent> gk       :call fn#keymap#n#prev_diff_or_chunk()<CR>
+nmap <silent> gj       :call fn#keymap#n#next_diff_or_chunk()<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call fn#keymap#n#jump()<CR>
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
@@ -637,10 +642,6 @@ omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 " coc-git
-nmap <expr> <C-up>   &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
-nmap <expr> <C-down> &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
-nmap <expr> gk       &diff==1 ? '[c' : '<Plug>(coc-git-prevchunk)'
-nmap <expr> gj       &diff==1 ? ']c' : '<Plug>(coc-git-nextchunk)'
 nnoremap <silent> <Leader>hs :CocCommand git.chunkStage<CR>
 nnoremap <silent> <Leader>hu :CocCommand git.chunkUndo<CR>
 nnoremap <silent> <Leader>go :CocCommand git.browserOpen<CR>
