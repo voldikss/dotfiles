@@ -18,11 +18,7 @@ function! IniFoldExpr(lnum)
   return '='
 endfunction
 
-function! s:dosini_settings() abort
-  setlocal commentstring=#\ %s
-  setlocal comments=:#
-  setlocal foldmethod=expr
-  setlocal foldexpr=IniFoldExpr(v:lnum)
-endfunction
-
-call timer_start(100, { -> s:dosini_settings() })
+setlocal commentstring=#\ %s
+setlocal comments=:#
+setlocal foldmethod=expr
+setlocal foldexpr=IniFoldExpr(v:lnum)
