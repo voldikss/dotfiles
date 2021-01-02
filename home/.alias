@@ -65,7 +65,7 @@ alias unproxy='unset all_proxy'
 # npm registry
 alias npmtaobao='npm config set registry https://registry.npm.taobao.org'
 alias npmorigin='npm config set registry https://registry.npmjs.org'
-alias ncucheck='ncu -u && npm i' # need `npm install -g npm-check-updates`
+alias npmcheckupdates='ncu -u && npm i' # need `npm install -g npm-check-updates`
 alias npmdisablepkglock='npm config set package-lock false'
 
 # arch

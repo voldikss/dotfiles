@@ -4,3 +4,7 @@ patch:
 
   schema_list:
     - schema: luna_pinyin_simp`
+
+  switcher:
+    hotkeys:
+      - "Control+grave"

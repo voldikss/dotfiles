@@ -5,10 +5,19 @@
 " ============================================================================
 
 function s:open_in_normal_window() abort
-  let f = findfile(expand('<cfile>'))
+  let lnumpat = '\(:\|(\||\)\zs\d\+\ze'
+  let pattern = expand('<cfile>')
+  let lnumstr = matchstr(getline('.'), pattern . lnumpat)
+  let filename = substitute(pattern, '^\zs\(\~\|\$HOME\)', $HOME, '')
+  let lnum = empty(lnumstr) ? -1 : str2nr(lnumstr)
+
+  let f = findfile(filename)
   if !empty(f) && has_key(nvim_win_get_config(win_getid()), 'anchor')
     FloatermHide
-    execute 'e ' . f
+    silent! execute printf('edit %s | %s',
+          \ f,
+          \ lnum > -1 ? lnum : 0
+          \ )
   endif
 endfunction
 

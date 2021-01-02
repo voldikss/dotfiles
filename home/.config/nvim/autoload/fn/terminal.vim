@@ -5,19 +5,23 @@
 " ============================================================================
 
 function fn#terminal#settings() abort
-  setlocal undolevels=100
-  setlocal signcolumn=no 
-  setlocal nobuflisted 
-  setlocal nospell 
-  setlocal modifiable 
+  if &buftype != 'terminal'
+    return
+  endif
 
-  if empty(&ft) 
-    setlocal filetype=terminal 
+  setlocal undolevels=100
+  setlocal signcolumn=no
+  setlocal nobuflisted
+  setlocal nospell
+  setlocal modifiable
+
+  if empty(&ft)
+    setlocal filetype=terminal
   endif
 
   if exists('b:asyncrun_cmd')
     setlocal number
   endif
 
-  nmap <silent><buffer> q :q<CR> 
+  nmap <silent><buffer> q :q<CR>
 endfunction

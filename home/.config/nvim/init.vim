@@ -23,7 +23,7 @@ set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtab
 set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-set noequalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
+set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
 set termguicolors cpoptions+=I guicursor= guioptions-=e nowarn noconfirm
 
 " Editing
@@ -36,7 +36,7 @@ set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop n
 set tags=./tags,tags,.tags,.vim/tags,.vim/.tags tagfunc=CocTagFunc
 
 " Clipboard
-" set clipboard=unnamed
+set clipboard=unnamed
 
 " Data files
 set history=10000 noswapfile
@@ -132,8 +132,7 @@ Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'junegunn/vim-peekaboo'
 Plug 'liuchengxu/vista.vim'
-Plug 'liuchengxu/vim-clap'
-Plug 'vn-ki/coc-clap'
+" Plug 'liuchengxu/vim-clap'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
@@ -266,7 +265,7 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
-  exe 'hi MyBookmarkSign        guifg=#0000FF guibg=' . signcolumn_bg
+  exe 'hi MyBookmarkSign        guifg=#FF00FF guibg=' . signcolumn_bg
 
   hi VertSplit                  guifg=cyan
   " hi CocFloating                guibg=blue
@@ -389,6 +388,7 @@ nnoremap <C-d> <C-d>zz
 nnoremap <silent> <C-g> :call fn#keymap#ctrlg#()<CR>
 " PreviewAndOpen:
 nnoremap <silent> gp  :<C-u>Skylight!<CR>
+vnoremap <silent> gp  :Skylight!<CR>
 " Move:
 nnoremap <silent> [[  :<C-u>call fn#keymap#n#right_square_brackets()<CR>
 nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
@@ -443,6 +443,7 @@ nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' 
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
 nnoremap Y y$
+nnoremap p ""p
 nnoremap <silent> <Leader>y "+yy
 vnoremap <silent> <Leader>y "+y
 nnoremap <silent> <Leader>Y "+y$
@@ -662,10 +663,10 @@ nnoremap <silent> <Leader>gp :Gpush<CR>
 " autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
 " autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " coc-bookmark
-nmap <silent> ,b <Plug>(coc-bookmark-toggle)
-nmap <silent> ,a <Plug>(coc-bookmark-annotate)
-nmap <silent> gh <Plug>(coc-bookmark-prev)
-nmap <silent> gl <Plug>(coc-bookmark-next)
+nmap <silent> ,b :CocCommand bookmark.toggle<CR>
+nmap <silent> ,a :CocCommand bookmark.annotate<CR>
+nmap <silent> gh :CocCommand bookmark.prev<CR>
+nmap <silent> gl :CocCommand bookmark.next<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
@@ -940,7 +941,6 @@ nmap <silent>    ,r        <Plug>TranslateR
 vmap <silent>    ,t        <Plug>TranslateV
 vmap <silent>    ,w        <Plug>TranslateWV
 vmap <silent>    ,r        <Plug>TranslateRV
-hi TranslatorBorder guifg=cyan
 let g:translator_status = ''
 let g:translator_history_enable = 1
 let g:translator_default_engines = ['bing', 'google', 'haici', 'youdao']

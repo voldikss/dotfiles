@@ -1,7 +1,7 @@
 {
-  "browser.minLength": 4,
-  "browser.maxLength": 30,
+  "browser.filterLength": [5, 20],
   "browser.priority": 0,
+  "bookmark.sign": "B",
   "bookmark.signHl": "MyBookmarkSign",
   "cmake.formatter": "cmake-format",
   "cmake.lsp.enable": false,
