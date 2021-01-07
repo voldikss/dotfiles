@@ -31,20 +31,20 @@ function! fn#file#autosave() abort
     return
   endif
 
-  let curpos = getpos('.')
-  if getpos('.')[1] != line('$')
-    call s:remove_blank_lines()
-  endif
+  " let curpos = getpos('.')
+  " if getpos('.')[1] != line('$')
+  "   call s:remove_blank_lines()
+  " endif
 
-  if !empty(trim(getline('.')))
-    call s:remove_white_spaces()
-  endif
+  " if !empty(trim(getline('.')))
+  "   call s:remove_white_spaces()
+  " endif
 
   if !empty(expand('%'))
     update
   endif
 
-  call setpos('.', curpos)
+  " call setpos('.', curpos)
 endfunction
 
 " RemoveBlankLines:
