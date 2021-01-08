@@ -206,7 +206,7 @@ augroup END
 
 augroup KeywordHighlight
   autocmd!
-  autocmd Syntax *
+  autocmd ColorScheme *
     \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
     \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
     \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
@@ -336,7 +336,7 @@ call s:SetCommandAbbrs('sl', 'CocCommand session.load default')
 call s:SetCommandAbbrs('ss', 'CocCommand session.save default')
 call s:SetCommandAbbrs('st', 'Startify')
 call s:SetCommandAbbrs('tm', 'TabMessage')
-call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
+call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
@@ -356,7 +356,6 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
     \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
     \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
-command! -nargs=* SyntaxAt call fn#command#syntax_at(<f-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
 command! -nargs=? Cline call fn#command#insert_line('comment', <f-args>)
 command! -nargs=? Line call fn#command#insert_line('light', <f-args>)
@@ -703,6 +702,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-explorer',
   \ 'coc-floaterm',
+  \ 'coc-gist',
   \ 'coc-git',
   \ 'coc-highlight',
   \ 'coc-html',
@@ -769,7 +769,7 @@ hi CursorWord0 guibg=#404D3D
 hi link CursorWord1 CursorLine
 " itchyny/lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'aurora',
+  \ 'colorscheme': 'srcery',
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
