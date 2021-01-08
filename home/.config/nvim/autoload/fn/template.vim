@@ -98,7 +98,10 @@ function s:TLoadTemplate(template)
 
   " Loading a template into an empty buffer leaves an extra blank line at the
   " bottom, delete it
-  execute len(readfile(tpath)) + 1 . "d"
+  let lastlnum = len(readfile(tpath)) + 1
+  if empty(trim(getline(lastlnum))) 
+    execute len(readfile(tpath)) + 1 . "d"
+  endif
 
   call s:TPutCursor()
   setlocal nomodified
