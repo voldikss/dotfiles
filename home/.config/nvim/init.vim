@@ -3,6 +3,9 @@
 " GitHub: https://github.com/voldikss
 
 " Basic: {{{
+" Disabled:
+let g:loaded_netrwPlugin = 1
+
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
   let g:python3_host_prog='C:\Program Files\Python38/python.exe'
@@ -18,13 +21,14 @@ set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
 set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent breakindentopt=
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
-set noshowcmd noruler rulerformat= laststatus=2 statusline=%t\ %=\ %m%r%y%w\ %3l:%-2c
+set noshowcmd noruler rulerformat= laststatus=2
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
 set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
-set termguicolors cpoptions+=I guicursor= guioptions-=e nowarn noconfirm
+set termguicolors cpoptions+=I guioptions-=e nowarn noconfirm
+set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 
 " Editing
 set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
@@ -74,7 +78,7 @@ set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
 " Performance
-set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 ttyfast lazyredraw
+set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 lazyredraw
 
 " Bell
 set noerrorbells visualbell t_vb=
@@ -338,9 +342,9 @@ call s:SetCommandAbbrs('w!!', '%!sudo tee >/dev/null %')
 command! AutoFormat call fn#file#autoformat()
 command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CdRoot call fn#path#cd_root()
-command! CloseNoBuflistedBuffers call fn#buffer#close_nobuflisted_bufs()
-command! CloseNoCurrentBuffers call fn#buffer#close_nocurrent_bufs()
-command! CloseNoDisplayedBuffers call fn#buffer#close_nodisplayed_bufs()
+command! BufferCloseNotBuflisted call fn#buffer#close_not_buflisted()
+command! BufferCloseNotCurrent call fn#buffer#close_not_current()
+command! BufferCloseNotDisplayed call fn#buffer#close_not_displayed()
 command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
 command! GwritePlus call fn#command#gwrite_plus()
 command! Template call fn#template#TLoad()
@@ -387,7 +391,6 @@ vnoremap <  <gv
 vnoremap >  >gv
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
-nnoremap <silent> <C-g> :call fn#keymap#ctrlg#()<CR>
 " PreviewAndOpen:
 nnoremap <silent> gp  :<C-u>Skylight!<CR>
 vnoremap <silent> gp  :Skylight!<CR>

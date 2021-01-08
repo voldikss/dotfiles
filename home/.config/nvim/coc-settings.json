@@ -36,15 +36,7 @@
     "diagnostic.infoSign": "ℹ"
   },
   "emmet.includeLanguages": {"vue": "html", "vue-html": "html"},
-  "eslint.autoFix": false,
   "eslint.autoFixOnSave": false,
-  "eslint.enable": true,
-  "eslint.filetypes": [
-    "typescript",
-    "javascript",
-    "javascript.jsx",
-    "javascriptreact"
-  ],
   "explorer.enableFloatinput": false,
   "explorer.git.showIgnored": true,
   "explorer.git.icon.status.ignored": " ",
@@ -187,7 +179,7 @@
   "prettier.tabWidth": 2,
   "prettier.bracketSpacing": false,
   "python.formatting.provider": "black",
-  "rust-analyzer.serverPath": "~/.cargo/bin/rust-analyzer",
+  "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "signature.preferShownAbove": false,
