@@ -82,7 +82,7 @@ install_ohmyzsh() {
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         echo Installing oh-my-zsh...
         sh -c $(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-        curl -L git.io/antigen > ~/.antigen.zsh
+        # curl -L git.io/antigen > ~/.antigen.zsh
         for f in $DOTFILES; do
             ln -svf "$PWD/home/$f" $HOME
         done
