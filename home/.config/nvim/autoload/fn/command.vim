@@ -44,28 +44,6 @@ function! fn#command#tab_message(cmd) abort
   endif
 endfunction
 
-" SyntaxAt:
-function! fn#command#syntax_at(...)
-  syntax sync fromstart
-  if a:0 < 2
-    let l:pos = getpos('.')
-    let l:cur_lnum = pos[1]
-    let l:cur_col = pos[2]
-    if a:0 == 0
-      let l:lnum = l:cur_lnum
-      let l:col = l:cur_col
-    else
-      let l:lnum = l:cur_lnum
-      let l:col = a:1
-    endif
-  else
-    let l:lnum = a:1
-    let l:col = a:2
-  endif
-  call map(synstack(l:lnum, l:col), 'synIDattr(v:val, "name")')
-  echom synIDattr(synID(l:lnum, l:col, 1), 'name')
-endfunction
-
 " DelimiterLine:
 function! fn#command#insert_line(style, ...) abort
   if a:0 > 0

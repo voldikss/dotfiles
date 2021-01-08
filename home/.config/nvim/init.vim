@@ -351,6 +351,10 @@ command! GwritePlus call fn#command#gwrite_plus()
 command! Template call fn#template#TLoad()
 command! QfToggle call fn#qf#toggle()
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
+command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
+    \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
+    \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
+    \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=* SyntaxAt call fn#command#syntax_at(<f-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
