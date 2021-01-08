@@ -151,7 +151,6 @@ Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-skylight'
 Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/vim-fnote'
 Plug 'voldikss/vim-hello-word'
 Plug 'voldikss/vim-translator'
 Plug 'wellle/targets.vim'
@@ -420,6 +419,8 @@ nnoremap * m`:keepjumps normal! *``zz<cr>
 nnoremap # #zz
 xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
+" Substitute:
+nmap <C-r> :%s/<C-r><C-w>//g<Left><Left>
 " TextObject:
 " document
 xnoremap <silent> id GoggV
@@ -474,7 +475,6 @@ inoremap <silent> <C-o> <End><CR>
 inoremap <silent> <M-o> <Esc>O
 inoremap <silent> <C-d> <Esc>ddi
 inoremap <silent> <C-v> <C-o>"+]p
-
 nnoremap <silent>       <Leader>w :w<CR>
 nnoremap <silent>       <Leader>W :wa<CR>
 nnoremap <silent>       <M-q> q
@@ -615,14 +615,8 @@ let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 let g:coc_data_home = '~/.config/coc'
-nnoremap <silent><nowait><expr> <C-f>
-        \ translator#window#float#has_scroll() ? translator#window#float#scroll(1) :
-        \ skylight#float#has_scroll() ? skylight#float#scroll(1, 3) :
-        \ coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b>
-        \ translator#window#float#has_scroll() ? translator#window#float#scroll(0) :
-        \ skylight#float#has_scroll() ? skylight#float#scroll(0, 3) :
-        \ coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+nnoremap <silent><nowait> <C-b> :call fn#window#scroll(0)<CR>
+nnoremap <silent><nowait> <C-f> :call fn#window#scroll(1)<CR>
 inoremap <silent><nowait><expr> <C-f>
         \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
         \ "<C-r>=fn#keymap#exec('normal! w')<CR>"
