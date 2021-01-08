@@ -420,7 +420,8 @@ nnoremap # #zz
 xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
-nmap <C-r> :%s/<C-r><C-w>//g<Left><Left>
+nnoremap <C-r> :%s/<C-r><C-w>//g<Left><Left>
+vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
 " document
 xnoremap <silent> id GoggV
@@ -454,13 +455,12 @@ noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
 nnoremap Y y$
 nnoremap p ""p
+xnoremap p "_dP
 nnoremap <silent> <Leader>y "+yy
 vnoremap <silent> <Leader>y "+y
 nnoremap <silent> <Leader>Y "+y$
 nnoremap <silent> <Leader>p "+p
 nnoremap <silent> <Leader>P "+P
-nnoremap <silent> <M-d> :%s///g<CR>
-vnoremap <silent> <M-d> :s///g<CR>
 " InsertMode: move
 inoremap <silent> <C-k> <Up>
 inoremap <silent> <C-j> <Down>
