@@ -121,6 +121,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
+Plug 'itchyny/vim-cursorword'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
@@ -636,7 +637,7 @@ function! s:select_current_word_and_go_next()
 endfunc
 nmap <silent> <M-n>      <Plug>(coc-diagnostic-next)
 nmap <silent> <M-p>      <Plug>(coc-diagnostic-prev)
-nmap <silent> <Leader>cl :<C-u>CocList<CR>
+nmap <silent> cl :<C-u>CocList<CR>
 nmap <silent> <Leader>cs :<C-u>CocSearch <C-r><C-w><CR>
 nmap <silent> <Leader>cf <Plug>(coc-fix-current)
 nmap <silent> <Leader>cd <Plug>(coc-definition)
@@ -758,6 +759,10 @@ if has('nvim')
   highlight StartifyPath   guifg=#00AFFF
   highlight StartifySlash  guifg=#DF875F
 endif
+" itchyny/vim-cursorword
+let g:cursorword_highlight = 0
+hi CursorWord0 guibg=#404D3D
+hi link CursorWord1 CursorLine
 " itchyny/lightline.vim
 let g:lightline = {
   \ 'colorscheme': 'aurora',
