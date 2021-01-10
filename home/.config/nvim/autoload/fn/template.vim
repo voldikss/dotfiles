@@ -113,7 +113,7 @@ function fn#template#TLoad()
     \ { _,v -> expand('%') =~ matchstr(v, '=template=\zs.*\ze') . '$' }
     \ )
   if empty(tfiles)
-    call fn#lib#show_message('No templates for this filetype', 'error')
+    call fn#util#show_msg('No templates for this filetype', 'error')
   else
     let tfile = sort(tfiles, { a,b -> len(b) - len(a) })[0]
     call s:TLoadTemplate(tfile)

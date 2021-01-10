@@ -1,12 +1,12 @@
 " ============================================================================
-" FileName: lib.vim
+" FileName: util.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
-" Description: Common functions library
+" Description: Common functions
 " ============================================================================
 
 " SystemOpen:
-function! fn#lib#system_open(obj) abort
+function! fn#util#system_open(obj) abort
   if has('win32') || has('win64') || has('win32unix')
     let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
   elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
@@ -20,7 +20,7 @@ function! fn#lib#system_open(obj) abort
 endfunction
 
 " ShowMessage:
-function! fn#lib#show_message(content, ...) abort
+function! fn#util#show_msg(content, ...) abort
   if a:0 == 0
     let msgtype = 'more'
   else
@@ -38,12 +38,12 @@ function! fn#lib#show_message(content, ...) abort
   else
     let message = a:content
   endif
-  echo message
+  echom message
   echohl None
 endfunction
 
 " GetVisualSelect:
-function! fn#lib#get_selected_text(visualmode, range, line1, line2) abort
+function! fn#util#get_selected_text(visualmode, range, line1, line2) abort
   if a:range == 0
     let lines = [getline('.')]
   elseif a:range == 1
@@ -72,11 +72,11 @@ function! fn#lib#get_selected_text(visualmode, range, line1, line2) abort
   return lines
 endfunction
 
-function! fn#lib#win_exists(winid) abort
+function! fn#util#win_exists(winid) abort
   return !empty(getwininfo(a:winid))
 endfunction
 
-function! fn#lib#win_execute(winid, cmd) abort
+function! fn#util#win_execute(winid, cmd) abort
   let winid = win_getid()
   if winid == a:winid
     execute a:cmd
@@ -88,6 +88,6 @@ function! fn#lib#win_execute(winid, cmd) abort
   endif
 endfunction
 
-function! fn#lib#bufcount() abort
+function! fn#util#bufcount() abort
   return len(getbufinfo({'buflisted':1}))
 endfunction

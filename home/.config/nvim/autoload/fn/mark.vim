@@ -110,14 +110,14 @@ function! fn#mark#jump(direction)
         normal! Nzz
       endif
     catch /E486/
-      call fn#lib#show_message('Pattern not found', 'warning')
+      call fn#util#show_msg('Pattern not found', 'warning')
     endtry
   endif
 endfunction
 
 function! fn#mark#do(mode) range
   if a:mode == 'v'
-    let curword = fn#lib#get_selected_text('v', 2, -1, -1)[0]
+    let curword = fn#util#get_selected_text('v', 2, -1, -1)[0]
   else
     let curword = expand('<cword>') . ''
   endif

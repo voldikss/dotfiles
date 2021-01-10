@@ -8,7 +8,7 @@
 " OpenFileExplore:
 function! fn#command#open_file_explorer() abort
   let path = expand(getcwd())
-  call fn#lib#system_open(path)
+  call fn#util#system_open(path)
 endfunction
 
 " Grep:
@@ -36,7 +36,7 @@ function! fn#command#tab_message(cmd) abort
   silent execute a:cmd
   redir END
   if empty(message)
-    call fn#lib#show_message('No Output', 'warning')
+    call fn#util#show_msg('No Output', 'warning')
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
