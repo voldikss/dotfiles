@@ -269,7 +269,6 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
-  exe 'hi MyBookmarkSign        guifg=#FF00FF guibg=' . signcolumn_bg
 
   hi VertSplit                  guifg=cyan
   " hi CocFloating                guibg=blue
@@ -665,11 +664,6 @@ nnoremap <silent> <Leader>gp :Gpush<CR>
 " nmap F <Plug>(coc-smartf-backward)
 " autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
 " autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-" coc-bookmark
-nmap <silent> ,b :CocCommand bookmark.toggle<CR>
-nmap <silent> ,a :CocCommand bookmark.annotate<CR>
-nmap <silent> gh :CocCommand bookmark.prev<CR>
-nmap <silent> gl :CocCommand bookmark.next<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
@@ -683,7 +677,6 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 " coc extensions
 let g:coc_global_extensions = [
-  \ 'coc-bookmark',
   \ 'coc-browser',
   \ 'coc-clock',
   \ 'coc-cmake',

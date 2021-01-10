@@ -1,8 +1,6 @@
 {
   "browser.filterLength": [5, 20],
   "browser.priority": 0,
-  "bookmark.sign": "B",
-  "bookmark.signHl": "MyBookmarkSign",
   "cmake.formatter": "cmake-format",
   "cmake.lsp.enable": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
