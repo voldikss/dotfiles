@@ -614,8 +614,8 @@ let g:semshi#always_update_all_highlights = v:true
 let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 let g:coc_data_home = '~/.config/coc'
-nnoremap <silent><nowait> <C-b> :call fn#window#scroll(0)<CR>
-nnoremap <silent><nowait> <C-f> :call fn#window#scroll(1)<CR>
+nnoremap <silent><nowait> <C-b> :call fn#keymap#n#scroll_win(0)<CR>
+nnoremap <silent><nowait> <C-f> :call fn#keymap#n#scroll_win(1)<CR>
 inoremap <silent><nowait><expr> <C-f>
         \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
         \ "<C-r>=fn#keymap#exec('normal! w')<CR>"
@@ -845,6 +845,40 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
 let g:asyncrun_rootmarks = ['.git', '.root', '.tasks']
+function! s:run_floaterm(opts)
+  execute 'FloatermNew --position=bottomright' .
+                   \ ' --wintype=float' .
+                   \ ' --height=0.4' .
+                   \ ' --width=0.4' .
+                   \ ' --title=floaterm_runner' .
+                   \ ' --autoclose=0' .
+                   \ ' --silent=' . get(a:opts, 'silent', 0)
+                   \ ' --cwd=' . a:opts.cwd
+                   \ ' ' . a:opts.cmd
+  " Do not focus on floaterm window, and close it once cursor moves
+  " If you want to jump to the floaterm window, use <C-w>p
+  " You can choose whether to use the following code or not
+  stopinsert | noa wincmd p
+  augroup close-floaterm-runner
+    autocmd!
+    autocmd CursorMoved,InsertEnter * ++nested
+          \ call timer_start(100, { -> s:close_floaterm_runner() })
+  augroup END
+endfunction
+function! s:close_floaterm_runner() abort
+  if &ft == 'floaterm' | return | endif
+  for b in tabpagebuflist()
+    if getbufvar(b, '&ft') == 'floaterm' &&
+          \ getbufvar(b, 'floaterm_jobexists') == v:false
+      execute bufwinnr(b) . 'hide'
+      break
+    endif
+  endfor
+  autocmd! close-floaterm-runner
+endfunction
+let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
+let g:asyncrun_runner.floaterm = function('s:run_floaterm')
+let g:asynctasks_term_pos = 'floaterm'
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 0

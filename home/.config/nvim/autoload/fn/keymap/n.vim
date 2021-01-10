@@ -103,3 +103,16 @@ function! s:put_cursor(saved_lnum) abort
     let s:centered_cursor = v:true
   endif
 endfunction
+
+" ScrollWindows:
+function! fn#keymap#n#scroll_win(direction) abort
+  if translator#window#float#has_scroll()
+    call translator#window#float#scroll(a:direction)
+  elseif skylight#float#has_scroll()
+    call skylight#float#scroll(a:direction, 3)
+  elseif coc#float#has_scroll()
+    call coc#float#scroll(a:direction, 3)
+  else
+    call fn#window#scroll_prev_win(a:direction, 3)
+  endif
+endfunction
