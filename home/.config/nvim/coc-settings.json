@@ -137,7 +137,7 @@
         },
         "clang": {
           "extraArgs": ["--gcc-toolchain=/usr"],
-          "resourceDir": "/usr/lib/clang/11.0.0"
+          "resourceDir": "/usr/lib/clang/11.0.1/"
         },
         "completion": {"detailedLabel": true},
         "index": {"onChange": false, "initialNoLinkage": true, "threads": 2}

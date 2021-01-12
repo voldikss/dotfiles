@@ -1,4 +1,4 @@
-# vim: set fenc=utf-8 ft=dosini:
+# vim: set fenc=utf-8
 
 [start]
 command=:AsyncTask file-build-and-run

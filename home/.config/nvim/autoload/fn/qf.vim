@@ -11,5 +11,5 @@ function! fn#qf#toggle() abort
       return
     endif
   endfor
-  copen
+  botright copen
 endfunction

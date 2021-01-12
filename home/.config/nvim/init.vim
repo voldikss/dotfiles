@@ -727,7 +727,7 @@ function! s:stdpath_config() abort
   if has('nvim')
     return stdpath('config')
   else
-    return has('unix') ? '~/.config/nvim' : 'C:\Users\voldikss\AppData\Local\nvim'
+    return has('unix') ? '~/.config/nvim' : 'C:\Users\dyzh\AppData\Local\nvim'
   endif
 endfunction
 let g:startify_bookmarks = [
@@ -862,7 +862,7 @@ function! s:run_floaterm(opts)
   augroup close-floaterm-runner
     autocmd!
     autocmd CursorMoved,InsertEnter * ++nested
-          \ call timer_start(100, { -> s:close_floaterm_runner() })
+          \ call timer_start(50, { -> s:close_floaterm_runner() })
   augroup END
 endfunction
 function! s:close_floaterm_runner() abort
@@ -870,7 +870,7 @@ function! s:close_floaterm_runner() abort
   for b in tabpagebuflist()
     if getbufvar(b, '&ft') == 'floaterm' &&
           \ getbufvar(b, 'floaterm_jobexists') == v:false
-      execute bufwinnr(b) . 'hide'
+      execute b 'bwipeout!'
       break
     endif
   endfor
@@ -885,18 +885,18 @@ let g:asynctasks_term_reuse = 0
 let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
-nmap <silent> <Leader>fc :Leaderf cmdHistory<CR>
+nmap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
 nmap <silent> <Leader>ff :Leaderf file<CR>
 nmap <silent> <Leader>fg :Leaderf rg<CR>
+nmap <silent> <Leader>fh :Leaderf cmdHistory<CR>
 nmap <silent> <Leader>fl :Leaderf line<CR>
 nmap <silent> <Leader>fm :Leaderf mru<CR>
 nmap <silent> <Leader>ft :Leaderf bufTag<CR>
 nmap <silent> <Leader>fu :Leaderf function<CR>
-nmap <silent> <Leader>fr :Leaderf! --recall --stayOpen<CR>
-" noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-" noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-" noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-" noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_CommandMap = {
   \'<Up>': ['<C-p>'],
