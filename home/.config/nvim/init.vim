@@ -761,7 +761,7 @@ let g:lightline = {
   \ 'active': {
     \ 'left': [
       \ ['mode', 'paste'],
-      \ ['fugitive', 'readonly', 'filename'],
+      \ ['fugitive', 'readonly'],
       \ ['absolutepath']
     \ ],
     \ 'right': [
@@ -775,17 +775,8 @@ let g:lightline = {
     \ ]
   \ },
   \ 'inactive': {
-    \ 'left': [
-      \ ['mode', 'paste'],
-      \ ['fugitive', 'readonly', 'filename'],
-      \ ['absolutepath']
-    \ ],
-    \ 'right': [
-      \ ['lineinfo'],
-      \ ['percent'],
-      \ ['fileformat', 'fileencoding'],
-      \ ['filetype']
-    \ ]
+    \ 'left': [['inactive_fileinfo']],
+    \ 'right': []
   \ },
   \ 'tabline': {
     \ 'left': [['vim_logo', 'buffers']],
@@ -813,7 +804,8 @@ let g:lightline = {
     \ 'fileformat': 'fn#lightline#FileFormat',
     \ 'fileencoding': 'fn#lightline#FileEncoding',
     \ 'filetype': 'fn#lightline#FileType',
-    \ 'absolutepath': 'fn#lightline#AbsPath'
+    \ 'absolutepath': 'fn#lightline#AbsPath',
+    \ 'inactive_fileinfo': 'fn#lightline#InactiveFileinfo',
   \ },
   \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
   \ 'component_type': { 'buffers': 'tabsel' },
@@ -1138,4 +1130,3 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 " }}}
-

@@ -14,10 +14,11 @@ let s:special_filetypes = {
   \ 'qf': 'QuickFix',
   \ 'startify': 'Startify',
   \ 'vista': 'Vista',
+  \ 'vim-plug': 'Plug',
   \ }
 let s:special_filetypes_pattern = '\v^(' . join(keys(s:special_filetypes), '|') . ')$'
 
-" AbsPath:
+" AbsPath2:
 function! fn#lightline#AbsPath()
   if &filetype =~ s:special_filetypes_pattern
     return ''
@@ -114,4 +115,12 @@ function! fn#lightline#Codelf_Status() abort
     return ''
   endif
   return exists('g:codelf_status') ? g:codelf_status : ''
+endfunction
+
+" InactiveFileinfo: no pathshorten
+function! fn#lightline#InactiveFileinfo()
+  if &filetype =~ s:special_filetypes_pattern
+    return s:special_filetypes[&filetype]
+  endif
+  return substitute(expand('%:p'), $HOME, '~', 'g')
 endfunction
