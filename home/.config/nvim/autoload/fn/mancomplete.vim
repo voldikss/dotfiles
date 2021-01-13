@@ -3,21 +3,13 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 " Description:
-"   Redefine man#complete function in /usr/local/share/nvim/runtime/autoload/man.vim
+"   Redefine man#complete function in $VIMRUNTIME/autoload/man.vim
 "   Thanks https://github.com/vim-utils/vim-man
 " ============================================================================
 
-" load guard {{{1
-
-if exists('g:autoloaded_man_completion')
-  finish
-endif
-let g:autoloaded_man_completion = 1
-
-" }}}
 " man#completion#run {{{1
 
-function! man#complete(A, L, P)
+function! fn#mancomplete#complete(A, L, P)
   let manpath = s:man_helpers_manpath()
   if manpath =~# '^\s*$'
     return []

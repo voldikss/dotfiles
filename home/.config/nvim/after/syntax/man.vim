@@ -5,11 +5,13 @@
 " Description: Custom man filetype syntax for easy reading
 " ============================================================================
 
+" -xxx
 syntax match manExtraPattern1 '\s-\S\+'
+" [xxx]
 syntax match manExtraPattern2 '\[\zs.*\ze\]'
-syntax match manExtraPattern3 '\<\(\u\|_\)\+\>'
-syntax match manExtraPattern4 '^\<\u\+\>'
+" XX_XXX
+syntax match manExtraPattern3 '\<\(\u\|_\)\{2,}\>'
+
 hi def link manExtraPattern1 Keyword
 hi def link manExtraPattern2 Define
 hi def link manExtraPattern3 Identifier
-hi def link manExtraPattern4 Constant
