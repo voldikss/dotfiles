@@ -126,6 +126,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
 Plug 'easymotion/vim-easymotion'
@@ -1052,6 +1053,13 @@ let g:im_select_enable_focus_events = 0
 " vista.vim
 let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 0
+" glacambre/firenvim
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ '<C-w>': 'default',
+        \ '<C-n>': 'default',
+    \ }
+\ }
 " nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -1130,3 +1138,4 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 " }}}
+
