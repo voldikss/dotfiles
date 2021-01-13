@@ -347,7 +347,7 @@ command! BufferCloseNotDisplayed call fn#buffer#close_not_displayed()
 command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
 command! GwritePlus call fn#command#gwrite_plus()
 command! Template call fn#template#TLoad()
-command! QfToggle call fn#qf#toggle()
+command! QfToggle call fn#quickfix#toggle()
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
     \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
