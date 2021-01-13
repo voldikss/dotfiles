@@ -107,11 +107,15 @@ function s:TLoadTemplate(template)
   setlocal nomodified
 endfunction
 
-function fn#template#TLoad()
-  let tfiles = filter(
-    \ globpath(&rtp, 'templates/=template=*', 0, 1),
-    \ { _,v -> expand('%') =~ matchstr(v, '=template=\zs.*\ze') . '$' }
-    \ )
+function fn#template#TLoad(ext)
+  if empty(a:ext)
+    let tfiles = filter(
+          \ globpath(&rtp, 'templates/=template=*', 0, 1),
+          \ { _,v -> expand('%') =~ matchstr(v, '=template=\zs.*\ze') . '$' }
+          \ )
+  else
+    let tfiles = globpath(&rtp, 'templates/=template=.'.a:ext, 0, 1)
+  endif
   if empty(tfiles)
     call fn#util#show_msg('No templates for this filetype', 'error')
   else

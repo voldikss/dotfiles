@@ -347,13 +347,13 @@ command! BufferCloseNotCurrent call fn#buffer#close_not_current()
 command! BufferCloseNotDisplayed call fn#buffer#close_not_displayed()
 command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
 command! GwritePlus call fn#command#gwrite_plus()
-command! Template call fn#template#TLoad()
 command! QfToggle call fn#quickfix#toggle()
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
     \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
     \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
     \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
+command! -nargs=* Template call fn#template#TLoad(<q-args>)
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
 command! -nargs=? Cline call fn#command#insert_line('comment', <f-args>)
