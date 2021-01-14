@@ -237,7 +237,6 @@
   "vimlsp.suggest.fromRuntimepath": false,
   "vimlsp.suggest.fromVimruntime": false,
   "yank.enableCompletion": false,
-  // "yank.highlight.duration": 20,
   "yank.highlight.enable": false,
   "yank.priority": 4
   // vim:ft=jsonc
