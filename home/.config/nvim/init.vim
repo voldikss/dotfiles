@@ -105,7 +105,7 @@ Plug 'fatih/vim-go'
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 " Plug 'numirias/semshi', {'for': 'python'}
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'othree/html5.vim'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -420,6 +420,7 @@ nnoremap # #zz
 xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
+nnoremap <Nop> <Plug>(RepeatRedo)
 nnoremap <C-r> :%s/<C-r><C-w>//g<Left><Left>
 vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
@@ -790,7 +791,7 @@ let g:lightline = {
     \ 'lineinfo': ' %l,%-v',
     \ 'percent': '%p%%',
     \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
-    \ 'vim_logo': "  "
+    \ 'vim_logo': "#"
   \ },
   \ 'component_function': {
     \ 'asyncrun_status': 'fn#lightline#AsyncRunStatus',
