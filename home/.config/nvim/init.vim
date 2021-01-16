@@ -1,4 +1,4 @@
-" vim:et sw=2 ts=2 fdm=marker
+" vim:et:sw=2:ts=2:fdm=marker
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 
@@ -92,7 +92,6 @@ if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
   set pumblend=0
 endif
 
-colorscheme srcery
 " }}}
 
 " Plugin: {{{
@@ -159,17 +158,20 @@ Plug 'yianwillis/vimcdoc'
 call plug#end()
 " }}}
 
+" put this after plugxxx, do not source colorscheme twice
+colorscheme srcery
+
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
 augroup ParenColor
   autocmd!
   autocmd VimEnter,BufWinEnter *
-    \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
-      \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
-      \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
-      \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
-      \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
-    \ endif
+        \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
+        \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
+        \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
+        \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
+        \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
+        \ endif
 augroup END
 
 augroup FileTypeAutocmds
@@ -199,19 +201,19 @@ augroup END
 augroup JumpToLastPosition
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' |
-      \ exe "normal! g'\"" |
-    \ endif
+        \ if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' |
+        \ exe "normal! g'\"" |
+        \ endif
 augroup END
 
 augroup KeywordHighlight
   autocmd!
   autocmd ColorScheme *
-    \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
-    \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
-    \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
-    \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze:') |
-    \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze:')
+        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze:')
 augroup END
 
 augroup AutoChangeDir
@@ -246,49 +248,49 @@ augroup CocExplorerCustom
   autocmd!
   autocmd FileType coc-explorer setlocal relativenumber
   autocmd BufEnter coc-explorer
-    \ if &ft == 'coc-explorer'
-    \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
-    \ | endif
+        \ if &ft == 'coc-explorer'
+        \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
+        \ | endif
 augroup END
 
 if has('nvim')
-augroup TerminalSettings
-  autocmd!
-  autocmd TermOpen * call timer_start(10, { -> fn#terminal#settings() }) |
-augroup END
+  augroup TerminalSettings
+    autocmd!
+    autocmd TermOpen * call timer_start(10, { -> fn#terminal#settings() }) |
+  augroup END
 
-function! s:OnColorSchemeLoaded() abort
-  let signcolumn_bg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
-  if empty(signcolumn_bg) | let signcolumn_bg = 'NONE' | endif
-  exe 'hi GitAdd                guifg=#00FF00 guibg=' . signcolumn_bg
-  exe 'hi GitModify             guifg=#00FFFF guibg=' . signcolumn_bg
-  exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . signcolumn_bg
-  exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . signcolumn_bg
-  exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . signcolumn_bg
-  exe 'hi CocHintSign           guifg=#15aabf guibg=' . signcolumn_bg
-  exe 'hi CocInfoSign           guifg=#fab005 guibg=' . signcolumn_bg
-  exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
-  exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
-  exe 'hi CursorLineNr          guibg='               . signcolumn_bg
+  function! s:OnColorSchemeLoaded() abort
+    let signcolumn_bg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
+    if empty(signcolumn_bg) | let signcolumn_bg = 'NONE' | endif
+    exe 'hi GitAdd                guifg=#00FF00 guibg=' . signcolumn_bg
+    exe 'hi GitModify             guifg=#00FFFF guibg=' . signcolumn_bg
+    exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . signcolumn_bg
+    exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . signcolumn_bg
+    exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . signcolumn_bg
+    exe 'hi CocHintSign           guifg=#15aabf guibg=' . signcolumn_bg
+    exe 'hi CocInfoSign           guifg=#fab005 guibg=' . signcolumn_bg
+    exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
+    exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
+    exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
-  hi VertSplit                  guifg=cyan
-  " hi CocFloating                guibg=blue
-  hi CursorLineNr               guifg=orange
-  hi Normal                     guibg=#111111 guifg=#eeeeee
-  hi PmenuThumb                  guifg=white guibg=white
-  hi VisualNOS                  guibg=#404D3D
+    hi VertSplit                  guifg=cyan
+    " hi CocFloating                guibg=blue
+    hi CursorLineNr               guifg=orange
+    hi Normal                     guibg=#111111 guifg=#eeeeee
+    hi PmenuThumb                  guifg=white guibg=white
+    hi VisualNOS                  guibg=#404D3D
 
-  let normal_bg = matchstr(execute('hi Normal'), 'guibg=\zs\S*')
-  exe 'hi EndOfBuffer           guifg=' . normal_bg
+    let normal_bg = matchstr(execute('hi Normal'), 'guibg=\zs\S*')
+    exe 'hi EndOfBuffer           guifg=' . normal_bg
 
-  " coclist will(might) change my cursor highlight
-  hi Cursor gui=reverse guifg=NONE guibg=NONE
-endfunc
-call s:OnColorSchemeLoaded()
-augroup HlGroupSettings
-  autocmd!
-  autocmd ColorScheme * call s:OnColorSchemeLoaded()
-augroup END
+    " coclist will(might) change my cursor highlight
+    hi Cursor gui=reverse guifg=NONE guibg=NONE
+  endfunc
+  call s:OnColorSchemeLoaded()
+  augroup HlGroupSettings
+    autocmd!
+    autocmd ColorScheme * call s:OnColorSchemeLoaded()
+  augroup END
 endif
 
 " }}}
@@ -296,8 +298,8 @@ endif
 " Abbrevs: {{{
 function! s:SetCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
-    \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
-    \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunc
 call s:SetCommandAbbrs('ar', 'AsyncRun')
 call s:SetCommandAbbrs('as', 'AsyncStop')
@@ -350,9 +352,9 @@ command! GwritePlus call fn#command#gwrite_plus()
 command! QfToggle call fn#quickfix#toggle()
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
-    \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
-    \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
-    \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
+      \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
+      \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
+      \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
 command! -nargs=* Template call fn#template#TLoad(<q-args>)
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
@@ -369,10 +371,10 @@ command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
 command! -nargs=+ -complete=command  TabMessage call fn#command#tab_message(<q-args>)
 command! -nargs=? -complete=customlist,fn#quickrun#Complete QuickRun call fn#quickrun#run(<f-args>)
 command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' : <q-args>, {
-  \ 'on_stdout': function('fn#floaterm#watch_callback'),
-  \ 'on_stderr': function('fn#floaterm#watch_callback'),
-  \ 'on_exit': function('fn#floaterm#watch_callback')
-  \ }, {})
+      \ 'on_stdout': function('fn#floaterm#watch_callback'),
+      \ 'on_stderr': function('fn#floaterm#watch_callback'),
+      \ 'on_exit': function('fn#floaterm#watch_callback')
+      \ }, {})
 " }}}
 
 " Mappings: {{{
@@ -619,11 +621,11 @@ let g:coc_data_home = '~/.config/coc'
 nnoremap <silent><nowait> <C-b> :call fn#keymap#n#scroll_win(0)<CR>
 nnoremap <silent><nowait> <C-f> :call fn#keymap#n#scroll_win(1)<CR>
 inoremap <silent><nowait><expr> <C-f>
-        \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
-        \ "<C-r>=fn#keymap#exec('normal! w')<CR>"
+      \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
+      \ "<C-r>=fn#keymap#exec('normal! w')<CR>"
 inoremap <silent><nowait><expr> <C-b>
-        \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
-        \ "<C-r>=fn#keymap#exec('normal! b')<CR>"
+      \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
+      \ "<C-r>=fn#keymap#exec('normal! b')<CR>"
 nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
@@ -679,44 +681,44 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 " coc extensions
 let g:coc_global_extensions = [
-  \ 'coc-browser',
-  \ 'coc-clock',
-  \ 'coc-cmake',
-  \ 'coc-css',
-  \ 'coc-diagnostic',
-  \ 'coc-dictionary',
-  \ 'coc-ecdict',
-  \ 'coc-emmet',
-  \ 'coc-emoji',
-  \ 'coc-eslint',
-  \ 'coc-explorer',
-  \ 'coc-floaterm',
-  \ 'coc-gist',
-  \ 'coc-git',
-  \ 'coc-highlight',
-  \ 'coc-html',
-  \ 'coc-java',
-  \ 'coc-json',
-  \ 'coc-leetcode',
-  \ 'coc-lists',
-  \ 'coc-marketplace',
-  \ 'coc-pairs',
-  \ 'coc-prettier',
-  \ 'coc-pyright',
-  \ 'coc-rust-analyzer',
-  \ 'coc-syntax',
-  \ 'coc-snippets',
-  \ 'coc-tag',
-  \ 'coc-tasks',
-  \ 'coc-todolist',
-  \ 'coc-translator',
-  \ 'coc-tslint-plugin',
-  \ 'coc-tsserver',
-  \ 'coc-vimlsp',
-  \ 'coc-vimtex',
-  \ 'coc-word',
-  \ 'coc-yank'
-\ ]
+      \ 'coc-browser',
+      \ 'coc-clock',
+      \ 'coc-cmake',
+      \ 'coc-css',
+      \ 'coc-diagnostic',
+      \ 'coc-dictionary',
+      \ 'coc-ecdict',
+      \ 'coc-emmet',
+      \ 'coc-emoji',
+      \ 'coc-eslint',
+      \ 'coc-explorer',
+      \ 'coc-floaterm',
+      \ 'coc-gist',
+      \ 'coc-git',
+      \ 'coc-highlight',
+      \ 'coc-html',
+      \ 'coc-java',
+      \ 'coc-json',
+      \ 'coc-leetcode',
+      \ 'coc-lists',
+      \ 'coc-marketplace',
+      \ 'coc-pairs',
+      \ 'coc-prettier',
+      \ 'coc-pyright',
+      \ 'coc-rust-analyzer',
+      \ 'coc-syntax',
+      \ 'coc-snippets',
+      \ 'coc-tag',
+      \ 'coc-tasks',
+      \ 'coc-todolist',
+      \ 'coc-translator',
+      \ 'coc-tslint-plugin',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
+      \ 'coc-vimtex',
+      \ 'coc-word',
+      \ 'coc-yank'
+      \ ]
 " Yggdroot/indentLine
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 1
@@ -733,9 +735,9 @@ function! s:stdpath_config() abort
   endif
 endfunction
 let g:startify_bookmarks = [
-  \ {'c': <SID>stdpath_config() . '/coc-settings.json'},
-  \ {'v': <SID>stdpath_config() . '/init.vim'}
-  \ ]
+      \ {'c': <SID>stdpath_config() . '/coc-settings.json'},
+      \ {'v': <SID>stdpath_config() . '/init.vim'}
+      \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
 " let g:startify_custom_header = [
@@ -822,9 +824,9 @@ let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#show_number  = 3
 let g:lightline#bufferline#number_map = {
-  \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
-  \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
-\ }
+      \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+      \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
+      \ }
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
@@ -893,10 +895,10 @@ noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR
 noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_CommandMap = {
-  \'<Up>': ['<C-p>'],
-  \'<Down>': ['<C-n>'],
-  \'<Home>': ['<C-A>'],
-\}
+      \'<Up>': ['<C-p>'],
+      \'<Down>': ['<C-n>'],
+      \'<Home>': ['<C-A>'],
+      \}
 let g:Lf_Ctags                = "/usr/local/bin/ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
@@ -908,61 +910,61 @@ let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_RgConfig = [
-  \"--glob=!OmegaOptions.bak",
-  \"--glob=!node_modules",
-  \"--glob=!lib/*.js",
-  \"--glob=!target",
-  \"--glob=!tags",
-  \"--glob=!build",
-  \"--glob=!.git",
-  \"--glob=!.ccls-cache",
-  \"--no-ignore",
-  \"--hidden"
-\]
+      \"--glob=!OmegaOptions.bak",
+      \"--glob=!node_modules",
+      \"--glob=!lib/*.js",
+      \"--glob=!target",
+      \"--glob=!tags",
+      \"--glob=!build",
+      \"--glob=!.git",
+      \"--glob=!.ccls-cache",
+      \"--no-ignore",
+      \"--hidden"
+      \]
 let g:Lf_RootMarkers    = [
-  \'.project',
-  \'.svn',
-  \'.git',
-  \'.idea',
-  \'.tasks',
-  \'.clang-format',
-\]
+      \'.project',
+      \'.svn',
+      \'.git',
+      \'.idea',
+      \'.tasks',
+      \'.clang-format',
+      \]
 let g:Lf_ShowHidden           = 1
 let g:Lf_ShowRelativePath     = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_WildIgnore = {
-  \'dir': [
-    \'.svn',
-    \'.git',
-    \'.hg',
-    \'.cache',
-    \'.idea',
-    \'.ccls-cache',
-    \'.android',
-    \'.gradle',
-    \'.IntelliJIdea*',
-    \'node_modules',
-    \'build'
-  \],
-  \'file': [
-    \'*.sw?',
-    \'~$*',
-    \'*.exe',
-    \'*.o',
-    \'*.so',
-    \'*.py[co]'
-  \]
-\}
+      \'dir': [
+      \'.svn',
+      \'.git',
+      \'.hg',
+      \'.cache',
+      \'.idea',
+      \'.ccls-cache',
+      \'.android',
+      \'.gradle',
+      \'.IntelliJIdea*',
+      \'node_modules',
+      \'build'
+      \],
+      \'file': [
+      \'*.sw?',
+      \'~$*',
+      \'*.exe',
+      \'*.o',
+      \'*.so',
+      \'*.py[co]'
+      \]
+      \}
 let g:Lf_WindowHeight = 0.4
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " voldikss/vim-browser-search
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 let g:browser_search_engines = {
-  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
-  \ }
+      \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
+      \ }
 " voldikss/vim-translator
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
@@ -1048,11 +1050,11 @@ let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 0
 " glacambre/firenvim
 let g:firenvim_config = {
-    \ 'globalSettings': {
-        \ '<C-w>': 'default',
-        \ '<C-n>': 'default',
-    \ }
-\ }
+      \ 'globalSettings': {
+      \ '<C-w>': 'default',
+      \ '<C-n>': 'default',
+      \ }
+      \ }
 " nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {

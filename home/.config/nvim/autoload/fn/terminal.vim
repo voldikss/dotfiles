@@ -24,4 +24,6 @@ function fn#terminal#settings() abort
   endif
 
   nmap <silent><buffer> q :q<CR>
+
+  startinsert
 endfunction
