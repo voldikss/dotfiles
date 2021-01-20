@@ -16,7 +16,7 @@ function! fn#file#autoformat() abort
   " 2. remove blank line
   call s:remove_blank_lines()
   " 3. use coc
-  call CocAction('format')
+  silent! call CocAction('format')
 
   if expand('%') != ''
     update
