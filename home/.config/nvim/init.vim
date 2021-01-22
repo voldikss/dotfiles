@@ -163,16 +163,16 @@ colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
-augroup ParenColor
-  autocmd!
-  autocmd VimEnter,BufWinEnter *
-        \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
-        \ syntax match paren1 /[{}]/   | hi paren1 guifg=#FF00FF |
-        \ syntax match paren2 /[()]/   | hi paren2 guifg=#DF8700 |
-        \ syntax match paren3 /[<>]/   | hi paren3 guifg=#0087FF |
-        \ syntax match paren4 /[\[\]]/ | hi paren4 guifg=#00FF5F |
-        \ endif
-augroup END
+" augroup ParenColor
+"   autocmd!
+"   autocmd VimEnter,BufWinEnter *
+"         \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
+"         \ call matchadd('Constant', '\[\|\]') |
+"         \ call matchadd('Identifier', '{\|}') |
+"         \ call matchadd('Statement', '(\|)') |
+"         \ call matchadd('PreProc', '<\|>') |
+"         \ endif
+" augroup END
 
 augroup FileTypeAutocmds
   autocmd!
@@ -208,7 +208,7 @@ augroup END
 
 augroup KeywordHighlight
   autocmd!
-  autocmd ColorScheme *
+  autocmd BufWinEnter *
         \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
         \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
         \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
@@ -317,6 +317,7 @@ call s:SetCommandAbbrs('cu', 'CocUninstall')
 call s:SetCommandAbbrs('fk', 'FloatermKill')
 call s:SetCommandAbbrs('fn', 'FloatermNew')
 call s:SetCommandAbbrs('fs', 'FloatermSend')
+call s:SetCommandAbbrs('ft', 'FloatermToggle')
 call s:SetCommandAbbrs('fu', 'FloatermUpdate')
 call s:SetCommandAbbrs('gap', 'Git add -p')
 call s:SetCommandAbbrs('gc', 'Gcommit -v')

@@ -6,7 +6,7 @@
 
 let s:special_filetypes = {
   \ 'coc-explorer': 'coc-explorer',
-  \ 'floaterm': 'Floaterm',
+  \ 'floaterm': 'FLOATERM',
   \ 'help': 'Help',
   \ 'man': 'Man',
   \ 'Mundo': 'Mundo',
