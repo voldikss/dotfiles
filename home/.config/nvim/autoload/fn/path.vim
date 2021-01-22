@@ -127,7 +127,7 @@ function! s:path_join(home, name) abort
 endfunction
 
 function! s:get_root() abort
-  let markers = ['.git', '.gitignore', 'Cargo.toml']
+  let markers = ['.git', '.root']
   let strict = 0
   let l:hr = s:find_root(getcwd(), markers, strict)
   if s:is_windows

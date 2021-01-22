@@ -247,7 +247,7 @@ augroup END
 augroup CocExplorerCustom
   autocmd!
   autocmd FileType coc-explorer setlocal relativenumber
-  autocmd BufEnter coc-explorer
+  autocmd BufEnter *
         \ if &ft == 'coc-explorer'
         \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
         \ | endif
@@ -724,7 +724,18 @@ let g:coc_global_extensions = [
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
-let g:indentLine_fileTypeExclude = ['startify', 'vista', 'json', 'codi', 'translator', 'jsonc', 'coc-explorer', 'man', 'help', 'floaterm']
+let g:indentLine_fileTypeExclude = [
+      \ 'startify',
+      \ 'vista',
+      \ 'json',
+      \ 'codi',
+      \ 'translator',
+      \ 'jsonc',
+      \ 'coc-explorer',
+      \ 'man',
+      \ 'help',
+      \ 'floaterm'
+      \ ]
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
 noremap <silent> <Space><Space> <Esc>:Startify<CR>

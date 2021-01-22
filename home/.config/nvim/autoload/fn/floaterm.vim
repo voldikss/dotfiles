@@ -14,6 +14,6 @@ function! fn#floaterm#watch_callback(job, data, event) abort
   elseif a:event == 'stderr'
     let g:asyncrun_status = ''
   else
-    let g:asyncrun_status = 'yarn watch failed'
+    let g:asyncrun_status = ''
   endif
 endfunction

@@ -10,7 +10,7 @@ arch_base() {
     Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$$arch
     " > /etc/pacman.conf
     sudo pacman -Syu
-    sudo pacman -S yay openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
+    sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
     sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc fd --noconfirm
     sudo pacman -S spectacle krunner --noconfirm
     sudo pacman -S wps-office-cn wps-office-mui-zh-cn --noconfirm

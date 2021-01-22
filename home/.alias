@@ -68,8 +68,11 @@ alias npmorigin='npm config set registry https://registry.npmjs.org'
 alias npmcheckupdates='ncu -u && npm i' # need `npm install -g npm-check-updates`
 alias npmdisablepkglock='npm config set package-lock false'
 
-# arch
+# pacman
 alias p='sudo pacman'
+alias S='sudo pacman -S'
+alias Ss='sudo pacman -Ss'
+alias Rn='sudo pacman -Rn'
 
 # dos2unix
 alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'
