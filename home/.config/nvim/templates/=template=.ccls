@@ -1,4 +1,20 @@
-clang++
-%c -std=c17
-%cpp -std=c++17
+# https://github.com/MaskRay/ccls/wiki/Project-Setup#ccls-file
+
+# Example A
+# *.h *.hh *.hpp files will be parsed with extra --include=Global.h
+clang
+%c -std=c11
+%cpp -std=c++2a
 %h %hpp --include=Global.h
+-Iinc
+-DMACRO
+
+
+# Example B
+# It appends flags so clang should not be used.
+%compile_commands.json
+%c -std=c11
+%cpp -std=c++14
+%c %cpp -pthread
+%h %hpp --include=Global.h
+-Iinc

@@ -38,6 +38,8 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead .tasks,tasks.ini  setfiletype tasks
 
+  autocmd BufNewFile,BufRead .ccls             setfiletype ccls
+
   autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setfiletype toml
 augroup END
 
