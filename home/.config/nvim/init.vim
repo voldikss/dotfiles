@@ -78,7 +78,7 @@ set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
 " Performance
-set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 lazyredraw
+set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 nolazyredraw
 
 " Bell
 set noerrorbells visualbell t_vb=
@@ -316,6 +316,7 @@ call s:SetCommandAbbrs('cs', 'CocSearch')
 call s:SetCommandAbbrs('cu', 'CocUninstall')
 call s:SetCommandAbbrs('fk', 'FloatermKill')
 call s:SetCommandAbbrs('fn', 'FloatermNew')
+call s:SetCommandAbbrs('Fn', 'FloatermNew')
 call s:SetCommandAbbrs('fs', 'FloatermSend')
 call s:SetCommandAbbrs('ft', 'FloatermToggle')
 call s:SetCommandAbbrs('fu', 'FloatermUpdate')
@@ -485,7 +486,7 @@ nnoremap <silent>       <M-q> q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
 nnoremap <silent>       Q         :qa!<CR>
-nnoremap <silent><expr> <Leader>d fn#keymap#n#q()
+nnoremap <silent> <Leader>d :<C-u>call fn#keymap#n#safe_bdelete()<CR>
 " nnoremap <silent> <Leader>Q :qa!<CR>
 " noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
@@ -1073,6 +1074,9 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         disable = { 'rust', 'markdown', 'python' },
+    },
+    indent = {
+        enable = false
     },
     incremental_selection = {
         enable = true,

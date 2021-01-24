@@ -2,6 +2,11 @@
 " FileName: n.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
+" NOTE: 一般分两种情况
+"   - 按键命令 
+"     - without "<Plug>" => normal! xxxx
+"     - with "<Plug>" => execute "normal! \<Plug>xxx"
+"   - 普通命令，即 viml 语句 => 直接写
 " ============================================================================
 
 " Normal: [[
@@ -52,12 +57,20 @@ function! fn#keymap#n#CR() abort
 endfunction
 
 " Normal: q
-function! fn#keymap#n#q() abort
+function! fn#keymap#n#safe_bdelete() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1 && bufname() == ''
-    return ":q!\<CR>"
+    q!
   else
-    return ":bp\<bar>vsp\<bar>bn\<bar>bd!\<bar>:redraw!\<CR>"
+    " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
+    " `No enough rooms` error. But I like `noequalalways` much more. 
+    "Also note that setting winfixheight/winfixwidth can block `equalalways`
+    let width = winwidth(0)
+    let height = winheight(0)
+    bp|vsp|bn|bd!
+    execute 'resize ' . height
+    execute 'vertical resize ' . width
+    redraw!
   endif
 endfunction
 
