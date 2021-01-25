@@ -701,6 +701,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-java',
       \ 'coc-json',
+      \ 'coc-just-complete',
       \ 'coc-leetcode',
       \ 'coc-lists',
       \ 'coc-marketplace',
