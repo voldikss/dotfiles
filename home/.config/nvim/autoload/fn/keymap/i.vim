@@ -6,7 +6,10 @@
 
 " Insert: <BS>
 function! fn#keymap#i#BS() abort
-  if col('.') == 1
+  " vim has charcol() but it has not patched to neovim yet.
+  " virtcol() seems enough?
+  let colnr = virtcol('.')
+  if colnr == 1
     if line('.')  != 1
       return  "\<ESC>kA\<Del>"
     else
@@ -15,9 +18,8 @@ function! fn#keymap#i#BS() abort
   endif
 
   let line = getline('.')       " don't use trim() here
-  let colnr = getpos('.')[2]
   let paren = strcharpart(line, colnr-2, 2)
-  let pairs = ['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``']
+  let pairs = ['()', '[]', '{}', '<>', '%%', '$$', '**', '""', "''", '~~', '``', '“”', '‘’', '【】]', '《》']
   if index(pairs, paren) >=0
     return "\<Left>\<Del>\<Del>"
   else
