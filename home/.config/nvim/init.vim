@@ -899,7 +899,7 @@ let g:Lf_CommandMap = {
       \'<Down>': ['<C-n>'],
       \'<Home>': ['<C-A>'],
       \}
-let g:Lf_Ctags                = "/usr/local/bin/ctags"
+let g:Lf_Ctags                = "ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
 let g:Lf_GtagsAutoGenerate = 1

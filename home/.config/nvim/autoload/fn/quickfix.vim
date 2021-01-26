@@ -23,5 +23,5 @@ function! fn#quickfix#toggle() abort
     endif
   endfor
 
-  botright copen
+  belowright copen
 endfunction
