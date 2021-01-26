@@ -101,3 +101,10 @@ function! fn#file#remove() abort
   endif
   redraw!
 endfunction
+
+" Refresh:
+function! fn#file#refresh() abort
+  let save_view = winsaveview()
+  edit
+  call winrestview(save_view)
+endfunction

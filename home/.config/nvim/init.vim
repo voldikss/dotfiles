@@ -314,7 +314,7 @@ call s:SetCommandAbbrs('gco', 'AsyncRun git checkout .')
 call s:SetCommandAbbrs('gd', 'Gvdiff')
 call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
-call s:SetCommandAbbrs('gpush', 'AsyncRun git push')
+call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gw', 'GwritePlus')
 call s:SetCommandAbbrs('gwa', 'GwriteAll')
@@ -337,7 +337,7 @@ command! BufferCloseNotBuflisted call fn#buffer#close_not_buflisted()
 command! BufferCloseNotCurrent call fn#buffer#close_not_current()
 command! BufferCloseNotDisplayed call fn#buffer#close_not_displayed()
 command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
-command! GwritePlus call fn#command#gwrite_plus()
+command! GwritePlus Gw | call fn#file#refresh()
 command! QfToggle call fn#quickfix#toggle()
 command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
@@ -388,6 +388,8 @@ nnoremap <C-d> <C-d>zz
 " PreviewAndOpen:
 nnoremap <silent> gp  :<C-u>Skylight!<CR>
 vnoremap <silent> gp  :Skylight!<CR>
+" Edit:
+nnoremap <silent> ge  :call fn#file#refresh()<CR>
 " Move:
 nnoremap <silent> [[  :<C-u>call fn#keymap#n#right_square_brackets()<CR>
 nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
@@ -649,7 +651,6 @@ nnoremap <silent> <Leader>gw :GwritePlus<CR>
 nnoremap <silent> <Leader>gW :GwriteAll<CR>
 nnoremap <silent> <Leader>gc :Gcommit -v<CR>
 nnoremap <silent> <Leader>ga :Gcommit --amend -v<CR>
-nnoremap <silent> <Leader>gp :Gpush<CR>
 " omap ic <Plug>(coc-text-object-inner)
 " xmap ic <Plug>(coc-text-object-inner)
 " coc-smartf
