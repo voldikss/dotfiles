@@ -24,14 +24,18 @@ function! fn#lightline#AbsPath()
     return ''
   endif
 
-  let path = substitute(expand('%:p'), $HOME, '~', 'g')
-  if len(path) > winwidth(0)/3
-    let path = pathshorten(path)
-    if len(path) > winwidth(0)/3
-      return ''
-    endif
+  let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  let maxwidth = winwidth(0) - 40
+  if len(filepath) > maxwidth
+    let filepath = pathshorten(filepath)
   endif
-  return path
+  if len(filepath) > maxwidth
+    let filepath = expand('%:t')
+  endif
+  if len(filepath) > maxwidth
+    let filepath = ''
+  endif
+  return filepath
 endfunction
 
 " Mode:
@@ -40,16 +44,6 @@ function! fn#lightline#Mode()
     return s:special_filetypes[&filetype]
   endif
   return lightline#mode()
-endfunction
-
-" FileName:
-function! fn#lightline#FileName()
-  if &filetype =~ s:special_filetypes_pattern
-    return ''
-  endif
-  let filename = expand('%:t') !=# '' ? expand('%:t') : ''
-  let modified = &modified ? ' ✎' : ''
-  return filename . modified
 endfunction
 
 " GitBranch:
@@ -122,5 +116,16 @@ function! fn#lightline#InactiveFileinfo()
   if &filetype =~ s:special_filetypes_pattern
     return s:special_filetypes[&filetype]
   endif
-  return substitute(expand('%:p'), $HOME, '~', 'g')
+  let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  let winwidth = winwidth(0)
+  if len(filepath) > winwidth
+    let filepath = pathshorten(filepath)
+  endif
+  if len(filepath) > winwidth
+    let filepath = expand('%:t')
+  endif
+  if len(filepath) > winwidth
+    let filepath = ''
+  endif
+  return filepath
 endfunction

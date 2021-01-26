@@ -100,7 +100,7 @@ call plug#begin('~/.cache/nvim/plugged')
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 " Plug 'numirias/semshi', {'for': 'python'}
@@ -817,7 +817,6 @@ let g:lightline = {
     \ 'fugitive': 'fn#lightline#GitBranch',
     \ 'cocstatus': 'coc#status',
     \ 'readonly': 'fn#lightline#ReadOnly',
-    \ 'filename': 'fn#lightline#FileName',
     \ 'fileformat': 'fn#lightline#FileFormat',
     \ 'fileencoding': 'fn#lightline#FileEncoding',
     \ 'filetype': 'fn#lightline#FileType',
