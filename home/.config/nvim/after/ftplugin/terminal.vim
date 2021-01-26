@@ -10,10 +10,6 @@ setlocal nobuflisted
 setlocal nospell
 setlocal modifiable
 
-if empty(&ft)
-  setlocal filetype=terminal
-endif
-
 if exists('b:asyncrun_cmd')
   setlocal number
 endif

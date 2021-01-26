@@ -1,14 +1,7 @@
 " ============================================================================
-" FileName: terminal.vim
+" FileName: startify.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function fn#terminal#settings() abort
-  if &buftype != 'terminal'
-    return
-  endif
-
-
-  " startinsert
-endfunction
+nmap <buffer> l <CR>

@@ -1,11 +1,11 @@
 " ============================================================================
-" FileName: json.vim
+" FileName: coc-explorer.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-setlocal foldmethod=indent
-setlocal conceallevel=0
-setlocal shiftwidth=2
-setlocal commentstring=//\ %s
-setlocal nospell
+set nonumber
+set relativenumber
+
+" refresh while entering
+autocmd BufEnter <buffer> call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])

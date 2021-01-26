@@ -1,4 +1,7 @@
-setlocal foldmethod=indent
-setlocal shiftwidth=2
-setlocal commentstring=//\ %s
-setlocal nospell
+" ============================================================================
+" FileName: jsonc.vim
+" Author: voldikss <dyzplus@gmail.com>
+" GitHub: https://github.com/voldikss
+" ============================================================================
+
+runtime ./jsonc.vim

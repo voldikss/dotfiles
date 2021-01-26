@@ -8,6 +8,7 @@ nmap <silent> <buffer> q :quit<CR>
 " open help file in the left window
 " alternative: e.g. vert help syntax
 autocmd BufWinEnter <buffer> wincmd H
+" autocmd BufWinEnter <buffer> setlocal number
 
 setlocal number
 setlocal relativenumber

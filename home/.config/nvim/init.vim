@@ -176,9 +176,6 @@ colorscheme srcery
 
 augroup FileTypeAutocmds
   autocmd!
-  autocmd FileType startify nmap <buffer> l <CR>
-  autocmd FileType floaterm setlocal nocursorline
-  autocmd FileType help setlocal number
   autocmd FileType * set formatoptions-=cro
 augroup END
 
@@ -235,19 +232,12 @@ augroup END
 augroup CocAutocmds
   autocmd!
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup END
 
 augroup StartifyAutocmds
   autocmd!
   autocmd User Startified setlocal buflisted
-augroup END
-
-augroup CocExplorerCustom
-  autocmd!
-  autocmd FileType coc-explorer setlocal relativenumber
-  autocmd BufEnter \[coc-explorer\]-* call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
 augroup END
 
 if has('nvim')
