@@ -9,21 +9,6 @@ function fn#terminal#settings() abort
     return
   endif
 
-  setlocal undolevels=100
-  setlocal signcolumn=no
-  setlocal nobuflisted
-  setlocal nospell
-  setlocal modifiable
 
-  if empty(&ft)
-    setlocal filetype=terminal
-  endif
-
-  if exists('b:asyncrun_cmd')
-    setlocal number
-  endif
-
-  nmap <silent><buffer> q :q<CR>
-
-  startinsert
+  " startinsert
 endfunction

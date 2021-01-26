@@ -247,16 +247,13 @@ augroup END
 augroup CocExplorerCustom
   autocmd!
   autocmd FileType coc-explorer setlocal relativenumber
-  autocmd BufEnter *
-        \ if &ft == 'coc-explorer'
-        \ | call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
-        \ | endif
+  autocmd BufEnter \[coc-explorer\]-* call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
 augroup END
 
 if has('nvim')
   augroup TerminalSettings
     autocmd!
-    autocmd TermOpen * call timer_start(10, { -> fn#terminal#settings() }) |
+    autocmd TermOpen *  set filetype=terminal " source after/ftplugin/terminal.vim
   augroup END
 
   function! s:OnColorSchemeLoaded() abort
