@@ -12,7 +12,7 @@ arch_base() {
     sudo pacman -Syu
     sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
     sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc fd --noconfirm
-    sudo pacman -S spectacle krunner --noconfirm
+    sudo pacman -S spectacle krunner man-pages --noconfirm
     sudo pacman -S wps-office-cn wps-office-mui-zh-cn --noconfirm
 
     git clone https://aur.archlinux.org/yay.git

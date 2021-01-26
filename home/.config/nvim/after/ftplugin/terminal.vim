@@ -5,10 +5,13 @@
 " ============================================================================
 
 setlocal undolevels=100
-setlocal signcolumn=no
 setlocal nobuflisted
 setlocal nospell
 setlocal modifiable
+
+setlocal signcolumn=no
+setlocal winfixwidth
+setlocal winfixheight
 
 if exists('b:asyncrun_cmd')
   setlocal number

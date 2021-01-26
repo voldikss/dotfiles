@@ -18,10 +18,6 @@ for (int ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
 }
 endsnippet
 
-snippet fpr "fprintf ..."
-fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
-endsnippet
-
 snippet eli "else if .. (eli)"
 else if (${1:/* condition */}) {
 	${VISUAL}$0
@@ -29,7 +25,15 @@ else if (${1:/* condition */}) {
 endsnippet
 
 snippet pr "printf .. (printf)"
-printf("${1:}%${2:s}\n", ${3})
+printf("${1:}${2:%s}\n", ${4});
+endsnippet
+
+snippet fpr "fprintf ..."
+fprintf(${1:buf}, "${2:}${3:%s}\n", ${4});
+endsnippet
+
+snippet spr "sprintf ..."
+sprintf(${1:buf}, "${2:}${3:%s}\n", ${4});
 endsnippet
 
 snippet fun "function" b
