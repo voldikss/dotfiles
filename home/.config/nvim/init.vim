@@ -882,7 +882,7 @@ let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 nmap <silent> <Leader>fb :Leaderf buffer<CR>
 nmap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
-nmap <silent> <Leader>ff :Leaderf file<CR>
+nmap <silent> <Leader>ff :Leaderf file .<CR>
 nmap <silent> <Leader>fg :Leaderf rg<CR>
 nmap <silent> <Leader>fh :Leaderf cmdHistory<CR>
 nmap <silent> <Leader>fl :Leaderf line<CR>
