@@ -1014,6 +1014,8 @@ nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " tomtom/tcomment_vim
 let g:tcomment_types = {'c': '// %s'}
+nmap <silent> gC vil:TCommentInline<CR>
+vmap <silent> gC :TCommentBlock<CR>
 " matze/vim-move
 let g:move_map_keys    = 0
 let g:move_auto_indent = 1
