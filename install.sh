@@ -18,6 +18,8 @@ arch_base() {
     git clone https://aur.archlinux.org/yay.git
     cd yay
     makepkg -si
+
+    # yay -S cppman
 }
 
 ubuntu_base() {

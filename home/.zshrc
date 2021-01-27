@@ -126,7 +126,7 @@ source $HOME/.alias
 # misc
 #=============================================================================
 export VISUAL=/usr/bin/nvim
-export EDITOR=/usr/bin/nvim
+# export EDITOR=/usr/bin/nvim
 # export MANPAGER="nvim '+set ft=man' -"
 
 # Uncomment the following line to enable command auto-correction.

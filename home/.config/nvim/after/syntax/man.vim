@@ -7,11 +7,16 @@
 
 " -xxx
 syntax match manExtraPattern1 '\s-\S\+'
+hi def link manExtraPattern1 Keyword
+
 " [xxx]
 syntax match manExtraPattern2 '\[\zs.*\ze\]'
-" XX_XXX
-syntax match manExtraPattern3 '\<\(\u\|_\)\{2,}\>'
-
-hi def link manExtraPattern1 Keyword
 hi def link manExtraPattern2 Define
-hi def link manExtraPattern3 Identifier
+
+" XX_XXX  NOTE: this will break syntax for `#include<xxx.h>`
+" syntax match manExtraPattern3 '\(\u\|_\)\{2,}'
+" hi def link manExtraPattern3 Identifier
+
+" XXXX() function
+syntax match manExtraPattern4 '\w[a-zA-Z0-9]\+()'
+hi def link manExtraPattern4 Function

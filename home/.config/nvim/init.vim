@@ -103,8 +103,6 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
-" Plug 'numirias/semshi', {'for': 'python'}
-" Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'othree/html5.vim'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -125,7 +123,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
 Plug 'easymotion/vim-easymotion'
@@ -141,6 +139,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
+Plug 'skywind3000/vim-cppman'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
 Plug 'tommcdo/vim-exchange'
@@ -151,7 +150,6 @@ Plug 'voldikss/vim-browser-search'
 Plug 'voldikss/vim-skylight'
 Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-floaterm'
-Plug 'voldikss/vim-hello-word'
 Plug 'voldikss/vim-translator'
 Plug 'wellle/targets.vim'
 Plug 'yianwillis/vimcdoc'
@@ -291,6 +289,7 @@ endfunc
 call s:SetCommandAbbrs('ar', 'AsyncRun')
 call s:SetCommandAbbrs('as', 'AsyncStop')
 call s:SetCommandAbbrs('at', 'AsyncTask')
+call s:SetCommandAbbrs('b', 'BClose')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
 call s:SetCommandAbbrs('cd', 'CdRoot')
@@ -298,10 +297,13 @@ call s:SetCommandAbbrs('cf', 'CocFix')
 call s:SetCommandAbbrs('ci', 'CocInstall')
 call s:SetCommandAbbrs('cl', 'CocList')
 call s:SetCommandAbbrs('cm', 'CocCommand')
-call s:SetCommandAbbrs('cr', 'CocRestart')
+call s:SetCommandAbbrs('cr', 'silent CocRestart')
 call s:SetCommandAbbrs('cs', 'CocSearch')
 call s:SetCommandAbbrs('cu', 'CocUninstall')
+call s:SetCommandAbbrs('cup', 'CocUpdate')
 call s:SetCommandAbbrs('fk', 'FloatermKill')
+call s:SetCommandAbbrs('f', 'FloatermNew')
+call s:SetCommandAbbrs('F', 'FloatermNew')
 call s:SetCommandAbbrs('fn', 'FloatermNew')
 call s:SetCommandAbbrs('Fn', 'FloatermNew')
 call s:SetCommandAbbrs('fs', 'FloatermSend')
@@ -315,6 +317,7 @@ call s:SetCommandAbbrs('gd', 'Gvdiff')
 call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
+call s:SetCommandAbbrs('Gpush', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gw', 'GwritePlus')
 call s:SetCommandAbbrs('gwa', 'GwriteAll')
@@ -334,9 +337,6 @@ call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 command! AutoFormat call fn#file#autoformat()
 command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CdRoot call fn#path#cd_root()
-command! BufferCloseNotBuflisted call fn#buffer#close_not_buflisted()
-command! BufferCloseNotCurrent call fn#buffer#close_not_current()
-command! BufferCloseNotDisplayed call fn#buffer#close_not_displayed()
 command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
 command! GwritePlus Gw | call fn#file#refresh()
 command! QfToggle call fn#quickfix#toggle()
@@ -345,6 +345,7 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
       \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
+command! -bang    BClose call s:close_not_displayed(<bang>0)
 command! -nargs=* Template call fn#template#TLoad(<q-args>)
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
@@ -368,7 +369,6 @@ command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' 
 " }}}
 
 " Mappings: {{{
-let mapleader   = ';'
 let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
@@ -850,14 +850,15 @@ let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let g:Lf_Extensions.spell = {
-      \ "source": "fn#leaderf#spell_source",
-      \ "arguments" : [{"name":["pattern"], "nargs":1}],
-      \ "accept": "fn#leaderf#spell_accept"
-      \ }
+  \ "source": "fn#leaderf#spell_source",
+  \ "arguments" : [{"name":["pattern"], "nargs":1}],
+  \ "accept": "fn#leaderf#spell_accept"
+\ }
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
 nnoremap <silent> <Leader>ff :Leaderf file .<CR>
+nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", fn#path#get_root())<CR><CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
 nnoremap <silent> <Leader>fl :Leaderf line<CR>
@@ -870,10 +871,10 @@ nnoremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<C
 nnoremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_CommandMap = {
-      \'<Up>': ['<C-p>'],
-      \'<Down>': ['<C-n>'],
-      \'<Home>': ['<C-A>'],
-      \}
+  \ '<Up>': ['<C-p>'],
+  \ '<Down>': ['<C-n>'],
+  \ '<Home>': ['<C-A>']
+\ }
 let g:Lf_Ctags                = "ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
@@ -910,36 +911,36 @@ let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_WildIgnore = {
-      \'dir': [
-      \'.svn',
-      \'.git',
-      \'.hg',
-      \'.cache',
-      \'.idea',
-      \'.ccls-cache',
-      \'.android',
-      \'.gradle',
-      \'.IntelliJIdea*',
-      \'node_modules',
-      \'build'
-      \],
-      \'file': [
-      \'*.sw?',
-      \'~$*',
-      \'*.exe',
-      \'*.o',
-      \'*.so',
-      \'*.py[co]'
-      \]
-      \}
+  \ 'dir': [
+    \ '.svn',
+    \ '.git',
+    \ '.hg',
+    \ '.cache',
+    \ '.idea',
+    \ '.ccls-cache',
+    \ '.android',
+    \ '.gradle',
+    \ '.IntelliJIdea*',
+    \ 'node_modules',
+    \ 'build'
+  \ ],
+  \ 'file': [
+    \ '*.sw?',
+    \ '~$*',
+    \ '*.exe',
+    \ '*.o',
+    \ '*.so',
+    \ '*.py[co]'
+  \ ]
+\ }
 let g:Lf_WindowHeight = 0.4
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " voldikss/vim-browser-search
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 let g:browser_search_engines = {
-      \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
-      \ }
+  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
+\ }
 " voldikss/vim-translator
 nmap <silent>    ,t        <Plug>Translate
 nmap <silent>    ,w        <Plug>TranslateW
@@ -1027,11 +1028,11 @@ let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 0
 " glacambre/firenvim
 let g:firenvim_config = {
-      \ 'globalSettings': {
-      \ '<C-w>': 'default',
-      \ '<C-n>': 'default',
-      \ }
-      \ }
+  \ 'globalSettings': {
+    \ '<C-w>': 'default',
+    \ '<C-n>': 'default'
+  \ }
+\ }
 " nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -1112,4 +1113,3 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 EOF
-" }}}
