@@ -150,7 +150,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # fzf integration
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -l ""'
+export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 

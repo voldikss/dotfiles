@@ -6,6 +6,9 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
+# bat
+alias cat=bat
+
 # vim
 alias vim=nvim
 alias vi=nvim
