@@ -318,6 +318,7 @@ call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('gw', 'GwritePlus')
 call s:SetCommandAbbrs('gwa', 'GwriteAll')
+call s:SetCommandAbbrs('l', 'Leaderf')
 call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
@@ -842,58 +843,31 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
 let g:asyncrun_rootmarks = ['.git', '.root', '.tasks']
-" function! s:run_floaterm(opts)
-"   execute 'FloatermNew --position=bottomright' .
-"                    \ ' --wintype=float' .
-"                    \ ' --height=0.4' .
-"                    \ ' --width=0.4' .
-"                    \ ' --title=floaterm_runner' .
-"                    \ ' --autoclose=0' .
-"                    \ ' --silent=' . get(a:opts, 'silent', 0)
-"                    \ ' --cwd=' . a:opts.cwd
-"                    \ ' ' . a:opts.cmd
-"   " Do not focus on floaterm window, and close it once cursor moves
-"   " If you want to jump to the floaterm window, use <C-w>p
-"   " You can choose whether to use the following code or not
-"   " stopinsert | noa wincmd p
-"   " augroup close-floaterm-runner
-"   "   autocmd!
-"   "   autocmd CursorMoved,InsertEnter * ++nested
-"   "         \ call timer_start(50, { -> s:close_floaterm_runner() })
-"   " augroup END
-" endfunction
-" function! s:close_floaterm_runner() abort
-"   if &ft == 'floaterm' | return | endif
-"   for b in tabpagebuflist()
-"     if getbufvar(b, '&ft') == 'floaterm' &&
-"           \ getbufvar(b, 'floaterm_jobexists') == v:false
-"       execute b 'bwipeout!'
-"       break
-"     endif
-"   endfor
-"   autocmd! close-floaterm-runner
-" endfunction
-" let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
-" let g:asyncrun_runner.floaterm = function('s:run_floaterm')
-" let g:asynctasks_term_pos = 'floaterm'
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 0
 let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
-nmap <silent> <Leader>fb :Leaderf buffer<CR>
-nmap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
-nmap <silent> <Leader>ff :Leaderf file .<CR>
-nmap <silent> <Leader>fg :Leaderf rg<CR>
-nmap <silent> <Leader>fh :Leaderf cmdHistory<CR>
-nmap <silent> <Leader>fl :Leaderf line<CR>
-nmap <silent> <Leader>fm :Leaderf mru<CR>
-nmap <silent> <Leader>ft :Leaderf bufTag<CR>
-nmap <silent> <Leader>fu :Leaderf function<CR>
-noremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
+let g:Lf_Extensions.spell = {
+      \ "source": "fn#leaderf#spell_source",
+      \ "arguments" : [{"name":["pattern"], "nargs":1}],
+      \ "accept": "fn#leaderf#spell_accept"
+      \ }
+nnoremap z= :Leaderf spell <cword> <CR>
+nnoremap <silent> <Leader>fb :Leaderf buffer<CR>
+nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
+nnoremap <silent> <Leader>ff :Leaderf file .<CR>
+nnoremap <silent> <Leader>fg :Leaderf rg<CR>
+nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
+nnoremap <silent> <Leader>fl :Leaderf line<CR>
+nnoremap <silent> <Leader>fm :Leaderf mru<CR>
+nnoremap <silent> <Leader>ft :Leaderf bufTag<CR>
+nnoremap <silent> <Leader>fu :Leaderf function<CR>
+nnoremap <silent> <Leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+nnoremap <silent> <Leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+nnoremap <silent> <Leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+nnoremap <silent> <Leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 let g:Lf_CacheDirectory       = expand('~/.cache/nvim')
 let g:Lf_CommandMap = {
       \'<Up>': ['<C-p>'],
