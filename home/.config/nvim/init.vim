@@ -1,6 +1,9 @@
 " vim:et:sw=2:ts=2:fdm=marker
+" ============================================================================
+" FileName: init.vim
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
+" ============================================================================
 
 " Basic: {{{
 " Disabled:
@@ -187,11 +190,6 @@ augroup LineNumber
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
-
-" augroup EqualWindowSize
-"   autocmd!
-"   autocmd VimResized * exec "normal \<C-w>="
-" augroup END
 
 augroup JumpToLastPosition
   autocmd!
@@ -448,8 +446,6 @@ vnoremap <silent> ii :<C-u>cal fn#textobj#indent#(1, 0, 1, [line("'<"), line("'>
 " BufferOperation:
 nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
-" tnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermPrev<CR>' : '<C-\><C-n>:bprev<CR>'
-" tnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? '<C-\><C-n>:FloatermNext<CR>' : '<C-\><C-n>:bnext<CR>'
 " TabOperation:
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
@@ -482,8 +478,6 @@ nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
 nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent> <Leader>d :<C-u>call fn#keymap#n#safe_bdelete()<CR>
-" nnoremap <silent> <Leader>Q :qa!<CR>
-" noremap  <silent> <Leader>d :bp<bar>sp<bar>bn<bar>bd!<bar>:redraw!<CR>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
 nnoremap <silent> <Leader>t :TabMessage messages<CR>
@@ -496,9 +490,9 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-" cnoremap <expr> '    fn#keymap#c#pairs("''")
+cnoremap <expr> '    fn#keymap#c#pairs("''")
 cnoremap <expr> <    fn#keymap#c#pairs('<>')
-" cnoremap <expr> (    fn#keymap#c#pairs('()')
+cnoremap <expr> (    fn#keymap#c#pairs('()')
 cnoremap <expr> [    fn#keymap#c#pairs('[]')
 cnoremap <expr> {    fn#keymap#c#pairs('{}')
 cnoremap <expr> <BS> fn#keymap#c#BS()
@@ -507,7 +501,6 @@ cnoremap <expr> /    fn#keymap#c#Slash()
 if has('nvim')
   tnoremap <Esc>  <C-\><C-n>
 endif
-" tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 if has('win32') || has('win64')
   nnoremap <silent> <Leader>n :vert term<CR>
   nnoremap <silent> ,n        :term<CR>
@@ -657,13 +650,6 @@ nnoremap <silent> gw :GwritePlus<CR>
 nnoremap <silent> gW :GwriteAll<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
-" omap ic <Plug>(coc-text-object-inner)
-" xmap ic <Plug>(coc-text-object-inner)
-" coc-smartf
-" nmap f <Plug>(coc-smartf-forward)
-" nmap F <Plug>(coc-smartf-backward)
-" autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-" autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
@@ -748,14 +734,6 @@ let g:startify_bookmarks = [
       \ ]
 let g:startify_files_number = 8
 let g:startify_padding_left = 15
-" let g:startify_custom_header = [
-"   \ '                      ___       ___       ___       ___       ___       ___       ___       ___   ',
-"   \ '                     /\__\     /\  \     /\__\     /\  \     /\  \     /\__\     /\  \     /\  \  ',
-"   \ '                    /:/ _/_   /::\  \   /:/  /    /::\  \   _\:\  \   /:/ _/_   /::\  \   /::\  \ ',
-"   \ '                   |::L/\__\ /:/\:\__\ /:/__/    /:/\:\__\ /\/::\__\ /::-"\__\ /\:\:\__\ /\:\:\__\',
-"   \ '                   |::::/  / \:\/:/  / \:\  \    \:\/:/  / \::/\/__/ \;:;-",-" \:\:\/__/ \:\:\/__/',
-"   \ '                    L;;/__/   \::/  /   \:\__\    \::/  /   \:\__\    |:|  |    \::/  /   \::/  / ',
-"   \ '                               \/__/     \/__/     \/__/     \/__/     \|__|     \/__/     \/__/  ']
 if has('nvim')
   highlight StartifyHeader guifg=#FF00FF
   highlight StartifyNumber guifg=#00FF00
@@ -971,13 +949,11 @@ let g:floaterm_position = 'center'
 let g:floaterm_gitcommit = 'split'
 let g:floaterm_autoclose = 2
 let g:floaterm_autohide = v:true
-" let g:floaterm_autoinsert = v:false
 let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
-" let g:floaterm_rootmarkers   = ['.git', '.gitignore', '*.pro', 'Cargo.toml']
-" hi FloatermNC guibg=skyblue
+let g:floaterm_rootmarkers   = ['.git']
 hi FloatermBorder guifg=orange
 " voldikss/vim-skylight
 hi SkylightBorder guibg=skyblue guifg=black
