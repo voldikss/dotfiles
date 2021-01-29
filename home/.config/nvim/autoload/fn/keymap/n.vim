@@ -82,7 +82,7 @@ function! fn#keymap#n#safe_bdelete() abort
       if bufnr == bufnr()
         bn | vs | bp
       else
-        vs
+        vs | execute 'b' bufnr
       endif
       execute 'bdelete' bufnr
       execute 'resize ' height
