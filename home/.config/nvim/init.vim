@@ -855,9 +855,17 @@ let g:asynctasks_term_rows = 10
 " Yggdroot/LeaderF
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let g:Lf_Extensions.spell = {
-  \ "source": "fn#leaderf#spell_source",
+  \ "source": "leaderf#source#spell#gather",
   \ "arguments" : [{"name":["pattern"], "nargs":1}],
-  \ "accept": "fn#leaderf#spell_accept"
+  \ "accept": "leaderf#source#spell#sink"
+\ }
+let g:Lf_Extensions.emoji = {
+  \ "source": "leaderf#source#emoji#gather",
+  \ "accept": "leaderf#source#emoji#sink"
+\ }
+let g:Lf_Extensions.man = {
+  \ "source": "leaderf#source#man#gather",
+  \ "accept": "leaderf#source#man#sink"
 \ }
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer<CR>

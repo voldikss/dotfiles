@@ -69,3 +69,7 @@ cli
 pre
 LSP
 builtin
+jq
+pacman
+LeaderF
+wget

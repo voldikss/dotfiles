@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# From: https://github.com/yazgoo/unicodemoji/blob/master/plugin/unicodemoji
+download_or_update() {
+  ttl=$(( 24 * 60 * 7 ))
+  find "$2" -mmin "-${ttl}" >/dev/null 2>&1 || wget -q "$1" -O "$2"
+}
+
+list_unicodemoji() {
+  if [ -z "$XDG_CACHE_DIR" ]
+  then
+    cache_base="$HOME/.cache"
+  else
+    cache_base="$XDG_CACHE_DIR"
+  fi
+
+  unicodemoji_cache="$cache_base/unicodemoji/"
+  gitmoji_out="$unicodemoji_cache/gitmojis.json"
+  emoji_out="$unicodemoji_cache/emojis.json"
+
+  mkdir -p "$unicodemoji_cache"
+
+  download_or_update https://raw.githubusercontent.com/carloscuesta/gitmoji/master/src/data/gitmojis.json "$gitmoji_out"
+  download_or_update https://gist.githubusercontent.com/oliveratgithub/0bf11a9aff0d6da7b46f1490f86a71eb/raw/d8e4b78cfe66862cf3809443c1dba017f37b61db/emojis.json "$emoji_out"
+
+  if [ "$1" = "--code" ]
+  then
+    jq -r '.emojis[] | .shortname +  " " + .emoji + " " + .name + " " + .category' "$emoji_out"
+    jq -r '.gitmojis[] | .code + " " .emoji + " " + .description + " " + .name' "$gitmoji_out"
+  else
+    jq -r '.emojis[] | .emoji + " " + .name + " " + .category' "$emoji_out"
+    jq -r '.gitmojis[] | .emoji + " " + .description + " " + .name' "$gitmoji_out"
+  fi
+}
+
+if [ "$1" = "--no-fzf" ]
+then
+  shift
+  list_unicodemoji "$@"
+elif [ "$1" = "--code" ]
+then
+  list_unicodemoji "$@" | fzf | egrep -o '^:[^:]+:'
+else
+  list_unicodemoji "$@" | fzf | egrep -o '^.'
+fi
