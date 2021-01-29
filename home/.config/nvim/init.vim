@@ -123,13 +123,13 @@ Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/vim-cursorword'
 " Git
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', {'on': ['Gw', 'Gc', 'Gcommit', 'G']}
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion', {'on': ['<Plug>(easymotion-overwin-w)', '<Plug>(easymotion-bd-f)']}
 Plug 'yangmillstheory/vim-snipe'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -645,13 +645,13 @@ omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 " coc-git
-nnoremap <silent> gs :CocCommand git.chunkStage<CR>
-nnoremap <silent> gu :CocCommand git.chunkUndo<CR>
-nnoremap <silent> go :CocCommand git.browserOpen<CR>
-nnoremap <silent> gd :CocCommand git.chunkInfo<CR>
-nnoremap <silent> gm :CocCommand git.showCommit<CR>
-nnoremap <silent> gw :GwritePlus<CR>
-nnoremap <silent> gW :GwriteAll<CR>
+nnoremap <silent> gs  :CocCommand git.chunkStage<CR>
+nnoremap <silent> gu  :CocCommand git.chunkUndo<CR>
+nnoremap <silent> go  :CocCommand git.browserOpen<CR>
+nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
+nnoremap <silent> gm  :CocCommand git.showCommit<CR>
+nnoremap <silent> gw  :GwritePlus<CR>
+nnoremap <silent> gW  :GwriteAll<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
 " coc-snippets
