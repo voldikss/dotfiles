@@ -16,13 +16,30 @@ function! fn#keymap#c#BS() abort
 endfunction
 
 " Command: ''|<>|()|[]|{}
-function! fn#keymap#c#pairs(pairs) abort
+function! fn#keymap#c#pairs(key, pairs) abort
   let pos = getcmdpos()
-  let prechar = getcmdline()[pos-2]
-  if prechar == a:pairs[0]
-    return a:pairs[0]
+  let cmdline = getcmdline()
+  let prevchar = cmdline[pos-2]
+  let nextchar = cmdline[pos-1]
+  if a:pairs[0] == a:pairs[1]
+    if nextchar == a:pairs[1]
+      return "\<Right>"
+    else
+      return a:pairs . "\<Left>"
+    endif
+  endif
+  if a:key == a:pairs[0]
+    if nextchar == ' ' || nextchar == '' || nextchar == a:pairs[1]
+      return a:pairs . "\<Left>"
+    else
+      return a:key
+    endif
   else
-    return a:pairs . "\<Left>"
+    if nextchar == a:key
+      return "\<Right>" 
+    else
+      return a:key
+    endif
   endif
 endfunction
 

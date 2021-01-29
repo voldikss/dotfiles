@@ -489,11 +489,16 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-cnoremap <expr> '    fn#keymap#c#pairs("''")
-cnoremap <expr> <    fn#keymap#c#pairs('<>')
-cnoremap <expr> (    fn#keymap#c#pairs('()')
-cnoremap <expr> [    fn#keymap#c#pairs('[]')
-cnoremap <expr> {    fn#keymap#c#pairs('{}')
+cnoremap <expr> '    fn#keymap#c#pairs("'", "''")
+cnoremap <expr> "    fn#keymap#c#pairs('"', '""')
+cnoremap <expr> <    fn#keymap#c#pairs('<', '<>')
+cnoremap <expr> (    fn#keymap#c#pairs('(', '()')
+cnoremap <expr> [    fn#keymap#c#pairs('[', '[]')
+cnoremap <expr> {    fn#keymap#c#pairs('{', '{}')
+cnoremap <expr> >    fn#keymap#c#pairs('>', '<>')
+cnoremap <expr> )    fn#keymap#c#pairs(')', '()')
+cnoremap <expr> ]    fn#keymap#c#pairs(']', '[]')
+cnoremap <expr> }    fn#keymap#c#pairs('}', '{}')
 cnoremap <expr> <BS> fn#keymap#c#BS()
 cnoremap <expr> /    fn#keymap#c#Slash()
 " TerminalMode:
