@@ -5,15 +5,39 @@
 " Description: to implement/discard stuff
 " ============================================================================
 
-" Delete buffer and go back:
-function! fn#legacy#jumpback() abort
-  let buf = bufnr('%')
-  let jumplst = getjumplist()
-  let pos = jumplst[0][jumplst[-1]-1]
-  if buf != pos.bufnr && bufexists(pos.bufnr)
-    execute 'bd ' . buf
+function! fn#jump#forward() abort
+  let pattern = '^' . expand('<cword>') . '$'
+  let taglist = taglist(pattern)
+  if empty(taglist) && exists('g:did_coc_loaded')
+    let taglist = coc#rpc#request('getTagList', [])
+    let is_from_coc = v:true
   endif
-  if bufexists(pos.bufnr)
-    execute pos.bufnr.'buffer ++call\ cursor('.pos.lnum.','.(pos.col+pos.coladd+1).')'
+  if empty(taglist)
+    call fn#util#show_msg('Tag not found', 'warning')
+    return
+  endif
+  if len(taglist) > 2
+    let candidates = map(copy(taglist), { k,v -> printf('%s. %s', k, v.filename) })
+    let index = inputlist(candidates)
+    let tag = taglist[index]
+  else
+    let tag = taglist[0]
+  endif
+  if !bufloaded(tag.filename)
+    let bufloaded = v:false
+  else
+    let bufloaded = v:true
+  endif
+  let cmd = printf('edit %s | %s', tag.filename, tag.cmd)
+  execute cmd
+  call setbufvar(bufnr(tag.filename), 'close_on_ctrl_o', !bufloaded)
+endfunction
+
+function! fn#jump#backward() abort
+  let bufnr = bufnr('%')
+  let close_on_ctrl_o = getbufvar(bufnr, 'close_on_ctrl_o', v:false)
+  normal! "\<C-o>"
+  if close_on_ctrl_o && bufnr != bufnr('%')
+    execute 'bwipeout' bufnr
   endif
 endfunction

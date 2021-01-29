@@ -4,8 +4,8 @@
 " GitHub: https://github.com/voldikss
 " NOTE: 一般分两种情况
 "   - 按键命令 
-"     - without "<Plug>" => normal! xxxx
-"     - with "<Plug>" => execute "normal! \<Plug>xxx"
+"     - without "<xxx>"(e.g. "<C-o>", "<Plug>(xxx)") => normal! xxxx
+"     - with "<xxx>" => execute "normal! \<xxx>"
 "   - 普通命令，即 viml 语句 => 直接写
 " ============================================================================
 
@@ -56,18 +56,26 @@ function! fn#keymap#n#CR() abort
   endif
 endfunction
 
-" Normal: q
+" Normal: delete buffer without closing window
 function! fn#keymap#n#safe_bdelete() abort
   " is the last buffer
-  if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1 && bufname() == ''
-    q!
+  if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1
+    if bufname() == ''
+      q!
+    else
+      bwipeout
+    endif
   else
+    let bufnr = bufnr()
+    " jump to the previous location
+    execute "normal! \<C-o>"
+
     " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
     " `No enough rooms` error. But I like `noequalalways` much more. 
     "Also note that setting winfixheight/winfixwidth can block `equalalways`
     let width = winwidth(0)
     let height = winheight(0)
-    bp|vsp|bn|bd!
+    bp|vsp|bn|execute 'bwipeout' bufnr
     execute 'resize ' . height
     execute 'vertical resize ' . width
     redraw!

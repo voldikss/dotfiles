@@ -403,7 +403,6 @@ nmap <silent> gj       :call fn#keymap#n#next_diff_or_chunk()<CR>
 nnoremap <silent> <C-j>      :<C-u>call fn#keymap#n#jump()<CR>
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
-nnoremap <silent> <C-w><C-o> :<C-u>call fn#legacy#jumpback()<CR>
 " Search:
 nnoremap <expr> n  'Nn'[v:searchforward].'zz'
 nnoremap <expr> N  'nN'[v:searchforward].'zz'
