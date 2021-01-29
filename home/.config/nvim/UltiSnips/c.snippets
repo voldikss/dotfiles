@@ -25,15 +25,15 @@ else if (${1:/* condition */}) {
 endsnippet
 
 snippet pr "printf .. (printf)"
-printf("${1:}${2:%s}\n", ${4});
+printf("${1:%s}\n", ${2:buf});
 endsnippet
 
 snippet fpr "fprintf ..."
-fprintf(${1:buf}, "${2:}${3:%s}\n", ${4});
+fprintf(${1:buf}, "${2:%s}\n", ${3});
 endsnippet
 
 snippet spr "sprintf ..."
-sprintf(${1:buf}, "${2:}${3:%s}\n", ${4});
+sprintf(${1:buf}, "${2:%s}\n", ${3});
 endsnippet
 
 snippet fun "function" b
