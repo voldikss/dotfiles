@@ -440,6 +440,11 @@ xnoremap <silent> ia :<C-u>call fn#textobj#argument#(1, 1)<CR>
 xnoremap <silent> aa :<C-u>call fn#textobj#argument#(0, 1)<CR>
 onoremap <silent> ia :<C-u>call fn#textobj#argument#(1, 0)<CR>
 onoremap <silent> aa :<C-u>call fn#textobj#argument#(0, 0)<CR>
+" indent
+onoremap <silent> ai :<C-u>cal fn#textobj#indent#(0, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+onoremap <silent> ii :<C-u>cal fn#textobj#indent#(1, 0, 0, [line("."), line("."), col("."), col(".")])<CR>
+vnoremap <silent> ai :<C-u>cal fn#textobj#indent#(0, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
+vnoremap <silent> ii :<C-u>cal fn#textobj#indent#(1, 0, 1, [line("'<"), line("'>"), col("'<"), col("'>")])<CR><Esc>gv
 " BufferOperation:
 nnoremap <expr> <silent> <C-h>  (&filetype == 'floaterm') ? ':FloatermPrev<CR>' : ':bprev<CR>'
 nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' : ':bnext<CR>'
