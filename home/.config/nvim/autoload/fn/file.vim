@@ -104,6 +104,9 @@ endfunction
 
 " Refresh:
 function! fn#file#refresh() abort
+  if &readonly || !&modifiable || bufname() == ''
+    return
+  endif
   let save_view = winsaveview()
   edit
   call winrestview(save_view)

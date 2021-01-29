@@ -317,8 +317,6 @@ call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
 call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('Gpush', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
-call s:SetCommandAbbrs('gw', 'GwritePlus')
-call s:SetCommandAbbrs('gwa', 'GwriteAll')
 call s:SetCommandAbbrs('l', 'Leaderf')
 call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
@@ -335,10 +333,7 @@ call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 command! AutoFormat call fn#file#autoformat()
 command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CdRoot call fn#path#cd_root()
-command! GwriteAll AsyncRun -cwd=<root> -silent=1 git add .
-command! GwritePlus Gw | call fn#file#refresh()
-command! QfToggle call fn#quickfix#toggle()
-command! PythonREPL  :FloatermNew --wintype=normal --width=0.5 --position=right python
+command! PythonREPL  :FloatermNew --wintype=vsplit --width=0.5 --position=rightbelow python
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
@@ -561,7 +556,7 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:QuickRun<CR>
 noremap! <silent> <F5>             <Esc>:QuickRun<CR>
 noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
-noremap  <silent> <Leader><Space>  <Esc>:QfToggle<CR>
+noremap  <silent> <Leader><Space>  <Esc>:call fn#quickfix#toggle()<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -650,8 +645,8 @@ nnoremap <silent> gu  :CocCommand git.chunkUndo<CR>
 nnoremap <silent> go  :CocCommand git.browserOpen<CR>
 nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
 nnoremap <silent> gm  :CocCommand git.showCommit<CR>
-nnoremap <silent> gw  :GwritePlus<CR>
-nnoremap <silent> gW  :GwriteAll<CR>
+nnoremap <silent> gw  :Gw<CR>:call fn#file#refresh()<CR>
+nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
 " coc-snippets
