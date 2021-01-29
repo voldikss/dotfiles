@@ -57,28 +57,38 @@ function! fn#keymap#n#CR() abort
 endfunction
 
 " Normal: delete buffer without closing window
+" NOTE: do not use `bwipeout` to replace `bdelete`!
 function! fn#keymap#n#safe_bdelete() abort
   " is the last buffer
-  if len(getbufinfo({'buflisted':1})) == 1 && winnr('$') == 1
+  if len(getbufinfo({'buflisted':1})) == 1
     if bufname() == ''
       q!
     else
-      bwipeout
+      bdelete
     endif
   else
     let bufnr = bufnr()
     " jump to the previous location
     execute "normal! \<C-o>"
 
-    " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
-    " `No enough rooms` error. But I like `noequalalways` much more. 
-    "Also note that setting winfixheight/winfixwidth can block `equalalways`
-    let width = winwidth(0)
-    let height = winheight(0)
-    bp|vsp|bn|execute 'bwipeout' bufnr
-    execute 'resize ' . height
-    execute 'vertical resize ' . width
-    redraw!
+    if winnr('$') == 1
+      execute 'bdelete' bufnr
+    else
+      " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
+      " `No enough rooms` error. But I like `noequalalways` much more. 
+      "Also note that setting winfixheight/winfixwidth can block `equalalways`
+      let width = winwidth(0)
+      let height = winheight(0)
+      if bufnr == bufnr()
+        bn | vs | bp
+      else
+        vs
+      endif
+      execute 'bdelete' bufnr
+      execute 'resize ' height
+      execute 'vertical resize ' width
+      redraw!
+    endif
   endif
 endfunction
 
