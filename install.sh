@@ -133,6 +133,8 @@ install_fonts() {
     fc-cache -f -v
     cd -
 
+    # emoji
+    sudo pacman -S noto-fonts-emoj --noconfirm
     if [ $OS = Arch ]; then
         yay -S otf-nerd-fonts-monacob-mono --noconfirm
     fi

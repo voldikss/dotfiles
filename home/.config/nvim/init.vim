@@ -862,7 +862,6 @@ let g:Lf_Extensions.spell = {
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
-nnoremap <silent> <Leader>ff :Leaderf file .<CR>
 nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", fn#path#get_root())<CR><CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
@@ -891,25 +890,23 @@ let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_RgConfig = [
-      \"--glob=!OmegaOptions.bak",
-      \"--glob=!node_modules",
-      \"--glob=!lib/*.js",
-      \"--glob=!target",
-      \"--glob=!tags",
-      \"--glob=!build",
-      \"--glob=!.git",
-      \"--glob=!.ccls-cache",
-      \"--no-ignore",
-      \"--hidden"
-      \]
+      \ "--glob=!OmegaOptions.bak",
+      \ "--glob=!node_modules",
+      \ "--glob=!lib/*.js",
+      \ "--glob=!target",
+      \ "--glob=!tags",
+      \ "--glob=!build",
+      \ "--glob=!.git",
+      \ "--glob=!.ccls-cache",
+      \ "--no-ignore",
+      \ "--hidden"
+      \ ]
 let g:Lf_RootMarkers    = [
-      \'.project',
-      \'.svn',
-      \'.git',
-      \'.idea',
-      \'.tasks',
-      \'.clang-format',
-      \]
+      \ '.project',
+      \ '.svn',
+      \ '.git',
+      \ '.idea',
+      \ ]
 let g:Lf_ShowHidden           = 1
 let g:Lf_ShowRelativePath     = 1
 let g:Lf_StlColorscheme = 'powerline'
