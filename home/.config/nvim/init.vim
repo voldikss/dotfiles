@@ -339,7 +339,8 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
       \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
-command! -bang    BClose call s:close_not_displayed(<bang>0)
+command! -bang    BClose call fn#buffer#close_buffer(<bang>0)
+command! -bang    RunTaskOnSaveChange call fn#task#run_on_save_change(<bang>0)
 command! -nargs=* Template call fn#template#TLoad(<q-args>)
 command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
@@ -354,7 +355,7 @@ command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
 command! -nargs=+ -complete=command  TabMessage call fn#command#tab_message(<q-args>)
-command! -nargs=? -complete=customlist,fn#quickrun#Complete QuickRun call fn#quickrun#run(<f-args>)
+command! -nargs=? -complete=customlist,fn#task#complete RunTask call fn#task#run(<f-args>)
 command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' : <q-args>, {
       \ 'on_stdout': function('fn#floaterm#watch_callback'),
       \ 'on_stderr': function('fn#floaterm#watch_callback'),
@@ -554,9 +555,9 @@ noremap  <silent> <F3>             <Esc>:MundoToggle<CR>
 noremap! <silent> <F3>             <Esc>:MundoToggle<CR>
 tnoremap <silent> <F3>             <C-\><C-n>:MundoToggle<CR>
 noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
-noremap  <silent> <F5>             <Esc>:QuickRun<CR>
-noremap! <silent> <F5>             <Esc>:QuickRun<CR>
-noremap  <silent> <Leader>x        <Esc>:QuickRun<CR>
+noremap  <silent> <F5>             <Esc>:RunTask<CR>
+noremap! <silent> <F5>             <Esc>:RunTask<CR>
+noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
 noremap  <silent> <Leader><Space>  <Esc>:call fn#quickfix#toggle()<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
