@@ -76,20 +76,20 @@ endfunction
 " WinDo: Like windo but restore the current window.
 function! fn#command#windo(command)
   let curwin=winnr()
-  execute 'silent! windo ' . a:command
+  execute 'windo ' . a:command
   execute curwin . 'wincmd w'
 endfunction
 
 " BufDo: Like bufdo but restore the current buffer.
 function! fn#command#bufdo(command)
   let curbuf=bufnr("%")
-  execute 'silent! bufdo ' . a:command
+  execute 'bufdo ' . a:command
   execute 'buffer ' . curbuf
 endfunction
 
 " TabDo: Like tabdo but restore the current tab.
 function! fn#command#tabdo(command)
   let curtab=tabpagenr()
-  execute 'silent! tabdo ' . a:command
+  execute 'tabdo ' . a:command
   execute 'tabn ' . curtab
 endfunction

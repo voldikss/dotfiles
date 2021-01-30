@@ -467,8 +467,8 @@ inoremap <silent> <C-o> <End><CR>
 inoremap <silent> <M-o> <Esc>O
 inoremap <silent> <C-d> <Esc>ddi
 inoremap <silent> <C-v> <C-o>"+]p
-nnoremap <silent>       <Leader>w :update<CR>
-nnoremap <silent>       <Leader>W :Bufdo update<CR>
+nnoremap <silent>       <Leader>w :write<CR>
+nnoremap <silent>       <Leader>W :Bufdo if !empty(bufname()) \| write \| endif<CR>
 nnoremap <silent>       <M-q> q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
