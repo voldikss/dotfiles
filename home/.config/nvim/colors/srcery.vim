@@ -338,7 +338,7 @@ hi! link WarningMsg SrceryRedBold
 " Gutter: {{{
 
 " Line number for :number and :# commands
-call s:HL('LineNr', s:white)
+call s:HL('LineNr', s:white, s:black)
 
 if g:srcery_transparent_background == 1 && !has('gui_running')
   " Column where signs are displayed
