@@ -64,7 +64,7 @@ function! fn#keymap#n#safe_bdelete() abort
     if bufname() == ''
       q!
     else
-      bdelete
+      bdelete!
     endif
   else
     let bufnr = bufnr()
@@ -72,7 +72,7 @@ function! fn#keymap#n#safe_bdelete() abort
     execute "normal! \<C-o>"
 
     if winnr('$') == 1
-      execute 'bdelete' bufnr
+      execute 'bdelete!' bufnr
     else
       " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
       " `No enough rooms` error. But I like `noequalalways` much more. 
@@ -84,7 +84,7 @@ function! fn#keymap#n#safe_bdelete() abort
       else
         vs | execute 'b' bufnr
       endif
-      execute 'bdelete' bufnr
+      execute 'bdelete!' bufnr
       execute 'resize ' height
       execute 'vertical resize ' width
       redraw!
