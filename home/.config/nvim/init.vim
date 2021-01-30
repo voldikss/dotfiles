@@ -647,7 +647,7 @@ nnoremap <silent> gu  :CocCommand git.chunkUndo<CR>
 nnoremap <silent> go  :CocCommand git.browserOpen<CR>
 nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
 nnoremap <silent> gm  :CocCommand git.showCommit<CR>
-nnoremap <silent> gw  :Gw<CR>:call fn#file#refresh()<CR>
+nnoremap <silent> gw  :call fn#file#refresh()<CR>:Gw<CR>:call fn#file#refresh()<CR>
 nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
