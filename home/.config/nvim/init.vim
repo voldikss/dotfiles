@@ -154,6 +154,7 @@ Plug 'voldikss/vim-skylight'
 Plug 'voldikss/vim-codelf'
 Plug 'voldikss/vim-floaterm'
 Plug 'voldikss/vim-translator'
+Plug 'voldikss/LeaderF-emoji'
 Plug 'wellle/targets.vim'
 Plug 'yianwillis/vimcdoc'
 call plug#end()
@@ -835,10 +836,6 @@ let g:Lf_Extensions.spell = {
   \ "source": "leaderf#source#spell#gather",
   \ "arguments" : [{"name":["pattern"], "nargs":1}],
   \ "accept": "leaderf#source#spell#sink"
-\ }
-let g:Lf_Extensions.emoji = {
-  \ "source": "leaderf#source#emoji#gather",
-  \ "accept": "leaderf#source#emoji#sink"
 \ }
 let g:Lf_Extensions.man = {
   \ "source": "leaderf#source#man#gather",
