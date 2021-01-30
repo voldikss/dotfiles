@@ -3,7 +3,7 @@
 " Author: voldikss <dyzplus@gmail.com>
 " GitHub: https://github.com/voldikss
 " NOTE: 一般分两种情况
-"   - 按键命令 
+"   - 按键命令
 "     - without "<xxx>"(e.g. "<C-o>", "<Plug>(xxx)") => normal! xxxx
 "     - with "<xxx>" => execute "normal! \<xxx>"
 "   - 普通命令，即 viml 语句 => 直接写
@@ -68,14 +68,30 @@ function! fn#keymap#n#safe_bdelete() abort
     endif
   else
     let bufnr = bufnr()
-    " jump to the previous location
-    execute "normal! \<C-o>"
+    let jumplist = split(execute('jumps'), '\n')
+    if len(jumplist) > 2
+      let cur_idx = 0
+      for item in jumplist
+        if item[0] == '>'
+          break
+        else
+          let cur_idx += 1
+        endif
+      endfor
+      let previtem = jumplist[cur_idx - 1]
+      " let prevfilename = matchstr(prevlocation, '\d\s\+\d\s\+\d\s\zs.*\ze$')
+      let prevfile = previtem[16:]
+      if filereadable(prevfile) && bufloaded(prevfile)
+        " jump to the previous location
+        execute "normal! \<C-o>"
+      endif
+    endif
 
     if winnr('$') == 1
       execute 'bdelete!' bufnr
     else
       " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
-      " `No enough rooms` error. But I like `noequalalways` much more. 
+      " `No enough rooms` error. But I like `noequalalways` much more.
       "Also note that setting winfixheight/winfixwidth can block `equalalways`
       let width = winwidth(0)
       let height = winheight(0)
