@@ -54,7 +54,7 @@ set dictionary+=~/.config/nvim/dict/dictionary.txt
 
 " Search
 set wrapscan ignorecase smartcase incsearch hlsearch magic shortmess-=S
-set path=.,/usr/local/include,/usr/include,**3 isfname-==
+set path=.,/usr/local/include,/usr/include,**3 isfname-== isfname-=,
 
 " Insert completion
 set complete& completeopt=menuone,noinsert infercase pumheight=10 noshowfulltag shortmess+=c
