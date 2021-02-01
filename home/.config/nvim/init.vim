@@ -142,7 +142,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'matze/vim-move'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
-Plug 'skywind3000/vim-cppman'
+Plug 'skywind3000/vim-cppman', {'on': 'Cppman'}
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-dict'
 Plug 'tommcdo/vim-exchange'
@@ -354,7 +354,8 @@ command! -nargs=+ -complete=file  SystemOpen  call fn#lib#system_open(<q-args>)
 command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
-command! -nargs=+ -complete=command  Messages call fn#command#tab_message(<q-args>)
+command! -nargs=+ -complete=command Messages call fn#command#tab_message(<q-args>)
+command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
 command! -nargs=? -complete=customlist,fn#task#complete RunTask call fn#task#run(<f-args>)
 command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' : <q-args>, {
       \ 'on_stdout': function('fn#floaterm#watch_callback'),
@@ -446,8 +447,6 @@ nnoremap <expr> <silent> <C-l>  (&filetype == 'floaterm') ? ':FloatermNext<CR>' 
 noremap  <silent> <C-t> <Esc>:tabnew<CR>
 " TextCopy:
 nnoremap Y y$
-nnoremap p ""p
-xnoremap p "_dP
 nnoremap <silent> <Leader>y "+yy
 vnoremap <silent> <Leader>y "+y
 nnoremap <silent> <Leader>Y "+y$
@@ -476,7 +475,7 @@ nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent> <Leader>d :<C-u>call fn#keymap#n#safe_bdelete()<CR>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
-nnoremap <silent> <Leader>t :TabMessage messages<CR>
+nnoremap <silent> <Leader>t :Message messages<CR>
 " CommandMode:
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -535,12 +534,12 @@ endif
 if has('nvim')
   nnoremap <M-up>    <C-w>+
   nnoremap <M-down>  <C-w>-
-  nnoremap <M-left>  <C-w>10<
-  nnoremap <M-right> <C-w>10>
+  nnoremap <M-left>  <C-w>5<
+  nnoremap <M-right> <C-w>5>
   inoremap <M-up>    <Esc><C-w>+
   inoremap <M-down>  <Esc><C-w>-
-  inoremap <M-left>  <Esc><C-w>10<
-  inoremap <M-right> <Esc><C-w>10>
+  inoremap <M-left>  <Esc><C-w>5<
+  inoremap <M-right> <Esc><C-w>5>
 endif
 " ClearnSearchHighlight:
 if has('nvim')
@@ -708,16 +707,16 @@ let g:indentLine_char = '│'
 let g:indentLine_enabled = 1
 let g:indentLine_color_term = 238
 let g:indentLine_fileTypeExclude = [
-      \ 'startify',
-      \ 'vista',
-      \ 'json',
-      \ 'codi',
-      \ 'translator',
-      \ 'jsonc',
       \ 'coc-explorer',
-      \ 'man',
+      \ 'codi',
+      \ 'floaterm',
       \ 'help',
-      \ 'floaterm'
+      \ 'json',
+      \ 'jsonc',
+      \ 'man',
+      \ 'startify',
+      \ 'translator',
+      \ 'vista',
       \ ]
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
