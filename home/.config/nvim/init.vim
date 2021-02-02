@@ -751,7 +751,7 @@ let g:lightline = {
     \ 'left': [
       \ ['mode', 'paste'],
       \ ['fugitive', 'readonly'],
-      \ ['absolutepath']
+      \ ['active_fileinfo']
     \ ],
     \ 'right': [
       \ ['asyncrun_status'],
@@ -792,7 +792,7 @@ let g:lightline = {
     \ 'fileformat': 'fn#lightline#FileFormat',
     \ 'fileencoding': 'fn#lightline#FileEncoding',
     \ 'filetype': 'fn#lightline#FileType',
-    \ 'absolutepath': 'fn#lightline#AbsPath',
+    \ 'active_fileinfo': 'fn#lightline#ActiveFileinfo',
     \ 'inactive_fileinfo': 'fn#lightline#InactiveFileinfo',
   \ },
   \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },

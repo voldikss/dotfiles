@@ -5,26 +5,29 @@
 " ============================================================================
 
 let s:special_filetypes = {
-  \ 'coc-explorer': 'coc-explorer',
-  \ 'floaterm': 'FLOATERM',
-  \ 'help': 'Help',
-  \ 'man': 'Man',
-  \ 'Mundo': 'Mundo',
-  \ 'MundoDiff': 'MundoDiff',
-  \ 'qf': 'QuickFix',
-  \ 'startify': 'Startify',
-  \ 'vista': 'Vista',
-  \ 'vim-plug': 'Plug',
-  \ }
+      \ 'coc-explorer': 'coc-explorer',
+      \ 'floaterm': 'FLOATERM',
+      \ 'help': 'Help',
+      \ 'man': 'Man',
+      \ 'Mundo': 'Mundo',
+      \ 'MundoDiff': 'MundoDiff',
+      \ 'qf': 'QuickFix',
+      \ 'startify': 'Startify',
+      \ 'vista': 'Vista',
+      \ 'vim-plug': 'Plug',
+      \ }
 let s:special_filetypes_pattern = '\v^(' . join(keys(s:special_filetypes), '|') . ')$'
 
-" AbsPath2:
-function! fn#lightline#AbsPath()
+" ActiveFileinfo:
+function! fn#lightline#ActiveFileinfo()
   if &filetype =~ s:special_filetypes_pattern
     return ''
   endif
-
-  let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  if empty(bufname())
+    let filepath = getcwd()
+  else
+    let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  endif
   let maxwidth = winwidth(0) - 40
   if len(filepath) > maxwidth
     let filepath = pathshorten(filepath)
@@ -116,7 +119,11 @@ function! fn#lightline#InactiveFileinfo()
   if &filetype =~ s:special_filetypes_pattern
     return s:special_filetypes[&filetype]
   endif
-  let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  if empty(bufname())
+    let filepath = getcwd()
+  else
+    let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  endif
   let winwidth = winwidth(0)
   if len(filepath) > winwidth
     let filepath = pathshorten(filepath)
