@@ -94,3 +94,9 @@ alias screenrecord='ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DI
 
 # reset
 alias re=reset
+
+# filetype
+alias -s gz='tar -xzvf'
+alias -s tgz='tar -xzvf'
+alias -s zip='unzip'
+alias -s bz2='tar -xjvf'

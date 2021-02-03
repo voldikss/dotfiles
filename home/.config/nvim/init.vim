@@ -327,6 +327,7 @@ call s:SetCommandAbbrs('pu', 'PlugUpdate')
 call s:SetCommandAbbrs('sl', 'CocCommand session.load default')
 call s:SetCommandAbbrs('ss', 'CocCommand session.save default')
 call s:SetCommandAbbrs('st', 'Startify')
+call s:SetCommandAbbrs('t', 'Template')
 call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 " }}}
 
