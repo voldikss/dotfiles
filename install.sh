@@ -19,7 +19,7 @@ arch_base() {
     cd yay
     makepkg -si
 
-    # yay -S cppman
+    # yay -S cppman cheat-bin
 }
 
 ubuntu_base() {
