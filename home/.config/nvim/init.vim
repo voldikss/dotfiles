@@ -116,7 +116,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-Plug 'kshenoy/vim-signature'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
@@ -1000,6 +999,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 map <silent> <Space>f <Plug>(easymotion-overwin-w)
+map <silent> ' <Plug>(easymotion-overwin-w)
 map <silent> <Space>F <Plug>(easymotion-bd-f)
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
