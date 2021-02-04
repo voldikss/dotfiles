@@ -128,7 +128,7 @@ Plug 'tpope/vim-git'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
-Plug 'easymotion/vim-easymotion', {'on': ['<Plug>(easymotion-overwin-w)', '<Plug>(easymotion-bd-f)']}
+Plug 'easymotion/vim-easymotion', {'on': ['<Plug>(easymotion-bd-w)', '<Plug>(easymotion-bd-f)']}
 Plug 'yangmillstheory/vim-snipe'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -998,8 +998,8 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " easymotion.vim
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
-map <silent> <Space>f <Plug>(easymotion-overwin-w)
-map <silent> ' <Plug>(easymotion-overwin-w)
+map <silent> <Space>f <Plug>(easymotion-bd-w)
+map <silent> ' <Plug>(easymotion-bd-w)
 map <silent> <Space>F <Plug>(easymotion-bd-f)
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
