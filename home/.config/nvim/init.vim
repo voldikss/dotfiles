@@ -11,7 +11,7 @@ let g:loaded_netrwPlugin = 1
 
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
-  let g:python3_host_prog='C:\Program Files\Python38/python.exe'
+  let g:python3_host_prog='D:\Applications\Python39\python.exe'
 else
   let g:python3_host_prog='/usr/bin/python3'
 endif
