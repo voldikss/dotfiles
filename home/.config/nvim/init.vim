@@ -497,6 +497,7 @@ cnoremap <expr> ]    fn#keymap#c#pairs(']', '[]')
 cnoremap <expr> }    fn#keymap#c#pairs('}', '{}')
 cnoremap <expr> <BS> fn#keymap#c#BS()
 cnoremap <expr> /    fn#keymap#c#Slash()
+cnoremap <expr> \    fn#keymap#c#BackSlash()
 " TerminalMode:
 if has('nvim')
   tnoremap <Esc>  <C-\><C-n>

@@ -36,7 +36,7 @@ function! fn#keymap#c#pairs(key, pairs) abort
     endif
   else
     if nextchar == a:key
-      return "\<Right>" 
+      return "\<Right>"
     else
       return a:key
     endif
@@ -45,11 +45,28 @@ endfunction
 
 " Command: /
 function! fn#keymap#c#Slash() abort
+  if !has('unix')
+    return "/"
+  endif
   let pos = getcmdpos()
   let prechar = getcmdline()[pos-2]
   if prechar == '/' && pumvisible()
     return "\<Space>\<Left>"
   else
     return "/"
+  endif
+endfunction
+
+" Command: \
+function! fn#keymap#c#BackSlash() abort
+  if !has('win32')
+    return '\'
+  endif
+  let pos = getcmdpos()
+  let prechar = getcmdline()[pos-2]
+  if prechar == '\' && pumvisible()
+    return "\<Space>\<Left>"
+  else
+    return '\'
   endif
 endfunction
