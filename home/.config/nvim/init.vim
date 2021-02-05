@@ -357,11 +357,8 @@ command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
 command! -nargs=+ -complete=command Messages call fn#command#tab_message(<q-args>)
 command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
 command! -nargs=? -complete=customlist,fn#task#complete RunTask call fn#task#run(<f-args>)
-command! -nargs=? YarnWatch call floaterm#new(0, empty(<q-args>) ? 'yarn watch' : <q-args>, {
-      \ 'on_stdout': function('fn#floaterm#watch_callback'),
-      \ 'on_stderr': function('fn#floaterm#watch_callback'),
-      \ 'on_exit': function('fn#floaterm#watch_callback')
-      \ }, {})
+command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range
+      \ FloatermExec call fn#floaterm#exec(visualmode(), <range>, <line1>, <line2>, <q-args>)
 " }}}
 
 " Mappings: {{{
@@ -755,7 +752,7 @@ let g:lightline = {
       \ ['active_fileinfo']
     \ ],
     \ 'right': [
-      \ ['asyncrun_status'],
+      \ ['asyncrun_status', 'floaterm_exec_status'],
       \ ['lineinfo'],
       \ ['percent'],
       \ ['cocstatus', 'fileformat', 'fileencoding'],
@@ -784,6 +781,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
     \ 'asyncrun_status': 'fn#lightline#AsyncRunStatus',
+    \ 'floaterm_exec_status': 'fn#lightline#FloatermExecStatus',
     \ 'codelf_status': 'fn#lightline#Codelf_Status',
     \ 'translator_status': 'fn#lightline#Translator_Status',
     \ 'mode': 'fn#lightline#Mode',
@@ -939,6 +937,7 @@ let g:translator_default_engines = ['bing', 'google', 'haici', 'youdao']
 let g:translator_window_max_height = 0.7
 let g:translator_window_max_width = 0.7
 " voldikss/vim-floaterm
+let g:floaterm_exec_status = ''
 let g:floaterm_title = 'floaterm ($1|$2)'
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.6

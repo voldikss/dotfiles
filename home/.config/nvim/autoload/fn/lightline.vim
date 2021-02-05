@@ -100,6 +100,13 @@ function! fn#lightline#AsyncRunStatus() abort
   return exists('g:asyncrun_status') ? g:asyncrun_status : ''
 endfunction
 
+function! fn#lightline#FloatermExecStatus() abort
+  if &filetype =~ s:special_filetypes_pattern
+    return ''
+  endif
+  return exists('g:floaterm_exec_status') ? g:floaterm_exec_status : ''
+endfunction
+
 function! fn#lightline#Translator_Status() abort
   if &filetype =~ s:special_filetypes_pattern
     return ''
