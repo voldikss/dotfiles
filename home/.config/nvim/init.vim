@@ -402,7 +402,7 @@ nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 nnoremap <expr> n  'Nn'[v:searchforward].'zz'
 nnoremap <expr> N  'nN'[v:searchforward].'zz'
 nnoremap * m`:keepjumps normal! *``zz<cr>
-nnoremap # #zz
+nnoremap # m`:keepjumps normal! #``zz<cr>
 xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
@@ -640,14 +640,14 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 " coc-git
 nnoremap <silent> gs  :CocCommand git.chunkStage<CR>
-nnoremap <silent> gu  :CocCommand git.chunkUndo<CR>
 nnoremap <silent> go  :CocCommand git.browserOpen<CR>
 nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
 nnoremap <silent> gm  :CocCommand git.showCommit<CR>
 nnoremap <silent> gw  :call fn#file#refresh()<CR>:Gw<CR>:call fn#file#refresh()<CR>
 nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
-nnoremap <silent> gcm :Gcommit -v<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
+nnoremap <silent> gcm :Gcommit -v<CR>
+nnoremap <silent> gcu  :CocCommand git.chunkUndo<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
@@ -843,7 +843,8 @@ let g:Lf_Extensions.man = {
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
-nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", fn#path#get_root())<CR><CR>
+" nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", fn#path#get_root())<CR><CR>
+nnoremap <silent> <Leader>ff :Leaderf file<CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
 nnoremap <silent> <Leader>fl :Leaderf line<CR>

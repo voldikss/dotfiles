@@ -30,6 +30,7 @@ alias gcl='git clone --depth 1'
 alias gd='git diff'
 alias gf='git fetch'
 alias gi='git init'
+alias gl='git lg'
 alias gr='git reset --hard HEAD'
 alias gp='git push'
 alias gpf='git push -f'
@@ -65,6 +66,7 @@ alias nnn='nnn -d'
 # where proxy
 alias proxy='export all_proxy=https://127.0.0.1:1081'
 alias unproxy='unset all_proxy'
+alias pc=proxychains
 
 # npm registry
 alias npmtaobao='npm config set registry https://registry.npm.taobao.org'
