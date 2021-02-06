@@ -73,23 +73,29 @@ function! fn#command#zeal(query) abort
   call jobstart(cmd)
 endfunction
 
-" WinDo: Like windo but restore the current window.
+" Windo: Like windo but restore the current window.
 function! fn#command#windo(command)
+  let sv_view = winsaveview()
   let curwin=winnr()
   execute 'windo ' . a:command
   execute curwin . 'wincmd w'
+  call winrestview(sv_view)
 endfunction
 
-" BufDo: Like bufdo but restore the current buffer.
+" Bufdo: Like bufdo but restore the current buffer.
 function! fn#command#bufdo(command)
+  let sv_view = winsaveview()
   let curbuf=bufnr("%")
   execute 'bufdo ' . a:command
   execute 'buffer ' . curbuf
+  call winrestview(sv_view)
 endfunction
 
-" TabDo: Like tabdo but restore the current tab.
+" Tabdo: Like tabdo but restore the current tab.
 function! fn#command#tabdo(command)
+  let sv_view = winsaveview()
   let curtab=tabpagenr()
   execute 'tabdo ' . a:command
   execute 'tabn ' . curtab
+  call winrestview(sv_view)
 endfunction
