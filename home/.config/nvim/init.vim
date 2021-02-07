@@ -225,10 +225,12 @@ augroup Checktime
   autocmd BufEnter * checktime
 augroup END
 
-augroup CocAutocmds
+augroup CocRelatedAutocmds
   autocmd!
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd User EasyMotionPromptBegin silent! CocDisable
+  autocmd User EasyMotionPromptEnd silent! CocEnable
 augroup END
 
 augroup StartifyAutocmds
@@ -411,25 +413,25 @@ nnoremap <C-r> :%s/<C-r><C-w>//g<Left><Left>
 vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
 " document
-xnoremap <silent> id GoggV
+vnoremap <silent> id GoggV
 onoremap <silent> id :normal vid<CR>
 " line
-xnoremap <silent> il g_o^
+vnoremap <silent> il g_o^
 onoremap <silent> il :normal vil<CR>
-xnoremap i? [*o]*
+vnoremap i? [*o]*
 onoremap i? :<C-u>normal va?V<CR>
 " url
-xnoremap <silent> iu :<C-u>call fn#textobj#url#()<CR>
+vnoremap <silent> iu :<C-u>call fn#textobj#url#()<CR>
 onoremap <silent> iu :normal viu<CR>
 " ip
-xnoremap <silent> iI :<C-u>call fn#textobj#ip#()<CR>
+vnoremap <silent> iI :<C-u>call fn#textobj#ip#()<CR>
 onoremap <silent> iI :normal viI<CR>
 " number
-xnoremap <silent> in :<C-u>call fn#textobj#number#()<CR>
+vnoremap <silent> in :<C-u>call fn#textobj#number#()<CR>
 onoremap <silent> in :normal vin<CR>
 " function argument
-xnoremap <silent> ia :<C-u>call fn#textobj#argument#(1, 1)<CR>
-xnoremap <silent> aa :<C-u>call fn#textobj#argument#(0, 1)<CR>
+vnoremap <silent> ia :<C-u>call fn#textobj#argument#(1, 1)<CR>
+vnoremap <silent> aa :<C-u>call fn#textobj#argument#(0, 1)<CR>
 onoremap <silent> ia :<C-u>call fn#textobj#argument#(1, 0)<CR>
 onoremap <silent> aa :<C-u>call fn#textobj#argument#(0, 0)<CR>
 " indent
@@ -455,8 +457,6 @@ inoremap <silent> <C-j> <Down>
 " snoremap <silent> <C-j> <Down>
 inoremap <silent> <C-h> <Left>
 inoremap <silent> <C-l> <Right>
-inoremap <silent> <C-b> <C-r>=fn#keymap#exec('normal! b')<CR>
-inoremap <silent> <C-f> <C-r>=fn#keymap#exec('normal! w')<CR>
 inoremap <silent> <C-a> <Home>
 inoremap <silent> <C-e> <End>
 inoremap <silent> <C-o> <End><CR>
@@ -647,7 +647,7 @@ nnoremap <silent> gw  :call fn#file#refresh()<CR>:Gw<CR>:call fn#file#refresh()<
 nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
-nnoremap <silent> gcu  :CocCommand git.chunkUndo<CR>
+nnoremap <silent> gcu  :CocCommand git.chunkUndo<CR>:update<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>

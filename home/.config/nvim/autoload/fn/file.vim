@@ -108,6 +108,7 @@ function! fn#file#refresh() abort
     return
   endif
   let save_view = winsaveview()
+  update
   edit
   call winrestview(save_view)
 endfunction

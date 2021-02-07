@@ -74,3 +74,9 @@ pacman
 LeaderF
 wget
 ptrace
+ripgrep
+rg
+fzf
+config
+powershell
+cmd
