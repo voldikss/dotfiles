@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+#=============================================================================
+# References:
+# https://github.com/tylucaskelley/dotfiles/blob/master/src/.functions
+#=============================================================================
+
+# Converts a video file to mp4
+#
+# Params:
+#     infile - input file
+#
+# Usage: vid2mp4 input
+#
+function vid2mp4() {
+  usage="usage: vid2mp4 input"
+
+  if [ -z "$1" ]; then
+    echo "$usage"
+    return 1
+  elif command -v ffmpeg &> /dev/null; then
+    filename="$(echo "$1" | cut -d . -f 1)"
+
+    ffmpeg -i "$1" -c:v libx264 -crf 23 -c:a aac -q:a 100 "$filename.mp4"
+
+    echo "$1 converted and saved to $2"
+  else
+    echo "fatal: ffmpeg is not installed"
+  fi
+}
+
+# Converts Quicktime screen recording to a gif
+#
+# Params:
+#     infile - input file (.mov)
+#     outfile - output filename (.gif)
+#
+# Usage: mov2gif infile outfile
+#
+function mov2gif() {
+  usage="usage: mov2gif input.mov output.gif"
+
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "$usage"
+    return 1
+  elif command -v ffmpeg &> /dev/null && command -v gifsicle &> /dev/null; then
+    infile="$1"
+    outfile="$2"
+
+    if [ -f "$infile" ]; then
+      ffmpeg -hide_banner -loglevel quiet -i "$infile" -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > "$outfile"
+
+      echo "${infile} converted and saved to ${outfile}"
+    else
+      echo "fatal: ${infile} is not a file"
+      return 1
+    fi
+  else
+    echo "fatal: ffmpeg and gifsicle are not installed"
+    return 1
+  fi
+}
+
+# Starts a Python server, with optional port argument
+#
+# Params:
+#     port - Optional port to serve at (defaults to 8080)
+#
+# Usage: server [port]
+#
+function serve() {
+  python -m http.server "${1:-8080}"
+}
+
+# Recursively find and replace text within files in a directory
+#
+# Params:
+#    old: Text to search for
+#    new: Replacement text
+#
+# Usage: sub old new
+function sub() {
+  usage="usage: sub old new"
+
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "$usage"
+    return 1
+  fi
+
+  if command -v rg &> /dev/null; then
+    rg "$1" --files-with-matches * | xargs -r sed -i "s/$1/$2/g"
+  else
+    echo "fatal: ripgrep must be installed"
+    return 1
+  fi
+}
+
+function backup_sys() {
+    cd /
+    sudo tar -cvpzf backup.tar.gz \
+        --one-file-system \
+        --exclude=/backup.tar.gz \
+        --exclude=/proc \
+        --exclude=/tmp \
+        --exclude=/mnt \
+        --exclude=/dev \
+        --exclude=/sys \
+        --exclude=/run \
+        --exclude=/media \
+        --exclude=/var/log \
+        --exclude=/var/cache/apt/archives \
+        --exclude=/usr/src/linux-headers* \
+        --exclude=/home/*/.gvfs \
+        --exclude=/home/*/.cache \
+        --exclude=/home/*/.local/share/Trash /
+}
+
+function deploy_blog() {
+    echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
+    hugo -t even
+
+    cd public
+    git add .
+
+    msg="rebuilding site `date`"
+    if [ $# -eq 1 ]; then
+        msg="$1"
+    fi
+
+    git commit -m "$msg"
+    git push origin master
+
+    cd ..
+    git add .
+    git commit -m "$msg"
+    git push origin master
+}
+
+function release_coc_extension() {
+    version=$(json version < package.json)
+    name=$(json name < package.json)
+    echo "$name/$version"
+    git commit -a -m "v$version"
+    git tag -a "$version" -m "v$version"
+    npm publish
+    git push --tags
+    git push
+}
+
+function vim_starttime() {
+    if [ -f "vim_startup.log" ]; then
+        rm ./vim_startup.log
+    fi
+    nvim --startuptime ./vim_startup.log && awk -F'[ /]' '/\.vim\/plugged/ {print $3,$12}' vim_startup.log | awk '{plug[$2]++; time[$2]+=$1} END {for (i in plug) {printf "%30s %20.3f ms\n", i, time[i] | "sort -k2nr"}}'
+}
+
+function where_alias() {
+    rg --pretty "$1" ~/.oh-my-zsh ~/.zshrc ~/.aliases | less
+}

@@ -57,8 +57,9 @@ alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 # htop
 alias top=htop
 
-# ncdu
+# du
 alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+alias sizeof='/usr/bin/du -sh'
 
 # nnn
 alias nnn='nnn -d'
@@ -107,3 +108,14 @@ alias -s bz2='tar -xjvf'
 
 # floaterm
 alias f=floaterm
+
+# verbose
+alias mv='mv -v'
+alias cp='cp -v'
+alias mkdir='mkdir -v'
+
+# misc
+alias c=clear
+alias path='echo -e ${PATH//:/\\n}'
+alias space='df -P -kHl'
+
