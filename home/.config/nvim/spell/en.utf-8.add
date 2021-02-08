@@ -80,3 +80,5 @@ fzf
 config
 powershell
 cmd
+i.e.
+repl

@@ -1,6 +1,8 @@
 # For current directory only
 # ----------------------------------------------------------------------------
 
+en.utf-8.add.spl
+
 !/conf/.idlerc/config-main.cfg
 !/conf/.idlerc/config-extensions.cfg
 /conf/.idlerc/*
