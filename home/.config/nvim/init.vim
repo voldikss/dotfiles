@@ -451,6 +451,7 @@ vnoremap <silent> <Leader>y "+y
 nnoremap <silent> <Leader>Y "+y$
 nnoremap <silent> <Leader>p "+p
 nnoremap <silent> <Leader>P "+P
+vnoremap <silent> <Leader>p pgvy
 " InsertMode: move
 inoremap <silent> <C-k> <Up>
 inoremap <silent> <C-j> <Down>
