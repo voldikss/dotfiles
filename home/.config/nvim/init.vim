@@ -647,7 +647,7 @@ nnoremap <silent> gw  :call fn#file#refresh()<CR>:Gw<CR>:call fn#file#refresh()<
 nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
 nnoremap <silent> gca :Gcommit --amend -v<CR>
 nnoremap <silent> gcm :Gcommit -v<CR>
-nnoremap <silent> gcu  :CocCommand git.chunkUndo<CR>:update<CR>
+nnoremap <silent> gcu :CocCommand git.chunkUndo<CR>:call timer_start(50, {->execute('update')})<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
