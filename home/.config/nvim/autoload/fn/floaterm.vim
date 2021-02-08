@@ -34,8 +34,14 @@ function! s:watch_callback(job, data, event) abort
       let g:floaterm_exec_status = 'floaterm:running'
     endif
   elseif a:event == 'stderr'
-    let g:floaterm_exec_status = ''
+    let g:floaterm_exec_status = 'floaterm:failed'
+    call timer_start(5000, {-> s:reset_floaterm_exec_status()})
   else
-    let g:floaterm_exec_status = ''
+    let g:floaterm_exec_status = 'floaterm:finished'
+    call timer_start(5000, {-> s:reset_floaterm_exec_status()})
   endif
+endfunction
+
+function! s:reset_floaterm_exec_status() abort
+  let g:floaterm_exec_status = ''
 endfunction
