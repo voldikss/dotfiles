@@ -14,7 +14,9 @@ setlocal number
 setlocal relativenumber
 setlocal nospell
 setlocal foldmethod=indent
-setlocal bufhidden=wipe
+if !&buflisted
+  setlocal bufhidden=wipe
+endif
 
 setlocal textwidth=82
 setlocal formatoptions+=t
