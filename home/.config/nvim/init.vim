@@ -409,7 +409,7 @@ xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
 nnoremap <Nop> <Plug>(RepeatRedo)
-nnoremap <C-r> :%s/<C-r><C-w>//g<Left><Left>
+nnoremap <C-r> :%s/<C-r><C-w>/<C-r><C-w>/g<Left><Left>
 vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
 " document
