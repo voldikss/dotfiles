@@ -17,7 +17,7 @@ if exists('b:asyncrun_cmd')
   setlocal number
 endif
 
-nmap <silent><buffer> q :q<CR>
+nnoremap <silent><buffer> q :q<CR>
 
 " NOTE: do not use `augroup` && `autocmd!` in the ftplugin/xxx.vim if already
 " using `autocmd <buffer>`. Otherwise if I've opened mutltiple terminals,

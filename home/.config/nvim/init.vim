@@ -384,7 +384,6 @@ nmap     M  %
 omap     M  %
 xmap     M  %
 noremap  U  <C-R>
-noremap  '  `
 vnoremap <  <gv
 vnoremap >  >gv
 nnoremap <C-u> <C-u>zz
@@ -400,21 +399,21 @@ nnoremap <silent> ]]  :<C-u>call fn#keymap#n#left_square_brackets()<CR>
 vnoremap <silent> [[  {j
 vnoremap <silent> ]]  }k
 " DiffOrChunk:
-nmap <silent> <C-up>   :call fn#keymap#n#prev_diff_or_chunk()<CR>
-nmap <silent> <C-down> :call fn#keymap#n#next_diff_or_chunk()<CR>
-nmap <silent> gk       :call fn#keymap#n#prev_diff_or_chunk()<CR>
-nmap <silent> gj       :call fn#keymap#n#next_diff_or_chunk()<CR>
+nnoremap <silent> <C-up>   :call fn#keymap#n#prev_diff_or_chunk()<CR>
+nnoremap <silent> <C-down> :call fn#keymap#n#next_diff_or_chunk()<CR>
+nnoremap <silent> gk       :call fn#keymap#n#prev_diff_or_chunk()<CR>
+nnoremap <silent> gj       :call fn#keymap#n#next_diff_or_chunk()<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call fn#keymap#n#jump()<CR>
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 " Search:
-nnoremap <expr> n  'Nn'[v:searchforward].'zz'
-nnoremap <expr> N  'nN'[v:searchforward].'zz'
-nnoremap * m`:keepjumps normal! *``zz<cr>
-nnoremap # m`:keepjumps normal! #``zz<cr>
-xnoremap * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
-xnoremap # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
+nnoremap <expr>   n 'Nn'[v:searchforward].'zz'
+nnoremap <expr>   N 'nN'[v:searchforward].'zz'
+nnoremap <silent> * m`:keepjumps normal! *``zz<cr>
+nnoremap <silent> # m`:keepjumps normal! #``zz<cr>
+xnoremap <silent> * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
+xnoremap <silent> # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
 nnoremap <Nop> <Plug>(RepeatRedo)
 nnoremap <C-r> :%s/<C-r><C-w>/<C-r><C-w>/g<Left><Left>
@@ -482,6 +481,8 @@ nnoremap <silent> <Leader>d :<C-u>call fn#keymap#n#safe_bdelete()<CR>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
 nnoremap <silent> <Leader>t :Message messages<CR>
+" EmptyExRepeatPreviousCommand:
+nnoremap <silent> : :call fn#keymap#n#ex_repeat_previous_command()<CR>
 " CommandMode:
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -553,7 +554,7 @@ if has('nvim')
   nnoremap <Esc>      <Cmd>nohlsearch<bar>echo<CR>
 endif
 nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
-
+" Plugins:
 noremap  <silent> <F2>             <Esc>:CocCommand explorer<CR>
 noremap! <silent> <F2>             <Esc>:CocCommand explorer<CR>
 tnoremap <silent> <F2>             <C-\><C-n>:CocCommand explorer<CR>
@@ -623,7 +624,7 @@ inoremap <silent><nowait><expr> <C-f>
 inoremap <silent><nowait><expr> <C-b>
       \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
       \ "<C-r>=fn#keymap#exec('normal! b')<CR>"
-nmap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
+nnoremap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
 function! s:select_current_word_and_go_next()
   if !get(g:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
@@ -632,17 +633,17 @@ function! s:select_current_word_and_go_next()
   " because I have mapped * to m`:keepjumps normal! *``zz<cr>
   return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
-nmap <silent> <M-n>      <Plug>(coc-diagnostic-next)
-nmap <silent> <M-p>      <Plug>(coc-diagnostic-prev)
-nmap <silent> cl :<C-u>CocList<CR>
-nmap <silent> <Leader>cs :<C-u>CocSearch <C-r><C-w><CR>
-nmap <silent> <Leader>cf <Plug>(coc-fix-current)
-nmap <silent> <Leader>cd <Plug>(coc-definition)
-nmap <silent> <Leader>cr <Plug>(coc-refactor)
-nmap <silent> <Leader>ci <Plug>(coc-implementation)
-nmap <silent> <Leader>rn <Plug>(coc-rename)
-nmap <silent> <Leader>rf <Plug>(coc-references-used)
-nmap <silent> <Leader>rs :<C-u>CocRestart<CR>
+nmap     <silent> <M-n>      <Plug>(coc-diagnostic-next)
+nmap     <silent> <M-p>      <Plug>(coc-diagnostic-prev)
+nnoremap <silent> cl         :<C-u>CocList<CR>
+nnoremap <silent> <Leader>cs :<C-u>CocSearch <C-r><C-w><CR>
+nmap     <silent> <Leader>cf <Plug>(coc-fix-current)
+nmap     <silent> <Leader>cd <Plug>(coc-definition)
+nmap     <silent> <Leader>cr <Plug>(coc-refactor)
+nmap     <silent> <Leader>ci <Plug>(coc-implementation)
+nmap     <silent> <Leader>rn <Plug>(coc-rename)
+nmap     <silent> <Leader>rf <Plug>(coc-references-used)
+nnoremap <silent> <Leader>rs :<C-u>CocRestart<CR>
 xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
@@ -982,8 +983,8 @@ nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " tomtom/tcomment_vim
 let g:tcomment_types = {'c': '// %s'}
-nmap <silent> gC vil:TCommentInline<CR>
-vmap <silent> gC :TCommentBlock<CR>
+nnoremap <silent> gC vil:TCommentInline<CR>
+vnoremap <silent> gC :TCommentBlock<CR>
 " matze/vim-move
 let g:move_map_keys    = 0
 let g:move_auto_indent = 1
@@ -1009,7 +1010,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 map <silent> <Space>f <Plug>(easymotion-bd-w)
-map <silent> ' <Plug>(easymotion-bd-w)
+map <silent> '        <Plug>(easymotion-bd-w)
 map <silent> <Space>F <Plug>(easymotion-bd-f)
 " vim-snipe
 map <silent> f <Plug>(snipe-f)

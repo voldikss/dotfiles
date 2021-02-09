@@ -139,7 +139,6 @@ function! fn#keymap#n#prev_diff_or_chunk() abort
   let s:centered_cursor = v:false
   call timer_start(20, { -> s:put_cursor(curlnum) })
 endfunction
-
 " put cursor in the vertical center of the window
 function! s:put_cursor(saved_lnum) abort
   if s:centered_cursor
@@ -161,5 +160,44 @@ function! fn#keymap#n#scroll_win(direction) abort
     call coc#float#scroll(a:direction, 3)
   else
     call fn#window#scroll_prev_win(a:direction, 3)
+  endif
+endfunction
+
+" EmptyExRepeatPreviousCommand:
+" NOTE: 
+" - feedkeys() {mode} argument must be `nt` to prevent remapping for `:`
+" - this will cause problems for those no-nore mappings which have `:` 
+function! fn#keymap#n#ex_repeat_previous_command() abort
+  let history = split(execute('history cmd -2,-1'), "\n")
+  let prevcmd = matchstr(history[2], '^>\=\s\+\d\+\s\+\zs.*\ze$')
+  let prevprevcmd = matchstr(history[1], '^>\=\s\+\d\+\s\+\zs.*\ze$')
+  echohl Comment
+  echo ':'.prevcmd
+  echohl None
+  let ch = nr2char(getchar())
+  if ch == "\<CR>"
+    call feedkeys(":".prevcmd."\<CR>", 'nt')
+  elseif ch == "\<Esc>"
+    call feedkeys("\<Esc>")
+  elseif ch == "\<Space>"
+    call feedkeys(":".prevcmd."\<Space>", 'nt')
+  elseif ch == "" " Backspace
+    call feedkeys(":".prevcmd."\<BS>", 'nt')
+  elseif ch == "\<Tab>"
+    call feedkeys(":".prevcmd."\<Tab>", 'nt')
+  elseif ch == "\<C-w>"
+    call feedkeys(":".prevcmd."\<C-w>", 'n')
+  elseif ch == "\<Left>" || ch == "\<C-h>"
+    call feedkeys(":".prevcmd."\<Left>", 'nt')
+  elseif ch == "\<Home>" || ch == "\<C-a>"
+    call feedkeys(":".prevcmd."\<Home>", 'nt')
+  elseif ch == "\<S-Left>" || ch == "\<C-b>"
+    call feedkeys(":".prevcmd."\<S-Left>", 'nt')
+  elseif ch == "\<Up>" || ch == "\<C-p>"
+    call feedkeys(":\<Up>\<Up>", 'nt')
+  elseif ch == "\<C-u>"
+    call feedkeys(":", 'nt')
+  else
+    call feedkeys(":".ch, 'nt')
   endif
 endfunction
