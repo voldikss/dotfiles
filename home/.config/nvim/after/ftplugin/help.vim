@@ -3,8 +3,7 @@ nnoremap <silent> <buffer> <CR> <C-]>
 
 " Jump back with backspace
 nnoremap <silent> <buffer> <BS> <C-T>
-" q to quit
-nnoremap <silent> <buffer> q :quit<CR>
+
 " open help file in the left window
 " alternative: e.g. vert help syntax
 autocmd BufWinEnter <buffer> wincmd H
@@ -15,7 +14,7 @@ setlocal relativenumber
 setlocal nospell
 setlocal foldmethod=indent
 if !&buflisted
-  setlocal bufhidden=wipe
+  setlocal bufhidden=delete
 endif
 
 setlocal textwidth=82
