@@ -493,10 +493,12 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-cnoremap <C-b> <S-Left>
-cnoremap <C-f> <S-Right>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
+cnoremap <C-f> <C-\>efn#keymap#c#CTRL_F()<CR>
+cnoremap <C-b> <C-\>efn#keymap#c#CTRL_B()<CR>
+cnoremap <C-k> <C-\>efn#keymap#c#CTRL_K<CR>
+cnoremap <C-y> <Cmd>call fn#keymap#c#CTRL_Y()<CR>
 cnoremap <expr> '    fn#keymap#c#pairs("'", "''")
 cnoremap <expr> "    fn#keymap#c#pairs('"', '""')
 cnoremap <expr> <    fn#keymap#c#pairs('<', '<>')
