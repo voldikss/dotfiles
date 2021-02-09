@@ -178,6 +178,13 @@ colorscheme srcery
 augroup FileTypeAutocmds
   autocmd!
   autocmd FileType * set formatoptions-=cro
+  autocmd FileType * syntax sync minlines=50
+  autocmd FileType *
+        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze:') |
+        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze:')
 augroup END
 
 augroup AutoSaveBuffer
@@ -197,16 +204,6 @@ augroup JumpToLastPosition
         \ if line("'\"") > 1 && line("'\"") <= line("$") && &filetype != 'gitcommit' |
         \ exe "normal! g'\"" |
         \ endif
-augroup END
-
-augroup KeywordHighlight
-  autocmd!
-  autocmd BufWinEnter *
-        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze:')
 augroup END
 
 augroup AutoChangeDir
@@ -590,7 +587,7 @@ let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode = 0
 let g:vimtex_view_method='general'
 " let g:vimtex_view_method='zathura'
-" @todo
+" TODO:
 " let g:vimtex_view_general_viewer = 'okular'
 " let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 " let g:vimtex_view_general_options_latexmk = '--unique'
