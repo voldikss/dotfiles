@@ -71,13 +71,9 @@ function! s:remove_white_spaces()
 endfunction
 
 " RenameFile:
-function! fn#file#rename(name) abort
+function! fn#file#rename() abort
   let old = expand('%')
-  if empty(a:name)
-    let new = input('New file name: ', expand('%'), 'file')
-  else
-    let new = a:name
-  endif
+  let new = input('New file name: ', expand('%'), 'file')
   if new != '' && new != old
     execute ':saveas ' new
     if has('unix')

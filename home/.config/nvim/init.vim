@@ -334,6 +334,8 @@ call s:SetCommandAbbrs('man', 'Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
+call s:SetCommandAbbrs('rn', 'Rename')
+call s:SetCommandAbbrs('rm', 'Remove')
 call s:SetCommandAbbrs('sl', 'CocCommand session.load default')
 call s:SetCommandAbbrs('ss', 'CocCommand session.save default')
 call s:SetCommandAbbrs('st', 'Startify')
@@ -346,6 +348,8 @@ command! AutoFormat call fn#file#autoformat()
 command! OpenFileExplorer call fn#command#open_file_explorer()
 command! CdRoot call fn#path#cd_root()
 command! PythonREPL  :FloatermNew --wintype=vsplit --width=0.5 --position=rightbelow python
+command! Rename call fn#file#rename()
+command! Remove call fn#file#remove()
 command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name") .
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
@@ -357,8 +361,6 @@ command! -nargs=* Zeal call fn#command#zeal(<q-args>)
 command! -nargs=? Bline call fn#command#insert_line('bold', <f-args>)
 command! -nargs=? Cline call fn#command#insert_line('comment', <f-args>)
 command! -nargs=? Line call fn#command#insert_line('light', <f-args>)
-command! -nargs=? RenameFile call fn#file#rename(<q-args>)
-command! -nargs=? RemoveFile call fn#file#remove()
 command! -nargs=+ Grep  call fn#command#grep(<q-args>)
 command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
 command! -nargs=? -complete=file  ExternalOpen  call fn#util#external_open(<q-args>)
