@@ -160,7 +160,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme srcery
+colorscheme space-vim-dark
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -276,7 +276,7 @@ function! s:OnColorSchemeLoaded() abort
   hi VertSplit                  guifg=cyan
   " hi CocFloating                guibg=blue
   hi CursorLineNr               guifg=orange
-  hi Normal                     guibg=#111111 guifg=#eeeeee
+  " hi Normal                     guibg=#111111 guifg=#eeeeee
   hi PmenuThumb                  guifg=white guibg=white
   hi VisualNOS                  guibg=#404D3D
 
@@ -367,9 +367,12 @@ command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
 command! -nargs=+ -complete=command Messages call fn#command#tab_message(<q-args>)
 command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
-command! -nargs=? -complete=customlist,fn#task#complete RunTask call fn#task#run(<f-args>)
-command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range
-      \ FloatermExec call fn#floaterm#exec(visualmode(), <range>, <line1>, <line2>, <q-args>)
+command! -nargs=? -complete=customlist,fn#task#complete RunTask
+      \ call fn#task#run(<f-args>)
+command! -nargs=? -complete=customlist,fn#command#colors ColorScheme 
+      \ call fn#command#colorscheme(<q-args>)
+command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range FloatermExec 
+      \ call fn#floaterm#exec(visualmode(), <range>, <line1>, <line2>, <q-args>)
 " }}}
 
 " Mappings: {{{

@@ -99,3 +99,16 @@ function! fn#command#tabdo(command)
   execute 'tabn ' . curtab
   call winrestview(sv_view)
 endfunction
+
+" ColorScheme: wrap colorscheme
+function! fn#command#colorscheme(theme) abort
+  execute 'colorscheme ' a:theme
+endfunction
+function! fn#command#colors(arg_lead, cmd_line, cursor_pos) abort
+  let dir = fnamemodify('~/.config/nvim/colors', ':p')
+  let candidates = map(readdir(dir), {_,f -> f[:-5]})
+  if a:arg_lead == ''
+    return candidates
+  endif
+  return filter(candidates, 'v:val[:len(a:arg_lead) - 1] == a:arg_lead')
+endfunction
