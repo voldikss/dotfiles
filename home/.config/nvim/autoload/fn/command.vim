@@ -8,7 +8,7 @@
 " OpenFileExplore:
 function! fn#command#open_file_explorer() abort
   let path = expand(getcwd())
-  call fn#util#system_open(path)
+  call fn#util#external_open(path)
 endfunction
 
 " Grep:

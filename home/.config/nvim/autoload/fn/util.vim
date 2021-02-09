@@ -6,15 +6,21 @@
 " ============================================================================
 
 " SystemOpen:
-function! fn#util#system_open(obj) abort
-  if has('win32') || has('win64') || has('win32unix')
-    let cmd = 'rundll32 url.dll,FileProtocolHandler ' . a:obj
-  elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
-    let cmd = 'open ' . a:obj
-  elseif executable('xdg-open')
-    let cmd = 'xdg-open ' . a:obj
+function! fn#util#external_open(obj) abort
+  if empty(a:obj)
+    let obj = expand('%:p')
   else
-    echoerr "No browser found, please contact the developer."
+    let obj = a:obj
+  endif
+  if has('win32') || has('win64') || has('win32unix')
+    let cmd = 'rundll32 url.dll,FileProtocolHandler ' . obj
+  elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
+    let cmd = 'open ' . obj
+  elseif executable('xdg-open')
+    let cmd = 'xdg-open ' . obj
+  else
+    echoerr "Opener not found"
+    return
   endif
   exec 'AsyncRun -silent' . ' ' . cmd
 endfunction

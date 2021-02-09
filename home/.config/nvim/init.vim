@@ -349,7 +349,7 @@ command! -nargs=? RenameFile call fn#file#rename(<q-args>)
 command! -nargs=? RemoveFile call fn#file#remove()
 command! -nargs=+ Grep  call fn#command#grep(<q-args>)
 command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
-command! -nargs=+ -complete=file  SystemOpen  call fn#lib#system_open(<q-args>)
+command! -nargs=+ -complete=file  ExternalOpen  call fn#util#external_open(<q-args>)
 command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)
