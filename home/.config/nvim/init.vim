@@ -189,7 +189,8 @@ augroup END
 
 augroup AutoSaveBuffer
   autocmd!
-  autocmd FocusLost,InsertLeave * call fn#file#autosave()
+  " autocmd FocusLost,InsertLeave * call fn#file#update()
+  autocmd CursorHold * call fn#file#update()
 augroup END
 
 augroup LineNumber
@@ -235,46 +236,57 @@ augroup StartifyAutocmds
   autocmd User Startified setlocal buflisted
 augroup END
 
-if has('nvim')
-  augroup TerminalSettings
+augroup ExternalOpen
+  autocmd!
+  autocmd BufEnter *.png,*.jpg,*.gif execute 'ExternalOpen'|bw
+augroup END
+
+augroup AutoMkdir
+  if exists('*mkdir')
+    autocmd!
+    autocmd BufWritePre,FileWritePre * silent! call mkdir(expand('<afile>:p:h'), 'p')
+  endif
+augroup END
+
+augroup TerminalSettings
+  if has('nvim')
     autocmd!
     autocmd TermOpen *  set filetype=terminal " source after/ftplugin/terminal.vim
-  augroup END
+  endif
+augroup END
 
-  function! s:OnColorSchemeLoaded() abort
-    let signcolumn_bg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
-    if empty(signcolumn_bg) | let signcolumn_bg = 'NONE' | endif
-    exe 'hi GitAdd                guifg=#00FF00 guibg=' . signcolumn_bg
-    exe 'hi GitModify             guifg=#00FFFF guibg=' . signcolumn_bg
-    exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . signcolumn_bg
-    exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . signcolumn_bg
-    exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . signcolumn_bg
-    exe 'hi CocHintSign           guifg=#15aabf guibg=' . signcolumn_bg
-    exe 'hi CocInfoSign           guifg=#fab005 guibg=' . signcolumn_bg
-    exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
-    exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
-    exe 'hi CursorLineNr          guibg='               . signcolumn_bg
+augroup HlGroupSettings
+  autocmd!
+  autocmd ColorScheme * call s:OnColorSchemeLoaded()
+augroup END
+function! s:OnColorSchemeLoaded() abort
+  let signcolumn_bg = matchstr(execute('hi SignColumn'), 'guibg=\zs\S*')
+  if empty(signcolumn_bg) | let signcolumn_bg = 'NONE' | endif
+  exe 'hi GitAdd                guifg=#00FF00 guibg=' . signcolumn_bg
+  exe 'hi GitModify             guifg=#00FFFF guibg=' . signcolumn_bg
+  exe 'hi GitDeleteTop          guifg=#FF2222 guibg=' . signcolumn_bg
+  exe 'hi GitDeleteBottom       guifg=#FF2222 guibg=' . signcolumn_bg
+  exe 'hi GitDeleteTopAndBottom guifg=#FF2222 guibg=' . signcolumn_bg
+  exe 'hi CocHintSign           guifg=#15aabf guibg=' . signcolumn_bg
+  exe 'hi CocInfoSign           guifg=#fab005 guibg=' . signcolumn_bg
+  exe 'hi CocWarningSign        guifg=#ff922b guibg=' . signcolumn_bg
+  exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
+  exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
-    hi VertSplit                  guifg=cyan
-    " hi CocFloating                guibg=blue
-    hi CursorLineNr               guifg=orange
-    hi Normal                     guibg=#111111 guifg=#eeeeee
-    hi PmenuThumb                  guifg=white guibg=white
-    hi VisualNOS                  guibg=#404D3D
+  hi VertSplit                  guifg=cyan
+  " hi CocFloating                guibg=blue
+  hi CursorLineNr               guifg=orange
+  hi Normal                     guibg=#111111 guifg=#eeeeee
+  hi PmenuThumb                  guifg=white guibg=white
+  hi VisualNOS                  guibg=#404D3D
 
-    let normal_bg = matchstr(execute('hi Normal'), 'guibg=\zs\S*')
-    exe 'hi EndOfBuffer           guifg=' . normal_bg
+  let normal_bg = matchstr(execute('hi Normal'), 'guibg=\zs\S*')
+  exe 'hi EndOfBuffer           guifg=' . normal_bg
 
-    " coclist will(might) change my cursor highlight
-    hi Cursor gui=reverse guifg=NONE guibg=NONE
-  endfunc
-  call s:OnColorSchemeLoaded()
-  augroup HlGroupSettings
-    autocmd!
-    autocmd ColorScheme * call s:OnColorSchemeLoaded()
-  augroup END
-endif
-
+  " coclist will(might) change my cursor highlight
+  hi Cursor gui=reverse guifg=NONE guibg=NONE
+endfunction
+call s:OnColorSchemeLoaded()
 " }}}
 
 " Abbrevs: {{{
@@ -349,7 +361,7 @@ command! -nargs=? RenameFile call fn#file#rename(<q-args>)
 command! -nargs=? RemoveFile call fn#file#remove()
 command! -nargs=+ Grep  call fn#command#grep(<q-args>)
 command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
-command! -nargs=+ -complete=file  ExternalOpen  call fn#util#external_open(<q-args>)
+command! -nargs=? -complete=file  ExternalOpen  call fn#util#external_open(<q-args>)
 command! -nargs=+ -complete=command Windo call fn#command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call fn#command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call fn#command#tabdo(<q-args>)

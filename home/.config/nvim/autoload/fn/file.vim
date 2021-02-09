@@ -26,7 +26,7 @@ function! fn#file#autoformat() abort
 endfunction
 
 " AutoSave:
-function! fn#file#autosave() abort
+function! fn#file#update() abort
   if &readonly || !&modifiable || &bt == 'acwrite'
     return
   endif
