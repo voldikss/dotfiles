@@ -39,7 +39,7 @@ function! fn#command#tab_message(cmd) abort
     call fn#util#show_msg('No Output', 'warning')
   else
     new
-    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
+    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified winfixheight winfixwidth
     silent put=message
   endif
 endfunction

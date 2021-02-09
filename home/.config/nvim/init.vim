@@ -29,7 +29,7 @@ set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtab
 set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
+set equalalways winfixwidth winfixheight winminwidth=3 winheight=3 winminheight=3
 set termguicolors cpoptions+=I guioptions-=e nowarn noconfirm
 set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 
@@ -377,9 +377,8 @@ let g:mapleader = ';'
 noremap  H  ^
 noremap  L  $
 " Esc:
-inoremap <C-c> <C-R>=fn#keymap#i#Esc()<CR>
+inoremap <C-c> <Esc>
 inoremap <C-[> <C-R>=fn#keymap#i#Esc()<CR>
-inoremap <Esc> <C-r>=fn#keymap#i#Esc()<CR>
 "cannot use noremap
 nmap     M  %
 omap     M  %
