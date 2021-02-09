@@ -21,6 +21,9 @@ function! fn#keymap#c#pairs(key, pairs) abort
   let cmdline = getcmdline()
   let prevchar = cmdline[pos-2]
   let nextchar = cmdline[pos-1]
+  if prevchar == '@' && a:key == '"'
+    return a:key
+  endif
   if a:pairs[0] == a:pairs[1]
     if nextchar == a:pairs[1]
       return "\<Right>"
