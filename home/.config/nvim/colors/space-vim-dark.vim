@@ -110,6 +110,7 @@ call s:hi('Normal' , 249 , s:bg , 'None' , 'None')
 call s:hi('Cursor' , 235 , 178  , 'bold' , 'bold')
 
 call s:hi('LineNr' , 239+s:bias , s:bg0 , 'None' , 'None')
+call s:hi('SignColumn' , 239+s:bias , s:bg0 , 'None' , 'None')
 
 call s:hi('CursorLine'   , ''  , s:bg0   , 'None' , 'None')
 call s:hi('CursorLineNr' , 170 , s:bg0   , 'None' , 'None')
@@ -182,8 +183,6 @@ call s:hi('PmenuSel'   , 251 , 97    , 'None' , 'None')
 call s:hi('PmenuSbar'  , 28  , 233   , 'None' , 'None')
 call s:hi('PmenuThumb' , 160 , 97    , 'None' , 'None')
 
-" SignColumn may relate to ale sign
-call s:hi('SignColumn' , 118 , s:bg , 'None' , 'None')
 call s:hi('Todo'       , 172 , s:bg , 'bold' , 'bold')
 
 " VertSplit consistent with normal background to hide it
@@ -222,7 +221,6 @@ call s:hi('diffAdded'   , 36  , '' , 'None' , 'None')
 call s:hi('diffRemoved' , 167 , '' , 'None' , 'None')
 
 hi MatchParen   guibg=NONE
-hi SignColumn   guibg=NONE
 
 hi link qfLineNr Type
 
