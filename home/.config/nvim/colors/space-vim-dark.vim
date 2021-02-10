@@ -5,15 +5,11 @@
 "
 " Note: Inspired by spacemacs-dark theme
 
-hi clear
-
-if v:version > 580
-    " no guarantees for version 5.8 and below, but this makes it stop
-    " complaining
-    hi clear
-    if exists('g:syntax_on')
-        syntax reset
-    endif
+if v:vim_did_enter
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
 
 let g:colors_name='space-vim-dark'

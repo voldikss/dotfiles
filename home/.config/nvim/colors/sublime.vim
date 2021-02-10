@@ -21,10 +21,12 @@ endif
 let g:sublime_termcolors = 256 " does not support 16 color term right now.
 
 set background=dark
-hi clear
 
-if exists('syntax_on')
-  syntax reset
+if v:vim_did_enter
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
 
 let colors_name = 'sublime'

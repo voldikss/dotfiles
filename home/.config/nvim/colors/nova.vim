@@ -2,10 +2,13 @@
 " Maintainer: Zang Leigang (zang.lg@outlook.com)
 " Thanks http://materialuicolors.co, great colors
 
-hi clear
-if exists("syntax_on")
-	syntax reset
+if v:vim_did_enter
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
+
 let colors_name = 'nova'
 
 " Default Color Definitions

@@ -47,10 +47,11 @@ let g:onedark_hide_endofbuffer = 1
 
 " Initialization {{{
 
-highlight clear
-
-if exists("syntax_on")
-  syntax reset
+if v:vim_did_enter
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
 endif
 
 set t_Co=256

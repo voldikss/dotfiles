@@ -10,9 +10,9 @@
 " Supporting code -------------------------------------------------------------
 " Initialisation: {{{
 
-if version > 580
+if v:vim_did_enter
   hi clear
-  if exists("syntax_on")
+  if exists('syntax_on')
     syntax reset
   endif
 endif

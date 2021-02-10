@@ -2159,8 +2159,13 @@ command! -nargs=0 PaperColor :call g:PaperColor()
 
 " =============================== MAIN ========================================
 
-hi clear
-syntax reset
+if v:vim_did_enter
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
+endif
+
 let g:colors_name = "papercol"
 
 call s:acquire_theme_data()
