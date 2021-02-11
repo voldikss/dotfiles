@@ -83,3 +83,16 @@ cmd
 i.e.
 repl
 plugin
+filepath
+plugins
+Wiki
+Keymaps
+Autocmd
+floatwin
+vim8
+popupwin
+deoplete
+asynctasks
+asyncrun
+linkedlist
+FloatermNew

@@ -23,7 +23,7 @@ command:rust=RUST_BACKTRACE=1 cargo run
 command:sh=bash "$(VIM_FILEPATH)"
 command:sql=:%DB
 command:tex=:execute(b:vimtex.compiler.is_running() ? 'VimtexView' : 'VimtexCompile')
-command:typescript=tsc %
+command:typescript=ts-node $(VIM_FILEPATH)
 command:vim=:source %
 cwd=$(VIM_FILEDIR)
 output=terminal
@@ -33,7 +33,7 @@ notify=echo
 save=2
 
 [cmake-build-and-run]
-command=cmake --build build && "$(VIM_ROOT)"/build/"$(VIM_PRONAME)"
+command=cmake --build build && "$(VIM_ROOT)/build/$(VIM_PRONAME)"
 cwd=<root>
 # pos=tab
 # focus=0
@@ -43,7 +43,7 @@ notify=echo
 save=2
 
 [qmake-build-and-run]
-command=cd build && make -j12 && "$(VIM_ROOT)"/build/"$(VIM_PRONAME)"
+command=cd build && make -j12 && "$(VIM_ROOT)/build/$(VIM_PRONAME)"
 cwd=<root>
 # pos=tab
 # focus=0

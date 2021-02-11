@@ -4,6 +4,20 @@
 # https://github.com/tylucaskelley/dotfiles/blob/master/src/.functions
 #=============================================================================
 
+# Run something n times
+#
+# Params:
+#     n - Number of iterations
+#     args - Command and arguments to loop
+#
+# Usage: loop n args
+function loop() {
+  for (( n=0; n<$1; n++ ))
+    do ${*:2}
+  done
+}
+
+
 # Converts a video file to mp4
 #
 # Params:

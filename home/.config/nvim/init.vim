@@ -100,7 +100,9 @@ endif
 " Plugin: {{{
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
+if has('nvim')
 Plug 'nvim-treesitter/nvim-treesitter'
+endif
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -122,7 +124,7 @@ Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/vim-cursorword'
 " Git
-Plug 'tpope/vim-fugitive', {'on': ['Gw', 'Gc', 'Gcommit', 'G']}
+Plug 'tpope/vim-fugitive', {'on': ['Gw', 'Git', 'G']}
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -160,7 +162,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme space-vim-dark
+colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -241,6 +243,15 @@ augroup ExternalOpen
   autocmd BufEnter *.png,*.jpg,*.gif execute 'ExternalOpen'|bw
 augroup END
 
+augroup OpenDirectory
+  autocmd!
+  autocmd BufEnter * 
+        \ if isdirectory(expand('%')) | 
+          \ bdelete! | 
+          \ call timer_start(100, {->execute('FloatermNew lf dotfiles')}) | 
+        \ endif
+augroup END
+
 augroup AutoMkdir
   if exists('*mkdir')
     autocmd!
@@ -319,8 +330,8 @@ call s:SetCommandAbbrs('fs', 'FloatermSend')
 call s:SetCommandAbbrs('ft', 'FloatermToggle')
 call s:SetCommandAbbrs('fu', 'FloatermUpdate')
 call s:SetCommandAbbrs('gap', 'Git add -p')
-call s:SetCommandAbbrs('gc', 'Gcommit -v')
-call s:SetCommandAbbrs('gca', 'Gcommit --amend -v')
+call s:SetCommandAbbrs('gc', 'Git commit -v')
+call s:SetCommandAbbrs('gca', 'Git commit --amend -v')
 call s:SetCommandAbbrs('gco', 'AsyncRun git checkout .')
 call s:SetCommandAbbrs('gd', 'Gvdiff')
 call s:SetCommandAbbrs('gl', 'Git lg')
@@ -330,7 +341,7 @@ call s:SetCommandAbbrs('Gpush', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('l', 'Leaderf')
 call s:SetCommandAbbrs('m', 'Messages')
-call s:SetCommandAbbrs('man', 'Man')
+call s:SetCommandAbbrs('man', 'vertical Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
@@ -662,8 +673,8 @@ nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
 nnoremap <silent> gm  :CocCommand git.showCommit<CR>
 nnoremap <silent> gw  :call fn#file#refresh()<CR>:Gw<CR>:call fn#file#refresh()<CR>
 nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
-nnoremap <silent> gca :Gcommit --amend -v<CR>
-nnoremap <silent> gcm :Gcommit -v<CR>
+nnoremap <silent> gca :Git commit --amend -v<CR>
+nnoremap <silent> gcm :Git commit -v<CR>
 nnoremap <silent> gcu :CocCommand git.chunkUndo<CR>:call timer_start(50, {->execute('update')})<CR>
 " coc-snippets
 " 不要改动
@@ -675,10 +686,12 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
 " coc extensions
 let g:coc_global_extensions = [
       \ 'coc-browser',
+      \ 'coc-clangd',
       \ 'coc-clock',
       \ 'coc-cmake',
       \ 'coc-css',
@@ -1035,6 +1048,7 @@ let g:firenvim_config = {
   \ }
 \ }
 " nvim-treesitter
+if has('nvim')
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
     highlight = {
@@ -1114,3 +1128,4 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 EOF
+endif
