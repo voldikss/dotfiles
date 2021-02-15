@@ -15,7 +15,7 @@
 [credential]
 	helper = cache
 [core]
-    pager = delta
+    # pager = delta
     editor = nvim
 	fileMode = false
 	quotepath = false
@@ -34,9 +34,9 @@
     user = voldikss
 [pull]
 	rebase = false
-[delta]
-    plus-color = "#012800"
-    minus-color = "#340001"
-    syntax-theme = Monokai Extended
-[interactive]
-    diffFilter = delta --color-only
+# [delta]
+#     plus-color = "#012800"
+#     minus-color = "#340001"
+#     syntax-theme = Monokai Extended
+# [interactive]
+#     diffFilter = delta --color-only

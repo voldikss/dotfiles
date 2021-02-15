@@ -8,7 +8,7 @@
 " SystemOpen:
 function! fn#util#external_open(obj) abort
   if empty(a:obj)
-    let obj = expand('%:p')
+    let obj = fnameescape(expand('%:p'))
   else
     let obj = a:obj
   endif

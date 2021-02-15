@@ -29,7 +29,7 @@ set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtab
 set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-set equalalways winfixwidth winfixheight winminwidth=3 winheight=3 winminheight=3
+set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
 set termguicolors cpoptions+=I guioptions-=e nowarn noconfirm
 set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 
@@ -973,7 +973,7 @@ let g:floaterm_title = 'floaterm ($1|$2)'
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.6
 let g:floaterm_position = 'center'
-let g:floaterm_gitcommit = 'split'
+let g:floaterm_opener = 'edit'
 let g:floaterm_autoclose = 2
 let g:floaterm_autohide = v:true
 let g:floaterm_keymap_new    = '<F7>'
@@ -1047,6 +1047,8 @@ let g:firenvim_config = {
     \ '<C-n>': 'default'
   \ }
 \ }
+" sakhnik/nvim-gdb
+let g:nvimgdb_disable_start_keymaps = 1
 " nvim-treesitter
 if has('nvim')
 lua <<EOF
