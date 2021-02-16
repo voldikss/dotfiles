@@ -40,7 +40,7 @@ set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=i
 set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
 set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
 set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
-set tags=./tags,tags,.tags,.vim/tags,.vim/.tags tagfunc=CocTagFunc
+set tags=./tags,../tags,../../tags,../../../tags tagfunc=CocTagFunc
 
 " Clipboard
 set clipboard=unnamed
@@ -244,9 +244,10 @@ augroup END
 augroup OpenDirectory
   autocmd!
   autocmd BufEnter * 
-        \ if isdirectory(expand('%')) | 
+        \ let g:justavalname = expand('<afile>:p') |
+        \ if isdirectory(g:justavalname) | 
           \ bdelete! | 
-          \ call timer_start(100, {->execute('FloatermNew lf dotfiles')}) | 
+          \ call timer_start(100, { -> execute('FloatermNew lf ' . g:justavalname) }) | 
         \ endif
 augroup END
 
@@ -310,7 +311,7 @@ call s:SetCommandAbbrs('at', 'AsyncTask')
 call s:SetCommandAbbrs('b', 'BClose')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
-call s:SetCommandAbbrs('cd', 'CdRoot')
+call s:SetCommandAbbrs('Cd', 'CdRoot')
 call s:SetCommandAbbrs('cf', 'CocFix')
 call s:SetCommandAbbrs('ci', 'CocInstall')
 call s:SetCommandAbbrs('cl', 'CocList')
@@ -419,6 +420,7 @@ nnoremap <silent> gk       :call fn#keymap#n#prev_diff_or_chunk()<CR>
 nnoremap <silent> gj       :call fn#keymap#n#next_diff_or_chunk()<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call fn#keymap#n#jump()<CR>
+nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 " Search:
@@ -486,7 +488,7 @@ inoremap <silent> <M-o> <Esc>O
 inoremap <silent> <C-d> <Esc>ddi
 inoremap <silent> <C-v> <C-o>"+]p
 nnoremap <silent>       <Leader>w :write<CR>
-nnoremap <silent>       <Leader>W :Bufdo if !empty(bufname()) \| write \| endif<CR>
+nnoremap <silent>       <Leader>W :noautocmd Bufdo if !empty(bufname()) \| write \| endif<CR>
 nnoremap <silent>       <M-q> q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
@@ -1043,6 +1045,25 @@ let g:firenvim_config = {
 \ }
 " sakhnik/nvim-gdb
 let g:nvimgdb_disable_start_keymaps = 1
+let g:nvimgdb_config = {
+      \ 'key_until':      '<Nop>',
+      \ 'key_continue':   '<Nop>',
+      \ 'key_next':       '<Nop>',
+      \ 'key_step':       '<Nop>',
+      \ 'key_finish':     '<Nop>',
+      \ 'key_breakpoint': '<Nop>',
+      \ 'key_frameup':    '<Nop>',
+      \ 'key_framedown':  '<Nop>',
+      \ 'key_eval':       '<Nop>',
+      \ 'key_quit':       '<Nop>',
+      \ 'set_tkeymaps':   'function("GdbCallAsync", "keymaps.set_t")',
+      \ 'set_keymaps':    'function("GdbCallAsync", "keymaps.set")',
+      \ 'unset_keymaps':  'function("GdbCallAsync", "keymaps.unset")',
+      \ 'sign_current_line': '▶',
+      \ 'sign_breakpoint': [ '●', '●²', '●³', '●⁴', '●⁵', '●⁶', '●⁷', '●⁸', '●⁹', '●ⁿ' ],
+      \ 'sign_breakpoint_priority': 10,
+      \ 'codewin_command': 'new'
+      \ }
 " nvim-treesitter
 if has('nvim')
 lua <<EOF
