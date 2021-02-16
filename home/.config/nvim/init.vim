@@ -130,8 +130,8 @@ Plug 'tpope/vim-git'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
-Plug 'easymotion/vim-easymotion', {'on': ['<Plug>(easymotion-bd-w)', '<Plug>(easymotion-bd-f)']}
-Plug 'yangmillstheory/vim-snipe'
+Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
+Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
 Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
@@ -229,8 +229,6 @@ augroup CocRelatedAutocmds
   autocmd!
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  autocmd User EasyMotionPromptBegin silent! CocDisable
-  autocmd User EasyMotionPromptEnd silent! CocEnable
 augroup END
 
 augroup StartifyAutocmds
@@ -1026,12 +1024,8 @@ xmap <silent> ga <Plug>(EasyAlign)
 nmap <silent> ga <Plug>(EasyAlign)
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
-" easymotion.vim
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-map <silent> <Space>f <Plug>(easymotion-bd-w)
-map <silent> '        <Plug>(easymotion-bd-w)
-map <silent> <Space>F <Plug>(easymotion-bd-f)
+" hop.nvim
+noremap <silent> ' :<C-u>HopWord<CR>
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
 map <silent> F <Plug>(snipe-F)
