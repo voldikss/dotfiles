@@ -492,6 +492,9 @@ nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
 nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent> <Leader>d :<C-u>call fn#keymap#n#safe_bdelete()<CR>
+" TerminalMode: move
+tnoremap <silent> <C-h> <Left>
+tnoremap <silent> <C-l> <Right>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
 nnoremap <silent> <Leader>t :Message messages<CR>
@@ -522,6 +525,12 @@ cnoremap <expr> <BS> fn#keymap#c#BS()
 cnoremap <expr> /    fn#keymap#c#Slash()
 cnoremap <expr> \    fn#keymap#c#BackSlash()
 " TerminalMode:
+tnoremap <expr> '    fn#keymap#t#pairs("'", "''")
+tnoremap <expr> "    fn#keymap#t#pairs('"', '""')
+tnoremap <expr> <    fn#keymap#t#pairs('<', '<>')
+tnoremap <expr> (    fn#keymap#t#pairs('(', '()')
+tnoremap <expr> [    fn#keymap#t#pairs('[', '[]')
+tnoremap <expr> {    fn#keymap#t#pairs('{', '{}')
 if has('nvim')
   tnoremap <Esc>  <C-\><C-n>
 endif

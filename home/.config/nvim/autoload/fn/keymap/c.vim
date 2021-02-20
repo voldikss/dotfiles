@@ -24,26 +24,7 @@ function! fn#keymap#c#pairs(key, pairs) abort
   if prevchar == '@' && a:key == '"'
     return a:key
   endif
-  if a:pairs[0] == a:pairs[1]
-    if nextchar == a:pairs[1]
-      return "\<Right>"
-    else
-      return a:pairs . "\<Left>"
-    endif
-  endif
-  if a:key == a:pairs[0]
-    if nextchar == ' ' || nextchar == '' || nextchar == a:pairs[1]
-      return a:pairs . "\<Left>"
-    else
-      return a:key
-    endif
-  else
-    if nextchar == a:key
-      return "\<Right>"
-    else
-      return a:key
-    endif
-  endif
+  return fn#keymap#pairs_common(a:key, a:pairs, prevchar, nextchar)
 endfunction
 
 " Command: /
