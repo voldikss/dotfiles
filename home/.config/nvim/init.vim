@@ -104,11 +104,9 @@ if has('nvim')
 Plug 'nvim-treesitter/nvim-treesitter'
 endif
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
-Plug 'alvan/vim-closetag', {'for': ['html', 'xml']}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
-Plug 'othree/html5.vim'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
@@ -432,7 +430,7 @@ xnoremap <silent> * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<
 xnoremap <silent> # :<C-u>call fn#keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
 nnoremap <Nop> <Plug>(RepeatRedo)
-nnoremap <C-r> :%s/<C-r><C-w>/<C-r><C-w>/g<Left><Left>
+nnoremap <C-r> :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
 " document
@@ -1002,7 +1000,7 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " tomtom/tcomment_vim
-let g:tcomment_types = {'c': '// %s'}
+let g:tcomment_types = {'c': '// %s', 'jsonc': '// %s'}
 nnoremap <silent> gC vil:TCommentInline<CR>
 vnoremap <silent> gC :TCommentBlock<CR>
 " matze/vim-move
