@@ -128,7 +128,7 @@ Plug 'tpope/vim-git'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
-Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
+Plug 'phaazon/hop.nvim', {'on': 'HopWord', 'commit': '172ae91'}
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -699,6 +699,7 @@ let g:coc_snippet_prev = '<S-Tab>'
 let g:coc_global_extensions = [
       \ 'coc-browser',
       \ 'coc-clangd',
+      \ 'coc-clang-format-style-options',
       \ 'coc-clock',
       \ 'coc-cmake',
       \ 'coc-css',
@@ -1077,7 +1078,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
-        disable = { 'rust', 'markdown', 'python' },
+        disable = { 'rust', 'markdown', 'python', 'json' },
     },
     indent = {
         enable = false
