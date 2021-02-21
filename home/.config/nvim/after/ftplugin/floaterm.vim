@@ -28,3 +28,8 @@ setlocal norelativenumber
 
 nnoremap <silent><buffer> gf :call <SID>open_in_normal_window()<CR>
 nnoremap <silent><buffer> <Esc> <Cmd>hide<CR>
+
+" simple gdb TUI highlight
+if type(b:floaterm_cmd) == v:t_string && b:floaterm_cmd == 'gdb'
+  call timer_start(100, {->execute('set syntax=nvimgdb')})
+endif
