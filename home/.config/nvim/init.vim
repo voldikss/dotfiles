@@ -21,7 +21,7 @@ set encoding=utf-8 fileencoding=utf-8 fileformats=unix,mac,dos
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 " Appearance
-set number relativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
+set number norelativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
 set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent breakindentopt=
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
 set noshowcmd noruler rulerformat= laststatus=2
@@ -114,7 +114,7 @@ Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Style
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim' " can not exclude startify on the first :Startify
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -193,11 +193,11 @@ augroup AutoSaveBuffer
   autocmd CursorHold * call fn#file#update()
 augroup END
 
-augroup LineNumber
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
-augroup END
+" augroup LineNumber
+"   autocmd!
+"   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+"   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+" augroup END
 
 augroup JumpToLastPosition
   autocmd!
@@ -309,11 +309,11 @@ call s:SetCommandAbbrs('at', 'AsyncTask')
 call s:SetCommandAbbrs('b', 'BClose')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
-call s:SetCommandAbbrs('Cd', 'CdRoot')
 call s:SetCommandAbbrs('cf', 'CocFix')
 call s:SetCommandAbbrs('ci', 'CocInstall')
 call s:SetCommandAbbrs('cl', 'CocList')
 call s:SetCommandAbbrs('cm', 'CocCommand')
+call s:SetCommandAbbrs('cp', 'Cppman')
 call s:SetCommandAbbrs('cr', 'silent CocRestart')
 call s:SetCommandAbbrs('cs', 'CocSearch')
 call s:SetCommandAbbrs('cu', 'CocUninstall')
@@ -422,8 +422,8 @@ nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call fn#coc#showdoc()<CR>
 nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
 " Search:
-nnoremap <expr>   n 'Nn'[v:searchforward].'zz'
-nnoremap <expr>   N 'nN'[v:searchforward].'zz'
+nnoremap <expr>   n 'Nn'[v:searchforward].'zzzv'
+nnoremap <expr>   N 'nN'[v:searchforward].'zzzv'
 nnoremap <silent> * m`:keepjumps normal! *``zz<cr>
 nnoremap <silent> # m`:keepjumps normal! #``zz<cr>
 xnoremap <silent> * :<C-u>call fn#keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
@@ -754,6 +754,8 @@ let g:indentLine_fileTypeExclude = [
       \ 'translator',
       \ 'vista',
       \ ]
+" lukas-reineke/indent-blankline.nvim
+let g:indent_blankline_char_highlight = 'Delimiter'
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
 noremap <silent> <Space><Space> <Esc>:Startify<CR>
@@ -929,7 +931,7 @@ let g:Lf_RootMarkers    = [
       \ ]
 let g:Lf_ShowHidden           = 1
 let g:Lf_ShowRelativePath     = 1
-let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_StlColorscheme = 'gruvbox_material'
 let g:Lf_StlSeparator   = {'left': '', 'right': '', 'font': ''}
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_WildIgnore = {
@@ -1000,7 +1002,7 @@ let g:mundo_preview_bottom     = 1
 let g:mundo_auto_preview_delay = 10
 " voldikss/vim-codelf
 let g:codelf_status = ''
-" lfv89/vim-interestingwords
+" voldikss/mark.vim
 nmap <silent> <Leader>k <Plug>MarkSet
 vmap <silent> <Leader>k <Plug>MarkSet
 nmap <silent> <Leader>K <Plug>MarkClear

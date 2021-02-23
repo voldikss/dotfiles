@@ -149,7 +149,7 @@
   },
   "leetcode.language": "cpp",
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
-  "list.indicator": "⚡️",
+  "list.indicator": ">",
   "list.insertMappings": {
     "<C-c>": "do:exit",
     "<C-j>": "do:next",
@@ -174,7 +174,7 @@
   "prettier.tabWidth": 2,
   "prettier.bracketSpacing": false,
   "python.formatting.provider": "black",
-  "rust-analyzer.server.path": "~/.cargo/bin/rust-analyzer",
+  "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "signature.preferShownAbove": false,

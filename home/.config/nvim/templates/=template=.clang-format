@@ -12,5 +12,5 @@ AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true
 ReflowComments: false
 SpacesBeforeTrailingComments: 3
-BreakConstructorInitializers: AfterColon
+# BreakConstructorInitializers: AfterColon
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
