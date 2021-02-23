@@ -393,7 +393,7 @@ let s:gh_danger_bg2 = s:color__Mix('#ffdce0', s:bg, 0.9)
 " General UI                                                                 {{{
 
 call s:_('Normal',            s:fg,           s:bg)
-call s:_('EndOfBuffer',       s:fg,           s:bg)
+call s:_('EndOfBuffer',       s:bg,           s:bg)
 call s:_('NormalPopup',       s:fg_highlight, s:bg_popup)
 call s:_('NormalPopover',     s:fg_highlight, s:bg_popup)
 call s:_('NormalPopupPrompt', s:base7,        s:color__Darken(s:bg_popup, 0.3), 'bold')
@@ -405,7 +405,7 @@ call s:_('SecondaryCursor',  '', s:highlight, 'none')
 call s:_('Folded',           s:base7,  s:bg_highlight, 'none')
 call s:_('FoldColumn',       s:fg_alt, s:bg_widget, '')
 call s:_('SignColumn',       '',       s:bg_widget, '')
-call s:_('ColorColumn',      '',       s:bg_widget, '')
+call s:_('ColorColumn',      '',       s:bg_highlight, '')
 
 call s:_('CursorLine',       '',          s:bg_highlight)
 call s:_('CursorColumn',     '',          s:bg_highlight)
