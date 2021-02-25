@@ -79,6 +79,7 @@ set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
 set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
+set wildignore-=*.out
 
 " Performance
 set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 nolazyredraw
@@ -486,7 +487,7 @@ inoremap <silent> <M-o> <Esc>O
 inoremap <silent> <C-d> <Esc>ddi
 inoremap <silent> <C-v> <C-o>"+]p
 nnoremap <silent>       <Leader>w :write<CR>
-nnoremap <silent>       <Leader>W :noautocmd Bufdo if !empty(bufname()) \| write \| endif<CR>
+nnoremap <silent>       <Leader>W :noautocmd Bufdo if !empty(bufname()) && !&ro && &ma \| write \| endif<CR>
 nnoremap <silent>       <M-q> q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
