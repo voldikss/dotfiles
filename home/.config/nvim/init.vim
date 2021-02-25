@@ -122,7 +122,7 @@ Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/vim-cursorword'
 " Git
-Plug 'tpope/vim-fugitive', {'on': ['Gw', 'Git', 'G']}
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -787,22 +787,22 @@ let g:lightline = {
   \ 'colorscheme': 'srcery',
   \ 'active': {
     \ 'left': [
-      \ ['mode', 'paste'],
+      \ ['mode'],
       \ ['fugitive', 'readonly'],
-      \ ['active_fileinfo']
+      \ ['active_filename']
     \ ],
     \ 'right': [
-      \ ['asyncrun_status', 'floaterm_exec_status'],
       \ ['lineinfo'],
       \ ['percent'],
-      \ ['cocstatus', 'fileformat', 'fileencoding'],
+      \ ['cocstatus', 'asyncrun_status', 'floaterm_exec_status'],
+      \ ['fileformat', 'fileencoding'],
       \ ['filetype'],
       \ ['codelf_status'],
       \ ['translator_status'],
     \ ]
   \ },
   \ 'inactive': {
-    \ 'left': [['inactive_fileinfo']],
+    \ 'left': [['inactive_filename']],
     \ 'right': []
   \ },
   \ 'tabline': {
@@ -831,8 +831,8 @@ let g:lightline = {
     \ 'fileformat': 'fn#lightline#FileFormat',
     \ 'fileencoding': 'fn#lightline#FileEncoding',
     \ 'filetype': 'fn#lightline#FileType',
-    \ 'active_fileinfo': 'fn#lightline#ActiveFileinfo',
-    \ 'inactive_fileinfo': 'fn#lightline#InactiveFileinfo',
+    \ 'active_filename': 'fn#lightline#ActiveFileinfo',
+    \ 'inactive_filename': 'fn#lightline#InactiveFileinfo',
   \ },
   \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
   \ 'component_type': { 'buffers': 'tabsel' },
