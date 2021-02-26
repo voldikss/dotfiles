@@ -882,7 +882,7 @@ let g:Lf_Extensions.man = {
   \ "accept": "leaderf#source#man#sink"
 \ }
 nnoremap z= :Leaderf spell <cword> <CR>
-nnoremap <silent> <Leader>fb :Leaderf buffer<CR>
+nnoremap <silent> <Leader>fb :Leaderf buffer --all<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
 " nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", fn#path#get_root())<CR><CR>
 nnoremap <silent> <Leader>ff :Leaderf file<CR>

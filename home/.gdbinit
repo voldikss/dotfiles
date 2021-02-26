@@ -357,9 +357,9 @@ document context-on
 end
 
 # Calls "context" at every breakpoint.
-define hook-stop
-    context
-end
+# define hook-stop
+#     context
+# end
 
 # Init parameters
 set output-radix 0x10
