@@ -4,11 +4,11 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function! fn#floaterm#exec(visualmode, range, line1, line2, fargs) abort
+function! myfloaterm#exec(visualmode, range, line1, line2, fargs) abort
   let [cmd, config] = floaterm#cmdline#parse(split(a:fargs))
 
   if empty(cmd)
-    let lines = fn#util#get_selected_text(a:visualmode, a:range, a:line1, a:line2)
+    let lines = util#get_selected_text(a:visualmode, a:range, a:line1, a:line2)
     if empty(lines)
       return
     endif

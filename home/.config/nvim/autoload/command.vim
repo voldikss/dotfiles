@@ -6,13 +6,13 @@
 " ============================================================================
 
 " OpenFileExplore:
-function! fn#command#open_file_explorer() abort
+function! command#open_file_explorer() abort
   let path = expand(getcwd())
-  call fn#util#external_open(path)
+  call util#external_open(path)
 endfunction
 
 " Grep:
-function! fn#command#grep(string) abort
+function! command#grep(string) abort
   if executable('rg')
     execute "AsyncRun! rg -n " . a:string . " * "
     " execute "AsyncRun! -post=copen\ 8 rg -n " . a:string . " * "
@@ -31,12 +31,12 @@ function! fn#command#grep(string) abort
 endfunction
 
 " TabMessage:
-function! fn#command#tab_message(cmd) abort
+function! command#tab_message(cmd) abort
   redir => message
   silent execute a:cmd
   redir END
   if empty(message)
-    call fn#util#show_msg('No Output', 'warning')
+    call util#show_msg('No Output', 'warning')
   else
     new
     setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified winfixheight winfixwidth
@@ -45,7 +45,7 @@ function! fn#command#tab_message(cmd) abort
 endfunction
 
 " DelimiterLine:
-function! fn#command#insert_line(style, ...) abort
+function! command#insert_line(style, ...) abort
   if a:0 > 0
     let count = a:1
   else
@@ -63,7 +63,7 @@ function! fn#command#insert_line(style, ...) abort
 endfunction
 
 " Zeal:
-function! fn#command#zeal(query) abort
+function! command#zeal(query) abort
   if empty(a:query)
     let query = expand('<cword>')
   else
@@ -74,7 +74,7 @@ function! fn#command#zeal(query) abort
 endfunction
 
 " Windo: Like windo but restore the current window.
-function! fn#command#windo(command)
+function! command#windo(command)
   let sv_view = winsaveview()
   let curwin=winnr()
   execute 'windo ' . a:command
@@ -83,7 +83,7 @@ function! fn#command#windo(command)
 endfunction
 
 " Bufdo: Like bufdo but restore the current buffer.
-function! fn#command#bufdo(command)
+function! command#bufdo(command)
   let sv_view = winsaveview()
   let curbuf=bufnr("%")
   execute 'bufdo ' . a:command
@@ -92,7 +92,7 @@ function! fn#command#bufdo(command)
 endfunction
 
 " Tabdo: Like tabdo but restore the current tab.
-function! fn#command#tabdo(command)
+function! command#tabdo(command)
   let sv_view = winsaveview()
   let curtab=tabpagenr()
   execute 'tabdo ' . a:command
@@ -101,10 +101,10 @@ function! fn#command#tabdo(command)
 endfunction
 
 " ColorScheme: wrap colorscheme
-function! fn#command#colorscheme(theme) abort
+function! command#colorscheme(theme) abort
   execute 'colorscheme ' a:theme
 endfunction
-function! fn#command#colors(arg_lead, cmd_line, cursor_pos) abort
+function! command#colors(arg_lead, cmd_line, cursor_pos) abort
   let dir = fnamemodify('~/.config/nvim/colors', ':p')
   let candidates = map(readdir(dir), {_,f -> f[:-5]})
   if a:arg_lead == ''

@@ -224,6 +224,6 @@ function! <Sid>TextObject(inner, incbelow, vis, range, count)
 
 endfunction
 
-function! fn#textobj#indent#(inner, incbelow, vis, range)
+function! textobj#indent#(inner, incbelow, vis, range)
   call <Sid>TextObject(a:inner, a:incbelow, a:vis, a:range, v:count1)
 endfunction

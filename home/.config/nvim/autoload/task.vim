@@ -2,7 +2,7 @@
 " GitHub: https://github.com/voldikss
 
 " RunTask:
-function! fn#task#run(...) abort
+function! task#run(...) abort
   update
   if g:asyncrun_status ==# 'running'
     AsyncStop
@@ -28,7 +28,7 @@ function! fn#task#run(...) abort
   endif
 endfunction
 
-function! fn#task#complete(arg_lead,cmd_line,cursor_pos) abort
+function! task#complete(arg_lead,cmd_line,cursor_pos) abort
   let lst = ['AsyncRun'] + getcompletion('', 'shellcmd')
   let cmd_line_before_cursor = a:cmd_line[:a:cursor_pos - 1]
   let args = split(cmd_line_before_cursor, '\v\\@<!(\\\\)*\zs\s+', 1)
@@ -46,7 +46,7 @@ function! fn#task#complete(arg_lead,cmd_line,cursor_pos) abort
 endfunction
 
 let s:run_on_save_change_enable = v:false
-function! fn#task#run_on_save_change(local) abort
+function! task#run_on_save_change(local) abort
   if s:run_on_save_change_enable == v:true
     autocmd! run-task-on-save-change 
     let s:run_on_save_change_enable = v:false

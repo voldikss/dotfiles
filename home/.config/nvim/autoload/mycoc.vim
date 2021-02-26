@@ -5,7 +5,7 @@
 " ============================================================================
 
 " ShowDocument:
-function! fn#coc#showdoc() abort
+function! mycoc#showdoc() abort
   if (index(['vim','help'], &filetype) >= 0)
     try
       execute 'h '.expand('<cword>')

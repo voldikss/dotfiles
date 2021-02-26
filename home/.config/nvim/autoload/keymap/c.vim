@@ -5,7 +5,7 @@
 " ============================================================================
 
 " Command: <BS>
-function! fn#keymap#c#BS() abort
+function! keymap#c#BS() abort
   let pos = getcmdpos()
   let surround = getcmdline()[pos-2:pos-1]
   if index(["''", '<>', '()', '[]', '{}'], surround) >=0
@@ -16,7 +16,7 @@ function! fn#keymap#c#BS() abort
 endfunction
 
 " Command: ''|<>|()|[]|{}
-function! fn#keymap#c#pairs(key, pairs) abort
+function! keymap#c#pairs(key, pairs) abort
   let pos = getcmdpos()
   let cmdline = getcmdline()
   let prevchar = cmdline[pos-2]
@@ -24,11 +24,11 @@ function! fn#keymap#c#pairs(key, pairs) abort
   if prevchar == '@' && a:key == '"'
     return a:key
   endif
-  return fn#keymap#pairs_common(a:key, a:pairs, prevchar, nextchar)
+  return keymap#pairs_common(a:key, a:pairs, prevchar, nextchar)
 endfunction
 
 " Command: /
-function! fn#keymap#c#Slash() abort
+function! keymap#c#Slash() abort
   if !has('unix')
     return "/"
   endif
@@ -42,7 +42,7 @@ function! fn#keymap#c#Slash() abort
 endfunction
 
 " Command: \
-function! fn#keymap#c#BackSlash() abort
+function! keymap#c#BackSlash() abort
   if !has('win32')
     return '\'
   endif
@@ -56,7 +56,7 @@ function! fn#keymap#c#BackSlash() abort
 endfunction
 
 " Command: <C-f> smart jump forward
-function! fn#keymap#c#CTRL_F() abort
+function! keymap#c#CTRL_F() abort
   let delimiters = [' ', '/', '\', ':', '_', '#']
   let cmd = getcmdline()
   let pos = getcmdpos() - 2
@@ -83,7 +83,7 @@ function! fn#keymap#c#CTRL_F() abort
 endfunction
 
 " Command: <C-b> smart jump backward
-function! fn#keymap#c#CTRL_B() abort
+function! keymap#c#CTRL_B() abort
   let delimiters = [' ', '/', '\', ':', '_', '#']
   let cmd = getcmdline()
   let pos = getcmdpos() - 2
@@ -110,7 +110,7 @@ function! fn#keymap#c#CTRL_B() abort
 endfunction
 
 " Command: <C-k> delete from cursor to the end
-function! fn#keymap#c#CTRL_K()
+function! keymap#c#CTRL_K()
   let cmd = getcmdline()
   let rem = strpart(cmd, getcmdpos() - 1)
   if ('' != rem)
@@ -121,7 +121,7 @@ function! fn#keymap#c#CTRL_K()
 endfunction
 
 " Command: <C-y> yank cmdline content
-function! fn#keymap#c#CTRL_Y()
+function! keymap#c#CTRL_Y()
   let cmd = getcmdline()
   call setreg('"', cmd)
   if &clipboard == 'unnamed'

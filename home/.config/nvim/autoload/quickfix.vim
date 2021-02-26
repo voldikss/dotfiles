@@ -7,7 +7,7 @@
 autocmd BufEnter qf noa wincmd p | let s:prevwinid = win_getid() | noa wincmd p
 
 let s:prevwinid = -1
-function! fn#quickfix#toggle() abort
+function! quickfix#toggle() abort
   if &ft == 'qf'
     cclose
     call win_gotoid(s:prevwinid)

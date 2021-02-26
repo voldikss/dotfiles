@@ -126,7 +126,7 @@ function! s:path_join(home, name) abort
   endif
 endfunction
 
-function! fn#path#get_root() abort
+function! path#get_root() abort
   let markers = ['.git', '.root']
   let strict = 0
   let l:hr = s:find_root(getcwd(), markers, strict)
@@ -146,8 +146,8 @@ function! s:chdir(path) abort
 endfunction
 
 " cd project root
-function! fn#path#cd_root() abort
-  let root = fn#path#get_root()
+function! path#cd_root() abort
+  let root = path#get_root()
   if !empty(root)
     call s:chdir(root)
   endif

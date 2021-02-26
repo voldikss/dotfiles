@@ -49,7 +49,7 @@ function! s:close_not_current_buf() abort
   echom 'Closed ' . tally . ' Files'
 endfunction
 
-function! fn#buffer#close_buffer(bang) abort
+function! buffer#close_buffer(bang) abort
   if a:bang
     call s:close_not_current_buf()
   else

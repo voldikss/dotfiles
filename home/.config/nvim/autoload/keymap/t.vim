@@ -5,7 +5,7 @@
 " ============================================================================
 
 " Terminal: ''|<>|()|[]|{}
-function! fn#keymap#t#pairs(key, pairs) abort
+function! keymap#t#pairs(key, pairs) abort
   " XXX: there is a bug of getting current cursor position in nvim's terminal
   " because when leaving terminal mode, the cursor position is changed!...
   " currently just return a:pairs until the bug gets fixed.
@@ -17,5 +17,5 @@ function! fn#keymap#t#pairs(key, pairs) abort
   echom pos
   echom line
   echom prevchar . ' ' . nextchar
-  return fn#keymap#pairs_common(a:key, a:pairs, prevchar, nextchar)
+  return keymap#pairs_common(a:key, a:pairs, prevchar, nextchar)
 endfunction

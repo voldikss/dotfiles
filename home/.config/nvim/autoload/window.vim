@@ -5,7 +5,7 @@
 " ============================================================================
 
 " 0:up, 1:down, 2:pgup, 3:pgdown, 4:top, 5:bottom
-function! fn#window#scroll_prev_win(mode, amount)
+function! window#scroll_prev_win(mode, amount)
   if winnr('$') <= 1
     return
   endif

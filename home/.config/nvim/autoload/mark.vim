@@ -80,7 +80,7 @@ function! s:getmatch(mid) abort
   return filter(getmatches(), 'v:val.id==a:mid')[0]
 endfunction
 
-function! fn#mark#jump(direction)
+function! mark#jump(direction)
   let curword = s:nearest_group_at_cursor()
 
   if (s:check_ignore_case(curword))
@@ -110,14 +110,14 @@ function! fn#mark#jump(direction)
         normal! Nzz
       endif
     catch /E486/
-      call fn#util#show_msg('Pattern not found', 'warning')
+      call util#show_msg('Pattern not found', 'warning')
     endtry
   endif
 endfunction
 
-function! fn#mark#do(mode) range
+function! mark#do(mode) range
   if a:mode == 'v'
-    let curword = fn#util#get_selected_text('v', 2, -1, -1)[0]
+    let curword = util#get_selected_text('v', 2, -1, -1)[0]
   else
     let curword = expand('<cword>') . ''
   endif
@@ -134,7 +134,7 @@ function! fn#mark#do(mode) range
   endif
 endfunction
 
-function! fn#mark#uncolor_all()
+function! mark#uncolor_all()
   for word in s:words
     " check that word is actually a String since '0' is falsy
     if (type(word) == 1)

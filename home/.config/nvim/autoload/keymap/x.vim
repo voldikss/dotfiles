@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function! fn#keymap#x#visual_star_search(cmdtype, ...) abort
+function! keymap#x#visual_star_search(cmdtype, ...) abort
   let temp = @"
   normal! gvy
   if !a:0 || a:1 != 'raw'

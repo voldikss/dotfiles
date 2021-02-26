@@ -9,7 +9,7 @@
 
 " man#completion#run {{{1
 
-function! fn#mancomplete#complete(A, L, P)
+function! mancompl#complete(A, L, P)
   let manpath = s:man_helpers_manpath()
   if manpath =~# '^\s*$'
     return []

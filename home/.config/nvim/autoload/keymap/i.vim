@@ -5,7 +5,7 @@
 " ============================================================================
 
 " Insert: <BS>
-function! fn#keymap#i#BS() abort
+function! keymap#i#BS() abort
   " vim has charcol() but it has not patched to neovim yet.
   " virtcol() seems enough?
   let colnr = virtcol('.')
@@ -33,7 +33,7 @@ function! fn#keymap#i#BS() abort
 endfunction
 
 " Insert: <CR>
-function! fn#keymap#i#CR() abort
+function! keymap#i#CR() abort
   let line = getline('.') " can not use trim
   if pumvisible()
     return "\<C-y>"
@@ -48,7 +48,7 @@ function! fn#keymap#i#CR() abort
 endfunction
 
 " Insert: <Esc>
-function! fn#keymap#i#Esc()
+function! keymap#i#Esc()
   let colnr = getpos('.')[2]
   let linelen = len(getline('.'))
   if colnr == (linelen + 1)
@@ -59,6 +59,6 @@ function! fn#keymap#i#Esc()
 endfunction
 
 " Insert: FlyOutPairs
-function! fn#keymap#i#flyoutpairs(key)
+function! keymap#i#flyoutpairs(key)
   return "\<ESC>:call search("."'".a:key."'".")\<CR>a"
 endfunction

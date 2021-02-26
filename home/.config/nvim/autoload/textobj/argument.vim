@@ -284,7 +284,7 @@ function! s:MoveRight(num)
   endif
 endfunction
 
-function! fn#textobj#argument#(inner, visual)
+function! textobj#argument#(inner, visual)
   let cnt = v:count1
   let operator = v:operator
   let current_c = getline('.')[getpos('.')[2]-1]

@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-function! fn#keymap#exec(cmd)
+function! keymap#exec(cmd)
   execute a:cmd
   return ''
 endfunction
@@ -13,7 +13,7 @@ endfunction
 " - pairs: predefined pairs
 " - prevchar: char before the cursor position
 " - nextchar: char after the cursor position
-function! fn#keymap#pairs_common(key, pairs, prevchar, nextchar) abort
+function! keymap#pairs_common(key, pairs, prevchar, nextchar) abort
   if a:pairs[0] == a:pairs[1]
     if a:nextchar == a:pairs[1]
       return "\<Right>"

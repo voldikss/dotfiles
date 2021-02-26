@@ -6,7 +6,7 @@
 " ============================================================================
 
 " SystemOpen:
-function! fn#util#external_open(obj) abort
+function! util#external_open(obj) abort
   if empty(a:obj)
     let obj = fnameescape(expand('%:p'))
   else
@@ -26,7 +26,7 @@ function! fn#util#external_open(obj) abort
 endfunction
 
 " ShowMessage:
-function! fn#util#show_msg(content, ...) abort
+function! util#show_msg(content, ...) abort
   if a:0 == 0
     let msgtype = 'more'
   else
@@ -49,7 +49,7 @@ function! fn#util#show_msg(content, ...) abort
 endfunction
 
 " GetVisualSelect:
-function! fn#util#get_selected_text(visualmode, range, line1, line2) abort
+function! util#get_selected_text(visualmode, range, line1, line2) abort
   if a:range == 0
     let lines = [getline('.')]
   elseif a:range == 1
@@ -78,11 +78,11 @@ function! fn#util#get_selected_text(visualmode, range, line1, line2) abort
   return lines
 endfunction
 
-function! fn#util#win_exists(winid) abort
+function! util#win_exists(winid) abort
   return !empty(getwininfo(a:winid))
 endfunction
 
-function! fn#util#win_execute(winid, cmd) abort
+function! util#win_execute(winid, cmd) abort
   let winid = win_getid()
   if winid == a:winid
     execute a:cmd
@@ -94,6 +94,6 @@ function! fn#util#win_execute(winid, cmd) abort
   endif
 endfunction
 
-function! fn#util#bufcount() abort
+function! util#bufcount() abort
   return len(getbufinfo({'buflisted':1}))
 endfunction

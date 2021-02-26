@@ -10,7 +10,7 @@
 " ============================================================================
 
 " Normal: [[
-function! fn#keymap#n#left_square_brackets() abort
+function! keymap#n#left_square_brackets() abort
   let curline = line('.')
   if empty(getline(curline-1))
     normal! {
@@ -23,7 +23,7 @@ function! fn#keymap#n#left_square_brackets() abort
 endfunction
 
 " Normal: ]]
-function! fn#keymap#n#right_square_brackets() abort
+function! keymap#n#right_square_brackets() abort
   let curline = line('.')
   if empty(getline(curline+1))
     normal! }
@@ -36,7 +36,7 @@ function! fn#keymap#n#right_square_brackets() abort
 endfunction
 
 " Normal: <CR>
-function! fn#keymap#n#CR() abort
+function! keymap#n#CR() abort
   let line = trim(getline('.'))
   let disable_if_begin_with = ['#', '/']
   let disable_if_end_with = [',', ';', '{','[', '(', '/', '\', '<', '>']
@@ -58,7 +58,7 @@ endfunction
 
 " Normal: delete buffer without closing window
 " NOTE: do not use `bwipeout` to replace `bdelete`!
-function! fn#keymap#n#safe_bdelete() abort
+function! keymap#n#safe_bdelete() abort
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1
     if bufname() == ''
@@ -108,7 +108,7 @@ function! fn#keymap#n#safe_bdelete() abort
   endif
 endfunction
 
-function! fn#keymap#n#jump() abort
+function! keymap#n#jump() abort
   if &ft == 'man'
     execute 'Man ' . expand('<cword>')
   else
@@ -117,7 +117,7 @@ function! fn#keymap#n#jump() abort
 endfunction
 
 " NextDiffOrChunk:
-function! fn#keymap#n#next_diff_or_chunk() abort
+function! keymap#n#next_diff_or_chunk() abort
   let curlnum = line('.')
   if &diff == 1
     normal! ]c
@@ -129,7 +129,7 @@ function! fn#keymap#n#next_diff_or_chunk() abort
 endfunction
 
 " PrevDiffOrChunk:
-function! fn#keymap#n#prev_diff_or_chunk() abort
+function! keymap#n#prev_diff_or_chunk() abort
   let curlnum = line('.')
   if &diff == 1
     normal! [c
@@ -151,7 +151,7 @@ function! s:put_cursor(saved_lnum) abort
 endfunction
 
 " ScrollWindows:
-function! fn#keymap#n#scroll_win(direction) abort
+function! keymap#n#scroll_win(direction) abort
   if translator#window#float#has_scroll()
     call translator#window#float#scroll(a:direction)
   elseif skylight#float#has_scroll()
@@ -159,7 +159,7 @@ function! fn#keymap#n#scroll_win(direction) abort
   elseif coc#float#has_scroll()
     call coc#float#scroll(a:direction, 3)
   else
-    call fn#window#scroll_prev_win(a:direction, 3)
+    call window#scroll_prev_win(a:direction, 3)
   endif
 endfunction
 
@@ -167,7 +167,7 @@ endfunction
 " NOTE: 
 " - feedkeys() {mode} argument must be `nt` to prevent remapping for `:`
 " - this will cause problems for those no-nore mappings which have `:` 
-function! fn#keymap#n#ex_repeat_previous_command() abort
+function! keymap#n#ex_repeat_previous_command() abort
   let history = split(execute('history cmd -2,-1'), "\n")
   let prevcmd = matchstr(history[2], '^>\=\s\+\d\+\s\+\zs.*\ze$')
   let prevprevcmd = matchstr(history[1], '^>\=\s\+\d\+\s\+\zs.*\ze$')

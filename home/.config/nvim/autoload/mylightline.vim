@@ -19,7 +19,7 @@ let s:special_filetypes = {
 let s:special_filetypes_pattern = '\v^(' . join(keys(s:special_filetypes), '|') . ')$'
 
 " Mode:
-function! fn#lightline#Mode()
+function! mylightline#Mode()
   if &filetype =~ s:special_filetypes_pattern
     return s:special_filetypes[&filetype]
   endif
@@ -27,7 +27,7 @@ function! fn#lightline#Mode()
 endfunction
 
 " GitBranch:
-function! fn#lightline#GitBranch()
+function! mylightline#GitBranch()
   if !&buflisted
     return ''
   endif
@@ -39,7 +39,7 @@ function! fn#lightline#GitBranch()
 endfunction
 
 " FileFormat:
-function! fn#lightline#FileFormat()
+function! mylightline#FileFormat()
   if !&buflisted
     return ''
   endif
@@ -47,7 +47,7 @@ function! fn#lightline#FileFormat()
 endfunction
 
 " FileType:
-function! fn#lightline#FileType()
+function! mylightline#FileType()
   if !&buflisted
     return ''
   endif
@@ -55,7 +55,7 @@ function! fn#lightline#FileType()
 endfunction
 
 " FileEncoding:
-function! fn#lightline#FileEncoding()
+function! mylightline#FileEncoding()
   if !&buflisted
     return ''
   endif
@@ -63,35 +63,35 @@ function! fn#lightline#FileEncoding()
 endfunction
 
 " ReadOnly:
-function! fn#lightline#ReadOnly()
+function! mylightline#ReadOnly()
   if !&buflisted
     return ''
   endif
   return &readonly ? '' : ''
 endfunction
 
-function! fn#lightline#AsyncRunStatus() abort
+function! mylightline#AsyncRunStatus() abort
   if !&buflisted
     return ''
   endif
   return exists('g:asyncrun_status') ? g:asyncrun_status : ''
 endfunction
 
-function! fn#lightline#FloatermExecStatus() abort
+function! mylightline#FloatermExecStatus() abort
   if !&buflisted
     return ''
   endif
   return exists('g:floaterm_exec_status') ? g:floaterm_exec_status : ''
 endfunction
 
-function! fn#lightline#Translator_Status() abort
+function! mylightline#Translator_Status() abort
   if !&buflisted
     return ''
   endif
   return exists('g:translator_status') ? g:translator_status : ''
 endfunction
 
-function! fn#lightline#Codelf_Status() abort
+function! mylightline#Codelf_Status() abort
   if !&buflisted
     return ''
   endif
@@ -99,7 +99,7 @@ function! fn#lightline#Codelf_Status() abort
 endfunction
 
 " ActiveFileinfo:
-function! fn#lightline#ActiveFileinfo()
+function! mylightline#ActiveFileinfo()
   if !&buflisted
     return ''
   endif
@@ -122,7 +122,7 @@ function! fn#lightline#ActiveFileinfo()
 endfunction
 
 " InactiveFileinfo: no pathshorten
-function! fn#lightline#InactiveFileinfo()
+function! mylightline#InactiveFileinfo()
   if &filetype =~ s:special_filetypes_pattern
     return s:special_filetypes[&filetype]
   endif

@@ -5,7 +5,7 @@
 " Description: to implement/discard stuff
 " ============================================================================
 
-function! fn#jump#forward() abort
+function! JumpForward() abort
   let pattern = '^' . expand('<cword>') . '$'
   let taglist = taglist(pattern)
   if empty(taglist) && exists('g:did_coc_loaded')
@@ -13,7 +13,7 @@ function! fn#jump#forward() abort
     let is_from_coc = v:true
   endif
   if empty(taglist)
-    call fn#util#show_msg('Tag not found', 'warning')
+    call util#show_msg('Tag not found', 'warning')
     return
   endif
   if len(taglist) > 2
@@ -33,7 +33,7 @@ function! fn#jump#forward() abort
   call setbufvar(bufnr(tag.filename), 'close_on_ctrl_o', !bufloaded)
 endfunction
 
-function! fn#jump#backward() abort
+function! JumpBackward() abort
   let bufnr = bufnr('%')
   let close_on_ctrl_o = getbufvar(bufnr, 'close_on_ctrl_o', v:false)
   normal! "\<C-o>"

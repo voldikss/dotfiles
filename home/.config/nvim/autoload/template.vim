@@ -107,7 +107,7 @@ function s:TLoadTemplate(template)
   setlocal nomodified
 endfunction
 
-function fn#template#TLoad(ext)
+function template#TLoad(ext)
   if empty(a:ext)
     let tfiles = filter(
           \ globpath(&rtp, 'templates/=template=*', 0, 1),
@@ -117,7 +117,7 @@ function fn#template#TLoad(ext)
     let tfiles = globpath(&rtp, 'templates/=template=.'.a:ext, 0, 1)
   endif
   if empty(tfiles)
-    call fn#util#show_msg('No templates for this filetype', 'error')
+    call util#show_msg('No templates for this filetype', 'error')
   else
     let tfile = sort(tfiles, { a,b -> len(b) - len(a) })[0]
     call s:TLoadTemplate(tfile)

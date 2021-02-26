@@ -10,7 +10,7 @@ if exists('g:loaded_man')
 endif
 let g:loaded_man = 1
 
-command! -bang -bar -range=-1 -complete=customlist,fn#mancomplete#complete -nargs=* Man
+command! -bang -bar -range=-1 -complete=customlist,mancompl#complete -nargs=* Man
       \ if <bang>0 | set ft=man |
       \ else | call man#open_page(<count>, <q-mods>, <f-args>) | endif
 
