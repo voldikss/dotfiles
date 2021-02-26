@@ -242,11 +242,11 @@ augroup END
 
 augroup OpenDirectory
   autocmd!
-  autocmd BufEnter * 
+  autocmd BufEnter *
         \ let g:justavalname = expand('<afile>:p') |
-        \ if isdirectory(g:justavalname) | 
-          \ bdelete! | 
-          \ call timer_start(100, { -> execute('FloatermNew lf ' . g:justavalname) }) | 
+        \ if isdirectory(g:justavalname) |
+          \ bdelete! |
+          \ call timer_start(100, { -> execute('FloatermNew lf ' . g:justavalname) }) |
         \ endif
 augroup END
 
@@ -380,9 +380,9 @@ command! -nargs=+ -complete=command Messages call command#tab_message(<q-args>)
 command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
 command! -nargs=? -complete=customlist,task#complete RunTask
       \ call task#run(<f-args>)
-command! -nargs=? -complete=customlist,command#colors ColorScheme 
+command! -nargs=? -complete=customlist,command#colors ColorScheme
       \ call command#colorscheme(<q-args>)
-command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range FloatermExec 
+command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range FloatermExec
       \ call myfloaterm#exec(visualmode(), <range>, <line1>, <line2>, <q-args>)
 " }}}
 
@@ -430,7 +430,7 @@ nnoremap <silent> # m`:keepjumps normal! #``zz<cr>
 xnoremap <silent> * :<C-u>call keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap <silent> # :<C-u>call keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
-nnoremap <Nop> <Plug>(RepeatRedo)
+nnoremap ! <Plug>(RepeatRedo)
 nnoremap <C-r> :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <C-r> :s///g<Left><Left>
 " TextObject:
