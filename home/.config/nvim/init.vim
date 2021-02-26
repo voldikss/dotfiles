@@ -607,19 +607,6 @@ inoremap <expr>   <BS>             fn#keymap#i#BS()
 " }}}
 
 " Plugin Config: {{{
-" octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight                  = 1
-let g:cpp_member_variable_highlight              = 1
-let g:cpp_class_decl_highlight                   = 1
-let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_concepts_highlight                     = 1
-" pangloss/vim-javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:javascript_plugin_flow  = 1
-" vim-python/python-syntax
-let g:python_highlight_all = 1
-let g:python_highlight_space_errors = 0
 " lervag/vimtex
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode = 0
@@ -637,9 +624,6 @@ let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 " iamcco/markdown-preview.nvim
 let g:mkdp_auto_close = 0
-" numirias/semshi
-let g:semshi#always_update_all_highlights = v:true
-let g:semshi#error_sign = v:false
 " neoclide/coc.nvim
 let g:coc_data_home = '~/.config/coc'
 nnoremap <silent><nowait> <C-b> :call fn#keymap#n#scroll_win(0)<CR>
@@ -992,7 +976,7 @@ let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_rootmarkers   = ['.git']
-hi FloatermBorder guifg=orange
+hi FloatermBorder guifg=cyan
 " voldikss/vim-skylight
 hi SkylightBorder guibg=skyblue guifg=black
 " simnalamburt/vim-mundo
