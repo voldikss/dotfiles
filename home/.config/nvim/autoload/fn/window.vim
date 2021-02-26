@@ -9,7 +9,11 @@ function! fn#window#scroll_prev_win(mode, amount)
   if winnr('$') <= 1
     return
   endif
+  let curwinid = win_getid()
   noautocmd silent! wincmd p
+  if win_getid() == curwinid
+    return
+  endif
   if a:mode == 0
     exec "normal! " . repeat("\<c-y>", a:amount)
   elseif a:mode == 1
