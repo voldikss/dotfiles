@@ -6,10 +6,10 @@ function! QtCppIndent(lnum)
   let line = getline(a:lnum)
   " Patterns used to recognise labels and search for the start
   " of declarations
-  let qt_label_pat1='signals:\|slots:\|public:\|protected:\|private:'
+  let qt_label_pat1 ='signals:\|slots:\|public:\|protected:\|private:'
   let qt_label_pat2 = 'Q_OBJECT'
   let other_label_pat = 'break;'
-  let declpat = '\(;\|{\|}\)\s*\(//.*\)\s*$'
+  let declpat = '\(;\|{\|}\|:\)\s*\(//.*\)*$'
   " If the line is a label, it's a no brainer
   if line =~ qt_label_pat1
     return &shiftwidth - 2
@@ -38,6 +38,7 @@ function! QtCppIndent(lnum)
   call setpos('.', pos)
   " If the prevline contains qt_label_pat1, use `&shiftwidth + 2`
   " If contains `Q_OBJECT`, use the same indent as `Q_OBJECT`
+  echom prevline
   if prevline =~ qt_label_pat1
     return indent(prevlnum) + 2
   elseif prevline =~ qt_label_pat2

@@ -237,7 +237,7 @@ augroup END
 
 augroup ExternalOpen
   autocmd!
-  autocmd BufEnter *.png,*.jpg,*.gif execute 'ExternalOpen'|bw
+  autocmd BufEnter *.png,*.jpg,*.gif,*.pdf execute 'ExternalOpen'|bw
 augroup END
 
 augroup OpenDirectory

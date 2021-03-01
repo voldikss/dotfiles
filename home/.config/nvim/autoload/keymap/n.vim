@@ -39,7 +39,7 @@ endfunction
 function! keymap#n#CR() abort
   let line = trim(getline('.'))
   let disable_if_begin_with = ['#', '/']
-  let disable_if_end_with = [',', ';', '{','[', '(', '/', '\', '<', '>']
+  let disable_if_end_with = [',', ';', ':', '{','[', '(', '/', '\', '<', '>']
 
   if line == '' || index(disable_if_begin_with, line[0]) >= 0 || index(disable_if_end_with, line[-1:]) >= 0
     return "\<CR>"
