@@ -10,7 +10,7 @@ syntax match manExtraPattern1 '\s-\S\+'
 hi def link manExtraPattern1 Keyword
 
 " [xxx]
-syntax match manExtraPattern2 '\[\zs.*\ze\]'
+syntax match manExtraPattern2 '\[.\{-}\]'
 hi def link manExtraPattern2 Define
 
 " XX_XXX  NOTE: this will break syntax for `#include<xxx.h>`

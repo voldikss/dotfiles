@@ -872,7 +872,7 @@ nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
 nnoremap <silent> <Leader>ff :Leaderf file<CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
-nnoremap <silent> <Leader>fl :Leaderf line<CR>
+nnoremap <silent> <Leader>fl :Leaderf line --all<CR>
 nnoremap <silent> <Leader>fm :Leaderf mru<CR>
 nnoremap <silent> <Leader>ft :Leaderf bufTag<CR>
 nnoremap <silent> <Leader>fu :Leaderf function<CR>
@@ -1010,10 +1010,10 @@ nmap <silent> K <Plug>MoveLineUp
 " andrewradev/sideways.vim
 nnoremap <silent> <C-left>  :SidewaysLeft<CR>
 nnoremap <silent> <C-right> :SidewaysRight<CR>
-omap as <Plug>SidewaysArgumentTextobjA
-xmap as <Plug>SidewaysArgumentTextobjA
-omap is <Plug>SidewaysArgumentTextobjI
-xmap is <Plug>SidewaysArgumentTextobjI
+omap <silent> as <Plug>SidewaysArgumentTextobjA
+xmap <silent> as <Plug>SidewaysArgumentTextobjA
+omap <silent> is <Plug>SidewaysArgumentTextobjI
+xmap <silent> is <Plug>SidewaysArgumentTextobjI
 " foosoft/vim-argwrap
 nmap <silent> <leader>aw <Plug>(ArgWrapToggle)
 " junegunn/vim-easy-align
