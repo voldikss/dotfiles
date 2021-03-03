@@ -51,7 +51,7 @@ else
   let s:bright_green = ['#98BC37', '10']
   let s:xgray1       = ['#262626', '235']
   let s:xgray2       = ['#303030', '236']
-  let s:xgray2       = ['#3A3A3A', '237']
+  let s:xgray3       = ['#3A3A3A', '237']
   let s:xgray4       = ['#444444', '238']
   let s:xgray5       = ['#4E4E4E', '239']
 endif

@@ -3,7 +3,26 @@
 " This is a [lightline.vim](https://github.com/itchyny/lightline.vim) colorscheme for use with
 " the [onedark.vim](https://github.com/joshdick/onedark.vim) colorscheme.
 
-let s:colors = onedark#GetColors()
+let s:colors = {
+      \ "red": { "gui": "#E06C75", "cterm": "204", "cterm16": "1" },
+      \ "dark_red": { "gui": "#BE5046", "cterm": "196", "cterm16": "9" },
+      \ "green": { "gui": "#98C379", "cterm": "114", "cterm16": "2" },
+      \ "yellow": { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" },
+      \ "dark_yellow": { "gui": "#D19A66", "cterm": "173", "cterm16": "11" },
+      \ "blue": { "gui": "#61AFEF", "cterm": "39", "cterm16": "4" },
+      \ "purple": { "gui": "#C678DD", "cterm": "170", "cterm16": "5" },
+      \ "cyan": { "gui": "#56B6C2", "cterm": "38", "cterm16": "6" },
+      \ "white": { "gui": "#ABB2BF", "cterm": "145", "cterm16": "7" },
+      \ "black": { "gui": "#282C34", "cterm": "235", "cterm16": "0" },
+      \ "visual_black": { "gui": "NONE", "cterm": "NONE", "cterm16": "0" },
+      \ "comment_grey": { "gui": "#5C6370", "cterm": "59", "cterm16": "15" },
+      \ "gutter_fg_grey": { "gui": "#4B5263", "cterm": "238", "cterm16": "15" },
+      \ "cursor_grey": { "gui": "#2C323C", "cterm": "236", "cterm16": "8" },
+      \ "visual_grey": { "gui": "#3E4452", "cterm": "237", "cterm16": "15" },
+      \ "menu_grey": { "gui": "#3E4452", "cterm": "237", "cterm16": "8" },
+      \ "special_grey": { "gui": "#3B4048", "cterm": "238", "cterm16": "15" },
+      \ "vertsplit": { "gui": "#181A1F", "cterm": "59", "cterm16": "15" },
+      \ }
 
 if get(g:, 'onedark_termcolors', 256) == 16
   let s:term_red = s:colors.red.cterm16
