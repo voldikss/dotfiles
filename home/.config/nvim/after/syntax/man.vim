@@ -18,5 +18,5 @@ hi def link manExtraPattern2 Define
 " hi def link manExtraPattern3 Identifier
 
 " XXXX() function
-syntax match manExtraPattern4 '\w[a-zA-Z0-9]\+()'
+syntax match manExtraPattern4 '\w[a-zA-Z0-9_]\+()'
 hi def link manExtraPattern4 Function

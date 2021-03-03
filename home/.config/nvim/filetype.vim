@@ -36,6 +36,8 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead *.inc             setfiletype cpp
 
+  autocmd BufNewFile,BufRead *.h               setfiletype c   " do not set to cpp
+
   autocmd BufNewFile,BufRead .tasks,tasks.ini  setfiletype tasks
 
   autocmd BufNewFile,BufRead .ccls             setfiletype ccls

@@ -129,7 +129,7 @@ Plug 'tpope/vim-git'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
 " Plug 'puremourning/vimspector'
-Plug 'phaazon/hop.nvim', {'on': 'HopWord', 'commit': '172ae91'}
+Plug 'phaazon/hop.nvim', {'on': ['HopWord', 'HopWordVisual']}
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -161,7 +161,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme srcery
+colorscheme doom-one
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -307,7 +307,7 @@ endfunc
 call s:SetCommandAbbrs('ar', 'AsyncRun')
 call s:SetCommandAbbrs('as', 'AsyncStop')
 call s:SetCommandAbbrs('at', 'AsyncTask')
-call s:SetCommandAbbrs('b', 'BClose')
+call s:SetCommandAbbrs('b', 'BClean')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
 call s:SetCommandAbbrs('cf', 'CocFix')
@@ -363,7 +363,7 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
       \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
-command! -bang    BClose call buffer#close_buffer(<bang>0)
+command! -bang    BClean call buffer#clean_buffer(<bang>0)
 command! -bang    RunTaskOnSaveChange call task#run_on_save_change(<bang>0)
 command! -nargs=* Template call template#TLoad(<q-args>)
 command! -nargs=* Zeal call command#zeal(<q-args>)
@@ -431,8 +431,8 @@ xnoremap <silent> * :<C-u>call keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR>
 xnoremap <silent> # :<C-u>call keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
 " Substitute:
 nnoremap ! <Plug>(RepeatRedo)
-nnoremap <C-r> :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
-vnoremap <C-r> :s///g<Left><Left>
+nnoremap <C-r> :%s/\<<C-r><C-w>\>/<C-r><C-w>/g \| normal! `` <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+vnoremap <C-r> :s///g \| normal! `` <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 " TextObject:
 " document
 vnoremap <silent> id GoggV
@@ -494,8 +494,8 @@ nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":
 nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent> <Leader>d :<C-u>call keymap#n#safe_bdelete()<CR>
 " TerminalMode: move
-tnoremap <silent> <C-h> <Left>
-tnoremap <silent> <C-l> <Right>
+" tnoremap <silent> <C-h> <Left>
+" tnoremap <silent> <C-l> <Right>
 " QuickMessage:
 nnoremap <silent> <Leader>m :messages<CR>
 nnoremap <silent> <Leader>t :Message messages<CR>
@@ -743,7 +743,7 @@ let g:indentLine_fileTypeExclude = [
 let g:indent_blankline_char_highlight = 'Delimiter'
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
-noremap <silent> <Space><Space> <Esc>:Startify<CR>
+nnoremap <silent> <Space><Space> <Esc>:Startify<CR>
 function! s:stdpath_config() abort
   if has('nvim')
     return stdpath('config')
@@ -769,7 +769,7 @@ hi CursorWord0 guibg=#404D3D
 hi link CursorWord1 CursorLine
 " itchyny/lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'srcery',
+  \ 'colorscheme': 'powerline',
   \ 'active': {
     \ 'left': [
       \ ['mode'],
@@ -1022,7 +1022,8 @@ nmap <silent> ga <Plug>(EasyAlign)
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
 " hop.nvim
-noremap <silent> ' :<C-u>HopWord<CR>
+nnoremap <silent> ' <Cmd>HopWord<CR>
+vnoremap <silent> ' <Cmd>HopWordVisual<CR>
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
 map <silent> F <Plug>(snipe-F)
