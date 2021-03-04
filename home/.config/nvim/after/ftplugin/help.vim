@@ -9,8 +9,6 @@ nnoremap <silent> <buffer> <BS> <C-T>
 autocmd BufWinEnter <buffer> wincmd H
 " autocmd BufWinEnter <buffer> setlocal number
 
-setlocal number
-setlocal relativenumber
 setlocal nospell
 setlocal foldmethod=indent
 if !&buflisted

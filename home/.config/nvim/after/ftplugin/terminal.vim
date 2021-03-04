@@ -24,3 +24,6 @@ nnoremap <silent><buffer> q :q<CR>
 " there would be only one autocmd for one terminal buffer (When opening a
 " terminal, the previous terminal's autocmd would be deleted by `autocmd!`).
 autocmd BufEnter <buffer> startinsert
+
+" @voldikss: quit without type Enter to confirm
+autocmd TermClose <buffer> call feedkeys("\<CR>")
