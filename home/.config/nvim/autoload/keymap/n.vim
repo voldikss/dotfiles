@@ -108,12 +108,35 @@ function! keymap#n#safe_bdelete() abort
   endif
 endfunction
 
-function! keymap#n#jump() abort
+" Go to definition/declaration
+function! keymap#n#goto_decnition() abort
+  let pat = expand('<cword>')
+
   if &ft == 'man'
-    execute 'Man ' . expand('<cword>')
-  else
-    call feedkeys("\<C-]>")
+    execute 'Man ' . pat
+    return
   endif
+
+  let tags = []
+  if exists('g:did_coc_loaded')
+    let tags = coc#rpc#request('getTagList', [])
+  else
+    let tags = taglist('^' . pat . '$')
+  endif 
+  if !empty(tags)
+    let tag = tags[0]
+    if tag.filename != expand('%:p')
+      execute 'edit ' . tag.filename
+    endif
+    execute tag.cmd
+    return
+  endif
+
+  try
+    normal! gd
+  catch /E349:/
+    call util#show_msg('No identifier under cursor', 'error')
+  endtry
 endfunction
 
 " NextDiffOrChunk:
