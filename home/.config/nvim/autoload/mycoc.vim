@@ -7,10 +7,11 @@
 " ShowDocument:
 function! mycoc#showdoc() abort
   if (index(['vim','help'], &filetype) >= 0)
+    let cword = expand('<cword>')
     try
-      execute 'h '.expand('<cword>')
+      execute 'h ' . cword
     catch
-      echom 'No help for ' . expand('<cword>')
+      call util#show_msg('No help for ' . cword, 'error')
     endtry
   else
     call CocAction('doHover')

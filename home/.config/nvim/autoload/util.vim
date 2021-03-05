@@ -25,7 +25,7 @@ function! util#external_open(obj) abort
   exec 'AsyncRun -silent' . ' ' . cmd
 endfunction
 
-" ShowMessage:
+" EchoMessage:
 function! util#show_msg(content, ...) abort
   if a:0 == 0
     let msgtype = 'more'
@@ -46,6 +46,7 @@ function! util#show_msg(content, ...) abort
   endif
   echom message
   echohl None
+  call timer_start(1000, {-> execute('echo', '')})
 endfunction
 
 " GetVisualSelect:
