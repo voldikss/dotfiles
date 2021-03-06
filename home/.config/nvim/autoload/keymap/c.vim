@@ -116,8 +116,39 @@ function! keymap#c#CTRL_K()
   if ('' != rem)
     let @c = rem
   endif
-  let l:ret = strpart(cmd, 0, getcmdpos() - 1)
-  return l:ret
+  let ret = strpart(cmd, 0, getcmdpos() - 1)
+  return ret
+endfunction
+
+" Command: <C-w> delete from cursor to the end
+function! keymap#c#CTRL_W()
+  let cmd = getcmdline()
+  let pos = getcmdpos()
+
+  " special case
+  if cmd =~ 'Man '
+    return 'vertical Man '
+  endif
+
+  " general cases
+  let delimiters = ['/', '\', ':', '=']
+  let left_of_cursor = strpart(cmd, 0, pos - 1)
+  let right_of_cursor = strpart(cmd, pos - 1)
+  let removed = matchstr(left_of_cursor, '\v\S+\s*$')
+  for idx in range(len(left_of_cursor)-1, 0, -1)
+    if index(delimiters, left_of_cursor[idx-1]) > -1
+      let removed = strpart(left_of_cursor, idx)
+      break
+    endif
+    if left_of_cursor[idx-1] == ' ' && left_of_cursor[idx] != ' '
+      let removed = strpart(left_of_cursor, idx)
+      break
+    endif
+  endfor
+  let pos = pos - strlen(removed)
+  let ret = strpart(left_of_cursor, 0, strlen(left_of_cursor) - strlen(removed)) . right_of_cursor
+  call setcmdpos(pos)
+  return ret
 endfunction
 
 " Command: <C-y> yank cmdline content

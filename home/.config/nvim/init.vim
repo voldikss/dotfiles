@@ -161,7 +161,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme doom-one
+colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -508,9 +508,10 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-cnoremap <C-f> <C-\>ekeymap#c#CTRL_F()<CR>
 cnoremap <C-b> <C-\>ekeymap#c#CTRL_B()<CR>
-cnoremap <C-k> <C-\>ekeymap#c#CTRL_K<CR>
+cnoremap <C-f> <C-\>ekeymap#c#CTRL_F()<CR>
+cnoremap <C-k> <C-\>ekeymap#c#CTRL_K()<CR>
+cnoremap <C-w> <C-\>ekeymap#c#CTRL_W()<CR>
 cnoremap <C-y> <Cmd>call keymap#c#CTRL_Y()<CR>
 cnoremap <expr> '    keymap#c#pairs("'", "''")
 cnoremap <expr> "    keymap#c#pairs('"', '""')
