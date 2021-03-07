@@ -6,47 +6,47 @@
 
 let s:exclude_filetypes = ['floaterm', 'coc-explorer', 'vista', 'qf']
 
-" CloseNoDisplayedBuffers: Close buffers which are not opened in window
+" CleanNoDisplayedBuffers: Clean buffers which are not opened in window
 function! s:clean_not_displayed_buf() abort
-  let visible = {}
+  let visible = []
   for t in range(1, tabpagenr('$'))
-    for b in tabpagebuflist(t)
-      let visible[b] = 1
+    for bufnr in tabpagebuflist(t)
+      call add(visible, bufnr)
     endfor
   endfor
 
   let tally = 0
-  for b in range(1, bufnr('$'))
-    if index(s:exclude_filetypes, getbufvar(b, '&filetype')) > -1
+  for bufnr in range(1, bufnr('$'))
+    if index(s:exclude_filetypes, getbufvar(bufnr, '&filetype')) > -1
       continue
     endif
-    if bufexists(b) && !has_key(visible, b)
+    if index(visible, bufnr) == -1
       try
-        execute 'bwipeout' b
+        execute 'bwipeout!' bufnr
         let tally += 1
       catch
       endtry
     endif
   endfor
-  echom 'Closed ' . tally . ' Files'
+  call util#show_msg('cleaned ' . tally . ' Files')
 endfunction
 
-" CloseNoCurrentBuffers: Close other buffers
+" CleanNoCurrentBuffers: Clean other buffers
 function! s:clean_not_current_buf() abort
   let tally = 0
-  for b in range(1, bufnr('$'))
-    if index(s:exclude_filetypes, getbufvar(b, '&filetype')) > -1
+  for bufnr in range(1, bufnr('$'))
+    if index(s:exclude_filetypes, getbufvar(bufnr, '&filetype')) > -1
       continue
     endif
-    if bufexists(b) && b != bufnr('%')
+    if bufnr != bufnr('%')
       try
-        execute 'bwipeout' b
+        execute 'bwipeout!' bufnr
         let tally += 1
       catch
       endtry
     endif
   endfor
-  echom 'Closed ' . tally . ' Files'
+  call util#show_msg('cleaned ' . tally . ' Files')
 endfunction
 
 function! buffer#clean_buffer(bang) abort
