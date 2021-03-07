@@ -181,11 +181,10 @@ augroup FileTypeAutocmds
   autocmd FileType * set formatoptions-=cro
   autocmd FileType * syntax sync minlines=50
   autocmd FileType *
-        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(todo\|fixme\|xxx\|bug\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze:') |
-        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze:')
+        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze') |
+        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze') |
+        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze') |
+        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze')
 augroup END
 
 augroup AutoSaveBuffer
@@ -338,8 +337,7 @@ call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('Gpush', 'AsyncRun -silent git push')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('l', 'Leaderf')
-call s:SetCommandAbbrs('m', 'Messages')
-call s:SetCommandAbbrs('man', 'vertical Man')
+call s:SetCommandAbbrs('m', 'vertical Man')
 call s:SetCommandAbbrs('pc', 'PlugClean')
 call s:SetCommandAbbrs('pi', 'PlugInstall')
 call s:SetCommandAbbrs('pu', 'PlugUpdate')
@@ -363,25 +361,31 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
       \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
-command! -bang    BClean call buffer#clean_buffer(<bang>0)
-command! -bang    RunTaskOnSaveChange call task#run_on_save_change(<bang>0)
 command! -nargs=* Template call template#TLoad(<q-args>)
 command! -nargs=* Zeal call command#zeal(<q-args>)
+
+command! -nargs=? Line call command#insert_line('light', <f-args>)
 command! -nargs=? Bline call command#insert_line('bold', <f-args>)
 command! -nargs=? Cline call command#insert_line('comment', <f-args>)
-command! -nargs=? Line call command#insert_line('light', <f-args>)
+
 command! -nargs=+ Grep  call command#grep(<q-args>)
+command! -bang    BClean call buffer#clean_buffer(<bang>0)
 command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
 command! -nargs=? -complete=file  ExternalOpen  call util#external_open(<q-args>)
+
 command! -nargs=+ -complete=command Windo call command#windo(<q-args>)
 command! -nargs=+ -complete=command Bufdo call command#bufdo(<q-args>)
 command! -nargs=+ -complete=command Tabdo call command#tabdo(<q-args>)
+
 command! -nargs=+ -complete=command Messages call command#tab_message(<q-args>)
 command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
-command! -nargs=? -complete=customlist,task#complete RunTask
-      \ call task#run(<f-args>)
+
+command! -bang    RunTaskOnSaveChange call task#run_on_save_change(<bang>0)
+command! -nargs=? -complete=customlist,task#complete RunTask call task#run(<f-args>)
+
 command! -nargs=? -complete=customlist,command#colors ColorScheme
       \ call command#colorscheme(<q-args>)
+
 command! -nargs=? -complete=customlist,floaterm#cmdline#complete -range FloatermExec
       \ call myfloaterm#exec(visualmode(), <range>, <line1>, <line2>, <q-args>)
 " }}}
@@ -421,7 +425,7 @@ nnoremap <silent> gj       :call keymap#n#next_diff_or_chunk()<CR>
 nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_decnition()<CR>
 nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call mycoc#showdoc()<CR>
-nnoremap <silent> <C-w><C-j> <C-W>v<C-]>zz
+nmap <silent> <C-w><C-j> <C-W>v<C-j>zz
 " Search:
 nnoremap <expr>   n 'Nn'[v:searchforward].'zzzv'
 nnoremap <expr>   N 'nN'[v:searchforward].'zzzv'
@@ -717,7 +721,6 @@ let g:coc_global_extensions = [
       \ 'coc-tasks',
       \ 'coc-todolist',
       \ 'coc-translator',
-      \ 'coc-tslint-plugin',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
@@ -1143,3 +1146,4 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 endif
+set rtp+=/mnt/Data/repo/my-coc-extensions/coc-autoxjs

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Android Studio
+Comment=Android Studio
+Exec=/home/dyzh/Apps/android-studio/bin/studio.sh %f
+Icon=/home/dyzh/Apps/android-studio/bin/studio.svg
+Terminal=false
+StartupNotify=true
+Categories=Development;IDE;

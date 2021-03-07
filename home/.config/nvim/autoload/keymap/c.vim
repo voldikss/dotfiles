@@ -131,7 +131,7 @@ function! keymap#c#CTRL_W()
   endif
 
   " general cases
-  let delimiters = ['/', '\', ':', '=']
+  let delimiters = ['/', '\', ':', '=', '.', '-', '(']
   let left_of_cursor = strpart(cmd, 0, pos - 1)
   let right_of_cursor = strpart(cmd, pos - 1)
   let removed = matchstr(left_of_cursor, '\v\S+\s*$')

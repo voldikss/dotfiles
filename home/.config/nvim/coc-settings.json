@@ -225,7 +225,6 @@
   "tasks.filetypes": ["tasks"],
   "todolist.monitor": true,
   "translator.enableHover": false,
-  "tslint.autoFixOnSave": true,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,

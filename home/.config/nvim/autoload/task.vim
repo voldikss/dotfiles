@@ -9,20 +9,12 @@ function! task#run(...) abort
     sleep 500m  " wait job to stop
   endif
   if a:0 > 0
-    let b:quickrun_cmd = a:1
+    let b:task_cmd = a:1
   endif
-  if exists('b:quickrun_cmd')
-    " echom 'b:quickrun_cmd: ' . b:quickrun_cmd
-    execute b:quickrun_cmd
+  if exists('b:task_cmd')
+    " echom 'b:task_cmd: ' . b:task_cmd
+    execute b:task_cmd
     return
-  elseif expand('%') == 'init.vim'
-    source %
-  elseif &filetype == 'tex'
-    if b:vimtex.compiler.is_running()
-      VimtexView
-    else
-      VimtexCompile
-    endif
   else
     AsyncTask start
   endif

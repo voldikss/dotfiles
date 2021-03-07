@@ -26,4 +26,4 @@ nnoremap <silent><buffer> q :q<CR>
 autocmd BufEnter <buffer> startinsert
 
 " @voldikss: quit without type Enter to confirm
-autocmd TermClose <buffer> call feedkeys("\<CR>")
+" autocmd TermClose <buffer> call feedkeys("\<CR>")
