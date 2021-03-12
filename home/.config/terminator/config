@@ -9,6 +9,7 @@
   go_down = None
   go_left = None
   go_right = None
+  close_term = ""
   switch_to_tab_1 = <Alt>1
   switch_to_tab_2 = <Alt>2
   switch_to_tab_3 = <Alt>3

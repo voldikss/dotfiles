@@ -651,7 +651,7 @@ func s:InstallCommands()
   command Winbar call s:InstallWinbar()
 
   " TODO: can the K mapping be restored?
-  nnoremap K :Evaluate<CR>
+  " nnoremap K :Evaluate<CR>
 
   let &cpo = save_cpo
 endfunc

@@ -127,9 +127,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'brglng/vim-im-select', {'on': 'ImSelectEnable'}
+Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
-Plug 'phaazon/hop.nvim', {'on': ['HopWord', 'HopWordVisual']}
+Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -659,6 +659,8 @@ nmap     <silent> <Leader>ci <Plug>(coc-implementation)
 nmap     <silent> <Leader>rn <Plug>(coc-rename)
 nmap     <silent> <Leader>rf <Plug>(coc-references-used)
 nnoremap <silent> <Leader>rs :<C-u>CocRestart<CR>
+xmap ic <Plug>(coc-classobj-a)
+omap ic <Plug>(coc-classobj-a)
 xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
@@ -1027,7 +1029,7 @@ nmap <silent> ga <Plug>(EasyAlign)
 let g:vimspector_enable_mappings = 'HUMAN'
 " hop.nvim
 nnoremap <silent> ' <Cmd>HopWord<CR>
-vnoremap <silent> ' <Cmd>HopWordVisual<CR>
+vnoremap <silent> ' <Cmd>HopWord<CR>
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
 map <silent> F <Plug>(snipe-F)
