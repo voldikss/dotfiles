@@ -54,7 +54,6 @@ ZSH_THEME="gnzh"
 source $ZSH/oh-my-zsh.sh
 # source $HOME/.af-magic.zsh-theme    # theme
 source $HOME/.aliases
-source $HOME/.functions
 
 
 #=============================================================================

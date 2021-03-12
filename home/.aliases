@@ -103,10 +103,10 @@ alias screenrecord='ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DI
 alias re=reset
 
 # filetype
-alias -s gz='tar -xzvf'
-alias -s tgz='tar -xzvf'
-alias -s zip='unzip'
-alias -s bz2='tar -xjvf'
+alias gz='tar -xzvf'
+alias tgz='tar -xzvf'
+alias zip='unzip'
+alias bz2='tar -xjvf'
 
 # floaterm
 alias f=floaterm
@@ -121,3 +121,17 @@ alias c=clear
 alias path='echo -e ${PATH//:/\\n}'
 alias space='df -P -kHl'
 
+# scripts
+DOTFILES=/home/dyzh/dotfiles
+for f in $(ls $DOTFILES/scripts)
+do 
+    IN=$f
+    if [[ $(readlink /proc/$$/exe) == *zsh* ]]
+    then
+        IFS='.' read -rA ADDR <<< "$IN"
+        alias ${ADDR[1]}=$DOTFILES/scripts/$f
+    else
+        IFS='.' read -ra ADDR <<< "$IN"
+        alias ${ADDR[0]}=$DOTFILES/scripts/$f
+    fi
+done
