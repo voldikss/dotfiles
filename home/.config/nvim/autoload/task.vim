@@ -15,7 +15,11 @@ function! task#run(...) abort
     " echom 'b:task_cmd: ' . b:task_cmd
     execute b:task_cmd
     return
+  elseif expand('%') == 'init.vim'
+    source %
   else
+    let b:winview = winsaveview()
+    autocmd BufEnter <buffer> ++once call winrestview(b:winview) | unlet b:winview
     AsyncTask start
   endif
 endfunction
