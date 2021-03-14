@@ -26,7 +26,7 @@ function! myfloaterm#exec(visualmode, range, line1, line2, fargs) abort
         \ }, config)
 endfunction
 
-function! s:watch_callback(job, data, event) abort
+function! s:watch_callback(job, data, event, ...) abort
   if a:event == 'stdout'
     if match(a:data, 'error') > -1
       let g:floaterm_exec_status = 'floaterm:error'

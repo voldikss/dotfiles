@@ -68,7 +68,7 @@
     "C": "copyFile",
     "x": "cutFile",
     "p": "pasteFile",
-    "P": "preview",
+    "P": "preview:content",
     "D": "delete",
     "a": "addFile",
     "A": "addDirectory",

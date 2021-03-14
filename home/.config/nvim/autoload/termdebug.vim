@@ -688,7 +688,7 @@ func s:DeleteCommands()
   delcommand Source
   delcommand Winbar
 
-  nunmap K
+  " nunmap K
 
   exe 'sign unplace ' . s:pc_id
   for [id, entries] in items(s:breakpoints)

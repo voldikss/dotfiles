@@ -306,7 +306,7 @@ endfunc
 call s:SetCommandAbbrs('ar', 'AsyncRun')
 call s:SetCommandAbbrs('as', 'AsyncStop')
 call s:SetCommandAbbrs('at', 'AsyncTask')
-call s:SetCommandAbbrs('b', 'BClean')
+call s:SetCommandAbbrs('bc', 'BClean')
 call s:SetCommandAbbrs('ca', 'CocAction')
 call s:SetCommandAbbrs('cc', 'CocConfig')
 call s:SetCommandAbbrs('cf', 'CocFix')
@@ -533,7 +533,7 @@ cnoremap <expr> \    keymap#c#BackSlash()
 " TerminalMode:
 tnoremap <expr> '    keymap#t#pairs("'", "''")
 tnoremap <expr> "    keymap#t#pairs('"', '""')
-tnoremap <expr> <    keymap#t#pairs('<', '<>')
+" tnoremap <expr> <    keymap#t#pairs('<', '<>')
 tnoremap <expr> (    keymap#t#pairs('(', '()')
 tnoremap <expr> [    keymap#t#pairs('[', '[]')
 tnoremap <expr> {    keymap#t#pairs('{', '{}')
@@ -954,7 +954,8 @@ let g:Lf_WorkingDirectoryMode = 'Ac'
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 let g:browser_search_engines = {
-  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s'
+  \ 'qt': 'https://doc.qt.io/qt-5/search-results.html?q=%s',
+  \ 'cppreference':'https://en.cppreference.com/mwiki/index.php?title=Special:Search&search=%s'
 \ }
 " voldikss/vim-translator
 nmap <silent>    ,t        <Plug>Translate
@@ -1072,7 +1073,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
-        disable = { 'rust', 'markdown', 'python', 'json' },
+        disable = { 'rust', 'markdown', 'json' },
     },
     indent = {
         enable = false
