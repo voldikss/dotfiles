@@ -1073,7 +1073,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
-        disable = { 'rust', 'markdown', 'json' },
+        disable = { 'rust', 'markdown', 'json', 'typescript' },
     },
     indent = {
         enable = false

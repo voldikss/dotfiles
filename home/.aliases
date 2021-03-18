@@ -122,16 +122,24 @@ alias path='echo -e ${PATH//:/\\n}'
 alias space='df -P -kHl'
 
 # scripts
-DOTFILES=/home/dyzh/dotfiles
-for f in $(ls $DOTFILES/scripts)
-do 
-    IN=$f
-    if [[ $(readlink /proc/$$/exe) == *zsh* ]]
-    then
-        IFS='.' read -rA ADDR <<< "$IN"
-        alias ${ADDR[1]}=$DOTFILES/scripts/$f
-    else
-        IFS='.' read -ra ADDR <<< "$IN"
-        alias ${ADDR[0]}=$DOTFILES/scripts/$f
-    fi
-done
+DOTFILES=$HOME/dotfiles
+function alias_dotfiles() {
+    for f in $@
+    do
+        if [[ -d $f ]]
+        then
+            alias_dotfiles $f
+        else
+            IN=$f
+            if [[ $(readlink /proc/$$/exe) == *zsh* ]]
+            then
+                IFS='.' read -rA ADDR <<< "$IN"
+                alias ${ADDR[1]}=$DOTFILES/scripts/$f
+            else
+                IFS='.' read -ra ADDR <<< "$IN"
+                alias ${ADDR[0]}=$DOTFILES/scripts/$f
+            fi
+        fi
+    done
+}
+alias_dotfiles $(ls $DOTFILES/scripts)

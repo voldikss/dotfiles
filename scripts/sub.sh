@@ -8,7 +8,7 @@
 #
 # Usage: sub old new
 function sub() {
-  usage="usage: sub old new"
+  usage="usage: sub <old> <new>"
 
   if [ -z "$1" ] || [ -z "$2" ]; then
     echo "$usage"
