@@ -126,7 +126,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
 Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
@@ -1040,12 +1040,28 @@ let g:im_select_enable_focus_events = 0
 let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 0
 " glacambre/firenvim
+if exists('g:started_by_firenvim')
+  set guifont=MonacoB2\ Nerd\ Font\ Mono:h15
+  set lines=28 columns=110 laststatus=0
+  set laststatus=0
+endif
 let g:firenvim_config = {
   \ 'globalSettings': {
     \ '<C-w>': 'default',
     \ '<C-n>': 'default'
+  \ },
+  \ 'localSettings': {
+    \ '.*': {
+      \ 'cmdline': 'neovim',
+      \ 'content': 'text',
+      \ 'priority': 0,
+      \ 'selector': 'textarea',
+      \ 'takeover': 'always'
+    \ }
   \ }
 \ }
+let fc = g:firenvim_config['localSettings']
+let fc['https?://zhihu.com/.*'] = { 'takeover': 'never', 'priority': 1 }
 " sakhnik/nvim-gdb
 let g:nvimgdb_disable_start_keymaps = 1
 let g:nvimgdb_config = {
