@@ -126,7 +126,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
 Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
@@ -1042,7 +1042,7 @@ let g:vista_close_on_jump = 0
 " glacambre/firenvim
 if exists('g:started_by_firenvim')
   set guifont=MonacoB2\ Nerd\ Font\ Mono:h15
-  set lines=28 columns=110 laststatus=0
+  set lines=18 columns=80 laststatus=0
   set laststatus=0
 endif
 let g:firenvim_config = {

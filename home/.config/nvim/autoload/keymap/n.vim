@@ -42,6 +42,9 @@ function! keymap#n#CR() abort
   let disable_if_end_with = [',', ';', ':', '{','[', '(', '/', '\', '<', '>']
 
   if line == '' || index(disable_if_begin_with, line[0]) >= 0 || index(disable_if_end_with, line[-1:]) >= 0
+    if &ft == 'cpp' && line !~ '#include' && line[-1:] == '>'
+      return "A;"
+    endif
     return "\<CR>"
   endif
 
@@ -59,6 +62,9 @@ endfunction
 " Normal: delete buffer without closing window
 " NOTE: do not use `bwipeout` to replace `bdelete`!
 function! keymap#n#safe_bdelete() abort
+  if &buftype == 'nofile'
+    return
+  endif
   " is the last buffer
   if len(getbufinfo({'buflisted':1})) == 1
     if bufname() == ''
@@ -122,7 +128,7 @@ function! keymap#n#goto_decnition() abort
     let tags = coc#rpc#request('getTagList', [])
   else
     let tags = taglist('^' . pat . '$')
-  endif 
+  endif
   if !empty(tags)
     let tag = tags[0]
     if tag.filename != expand('%:p')
@@ -187,9 +193,9 @@ function! keymap#n#scroll_win(direction) abort
 endfunction
 
 " EmptyExRepeatPreviousCommand:
-" NOTE: 
+" NOTE:
 " - feedkeys() {mode} argument must be `nt` to prevent remapping for `:`
-" - this will cause problems for those no-nore mappings which have `:` 
+" - this will cause problems for those no-nore mappings which have `:`
 function! keymap#n#ex_repeat_previous_command() abort
   let history = split(execute('history cmd -2,-1'), "\n")
   let prevcmd = matchstr(history[2], '^>\=\s\+\d\+\s\+\zs.*\ze$')
