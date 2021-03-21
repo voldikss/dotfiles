@@ -40,6 +40,9 @@ function! QtCppIndent()
   if prevline =~ '^\s\+break;'
     return indent(prevlnum) - &shiftwidth
   endif
+  if prevline =~ '^\s*template.*>$'
+    return indent(prevlnum)
+  endif
 
   " Save cursor position and move to the line we're indenting
   let pos = getpos('.')
