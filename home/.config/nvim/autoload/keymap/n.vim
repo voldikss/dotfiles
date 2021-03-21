@@ -118,11 +118,13 @@ endfunction
 function! keymap#n#goto_decnition() abort
   let pat = expand('<cword>')
 
+  " man
   if &ft == 'man'
     execute 'Man ' . pat
     return
   endif
 
+  " lsp and tags
   let tags = []
   if exists('g:did_coc_loaded')
     let tags = coc#rpc#request('getTagList', [])
@@ -138,6 +140,15 @@ function! keymap#n#goto_decnition() abort
     return
   endif
 
+  " gf command
+  let maybe_file = expand('<cfile>')
+  let filepath = findfile(maybe_file, '.,/usr/local/include,/usr/include,**3')
+  if !empty(filepath)
+    execute 'edit ' . filepath
+    return
+  endif
+
+  " gd command
   try
     normal! gd
   catch /E349:/

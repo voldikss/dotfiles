@@ -1,3 +1,4 @@
+// vim:ft=jsonc
 {
   "browser.priority": 0,
   "cmake.formatter": "cmake-format",
@@ -235,5 +236,4 @@
   "yank.enableCompletion": false,
   "yank.highlight.enable": false,
   "yank.priority": 4
-  // vim:ft=jsonc
 }
