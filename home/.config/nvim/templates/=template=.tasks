@@ -1,8 +1,3 @@
-# vim:ft=tasks
-
-# NOTE: if a macro is expected to contain spaces after expanding, it must be
-# wrapped by double quotes, e.g. "$(VIM_FILEPATH)" instead of $(VIM_FILEPATH)
-
 [start]
 command=:AsyncTask file-build-and-run
 command=:AsyncTask cmake-build-and-run

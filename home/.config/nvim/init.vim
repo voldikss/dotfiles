@@ -1165,4 +1165,3 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 endif
-set rtp+=/mnt/Data/repo/my-coc-extensions/coc-autoxjs
