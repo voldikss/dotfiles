@@ -5,7 +5,6 @@
   "cmake.lsp.enable": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "coc.preferences.formatOnSaveFiletypes": [],
-  "coc.preferences.hoverTarget": "float",
   // "coc.preferences.jumpCommand": "wincmd o | vsplit",
   "coc.preferences.messageLevel": "more",
   "coc.preferences.promptInput": false,

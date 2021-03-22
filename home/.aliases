@@ -143,3 +143,7 @@ function alias_dotfiles() {
     done
 }
 alias_dotfiles $(ls $DOTFILES/scripts)
+
+# cpp_dump_memory_layout
+# usage: cpp_dump_memory_layout <cppfile>
+alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdump-vtable-layouts'

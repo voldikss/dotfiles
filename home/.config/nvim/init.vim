@@ -40,7 +40,7 @@ set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=i
 set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
 set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
 set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
-set tags=./tags,../tags,../../tags,../../../tags tagfunc=
+set tags=./tags,../tags,../../tags,../../../tags
 
 " Clipboard
 set clipboard=unnamed
@@ -709,6 +709,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-java',
       \ 'coc-json',
+      \ 'coc-dash-complete',
       \ 'coc-just-complete',
       \ 'coc-leetcode',
       \ 'coc-lists',
