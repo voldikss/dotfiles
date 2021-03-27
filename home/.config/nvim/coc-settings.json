@@ -58,7 +58,6 @@
     "O": "systemExecute",
     "<cr>": "open",
     "<C-l>": "open:select:keep",
-    "e": "open",
     "E": "openInVsplit",
     "t": "openInTab",
     "<bs>": "gotoParent",
