@@ -9,6 +9,7 @@ nnoremap <silent> <buffer> <BS> <C-T>
 autocmd BufWinEnter <buffer> wincmd H
 " autocmd BufWinEnter <buffer> setlocal number
 
+setlocal number
 setlocal nospell
 setlocal foldmethod=indent
 if !&buflisted
@@ -21,3 +22,6 @@ setlocal formatoptions-=c
 setlocal formatoptions-=r
 setlocal formatoptions-=o
 setlocal formatoptions-=q
+
+" textwidth + numberwidth + signcolumn width + 1 margin at the right of linenr column
+call timer_start(10, {->execute('vertical resize ' . (&tw + &nuw + 2))})
