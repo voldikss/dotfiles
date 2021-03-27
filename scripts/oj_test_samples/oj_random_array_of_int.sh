@@ -1,11 +1,12 @@
 #! /usr/bin/env bash
 
+# generate 10 random lists of int
 function main() {
-  usage="usage: random_int_array <lo-hi>, not that <lo-hi> is inclusive"
+  usage="usage: random_int_array <lo> <hi>"
 
-  if [[ -z "$1" ]]
+  if [ -z $1 -o -z $2 ]
   then
-    echo "$usage"
+    echo $usage
     return -1
   fi
 
@@ -21,7 +22,7 @@ function main() {
     length=$(shuf -i 1-10 -n 1)
     for ((j=0; j < $length; j++))
     do
-      echo -n $(shuf -i $range -n 1)
+      echo -n $(seq $1 $2 | shuf -n 1)
       if [[ $j != $(($length - 1)) ]]
       then
         echo -n ", "
