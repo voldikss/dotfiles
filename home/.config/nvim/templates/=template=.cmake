@@ -13,14 +13,16 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(HEADERS
-    src/mainwindow.hpp
-    )
+set(
+  HEADERS
+  src/mainwindow.hpp
+)
 
-set(SOURCES
-    src/main.cpp
-    src/mainwindow.cpp
-    )
+set(
+  SOURCES
+  src/main.cpp
+  src/mainwindow.cpp
+)
 
 # set(RESOURCES
 #     src/qml.qrc
@@ -30,32 +32,35 @@ set(SOURCES
 #     src/main.qml
 #     )
 
-find_package(Qt5 COMPONENTS
-    Core
-    Gui
-    Widgets
-    # Sql
-    # Network
-    # Xml
-    # WebKit
-    # WebEngine
-    REQUIRED
-    )
+find_package(
+  Qt5 COMPONENTS
+  Core
+  Gui
+  Widgets
+  # Sql
+  # Network
+  # Xml
+  # WebKit
+  # WebEngine
+  REQUIRED
+)
 
-add_executable(${PROJECT_NAME}
-    ${HEADERS}
-    ${SOURCES}
-    # ${RESOURCES}
-    # ${QMLS}
-    )
+add_executable(
+  ${PROJECT_NAME}
+  ${HEADERS}
+  ${SOURCES}
+  # ${RESOURCES}
+  # ${QMLS}
+)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    # Qt5::Sql
-    # Qt5::Network
-    # Qt5::Xml
-    # Qt5::WebKit
-    # Qt5::WebEngine
-    )
+target_link_libraries(
+  ${PROJECT_NAME} PRIVATE
+  Qt5::Core
+  Qt5::Gui
+  Qt5::Widgets
+  # Qt5::Sql
+  # Qt5::Network
+  # Qt5::Xml
+  # Qt5::WebKit
+  # Qt5::WebEngine
+)
