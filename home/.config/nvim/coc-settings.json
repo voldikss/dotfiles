@@ -1,6 +1,7 @@
 // vim:ft=jsonc
 {
   "browser.priority": 0,
+  "clangd.arguments": ["--header-insertion=never"],
   "cmake.formatter": "cmake-format",
   "cmake.lsp.enable": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
