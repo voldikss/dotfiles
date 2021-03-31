@@ -4,11 +4,15 @@
 
 function! QtCppIndent()
   let line = getline(v:lnum)
+  let prevlnum = prevnonblank(v:lnum - 1)
+  let prevline = getline(prevlnum)
+
   " Patterns used to recognise labels and search for the start
   " of declarations
   let qt_label_pat1 ='signals:\|slots:\|public:\|protected:\|private:'
   let qt_label_pat2 = 'Q_OBJECT'
   let declpat = '\(;\|{\|}\|:\)\s*\(//.*\)*$'
+
   " If the line is a label, it's a no brainer
   if line =~ qt_label_pat1
     return &shiftwidth - 2
@@ -19,10 +23,10 @@ function! QtCppIndent()
   endif
   " If the line starts with a closing brace, it's also easy: use cindent
   if line =~ '^\s*}'
-    return cindent(v:lnum)
+    return indent(prevlnum)
   endif
   " `case` should have the identical indent value with `switch`
-  if line =~ 'case:'
+  if line =~ 'case:|default:'
     let pos = getpos('.')
     call search('switch', 'beW')
     let switch_lnum = line('.')
@@ -30,11 +34,12 @@ function! QtCppIndent()
     return indent(prevlnum)
   endif
 
-  let prevlnum = prevnonblank(v:lnum)
-  let prevline = getline(prevlnum)
   " `case` should have the identical indent value with `switch`
   if prevline =~ 'switch\s('
-    return indent(prevline)
+    return indent(prevlnum)
+  endif
+  if prevline =~ '^\s*case\s.*$'
+    return indent(prevlnum) + &shiftwidth
   endif
   " Fix after `break;` indentation
   if prevline =~ '^\s\+break;'
@@ -42,6 +47,12 @@ function! QtCppIndent()
   endif
   if prevline =~ '^\s*template.*>$'
     return indent(prevlnum)
+  endif
+  if prevline =~ '^\s*}\s*\(//.*\)*$'
+    return indent(prevlnum)
+  endif
+  if prevline =~ 'default:'
+    return indent(prevlnum) + &shiftwidth
   endif
 
   " Save cursor position and move to the line we're indenting
