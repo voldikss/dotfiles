@@ -19,7 +19,7 @@ function main() {
   for ((i=0; i < $count; i++))
   do
     echo -n "["
-    length=$(shuf -i 1-10 -n 1)
+    length=$(shuf -i 1-20 -n 1)
     for ((j=0; j < $length; j++))
     do
       echo -n $(seq $1 $2 | shuf -n 1)

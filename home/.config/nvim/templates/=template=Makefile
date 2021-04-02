@@ -1,7 +1,19 @@
-#
-# %FFILE%
-# %USER%, %FDATE%
-#
+all: %FDIR%
 
-all:
-	%HERE%@echo "%FFILE% needs your attention"
+%FDIR%:
+	mkdir -p build && cd build; \
+	cmake ..; \
+	make
+
+test: %FDIR%
+	./build/tests/%FDIR%_tests
+
+clean:
+	rm -rf ./build
+
+compile_commands:
+	mkdir -p build && cd build; \
+	cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES ..;
+	cp ./build/Debug/compile_commands.json ./tests
+
+.PHONY: all %FDIR% test clean

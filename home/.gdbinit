@@ -77,15 +77,6 @@ document stack
     Print call stack
 end
 
-define frame
-    info frame
-    info args
-    info locals
-end
-document frame
-    Print stack frame
-end
-
 define flags
     if (($eflags >> 0xB) & 1 )
         printf "O "
@@ -362,8 +353,8 @@ end
 # end
 
 # Init parameters
-set output-radix 0x10
-set input-radix 0x10
+set output-radix 0xA
+set input-radix 0xA
 set disassembly-flavor intel
 
 
@@ -378,7 +369,10 @@ set confirm off
 set print object on
 
 # Print array's index
-set print array-indexes on
+set print array-indexes off
+
+# Pretty print array off
+set print array off
 
 # Pretty print
 set print pretty on

@@ -6,12 +6,16 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
+# less
+alias le=less
+
 # bat
 alias cat=bat
 
 # vim
 alias vim=nvim
 alias vi=nvim
+alias v=nvim
 
 # python
 alias python=python3
@@ -23,8 +27,8 @@ alias pip_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pip/pip_list.txt);
 alias ga='git add'
 alias gaa='git add .'
 alias gb='git branch'
-alias gc='git commit -v'
-alias gca='git commit --amend'
+alias gc='git commit -v --no-verify'
+alias gca='git commit --amend --no-verify'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gcl='git clone --depth 1'
@@ -38,16 +42,13 @@ alias gpf='git push -f'
 alias gri='git rebase -i'
 alias grc='git rebase --continue'
 alias gs='git status'
+alias gst='git stash'
+alias gsp='git stash pop'
 alias gacp='git add . && git commit -m "update" ; git push'
 alias gcap='git commit --amend --no-edit; git push -f'
 
 # rm 进 trash
 alias rm='trash -r'
-
-# fasd
-alias v='f -e vim' # quick opening files with vim
-alias m='f -e mplayer' # quick opening files with mplayer
-alias o='a -e xdg-open' # quick opening files with xdg-open
 
 # fzf
 alias fzfvim='vim $(fzf)'
@@ -107,6 +108,8 @@ alias gz='tar -xzvf'
 alias tgz='tar -xzvf'
 alias zip='unzip'
 alias bz2='tar -xjvf'
+alias entar='tar zcvf'
+alias detar='tar zxvf'
 
 # floaterm
 alias f=floaterm

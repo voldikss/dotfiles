@@ -103,22 +103,23 @@ function! mylightline#ActiveFileinfo()
   if !&buflisted
     return ''
   endif
-  if empty(bufname())
-    let filepath = getcwd()
-  else
-    let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
-  endif
-  let maxwidth = winwidth(0) - 40
-  if len(filepath) > maxwidth
-    let filepath = pathshorten(filepath)
-  endif
-  if len(filepath) > maxwidth
-    let filepath = expand('%:t')
-  endif
-  if len(filepath) > maxwidth
-    let filepath = ''
-  endif
-  return filepath
+  return expand('%:t')
+  " if empty(bufname())
+  "   let filepath = getcwd()
+  " else
+  "   let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+  " endif
+  " let maxwidth = winwidth(0) - 40
+  " if len(filepath) > maxwidth
+  "   let filepath = pathshorten(filepath)
+  " endif
+  " if len(filepath) > maxwidth
+  "   let filepath = expand('%:t')
+  " endif
+  " if len(filepath) > maxwidth
+  "   let filepath = ''
+  " endif
+  " return filepath
 endfunction
 
 " InactiveFileinfo: no pathshorten

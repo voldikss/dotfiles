@@ -4,4 +4,4 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-runtime ./jsonc.vim
+runtime after/ftplugin/json.vim

@@ -13,9 +13,11 @@ setlocal signcolumn=no
 setlocal winfixwidth
 setlocal winfixheight
 
-if exists('b:asyncrun_cmd')
+function! s:asyncrun_settings() abort
+  if !exists('b:asyncrun_cmd') | return | endif
   setlocal number
-endif
+endfunction
+call timer_start(10, { -> s:asyncrun_settings() })
 
 nnoremap <silent><buffer> q :q<CR>
 

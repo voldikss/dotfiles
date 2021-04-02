@@ -374,19 +374,18 @@ install_chrome() {
 install_netease_cloud_music() {
     # https://github.com/qier222/YesPlayMusic/releases
 
-    # NOTE: deprecated
-    # if ! command -v netease-cloud-music >/dev/null; then
-    #     echo Installing netease-cloud-music...
-    #     case $OS in
-    #         Arch)
-    #             sudo pacman -S netease-cloud-music --noconfirm;;
-    #         Ubuntu)
-    #             wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
-    #             sudo dpkg -i netease-cloud-music.deb
-    #             sudo apt install -f
-    #             rm netease-cloud-music.deb;;
-    #     esac
-    # fi
+    if ! command -v netease-cloud-music >/dev/null; then
+        echo Installing netease-cloud-music...
+        case $OS in
+            Arch)
+                yay -S netease-cloud-music --noconfirm;;
+            Ubuntu)
+                wget -O netease-cloud-music.deb http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
+                sudo dpkg -i netease-cloud-music.deb
+                sudo apt install -f
+                rm netease-cloud-music.deb;;
+        esac
+    fi
 }
 
 install_sogou_pinyin() {

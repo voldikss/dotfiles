@@ -1,6 +1,8 @@
 [user]
-	name = voldikss
-	email = dyzplus@gmail.com
+	name = yunzhi.duan
+	email = yunzhi.duan@arkie.cn
+	# name = voldikss
+	# email = dyzplus@gmail.com
 [alias]
     co = checkout
     ci = commit
@@ -22,6 +24,7 @@
     autocrlf = false
     safecrlf = true
 	eol = lf
+	pager = git-split-diffs --color | less -RFX
 [color]
 	ui = auto
 [diff]
@@ -42,3 +45,5 @@
 #     diffFilter = delta --color-only
 [fetch]
 	prune = true
+[split-diffs]
+	theme-name = github-light

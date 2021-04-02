@@ -13,7 +13,9 @@ function! mycoc#showdoc() abort
     catch
       call util#show_msg('No help for ' . cword, 'error')
     endtry
+  elseif coc#rpc#ready()
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call util#show_msg('No info', 'warning')
   endif
 endfunction

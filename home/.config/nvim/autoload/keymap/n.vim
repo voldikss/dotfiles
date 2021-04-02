@@ -106,6 +106,7 @@ function! keymap#n#safe_bdelete() abort
       else
         vs | execute 'b' bufnr
       endif
+      if !bufexists(bufnr) | return | endif
       execute 'bdelete!' bufnr
       execute 'resize ' height
       execute 'vertical resize ' width
@@ -126,14 +127,16 @@ function! keymap#n#goto_decnition() abort
 
   " lsp and tags
   let tags = []
-  if exists('g:did_coc_loaded')
+  if exists('g:did_coc_loaded') && coc#rpc#ready()
     let tags = coc#rpc#request('getTagList', [])
+    " call CocActionAsync('jumpDefinition')
   else
     let tags = taglist('^' . pat . '$')
   endif
   if !empty(tags)
     let tag = tags[0]
     if tag.filename != expand('%:p')
+      " silent! normal! m'
       execute 'edit ' . tag.filename
     endif
     execute tag.cmd
@@ -144,6 +147,7 @@ function! keymap#n#goto_decnition() abort
   let maybe_file = expand('<cfile>')
   let filepath = findfile(maybe_file, '.,/usr/local/include,/usr/include,**3')
   if !empty(filepath)
+    " silent! normal! m'
     execute 'edit ' . filepath
     return
   endif
@@ -208,9 +212,14 @@ endfunction
 " - feedkeys() {mode} argument must be `nt` to prevent remapping for `:`
 " - this will cause problems for those no-nore mappings which have `:`
 function! keymap#n#ex_repeat_previous_command() abort
-  let history = split(execute('history cmd -2,-1'), "\n")
-  let prevcmd = matchstr(history[2], '^>\=\s\+\d\+\s\+\zs.*\ze$')
-  let prevprevcmd = matchstr(history[1], '^>\=\s\+\d\+\s\+\zs.*\ze$')
+  try
+    let history = split(execute('history cmd -2,-1'), "\n")
+    let prevcmd = matchstr(history[2], '^>\=\s\+\d\+\s\+\zs.*\ze$')
+    let prevprevcmd = matchstr(history[1], '^>\=\s\+\d\+\s\+\zs.*\ze$')
+  catch
+    call feedkeys(':', 'nt')
+    return
+  endtry
   echohl Comment
   echo ':'.prevcmd
   echohl None

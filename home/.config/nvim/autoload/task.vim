@@ -19,7 +19,11 @@ function! task#run(...) abort
     source %
   else
     let b:winview = winsaveview()
-    autocmd BufEnter <buffer> ++once call winrestview(b:winview) | unlet b:winview
+    autocmd BufEnter <buffer> ++once
+          \ if exists('b:winview') |
+            \ call winrestview(b:winview) |
+            \ unlet b:winview |
+          \ endif
     AsyncTask start
   endif
 endfunction
@@ -44,7 +48,7 @@ endfunction
 let s:run_on_save_change_enable = v:false
 function! task#run_on_save_change(local) abort
   if s:run_on_save_change_enable == v:true
-    autocmd! run-task-on-save-change 
+    autocmd! run-task-on-save-change
     let s:run_on_save_change_enable = v:false
   else
     augroup run-task-on-save-change

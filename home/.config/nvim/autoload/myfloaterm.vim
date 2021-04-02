@@ -5,7 +5,7 @@
 " ============================================================================
 
 function! myfloaterm#exec(visualmode, range, line1, line2, fargs) abort
-  let [cmd, config] = floaterm#cmdline#parse(split(a:fargs))
+  let [cmd, config] = floaterm#cmdline#parse(a:fargs)
 
   if empty(cmd)
     let lines = util#get_selected_text(a:visualmode, a:range, a:line1, a:line2)

@@ -50,7 +50,7 @@ set history=10000 noswapfile
 set nospell spellfile=$HOME/.config/nvim/spell/en.utf-8.add
 set nobackup nowritebackup backupdir=$HOME/.cache/nvim/backup_dir
 set undofile undolevels=1000 undodir=$HOME/.cache/nvim/undo_dir
-set dictionary+=~/.config/nvim/dict/dictionary.txt
+set dictionary+=~/.config/nvim/dict/misc.dict
 
 " Search
 set wrapscan ignorecase smartcase incsearch hlsearch magic shortmess-=S
@@ -103,18 +103,24 @@ call plug#begin('~/.cache/nvim/plugged')
 " Languages
 if has('nvim')
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'sindrets/diffview.nvim'
+Plug 'nacro90/numb.nvim'
 endif
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'jparise/vim-graphql'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
 " Completion
+if !exists('g:vscode') " TODO: use packer.nvim's `cond`
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 " Style
 Plug 'Yggdroot/indentLine'
+Plug 'kshenoy/vim-signature'
 Plug 'lukas-reineke/indent-blankline.nvim' " can not exclude startify on the first :Startify
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
@@ -127,7 +133,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'brglng/vim-im-select'
+" Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
 Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
@@ -161,7 +167,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme srcery
+colorscheme gruvbox
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -318,6 +324,8 @@ call s:SetCommandAbbrs('cr', 'silent CocRestart')
 call s:SetCommandAbbrs('cs', 'CocSearch')
 call s:SetCommandAbbrs('cu', 'CocUninstall')
 call s:SetCommandAbbrs('cup', 'CocUpdate')
+call s:SetCommandAbbrs('do', 'DiffviewOpen')
+call s:SetCommandAbbrs('dc', 'DiffviewClose')
 call s:SetCommandAbbrs('fk', 'FloatermKill')
 call s:SetCommandAbbrs('f', 'FloatermNew')
 call s:SetCommandAbbrs('F', 'FloatermNew')
@@ -329,7 +337,7 @@ call s:SetCommandAbbrs('fu', 'FloatermUpdate')
 call s:SetCommandAbbrs('gap', 'Git add -p')
 call s:SetCommandAbbrs('gc', 'Git commit -v')
 call s:SetCommandAbbrs('gca', 'Git commit --amend -v')
-call s:SetCommandAbbrs('gco', 'AsyncRun git checkout .')
+call s:SetCommandAbbrs('gco', 'Git checkout')
 call s:SetCommandAbbrs('gd', 'Gvdiff')
 call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
@@ -586,9 +594,10 @@ if has('nvim')
 endif
 nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
 " Plugins:
-noremap  <silent> <F2>             <Esc>:CocCommand explorer<CR>
-noremap! <silent> <F2>             <Esc>:CocCommand explorer<CR>
-tnoremap <silent> <F2>             <C-\><C-n>:CocCommand explorer<CR>
+" TMP
+noremap  <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
+noremap! <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
+tnoremap <silent> <F2>             <C-\><C-n>:exe 'CocCommand explorer ' . getcwd()<CR>
 noremap  <silent> <F3>             <Esc>:MundoToggle<CR>
 noremap! <silent> <F3>             <Esc>:MundoToggle<CR>
 tnoremap <silent> <F3>             <C-\><C-n>:MundoToggle<CR>
@@ -776,7 +785,7 @@ hi CursorWord0 guibg=#404D3D
 hi link CursorWord1 CursorLine
 " itchyny/lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'powerline',
+  \ 'colorscheme': 'srcery',
   \ 'active': {
     \ 'left': [
       \ ['mode'],
@@ -860,7 +869,7 @@ let g:asyncrun_rootmarks = ['.git', '.root', '.tasks']
 " skywind3000/asynctasks.vim
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_term_reuse = 0
-let g:asynctasks_term_rows = 10
+let g:asynctasks_term_rows = 8
 " Yggdroot/LeaderF
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let g:Lf_Extensions.spell = {
@@ -896,7 +905,7 @@ let g:Lf_CommandMap = {
 let g:Lf_Ctags                = "ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
-let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_HideHelp             = 1
 let g:Lf_IndexTimeLimit       = 10
@@ -905,14 +914,18 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
 let g:Lf_RgConfig = [
       \ "--glob=!OmegaOptions.bak",
+      \ "--glob=!logs",
+      \ "--glob=!logs-meta",
       \ "--glob=!node_modules",
       \ "--glob=!lib/*.js",
+      \ "--glob=!yarn.lock",
+      \ "--glob=!package-lock.json",
       \ "--glob=!target",
       \ "--glob=!tags",
       \ "--glob=!build",
       \ "--glob=!.git",
       \ "--glob=!.ccls-cache",
-      \ "--no-ignore",
+      \ "--max-columns=150",
       \ "--hidden"
       \ ]
 let g:Lf_RootMarkers    = [
@@ -973,8 +986,8 @@ let g:translator_window_max_width = 0.7
 " voldikss/vim-floaterm
 let g:floaterm_exec_status = ''
 let g:floaterm_title = 'floaterm ($1|$2)'
-let g:floaterm_width = 0.6
-let g:floaterm_height = 0.6
+let g:floaterm_width = 0.65
+let g:floaterm_height = 0.65
 let g:floaterm_position = 'center'
 let g:floaterm_opener = 'edit'
 let g:floaterm_autoclose = 2
@@ -984,7 +997,7 @@ let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
 let g:floaterm_rootmarkers   = ['.git']
-hi FloatermBorder guifg=cyan
+hi FloatermBorder guifg=orange
 " voldikss/vim-skylight
 hi SkylightBorder guibg=skyblue guifg=black
 " simnalamburt/vim-mundo
@@ -1030,8 +1043,11 @@ nmap <silent> ga <Plug>(EasyAlign)
 " puremourning/vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
 " hop.nvim
-nnoremap <silent> ' <Cmd>HopWord<CR>
-vnoremap <silent> ' <Cmd>HopWord<CR>
+" remove mapping set by vim-signature
+call timer_start(100, {->execute("nunmap ']")})
+call timer_start(100, {->execute("nunmap '[")})
+nnoremap <silent><nowait> ' <Cmd>HopWord<CR>
+vnoremap <silent><nowait> ' <Cmd>HopWord<CR>
 " vim-snipe
 map <silent> f <Plug>(snipe-f)
 map <silent> F <Plug>(snipe-F)
@@ -1084,13 +1100,19 @@ let g:nvimgdb_config = {
       \ 'sign_breakpoint_priority': 10,
       \ 'codewin_command': 'new'
       \ }
-" nvim-treesitter
+
+" lua plugins
 if has('nvim')
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
+
+-- nacro90/numb.nvim
+require('numb').setup()
+
+-- nvim-treesitter
+require('nvim-treesitter.configs').setup {
     highlight = {
         enable = true,
-        disable = { 'rust', 'markdown', 'json', 'typescript' },
+        disable = { 'rust', 'markdown', 'json', 'yaml' },
     },
     indent = {
         enable = false
@@ -1164,5 +1186,37 @@ require'nvim-treesitter.configs'.setup {
       'typescript'
     }
 }
+
+-- sindrets/diffview.nvim
+local cb = require'diffview.config'.diffview_callback
+require'diffview'.setup {
+  diff_binaries = false,    -- Show diffs for binaries
+  file_panel = {
+    width = 35,
+    use_icons = true        -- Requires nvim-web-devicons
+  },
+  key_bindings = {
+    -- The `view` bindings are active in the diff buffers, only when the current
+    -- tabpage is a Diffview.
+    view = {
+      ["<tab>"]     = cb("select_next_entry"),  -- Open the diff for the next file 
+      ["<s-tab>"]   = cb("select_prev_entry"),  -- Open the diff for the previous file
+    },
+    file_panel = {
+      ["j"]         = cb("next_entry"),         -- Bring the cursor to the next file entry
+      ["<down>"]    = cb("next_entry"),
+      ["k"]         = cb("prev_entry"),         -- Bring the cursor to the previous file entry.
+      ["<up>"]      = cb("prev_entry"),
+      ["<cr>"]      = cb("select_entry"),       -- Open the diff for the selected entry.
+      ["o"]         = cb("select_entry"),
+      ["R"]         = cb("refresh_files"),      -- Update stats and entries in the file list.
+      ["<tab>"]     = cb("select_next_entry"),
+      ["<s-tab>"]   = cb("select_prev_entry"),
+      ["<leader>e"] = cb("focus_files"),
+      ["<leader>b"] = cb("toggle_files"),
+    }
+  }
+}
+
 EOF
 endif

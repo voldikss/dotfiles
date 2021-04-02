@@ -17,6 +17,9 @@ endfunction
 
 " Command: ''|<>|()|[]|{}
 function! keymap#c#pairs(key, pairs) abort
+  if index(['/', '?'], getcmdtype()) > -1
+    return a:key
+  endif
   let pos = getcmdpos()
   let cmdline = getcmdline()
   let prevchar = cmdline[pos-2]

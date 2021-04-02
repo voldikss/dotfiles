@@ -36,6 +36,9 @@
   "emmet.includeLanguages": {"vue": "html", "vue-html": "html"},
   "eslint.autoFixOnSave": false,
   "explorer.enableFloatinput": false,
+  "explorer.expandStores": true,
+  "explorer.file.autoReveal": true,
+  "explorer.previewAction.content.maxHeight": 100,
   "explorer.git.showIgnored": true,
   "explorer.git.icon.status.ignored": " ",
   "explorer.file.column.indent.indentLine": true,
@@ -99,9 +102,10 @@
     "filetypes": ["vista", "qf"],
     "floatingWindows": true
   },
-  "explorer.file.tabCD": false,
+  "explorer.file.cdCommand": "cd",
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": false,
+  "explorer.trash.command": "rm -r %s",
   "explorer.width": 30,
   "git.addedSign.hlGroup": "GitAdd",
   "git.changeRemovedSign.hlGroup": "GitDeleteTopAndBottom",
@@ -180,9 +184,9 @@
   "signature.preferShownAbove": false,
   "snippets.extends": {
     "cpp": ["c"],
-    "javascriptreact": ["javascript"],
     "typescript": ["javascript"],
-    "javascript": ["typescript"]
+    "javascriptreact": ["javascript"],
+    "typescriptreact": ["typescript"]
   },
   "snippets.priority": -10,
   "suggest.acceptSuggestionOnCommitCharacter": true,
