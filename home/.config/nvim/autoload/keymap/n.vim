@@ -116,23 +116,54 @@ function! keymap#n#safe_bdelete() abort
 endfunction
 
 " Go to definition/declaration
-function! keymap#n#goto_decnition() abort
-  let pat = expand('<cword>')
+function! keymap#n#goto_definition() abort
+  if s:man() | return | endif
+  call s:lspAsync()
+  call timer_start(300, { -> s:fallback() })
+endfunction
 
-  " man
+" man
+function! s:man() abort
   if &ft == 'man'
     execute 'Man ' . pat
+    return v:true
+  endif
+  return v:false
+endfunction
+
+" lsp
+let s:goto_definition_status = 'NONE'
+function! s:lspAsync() abort
+  if exists('g:did_coc_loaded') && coc#rpc#ready()
+    let s:goto_definition_status = 'PENDING'
+    call CocActionAsync('jumpDefinition', { -> s:handleLSPJumpDefinition() })
+  endif
+endfunction
+
+function! s:handleLSPJumpDefinition(...) abort
+  let s:goto_definition_status = 'OK'
+endfunction
+
+function! s:fallback(...) abort
+  if coc#status() =~ 'requesting'
     return
   endif
-
-  " lsp and tags
-  let tags = []
-  if exists('g:did_coc_loaded') && coc#rpc#ready()
-    let tags = coc#rpc#request('getTagList', [])
-    " call CocActionAsync('jumpDefinition')
-  else
-    let tags = taglist('^' . pat . '$')
+  if s:goto_definition_status == 'OK'
+    let s:goto_definition_status = 'NONE'
+    return
   endif
+  if s:taglist()
+    return
+  endif
+  if s:gf()
+    return
+  endif
+  call s:gd()
+endfunction
+
+function! s:taglist() abort
+  let pat = expand('<cword>')
+  let tags = taglist('^' . pat . '$')
   if !empty(tags)
     let tag = tags[0]
     if tag.filename != expand('%:p')
@@ -140,19 +171,24 @@ function! keymap#n#goto_decnition() abort
       execute 'edit ' . tag.filename
     endif
     execute tag.cmd
-    return
+    return v:true
   endif
+  return v:false
+endfunction
 
-  " gf command
+" gf command
+function! s:gf() abort
   let maybe_file = expand('<cfile>')
   let filepath = findfile(maybe_file, '.,/usr/local/include,/usr/include,**3')
   if !empty(filepath)
-    " silent! normal! m'
     execute 'edit ' . filepath
-    return
+    return v:true
   endif
+  return v:false
+endfunction
 
-  " gd command
+" gd command
+function! s:gd() abort
   try
     normal! gd
   catch /E349:/

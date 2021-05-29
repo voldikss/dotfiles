@@ -430,7 +430,7 @@ nnoremap <silent> <C-down> :call keymap#n#next_diff_or_chunk()<CR>
 nnoremap <silent> gk       :call keymap#n#prev_diff_or_chunk()<CR>
 nnoremap <silent> gj       :call keymap#n#next_diff_or_chunk()<CR>
 " Jump:
-nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_decnition()<CR>
+nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_definition()<CR>
 nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call mycoc#showdoc()<CR>
 nmap <silent> <C-w><C-j> <C-W>v<C-j>zz
