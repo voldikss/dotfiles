@@ -38,7 +38,7 @@
   "explorer.enableFloatinput": false,
   "explorer.expandStores": true,
   "explorer.file.autoReveal": true,
-  "explorer.previewAction.content.maxHeight": 100,
+  "explorer.previewAction.content.maxHeight": 500,
   "explorer.git.showIgnored": true,
   "explorer.git.icon.status.ignored": " ",
   "explorer.file.column.indent.indentLine": true,

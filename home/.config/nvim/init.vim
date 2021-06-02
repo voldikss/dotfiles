@@ -135,7 +135,7 @@ Plug 'tpope/vim-git'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
-Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
+Plug 'phaazon/hop.nvim', {'on': 'HopWord', 'commit': '3655626906859f572b8c4ce9dd9d69e2e1e43b81'}
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
