@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Data Grip
+Comment=Data Grip
+Exec=/home/dyzh/Apps/DataGrip-2021.1.2/bin/datagrip.sh
+Icon=/home/dyzh/Apps/DataGrip-2021.1.2/bin/datagrip.svg
+Terminal=false
+StartupNotify=true
+Categories=Development;IDE;

@@ -8,4 +8,4 @@ set nonumber
 set relativenumber
 
 " refresh while entering
-autocmd BufEnter <buffer> call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])
+autocmd BufEnter,FocusGained <buffer> call CocAction('runCommand', 'explorer.doAction', 'closest', ['refresh'])

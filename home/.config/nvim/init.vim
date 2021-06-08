@@ -187,10 +187,10 @@ augroup FileTypeAutocmds
   autocmd FileType * set formatoptions-=cro
   autocmd FileType * syntax sync minlines=50
   autocmd FileType *
-        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze') |
-        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze') |
-        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze') |
-        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze')
+        \ call matchadd('Special', '\W\<\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\>') |
+        \ call matchadd('Special', '\W\<\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\>') |
+        \ call matchadd('Special', '\W\<\(DEBUG\|Debug\)\>') |
+        \ call matchadd('Special', '\W\<\(@VOLDIKSS\|@voldikss\)\>')
 augroup END
 
 augroup AutoSaveBuffer
