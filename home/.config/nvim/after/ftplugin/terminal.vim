@@ -26,19 +26,25 @@ nnoremap <silent><buffer> q :q<CR>
 " there would be only one autocmd for one terminal buffer (When opening a
 " terminal, the previous terminal's autocmd would be deleted by `autocmd!`).
 " Instead, use `autocmd! * <buffer>`
-let b:enabled = v:true
+let b:enabled_enterinsert = v:true
+autocmd FileType floaterm ++once call timer_start(10, { -> execute('startinsert') })
 augroup enter_intert_mode
   autocmd! * <buffer>
-  autocmd BufEnter <buffer> if b:enabled | startinsert | endif
+  autocmd BufEnter <buffer> 
+        \ if b:enabled_enterinsert                                              |
+        \   call timer_start(10, { -> execute('startinsert') })     |
+        \ else                                                      |
+        \   stopinsert                                              |
+        \ endif
 augroup END
 
 augroup should_del_bufenter
   autocmd! * <buffer>
   autocmd BufLeave <buffer>
         \ if line('.') >= s:lastnonblank()   |
-        \   let b:enabled = v:true           |
+        \   let b:enabled_enterinsert = v:true           |
         \ else                               |
-        \   let b:enabled = v:false          |
+        \   let b:enabled_enterinsert = v:false          |
         \ endif
 augroup END
 
