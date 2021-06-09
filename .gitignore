@@ -2,6 +2,9 @@
 # ----------------------------------------------------------------------------
 
 en.utf-8.add.spl
+home/.config/coc/extensions/
+home/.config/coc/memos.json
+
 
 !/conf/.idlerc/config-main.cfg
 !/conf/.idlerc/config-extensions.cfg

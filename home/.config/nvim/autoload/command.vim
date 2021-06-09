@@ -86,8 +86,10 @@ endfunction
 function! command#bufdo(command)
   let sv_view = winsaveview()
   let curbuf=bufnr("%")
-  execute 'bufdo ' . a:command
-  execute 'buffer ' . curbuf
+  if bufexists(curbuf)
+    execute 'bufdo ' . a:command
+    execute 'buffer ' . curbuf
+  endif
   call winrestview(sv_view)
 endfunction
 

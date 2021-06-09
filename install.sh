@@ -5,10 +5,9 @@ OS=$(lsb_release -si)
 arch_base() {
     # sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
     # sudo cp ./sources/arch/mirrorlist /etc/pacman.d/mirrorlist
-    sudo echo "[archlinuxcn]
-    SigLevel = Optional TrustAll
-    Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$$arch
-    " > /etc/pacman.conf
+    sudo echo "[archlinuxcn]" >> /etc/pacman.conf
+    sudo echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf
+    sudo echo "Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/\$arch" >> /etc/pacman.conf
     sudo pacman -Syu
     sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
     sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc fd --noconfirm
@@ -388,10 +387,13 @@ install_netease_cloud_music() {
     fi
 }
 
-install_sogou_pinyin() {
+# https://wiki.archlinux.org/title/Fcitx5_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+install_im() {
     case $OS in
         Arch)
-            sudo pacman -S fcitx-lilydjwg-git fcitx-sogoupinyin --noconfirm;;
+            sudo pacman -S fcitx5-im --noconfirm
+            sudo pacman -S librime --noconfirm
+            sudo pacman -S fcitx5-rime --noconfirm
         Ubuntu)
             wget -O sogou-pinyin.deb http://pinyin.sogou.com/linux/download.php\?f\=linux\&bit\=64
             sudo dpkg -i sogou-pinyin.deb

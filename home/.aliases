@@ -24,11 +24,14 @@ alias pip_pkglist_backup='pip list > $HOME/dotfiles/misc/pip/pip_list.txt'
 alias pip_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pip/pip_list.txt); do pip install $x; done'
 
 # git
+alias g='git'
 alias ga='git add'
 alias gaa='git add .'
 alias gb='git branch'
-alias gc='git commit -v --no-verify'
-alias gca='git commit --amend --no-verify'
+alias gc='git commit -v'
+alias gcn='git commit -vn'
+alias gca='git commit --amend'
+alias gcan='git commit --amend --no-verify'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gcl='git clone --depth 1'
@@ -64,7 +67,7 @@ alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 alias top=htop
 
 # du
-alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
+# alias du='ncdu --color dark -rr -x --exclude .git --exclude node_modules'
 alias sizeof='/usr/bin/du -sh'
 
 # nnn

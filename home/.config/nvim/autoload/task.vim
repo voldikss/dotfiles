@@ -2,18 +2,25 @@
 " GitHub: https://github.com/voldikss
 
 " RunTask:
-function! task#run(...) abort
+function! task#run(global, ...) abort
   update
   if g:asyncrun_status ==# 'running'
     AsyncStop
     sleep 500m  " wait job to stop
   endif
   if a:0 > 0
-    let b:task_cmd = a:1
+    if a:global
+      let g:task_cmd = a:1
+    else
+      let b:task_cmd = a:1
+    endif
   endif
   if exists('b:task_cmd')
     " echom 'b:task_cmd: ' . b:task_cmd
     execute b:task_cmd
+    return
+  elseif exists('g:task_cmd')
+    execute g:task_cmd
     return
   elseif expand('%') == 'init.vim'
     source %

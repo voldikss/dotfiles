@@ -26,7 +26,7 @@ set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent bre
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
 set noshowcmd noruler rulerformat= laststatus=2
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
-set cursorline nocursorcolumn colorcolumn= concealcursor=nvc conceallevel=0
+set cursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
@@ -101,11 +101,17 @@ endif
 " Plugin: {{{
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
-if has('nvim')
+if has('nvim') && !exists('g:vscode')
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'kevinhwang91/nvim-bqf'
+" Plug 'romgrk/nvim-treesitter-context'
+Plug 'kristijanhusak/orgmode.nvim'
+" Plug 'adamheins/vim-highlight-match-under-cursor' " TODO(builtin)
+hi CurrentSearchWord guibg=deeppink
 Plug 'sindrets/diffview.nvim'
 Plug 'nacro90/numb.nvim'
 endif
+Plug 'vimwiki/vimwiki', {'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiDiaryIndex']}
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 " Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
@@ -113,15 +119,16 @@ Plug 'lervag/vimtex'
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'jparise/vim-graphql'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 " Completion
 if !exists('g:vscode') " TODO: use packer.nvim's `cond`
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 " Style
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 Plug 'kshenoy/vim-signature'
-Plug 'lukas-reineke/indent-blankline.nvim' " can not exclude startify on the first :Startify
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -130,12 +137,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/vim-cursorword'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'tpope/vim-git'
 " Others
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Plug 'brglng/vim-im-select'
 " Plug 'puremourning/vimspector'
-Plug 'phaazon/hop.nvim', {'on': 'HopWord', 'commit': '3655626906859f572b8c4ce9dd9d69e2e1e43b81'}
+Plug 'phaazon/hop.nvim'
 Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'andrewradev/sideways.vim'
@@ -167,7 +175,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme gruvbox
+colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -186,6 +194,7 @@ augroup FileTypeAutocmds
   autocmd!
   autocmd FileType * set formatoptions-=cro
   autocmd FileType * syntax sync minlines=50
+  autocmd BufEnter * if &bt == 'nofile' | syntax sync fromstart | endif " for `:CocCommand git.showCommit`
   autocmd FileType *
         \ call matchadd('Special', '\W\<\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\>') |
         \ call matchadd('Special', '\W\<\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\>') |
@@ -193,11 +202,11 @@ augroup FileTypeAutocmds
         \ call matchadd('Special', '\W\<\(@VOLDIKSS\|@voldikss\)\>')
 augroup END
 
-augroup AutoSaveBuffer
-  autocmd!
-  " autocmd FocusLost,InsertLeave * call file#update()
-  autocmd CursorHold * call file#update()
-augroup END
+" augroup AutoSaveBuffer
+"   autocmd!
+"   autocmd FocusLost,InsertLeave * call file#update()
+"   autocmd CursorHold * call file#update()
+" augroup END
 
 " augroup LineNumber
 "   autocmd!
@@ -287,7 +296,7 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
-  hi VertSplit                  guifg=cyan
+  hi VertSplit                  guifg=deeppink
   " hi CocFloating                guibg=blue
   hi CursorLineNr               guifg=orange
   " hi Normal                     guibg=#111111 guifg=#eeeeee
@@ -299,6 +308,9 @@ function! s:OnColorSchemeLoaded() abort
 
   " coclist will(might) change my cursor highlight
   hi Cursor gui=reverse guifg=NONE guibg=NONE
+
+  hi link CocRustTypeHint Comment
+  hi link CocRustChainingHint Comment
 endfunction
 call s:OnColorSchemeLoaded()
 " }}}
@@ -341,8 +353,7 @@ call s:SetCommandAbbrs('gco', 'Git checkout')
 call s:SetCommandAbbrs('gd', 'Gvdiff')
 call s:SetCommandAbbrs('gl', 'Git lg')
 call s:SetCommandAbbrs('gpull', 'AsyncRun git pull')
-call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push')
-call s:SetCommandAbbrs('Gpush', 'AsyncRun -silent git push')
+call s:SetCommandAbbrs('gp', 'AsyncRun -silent git push -f')
 call s:SetCommandAbbrs('gs', 'Gstatus')
 call s:SetCommandAbbrs('l', 'Leaderf')
 call s:SetCommandAbbrs('m', 'vertical Man')
@@ -377,7 +388,7 @@ command! -nargs=? Bline call command#insert_line('bold', <f-args>)
 command! -nargs=? Cline call command#insert_line('comment', <f-args>)
 
 command! -nargs=+ Grep  call command#grep(<q-args>)
-command! -bang    BClean call buffer#clean_buffer(<bang>0)
+command! -bang    BClean call buffer#clean(<bang>0)
 command! -nargs=* -complete=file Make AsyncRun -cwd=<root> -program=make @ <args>
 command! -nargs=? -complete=file  ExternalOpen  call util#external_open(<q-args>)
 
@@ -389,7 +400,7 @@ command! -nargs=+ -complete=command Messages call command#tab_message(<q-args>)
 command! -nargs=+ -complete=expression Echo Messages execute 'echo ' . <f-args>
 
 command! -bang    RunTaskOnSaveChange call task#run_on_save_change(<bang>0)
-command! -nargs=? -complete=customlist,task#complete RunTask call task#run(<f-args>)
+command! -bang -nargs=? -complete=customlist,task#complete RunTask call task#run(<bang>0, <f-args>)
 
 command! -nargs=? -complete=customlist,command#colors ColorScheme
       \ call command#colorscheme(<q-args>)
@@ -441,6 +452,8 @@ nnoremap <silent> * m`:keepjumps normal! *``zz<cr>
 nnoremap <silent> # m`:keepjumps normal! #``zz<cr>
 xnoremap <silent> * :<C-u>call keymap#x#visual_star_search('/')<CR>/<C-R>=@/<CR><CR>N
 xnoremap <silent> # :<C-u>call keymap#x#visual_star_search('?')<CR>?<C-R>=@/<CR><CR>n
+nnoremap <silent> <Space>n m`:normal! #<CR>
+nnoremap <silent> <Leader>n m`:normal! *<CR>
 " Substitute:
 nnoremap ! <Plug>(RepeatRedo)
 nnoremap <C-r> :%s/\<<C-r><C-w>\>/<C-r><C-w>/g \| normal! `` <Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
@@ -498,13 +511,14 @@ inoremap <silent> <C-o> <End><CR>
 inoremap <silent> <M-o> <Esc>O
 inoremap <silent> <C-d> <Esc>ddi
 inoremap <silent> <C-v> <C-o>"+]p
-nnoremap <silent>       <Leader>w :write<CR>
+nnoremap <silent>       <Leader>w :call buffer#write()<CR>
 nnoremap <silent>       <Leader>W :noautocmd Bufdo if !empty(bufname()) && !&ro && &ma \| write \| endif<CR>
 nnoremap <silent>       <M-q> q
 nnoremap <silent>       <Leader>Q Q
 nnoremap <silent><expr> q len(getbufinfo({'buflisted':1})) < 2 ? ":q!\<CR>" : ":bd!\<CR>"
 nnoremap <silent>       Q         :qa!<CR>
 nnoremap <silent> <Leader>d :<C-u>call keymap#n#safe_bdelete()<CR>
+nnoremap <silent> <Leader>D :<C-u>BClean<CR>
 " TerminalMode: move
 " tnoremap <silent> <C-h> <Left>
 " tnoremap <silent> <C-l> <Right>
@@ -547,13 +561,6 @@ tnoremap <expr> [    keymap#t#pairs('[', '[]')
 tnoremap <expr> {    keymap#t#pairs('{', '{}')
 if has('nvim')
   tnoremap <Esc>  <C-\><C-n>
-endif
-if has('win32') || has('win64')
-  nnoremap <silent> <Leader>n :vert term<CR>
-  nnoremap <silent> ,n        :term<CR>
-else
-  nnoremap <silent> <Leader>n :vsplit term://zsh<CR>
-  nnoremap <silent> ,n        :edit term://zsh<CR>
 endif
 " WindowOperation:
 if has('nvim')
@@ -638,6 +645,10 @@ let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 " iamcco/markdown-preview.nvim
 let g:mkdp_auto_close = 0
+Plug 'kristijanhusak/vim-dadbod-ui'
+let g:dbs = {
+  \ 'dev': 'mongodb://root:root123@localhost:3717/amazon?authSource=admin'
+\ }
 " neoclide/coc.nvim
 let g:coc_data_home = '~/.config/coc'
 nnoremap <silent><nowait> <C-b> :call keymap#n#scroll_win(0)<CR>
@@ -706,16 +717,15 @@ let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-diagnostic',
       \ 'coc-dictionary',
-      \ 'coc-ecdict',
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
       \ 'coc-explorer',
       \ 'coc-floaterm',
-      \ 'coc-gist',
       \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-html',
+      \ 'coc-html-css-support',
       \ 'coc-java',
       \ 'coc-json',
       \ 'coc-dash-complete',
@@ -731,7 +741,6 @@ let g:coc_global_extensions = [
       \ 'coc-snippets',
       \ 'coc-tag',
       \ 'coc-tasks',
-      \ 'coc-todolist',
       \ 'coc-translator',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
@@ -817,7 +826,6 @@ let g:lightline = {
   \ 'component': {
     \ 'lineinfo': ' %l,%-v',
     \ 'percent': '%p%%',
-    \ 'close': '%{has("nvim") ? " NVIM " : " VIM "}',
     \ 'vim_logo': "#"
   \ },
   \ 'component_function': {
@@ -917,7 +925,7 @@ let g:Lf_RgConfig = [
       \ "--glob=!logs",
       \ "--glob=!logs-meta",
       \ "--glob=!node_modules",
-      \ "--glob=!lib/*.js",
+      \ "--glob=!lib/**/*.js",
       \ "--glob=!yarn.lock",
       \ "--glob=!package-lock.json",
       \ "--glob=!target",
@@ -1045,6 +1053,7 @@ nmap <silent> ga <Plug>(EasyAlign)
 let g:vimspector_enable_mappings = 'HUMAN'
 " hop.nvim
 " remove mapping set by vim-signature
+lua require'hop'.setup()
 call timer_start(100, {->execute("nunmap ']")})
 call timer_start(100, {->execute("nunmap '[")})
 nnoremap <silent><nowait> ' <Cmd>HopWord<CR>
@@ -1057,6 +1066,9 @@ let g:im_select_enable_focus_events = 0
 " vista.vim
 let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_close_on_jump = 0
+let g:vista_executive_for = {
+      \ 'typescriptreact': 'coc',
+      \ }
 " glacambre/firenvim
 if exists('g:started_by_firenvim')
   set guifont=MonacoB2\ Nerd\ Font\ Mono:h15
@@ -1080,6 +1092,22 @@ let g:firenvim_config = {
 \ }
 let fc = g:firenvim_config['localSettings']
 let fc['https?://zhihu.com/.*'] = { 'takeover': 'never', 'priority': 1 }
+" vimwiki/vimwiki
+let g:vimwiki_key_mappings = {
+      \ 'all_maps': 0,
+      \ 'global': 0,
+      \ 'headers': 1,
+      \ 'text_objs': 1,
+      \ 'table_format': 1,
+      \ 'table_mappings': 0,
+      \ 'lists': 1,
+      \ 'links': 1,
+      \ 'html': 1,
+      \ 'mouse': 0,
+      \ }
+nmap <Space>ww <Plug>VimwikiIndex
+nmap <Space>wd <Plug>VimwikiDiaryIndex
+nmap <Space>wt <Plug>VimwikiToggleListItem
 " sakhnik/nvim-gdb
 let g:nvimgdb_disable_start_keymaps = 1
 let g:nvimgdb_config = {
@@ -1102,93 +1130,93 @@ let g:nvimgdb_config = {
       \ 'codewin_command': 'new'
       \ }
 
-" lua plugins
-if has('nvim')
+" nacro90/numb.nvim
+lua require('numb').setup()
+
+" nvim-treesitter
 lua <<EOF
-
--- nacro90/numb.nvim
-require('numb').setup()
-
--- nvim-treesitter
 require('nvim-treesitter.configs').setup {
-    highlight = {
-        enable = true,
-        disable = { 'rust', 'markdown', 'json', 'yaml' },
-    },
-    indent = {
-        enable = false
-    },
-    incremental_selection = {
-        enable = true,
-        disable = { 'cpp', 'lua' },
-        keymaps = {
-          init_selection = 'gnn',
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
-        }
-    },
-    refactor = {
-      highlight_definitions = {
-        enable = false
-      },
-      highlight_current_scope = {
-        enable = false
-      },
-      smart_rename = {
-        enable = true,
-        keymaps = {
-          smart_rename = "grr"
-        }
-      },
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = "gnd",
-          list_definitions = "gnD"
-        }
-      }
-    },
-    textobjects = {
-      enable = true,
-      disable = {},
-      keymaps = {
-          ["iL"] = {
-            -- you can define your own textobjects directly here
-            python = "(function_definition) @function",
-            cpp = "(function_definition) @function",
-            c = "(function_definition) @function",
-            java = "(method_declaration) @function"
-          },
-          -- or you use the queries from supported languages with textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["aC"] = "@class.outer",
-          ["iC"] = "@class.inner",
-          ["ac"] = "@conditional.outer",
-          ["ic"] = "@conditional.inner",
-          ["ae"] = "@block.outer",
-          ["ie"] = "@block.inner",
-      }
-    },
-    ensure_installed = {
-      'bash',
-      'c',
-      'cpp',
-      'css',
-      'go',
-      'html',
-      'java',
-      'javascript',
-      'json',
-      'python',
-      'rust',
-      'toml',
-      'typescript'
+  ensure_installed = {
+    'bash',
+    'c',
+    'cpp',
+    'css',
+    'go',
+    'html',
+    'java',
+    'javascript',
+    'json',
+    'python',
+    'rust',
+    'toml',
+    'tsx',
+    'typescript'
+  },
+  highlight = {
+    enable = true,
+    disable = { 'markdown', 'json', 'yaml' },
+  },
+  indent = {
+    enable = false
+  },
+  incremental_selection = {
+    enable = true,
+    disable = { 'cpp', 'lua' },
+    keymaps = {
+      init_selection = 'gnn',
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
     }
+  },
+  refactor = {
+    highlight_definitions = {
+      enable = false
+    },
+    highlight_current_scope = {
+      enable = false
+    },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "grr"
+      }
+    },
+    navigation = {
+      enable = true,
+      keymaps = {
+        goto_definition = "gnd",
+        list_definitions = "gnD"
+      }
+    }
+  },
+  textobjects = {
+    enable = true,
+    disable = {},
+    keymaps = {
+      ["iL"] = {
+        -- you can define your own textobjects directly here
+        python = "(function_definition) @function",
+        cpp = "(function_definition) @function",
+        c = "(function_definition) @function",
+        java = "(method_declaration) @function"
+      },
+      -- or you use the queries from supported languages with textobjects.scm
+      ["af"] = "@function.outer",
+      ["if"] = "@function.inner",
+      ["aC"] = "@class.outer",
+      ["iC"] = "@class.inner",
+      ["ac"] = "@conditional.outer",
+      ["ic"] = "@conditional.inner",
+      ["ae"] = "@block.outer",
+      ["ie"] = "@block.inner",
+    }
+  }
 }
+EOF
 
--- sindrets/diffview.nvim
+" sindrets/diffview.nvim
+lua <<EOF
 local cb = require'diffview.config'.diffview_callback
 require'diffview'.setup {
   diff_binaries = false,    -- Show diffs for binaries
@@ -1200,7 +1228,7 @@ require'diffview'.setup {
     -- The `view` bindings are active in the diff buffers, only when the current
     -- tabpage is a Diffview.
     view = {
-      ["<tab>"]     = cb("select_next_entry"),  -- Open the diff for the next file 
+      ["<tab>"]     = cb("select_next_entry"),  -- Open the diff for the next file
       ["<s-tab>"]   = cb("select_prev_entry"),  -- Open the diff for the previous file
     },
     file_panel = {
@@ -1218,6 +1246,50 @@ require'diffview'.setup {
     }
   }
 }
-
 EOF
-endif
+
+" /kristijanhusak/orgmode
+lua <<EOF
+require('orgmode').setup({
+  org_agenda_files = {'~/.config/org/*', '~/my-orgs/**/*'},
+  org_default_notes_file = '~/.config/org/refile.org',
+})
+EOF
+
+" kevinhwang91/nvim-bqf
+hi BqfPreviewBorder guifg=#50a14f ctermfg=71
+hi link BqfPreviewRange Search
+let g:coc_enable_locationlist = 0
+augroup CocNvimBqf
+  autocmd!
+  autocmd User CocLocationsChange ++nested call Coc_qf_jump2loc(g:coc_jump_locations)
+augroup END
+function! Coc_qf_jump2loc(locs) abort
+  let loc_ranges = map(deepcopy(a:locs), 'v:val.range')
+  call setloclist(0, [], ' ', {
+    \ 'title': 'CocLocationList',
+    \ 'items': a:locs,
+    \ 'context': {'bqf': {'lsp_ranges_hl': loc_ranges}}
+  \ })
+  let winid = getloclist(0, {'winid': 0}).winid
+  if winid == 0
+    botright lwindow
+  else
+    call win_gotoid(winid)
+  endif
+endfunction
+lua <<EOF
+require('bqf').setup({
+  auto_enable = true,
+  preview = {
+    win_height = 12,
+    win_vheight = 12,
+    delay_syntax = 80,
+    border_chars = {'┃', '┃', '━', '━', '┏', '┓', '┗', '┛', '█'}
+  },
+  func_map = {
+    open = 'o',
+    openc = '<CR>'
+  }
+})
+EOF

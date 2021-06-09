@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-let s:colors = ['#aeee00', '#ff0000', '#0000ff', '#b88823', '#ffa724', '#ff2c4b']
+let s:colors = ['#00ffff', '#ff0000', '#ffffff', '#ff00ff', '#00ff00', '#ffff00']
 let s:has_builtin_colors = 0
 let s:words = []
 let s:modes = []

@@ -99,100 +99,23 @@ endif
 
 " }}}
 
-" " Plugin: {{{
-" call plug#begin('~/.cache/nvim/plugged')
-" " Languages
-" if has('nvim')
-" Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'sindrets/diffview.nvim'
-" Plug 'nacro90/numb.nvim'
-" endif
-" Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
-" " Plug 'fatih/vim-go', {'for': 'go'}
-" Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
-" Plug 'lervag/vimtex'
-" Plug 'posva/vim-vue', {'for': 'vue'}
-" Plug 'jparise/vim-graphql'
-" Plug 'rust-lang/rust.vim', {'for': 'rust'}
-" Plug 'tpope/vim-dadbod', {'for': ['sql', 'mysql']}
-" " Completion
-" if !exists('g:vscode') " TODO: use packer.nvim's `cond`
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" endif
-" " Style
-" Plug 'Yggdroot/indentLine'
-" Plug 'kshenoy/vim-signature'
-" Plug 'lukas-reineke/indent-blankline.nvim' " can not exclude startify on the first :Startify
-" Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-" Plug 'itchyny/lightline.vim'
-" Plug 'mengelbrecht/lightline-bufferline'
-" Plug 'mhinz/vim-startify', {'on': 'Startify'}
-" Plug 'ryanoasis/vim-devicons'
-" Plug 'itchyny/vim-cursorword'
-" " Git
-" Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-git'
-" " Others
-" " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-" " Plug 'brglng/vim-im-select'
-" " Plug 'puremourning/vimspector'
-" Plug 'phaazon/hop.nvim', {'on': 'HopWord'}
-" Plug 'yangmillstheory/vim-snipe', {'on': ['<Plug>(snipe-f)', '<Plug>(snipe-F)']}
-" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" Plug 'andrewradev/sideways.vim'
-" Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
-" Plug 'junegunn/vader.vim'
-" Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
-" Plug 'junegunn/vim-peekaboo'
-" Plug 'liuchengxu/vista.vim'
-" " Plug 'liuchengxu/vim-clap'
-" Plug 'matze/vim-move'
-" Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-" Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun', 'AsyncStop'] }
-" Plug 'skywind3000/vim-cppman', {'on': 'Cppman'}
-" Plug 'skywind3000/asynctasks.vim'
-" Plug 'skywind3000/vim-dict'
-" Plug 'tommcdo/vim-exchange'
-" Plug 'tomtom/tcomment_vim'
-" Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-surround'
-" Plug 'voldikss/vim-browser-search'
-" Plug 'voldikss/vim-skylight'
-" Plug 'voldikss/vim-codelf'
-" Plug 'voldikss/vim-floaterm'
-" Plug 'voldikss/vim-translator'
-" Plug 'voldikss/LeaderF-emoji'
-" Plug 'wellle/targets.vim'
-" Plug 'yianwillis/vimcdoc'
-" call plug#end()
-" " }}}
+" Plugin: {{{
+call plug#begin('~/.cache/nvim/plugged')
+Plug 'andrewradev/sideways.vim'
+Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
+Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
+Plug 'matze/vim-move'
+Plug 'tommcdo/vim-exchange'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'voldikss/vim-browser-search'
+Plug 'wellle/targets.vim'
+call plug#end()
+" }}}
 
 " put this after plugxxx, do not source colorscheme twice
 colorscheme gruvbox
-
-" Autocmds: {{{
-" autocmd CmdlineEnter * call feedkeys("\<C-p>")
-" augroup ParenColor
-"   autocmd!
-"   autocmd VimEnter,BufWinEnter *
-"         \ if index(['html', 'htmldjango', 'tex', 'mma', 'vue', 'xml'], &filetype) < 0 |
-"         \ call matchadd('Constant', '\[\|\]') |
-"         \ call matchadd('Identifier', '{\|}') |
-"         \ call matchadd('Statement', '(\|)') |
-"         \ call matchadd('PreProc', '<\|>') |
-"         \ endif
-" augroup END
-
-augroup FileTypeAutocmds
-  autocmd!
-  autocmd FileType * set formatoptions-=cro
-  autocmd FileType * syntax sync minlines=50
-  autocmd FileType *
-        \ call matchadd('Special', '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\ze') |
-        \ call matchadd('Special', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\ze') |
-        \ call matchadd('Special', '\W\zs\(DEBUG\|Debug\)\ze') |
-        \ call matchadd('Special', '\W\zs\(@VOLDIKSS\|@voldikss\)\ze')
-augroup END
 
 augroup AutoSaveBuffer
   autocmd!
@@ -639,107 +562,6 @@ inoremap <expr>   <BS>             keymap#i#BS()
 " let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 " " iamcco/markdown-preview.nvim
 " let g:mkdp_auto_close = 0
-" " neoclide/coc.nvim
-" let g:coc_data_home = '~/.config/coc'
-" nnoremap <silent><nowait> <C-b> :call keymap#n#scroll_win(0)<CR>
-" nnoremap <silent><nowait> <C-f> :call keymap#n#scroll_win(1)<CR>
-" inoremap <silent><nowait><expr> <C-f>
-"       \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
-"       \ "<C-r>=keymap#exec('normal! w')<CR>"
-" inoremap <silent><nowait><expr> <C-b>
-"       \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
-"       \ "<C-r>=keymap#exec('normal! b')<CR>"
-" nnoremap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
-" function! s:select_current_word_and_go_next()
-"   if !get(g:, 'coc_cursors_activated', 0)
-"     return "\<Plug>(coc-cursors-word)"
-"   endif
-"   " based on coc readme, this has been modified
-"   " because I have mapped * to m`:keepjumps normal! *``zz<cr>
-"   return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-" endfunc
-" nmap     <silent> <M-n>      <Plug>(coc-diagnostic-next)
-" nmap     <silent> <M-p>      <Plug>(coc-diagnostic-prev)
-" nnoremap <silent> cl         :<C-u>CocList<CR>
-" nnoremap <silent> <Leader>cs :<C-u>CocSearch <C-r><C-w><CR>
-" nmap     <silent> <Leader>cf <Plug>(coc-fix-current)
-" nmap     <silent> <Leader>cd <Plug>(coc-definition)
-" nmap     <silent> <Leader>cr <Plug>(coc-refactor)
-" nmap     <silent> <Leader>ci <Plug>(coc-implementation)
-" nmap     <silent> <Leader>rn <Plug>(coc-rename)
-" nmap     <silent> <Leader>rf <Plug>(coc-references-used)
-" nnoremap <silent> <Leader>rs :<C-u>CocRestart<CR>
-" xmap ic <Plug>(coc-classobj-a)
-" omap ic <Plug>(coc-classobj-a)
-" xmap if <Plug>(coc-funcobj-a)
-" omap if <Plug>(coc-funcobj-a)
-" omap ig <Plug>(coc-git-chunk-inner)
-" xmap ig <Plug>(coc-git-chunk-inner)
-" " coc-git
-" nnoremap <silent> gs  :CocCommand git.chunkStage<CR>
-" nnoremap <silent> go  :CocCommand git.browserOpen<CR>
-" nnoremap <silent> gd  :CocCommand git.chunkInfo<CR>
-" nnoremap <silent> gm  :CocCommand git.showCommit<CR>
-" nnoremap <silent> gw  :call file#refresh()<CR>:Gw<CR>:call file#refresh()<CR>
-" nnoremap <silent> gW  :AsyncRun -cwd=<root> -silent=1 git add .<CR>
-" nnoremap <silent> gca :Git commit --amend -v<CR>
-" nnoremap <silent> gcm :Git commit -v<CR>
-" nnoremap <silent> gcu :CocCommand git.chunkUndo<CR>
-" " coc-snippets
-" " 不要改动
-" inoremap <silent><expr> <TAB>
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-" let g:coc_snippet_next = '<Tab>'
-" let g:coc_snippet_prev = '<S-Tab>'
-" " coc extensions
-" let g:coc_global_extensions = [
-"       \ 'coc-browser',
-"       \ 'coc-clangd',
-"       \ 'coc-clang-format-style-options',
-"       \ 'coc-clock',
-"       \ 'coc-cmake',
-"       \ 'coc-css',
-"       \ 'coc-diagnostic',
-"       \ 'coc-dictionary',
-"       \ 'coc-ecdict',
-"       \ 'coc-emmet',
-"       \ 'coc-emoji',
-"       \ 'coc-eslint',
-"       \ 'coc-explorer',
-"       \ 'coc-floaterm',
-"       \ 'coc-gist',
-"       \ 'coc-git',
-"       \ 'coc-highlight',
-"       \ 'coc-html',
-"       \ 'coc-java',
-"       \ 'coc-json',
-"       \ 'coc-dash-complete',
-"       \ 'coc-just-complete',
-"       \ 'coc-leetcode',
-"       \ 'coc-lists',
-"       \ 'coc-marketplace',
-"       \ 'coc-pairs',
-"       \ 'coc-prettier',
-"       \ 'coc-pyright',
-"       \ 'coc-rust-analyzer',
-"       \ 'coc-syntax',
-"       \ 'coc-snippets',
-"       \ 'coc-tag',
-"       \ 'coc-tasks',
-"       \ 'coc-todolist',
-"       \ 'coc-translator',
-"       \ 'coc-tsserver',
-"       \ 'coc-vimlsp',
-"       \ 'coc-vimtex',
-"       \ 'coc-word',
-"       \ 'coc-yank'
-"       \ ]
 " " Yggdroot/indentLine
 " let g:indentLine_char = '│'
 " let g:indentLine_enabled = 1

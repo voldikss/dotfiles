@@ -1,0 +1,15 @@
+# weasel.custom.yaml
+
+patch:
+  "style/color_scheme": starcraft    # 這項用於選中下面定義的新方案
+  "preset_color_schemes/starcraft":  # 在配色方案列表裏加入標識爲 starcraft 的新方案
+    name: 星際我爭霸／StarCraft
+    author: Contralisk <contralisk@gmail.com>, original artwork by Blizzard Entertainment
+    text_color: 0xccaa88             # 編碼行文字顏色，24 位色值，用十六進制書寫方便些，順序是藍綠紅 0xBBGGRR
+    candidate_text_color: 0x30bb55   # 候選項文字顏色，當與文字顏色不同時指定
+    back_color: 0x000000             # 底色
+    border_color: 0x1010a0           # 邊框顏色，與底色相同則爲無邊框的效果
+    hilited_text_color: 0xfecb96     # 高亮文字，即與當前高亮候選對應的那部份輸入碼
+    hilited_back_color: 0x000000     # 設定高亮文字的底色，可起到凸顯高亮部份的作用
+    hilited_candidate_text_color: 0x60ffa8  # 高亮候選項的文字顏色，要醒目！
+    hilited_candidate_back_color: 0x000000  # 高亮候選項的底色，若與背景色不同就會顯出光棒

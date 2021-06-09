@@ -17,14 +17,12 @@
 [credential]
 	helper = cache
 [core]
-    # pager = delta
     editor = nvim
 	fileMode = false
 	quotepath = false
     autocrlf = false
     safecrlf = true
 	eol = lf
-	pager = git-split-diffs --color | less -RFX
 [color]
 	ui = auto
 [diff]
@@ -37,13 +35,7 @@
     user = voldikss
 [pull]
 	rebase = false
-# [delta]
-#     plus-color = "#012800"
-#     minus-color = "#340001"
-#     syntax-theme = Monokai Extended
-# [interactive]
-#     diffFilter = delta --color-only
 [fetch]
 	prune = true
-[split-diffs]
-	theme-name = github-light
+[push]
+	default = current

@@ -16,7 +16,7 @@ function! file#autoformat() abort
   " 2. remove blank line
   call s:remove_blank_lines()
   " 3. use coc
-  if index(['typescript', 'javascript'], &ft) > -1
+  if index(['typescript', 'javascript', 'json', 'jsonc'], &ft) > -1
     CocCommand prettier.formatFile
   else
     silent! call CocAction('format')

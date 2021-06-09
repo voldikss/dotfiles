@@ -1,0 +1,23 @@
+# luna_pinyin_simp.custom.yaml
+
+patch:
+  # 默認輸出英文
+  switches:
+    - name: ascii_mode
+      reset: 1
+      states: [中文, 西文]
+    - name: zh_simp
+      reset: 1
+      states: [漢字, 汉字]
+
+  # 常用符号一键上屏
+  punctuator/full_shape:
+    '/': '、'
+    '\': 、
+
+  punctuator/half_shape:
+    '/': '、'
+    '*': '*'
+    '%': '%'
+    '~': '~'
+    '\': 、
