@@ -2,7 +2,7 @@
 Type=Application
 Name=Redis Desktop Manager
 Comment=Redis Desktop Manager
-Exec=/home/dyzh/Apps/Another-Redis-Desktop-Manager.1.4.5.AppImage
+Exec=$HOME/Apps/Another-Redis-Desktop-Manager.1.4.5.AppImage
 Terminal=false
 StartupNotify=true
 Categories=Development;IDE;

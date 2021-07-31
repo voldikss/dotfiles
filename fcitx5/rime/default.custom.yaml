@@ -1,0 +1,24 @@
+# default.custom.yaml
+
+# for fcitx4: ~/.config/fcitx/rime/default.custom.yaml
+# for fcitx5: ~/.local/share/fcitx5/rime/default.custom.yaml
+
+patch:
+  menu/page_size: 8
+
+  schema_list:
+    - schema: luna_pinyin_simp
+
+  switcher/hotkeys:
+    - 'Control+grave'
+
+  ascii_composer/good_old_caps_lock: true
+  ascii_composer/switch_key:
+    Caps_Lock: clear
+    Shift_L: noop
+    Shift_R: inline_ascii
+    Control_L: noop
+    Control_R: noop
+
+  key_binder/bindings:
+    - { when: always, accept: Control+space, toggle: ascii_mode }
