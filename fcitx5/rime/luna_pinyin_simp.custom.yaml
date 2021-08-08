@@ -21,3 +21,5 @@ patch:
     '%': '%'
     '~': '~'
     '\': 、
+
+  translator/dictionary: luna_pinyin_simp.extended

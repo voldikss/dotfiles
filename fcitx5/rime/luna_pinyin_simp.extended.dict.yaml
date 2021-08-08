@@ -1,0 +1,10 @@
+---
+name: luna_pinyin_simp.extended
+version: "1.0"              
+sort: by_weight              
+use_preset_vocabulary: true   
+
+import_tables:
+  - luna_pinyin            
+  - zhwiki                  
+---

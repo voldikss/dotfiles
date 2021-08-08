@@ -1,16 +1,19 @@
 __dirname="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$__dirname/../pre_setup.sh"
 
-ensure_installed fcitx5-im
+ensure_installed fcitx5
+ensure_installed fcitx5-configtool
+ensure_installed fcitx5-qt
 ensure_installed librime
 ensure_installed fcitx5-rime
+ensure_installed fcitx5-pinyin-zhwiki-rime
 
 CONFIG_DIR="$HOME/.local/share/fcitx5"
 ensure_folder $CONFIG_DIR
 
 RIME_CONFIG_DIR="$CONFIG_DIR/rime"
 ensure_folder $RIME_CONFIG_DIR
-for custom_config in $__dirname/rime/*.custom.yaml # NOTE: no double quotes(") !!!
+for custom_config in $__dirname/rime/*.yaml # NOTE: no double quotes(") !!!
 do
     filename=$(basename "$custom_config")
     ln -sf "$custom_config" "$RIME_CONFIG_DIR/$filename"

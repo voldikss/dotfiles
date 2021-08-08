@@ -11,6 +11,8 @@ arch_base() {
     # sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
     # sudo cp ./sources/arch/mirrorlist /etc/pacman.d/mirrorlist
     echo "[archlinuxcn]\nSigLevel = Optional TrustAll\nServer = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/\$arch" | sudo tee -a /etc/pacman.conf
+    sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
+
     sudo pacman -Syu
     sudo pacman -S openssh git wget curl unrar unzip tree xclip make cmake htop ranger trash-cli zathura zsh --noconfirm
     sudo pacman -S dconf-editor lsb-release mlocate cgdb proxychains zeal perl-rename vlc fd --noconfirm
