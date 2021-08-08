@@ -1,0 +1,44 @@
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  semi: false,
+  quoteProps: 'as-needed',
+  singleQuote: true,
+  arrowParens: 'always',
+  bracketSpacing: true,
+  jsxBracketSameLine: false,
+  jsxSingleQuote: true,
+  printWidth: 120,
+  overrides: [
+    {
+      files: '*.{ts,tsx}',
+      options: {
+        parser: 'typescript',
+      },
+    },
+    {
+      files: '*.js',
+      options: {
+        parser: 'babel',
+      },
+    },
+    {
+      files: 'backend/src/**/*.graphql',
+      options: {
+        parser: 'graphql',
+      },
+    },
+    {
+      files: '*.scss',
+      options: {
+        parser: 'scss',
+      },
+    },
+    {
+      files: '*.json',
+      options: {
+        parser: 'json',
+      },
+    },
+  ],
+}

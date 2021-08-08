@@ -26,7 +26,7 @@ set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent bre
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
 set noshowcmd noruler rulerformat= laststatus=2
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
-set cursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
+set nocursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
@@ -297,7 +297,6 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
   hi VertSplit                  guifg=deeppink
-  " hi CocFloating                guibg=blue
   hi CursorLineNr               guifg=orange
   " hi Normal                     guibg=#111111 guifg=#eeeeee
   hi PmenuThumb                  guifg=white guibg=white
@@ -612,7 +611,8 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:RunTask<CR>
 noremap! <silent> <F5>             <Esc>:RunTask<CR>
 noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
-noremap  <silent> <Leader><Space>  <Esc>:call quickfix#toggle()<CR>
+noremap  <silent> <Space>c         <Esc>:call qf#ctoggle()<CR>
+noremap  <silent> <Space>l         <Esc>:call qf#ltoggle()<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
@@ -685,6 +685,8 @@ xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
+" coc-explorer
+nnoremap <silent> <Space><Space> :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 " coc-git
 nnoremap <silent> gs  :CocCommand git.chunkStage<CR>
 nnoremap <silent> go  :CocCommand git.browserOpen<CR>
@@ -717,6 +719,7 @@ let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-diagnostic',
       \ 'coc-dictionary',
+      \ 'coc-docker',
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
@@ -768,7 +771,7 @@ let g:indentLine_fileTypeExclude = [
 let g:indent_blankline_char_highlight = 'Delimiter'
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
-nnoremap <silent> <Space><Space> <Esc>:Startify<CR>
+nnoremap <silent> <Leader><Space> <Esc>:Startify<CR>
 function! s:stdpath_config() abort
   if has('nvim')
     return stdpath('config')
@@ -892,8 +895,8 @@ let g:Lf_Extensions.man = {
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer --all<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
-" nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
-nnoremap <silent> <Leader>ff :Leaderf file<CR>
+nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
+" nnoremap <silent> <Leader>ff :Leaderf file<CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
 nnoremap <silent> <Leader>fl :Leaderf line --all<CR>
@@ -1094,7 +1097,7 @@ let fc = g:firenvim_config['localSettings']
 let fc['https?://zhihu.com/.*'] = { 'takeover': 'never', 'priority': 1 }
 " vimwiki/vimwiki
 let g:vimwiki_key_mappings = {
-      \ 'all_maps': 0,
+      \ 'all_maps': 1,
       \ 'global': 0,
       \ 'headers': 1,
       \ 'text_objs': 1,
@@ -1222,7 +1225,7 @@ require'diffview'.setup {
   diff_binaries = false,    -- Show diffs for binaries
   file_panel = {
     width = 35,
-    use_icons = true        -- Requires nvim-web-devicons
+    -- use_icons = true        -- Requires nvim-web-devicons
   },
   key_bindings = {
     -- The `view` bindings are active in the diff buffers, only when the current
@@ -1281,6 +1284,7 @@ endfunction
 lua <<EOF
 require('bqf').setup({
   auto_enable = true,
+  auto_resize_height = false,
   preview = {
     win_height = 18,
     win_vheight = 18,

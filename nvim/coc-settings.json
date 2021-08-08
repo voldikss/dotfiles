@@ -1,5 +1,19 @@
 // vim:ft=jsonc
 {
+  "signature.floatConfig": {
+    "border": true
+  },
+  "diagnostic.floatConfig": {
+    "border": true,
+    "highlight": "PreProc"
+  },
+  "hover.floatConfig": {
+    "border": true
+  },
+  "suggest.floatConfig": {
+    "border": true,
+    "borderhighlight": "PreProc"
+  },
   "browser.priority": 0,
   "clangd.arguments": ["--header-insertion=never"],
   "cmake.formatter": "cmake-format",
@@ -53,7 +67,6 @@
     "<M-k>": "indentPrev",
     "<C-j>": "nodeNext",
     "<M-j>": "indentNext",
-    "*": "toggleSelection",
     "<tab>": "actionMenu",
     "h": "collapse",
     "l": ["expandable?", "expand", "open"],
@@ -221,7 +234,7 @@
     "value": "\uf89f",
     "variable": "\ue79b"
   },
-  "suggest.defaultSortMethod": "alphabetical",
+  "suggest.defaultSortMethod": "none",
   "suggest.detailMaxLength": 50,
   "suggest.enablePreselect": false,
   "suggest.labelMaxLength": 75,
@@ -231,7 +244,6 @@
   "suggest.removeDuplicateItems": true,
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
-  "todolist.monitor": true,
   "translator.enableHover": false,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,

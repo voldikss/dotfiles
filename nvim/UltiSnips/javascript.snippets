@@ -1,4 +1,4 @@
-# vim:ft=snippets:
+# vim:ft=snippets:sw=2:
 priority -50
 
 snippet cl "console.log"
@@ -31,3 +31,28 @@ ${0:${VISUAL}}
 console.timeEnd("$1")
 endsnippet
 
+snippet tryc "try catch"
+try {
+  ${1}
+} catch (${2:e}) {
+  ${3}
+}
+endsnippet
+
+snippet tryf "try catch"
+try {
+  ${1}
+} finally {
+  ${2}
+}
+endsnippet
+
+snippet trycf "try catch"
+try {
+  ${1}
+} catch (${2:e}) {
+  ${3}
+} finally {
+  ${4}
+}
+endsnippet

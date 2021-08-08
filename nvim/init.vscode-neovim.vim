@@ -529,7 +529,7 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:RunTask<CR>
 noremap! <silent> <F5>             <Esc>:RunTask<CR>
 noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
-noremap  <silent> <Leader><Space>  <Esc>:call quickfix#toggle()<CR>
+" noremap  <silent> <Leader><Space>  <Esc>:call qf#ctoggle()<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>

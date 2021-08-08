@@ -11,3 +11,6 @@ if ! test -e "$NPMRC_PATH" &> /dev/null
 then
     cp "$__dirname/.npmrc" $NPMRC_PATH
 fi
+
+yarn global add ts-node
+yarn global add typescript

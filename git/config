@@ -39,3 +39,8 @@
 	prune = true
 [push]
 	default = current
+[log]
+	decorate = true
+	abbrevCommit = true
+[diff "color"]
+	commit = blue

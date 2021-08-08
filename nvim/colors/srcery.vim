@@ -230,11 +230,7 @@ endif
 
 " Normal text
 "
-if g:srcery_transparent_background == 1 && !has('gui_running')
-  call s:HL('Normal', s:bright_white, s:none)
- else
-  call s:HL('Normal', s:bright_white, s:black)
-endif
+hi Normal guifg=#FCE8C3 guibg=#111111
 
 if v:version >= 700
   " Screen line that the cursor is
@@ -439,23 +435,13 @@ endif
 
 " }}}
 " Completion Menu: {{{
+" Popup menu: normal item
+hi Pmenu guifg=#FCE8C3 guibg=#000000
+" Popup menu: selected item
+call s:HL('PmenuSel', s:bright_white, s:magenta, s:bold)
 
-if v:version >= 700
-  " Popup menu: normal item
-  call s:HL('Pmenu', s:bright_white, s:bright_black)
-  " Popup menu: selected item
-  call s:HL('PmenuSel', s:bright_white, s:magenta, s:bold)
-
-  if g:srcery_transparent_background == 1 && !has('gui_running')
-    " Popup menu: scrollbar
-    call s:HL('PmenuSbar', s:none, s:none)
-    " Popup menu: scrollbar thumb
-    call s:HL('PmenuThumb', s:none, s:none)
-  else
-    call s:HL('PmenuSbar', s:none, s:black)
-    call s:HL('PmenuThumb', s:none, s:black)
-  endif
-endif
+call s:HL('PmenuSbar', s:none, s:black)
+call s:HL('PmenuThumb', s:none, s:black)
 
 " }}}
 " Diffs: {{{
