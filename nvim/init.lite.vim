@@ -606,7 +606,8 @@ noremap  <silent> <F4>             <Esc>:OpenFileExplorer<CR>
 noremap  <silent> <F5>             <Esc>:RunTask<CR>
 noremap! <silent> <F5>             <Esc>:RunTask<CR>
 noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
-noremap  <silent> <Leader><Space>  <Esc>:call quickfix#toggle()<CR>
+noremap  <silent> <Space>c         <Esc>:call qf#ctoggle()<CR>
+noremap  <silent> <Space>l         <Esc>:call qf#ltoggle()<CR>
 noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
 noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
 noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
