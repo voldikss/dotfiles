@@ -69,7 +69,7 @@ source $HOME/.aliases
 export VISUAL=/usr/bin/nvim
 # export EDITOR=/usr/bin/nvim
 # export MANPAGER="nvim '+set ft=man' -"
-export REACT_EDITOR=vim
+export REACT_EDITOR=code
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
