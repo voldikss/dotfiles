@@ -296,6 +296,8 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
+  hi CocFloating                guibg=black
+
   hi VertSplit                  guifg=deeppink
   " hi CocFloating                guibg=blue
   hi CursorLineNr               guifg=orange
@@ -686,6 +688,8 @@ xmap if <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-a)
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
+" coc-explorer
+nnoremap <silent> <Space><Space> :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 " coc-git
 nnoremap <silent> gs  :CocCommand git.chunkStage<CR>
 nnoremap <silent> go  :CocCommand git.browserOpen<CR>
@@ -718,6 +722,7 @@ let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-diagnostic',
       \ 'coc-dictionary',
+      \ 'coc-docker',
       \ 'coc-emmet',
       \ 'coc-emoji',
       \ 'coc-eslint',
@@ -769,7 +774,7 @@ let g:indentLine_fileTypeExclude = [
 let g:indent_blankline_char_highlight = 'Delimiter'
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
-nnoremap <silent> <Space><Space> <Esc>:Startify<CR>
+nnoremap <silent> <Leader><Space> <Esc>:Startify<CR>
 function! s:stdpath_config() abort
   if has('nvim')
     return stdpath('config')
@@ -1095,7 +1100,7 @@ let fc = g:firenvim_config['localSettings']
 let fc['https?://zhihu.com/.*'] = { 'takeover': 'never', 'priority': 1 }
 " vimwiki/vimwiki
 let g:vimwiki_key_mappings = {
-      \ 'all_maps': 0,
+      \ 'all_maps': 1,
       \ 'global': 0,
       \ 'headers': 1,
       \ 'text_objs': 1,

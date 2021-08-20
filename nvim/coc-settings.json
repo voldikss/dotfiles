@@ -37,7 +37,7 @@
   "eslint.autoFixOnSave": false,
   "explorer.enableFloatinput": false,
   "explorer.expandStores": true,
-  "explorer.file.reveal.auto": true,
+  "explorer.file.reveal.auto": false,
   "explorer.file.reveal.filter": {
     "literals": ["node_modules"]
   },
