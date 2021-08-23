@@ -74,6 +74,9 @@ function s:TExpandVars()
   call s:TExpand("MACROCLASS", macroclass)
   call s:TExpand("CAMELCLASS", camelclass)
   call s:TExpand("LICENSE", license)
+  " 执行系统命令展开
+  " e.g. %(node -v)% for .nvmrc
+  silent! execute "%s/%\\((.*)\\)%/\\=trim(system(submatch(1)))/g"
 endfunction
 
 function s:TPutCursor()

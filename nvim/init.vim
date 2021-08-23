@@ -26,7 +26,7 @@ set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent bre
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
 set noshowcmd noruler rulerformat= laststatus=2
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
-set cursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
+set nocursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
@@ -296,10 +296,7 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
-  hi CocFloating                guibg=black
-
   hi VertSplit                  guifg=deeppink
-  " hi CocFloating                guibg=blue
   hi CursorLineNr               guifg=orange
   " hi Normal                     guibg=#111111 guifg=#eeeeee
   hi PmenuThumb                  guifg=white guibg=white

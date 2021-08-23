@@ -74,8 +74,8 @@ alias sizeof='/usr/bin/du -sh'
 alias nnn='nnn -d'
 
 # where proxy
-alias proxy='export all_proxy=https://127.0.0.1:1081'
-alias unproxy='unset all_proxy'
+alias proxy_on='export https_proxy=http://127.0.0.1:1081 http_proxy=http://127.0.0.1:1081 all_proxy=socks5://127.0.0.1:1081'
+alias proxy_off='unset http_proxy https_proxy all_proxy'
 alias pc=proxychains
 
 # npm registry
