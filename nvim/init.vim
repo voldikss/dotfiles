@@ -441,6 +441,8 @@ nnoremap <silent> gk       :call keymap#n#prev_diff_or_chunk()<CR>
 nnoremap <silent> gj       :call keymap#n#next_diff_or_chunk()<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_definition()<CR>
+nnoremap <silent> <C-]>      :<C-u>call keymap#n#peek_definition()<CR>
+nnoremap <silent> <C-x>      :<C-u>call keymap#n#peek_definition()<CR>
 nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call mycoc#showdoc()<CR>
 nmap <silent> <C-w><C-j> <C-W>v<C-j>zz
@@ -659,15 +661,15 @@ inoremap <silent><nowait><expr> <C-f>
 inoremap <silent><nowait><expr> <C-b>
       \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
       \ "<C-r>=keymap#exec('normal! b')<CR>"
-nnoremap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
-function! s:select_current_word_and_go_next()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  " based on coc readme, this has been modified
-  " because I have mapped * to m`:keepjumps normal! *``zz<cr>
-  return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
+" nnoremap <expr> <silent> <C-c> <SID>select_current_word_and_go_next()
+" function! s:select_current_word_and_go_next()
+"   if !get(g:, 'coc_cursors_activated', 0)
+"     return "\<Plug>(coc-cursors-word)"
+"   endif
+"   " based on coc readme, this has been modified
+"   " because I have mapped * to m`:keepjumps normal! *``zz<cr>
+"   return "*n\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+" endfunc
 nmap     <silent> <M-n>      <Plug>(coc-diagnostic-next)
 nmap     <silent> <M-p>      <Plug>(coc-diagnostic-prev)
 nnoremap <silent> cl         :<C-u>CocList<CR>

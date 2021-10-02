@@ -196,6 +196,37 @@ function! s:gd() abort
   endtry
 endfunction
 
+" PeekDefinition:
+function! keymap#n#peek_definition() abort
+  call CocActionAsync('definitions', { err,data -> s:Bqf_Coc_definitions(err, data) })
+endfunction
+
+function! s:Bqf_Coc_definitions(err, data) abort
+  if (a:err)
+    call util#show_msg('Error', 'warning')
+  else
+    let locs = []
+    for loc in a:data
+      let item = {
+            \ 'filename': substitute(loc.uri, 'file://', '', 'g'),
+            \ 'lnum': loc.range.start.line + 1,
+            \ 'col': loc.range.start.character,
+            \ }
+      call add(locs, item)
+    endfor
+    call setloclist(0, [], ' ', {
+          \ 'title': 'CocLocationList',
+          \ 'items': locs
+          \ })
+  endif
+  let winid = getloclist(0, {'winid': 0}).winid
+  if winid == 0
+    botright lwindow 3
+  else
+    call win_gotoid(winid)
+  endif
+endfunction
+
 " NextDiffOrChunk:
 function! keymap#n#next_diff_or_chunk() abort
   let curlnum = line('.')
