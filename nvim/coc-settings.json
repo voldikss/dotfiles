@@ -48,6 +48,7 @@
     "diagnostic.infoSign": "ℹ"
   },
   "emmet.includeLanguages": {"vue": "html", "vue-html": "html"},
+  "emmet.priority": 0,
   "eslint.autoFixOnSave": false,
   "explorer.enableFloatinput": false,
   "explorer.expandStores": true,

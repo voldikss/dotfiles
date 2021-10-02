@@ -23,10 +23,10 @@ let b:undo_ftplugin = 'setl fo< com< ofu<'
 let b:qf_isLoc = ! empty(getloclist(0))
 if b:qf_isLoc == 1
   nnoremap <silent><buffer> O <CR>:lclose<CR>
-  nnoremap <silent><buffer> <Esc> :lclose<CR>
+  nnoremap <silent><buffer> <Esc> :wincmd p \| lclose<CR>
 else
   nnoremap <silent><buffer> O <CR>:cclose<CR>
-  nnoremap <silent><buffer> <Esc> :cclose<CR>
+  nnoremap <silent><buffer> <Esc> :wincmd p \| cclose<CR>
 endif
 
 function! s:settings() abort

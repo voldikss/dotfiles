@@ -29,7 +29,7 @@ set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtab
 set nocursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
 set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
-set equalalways nowinfixwidth nowinfixheight winminwidth=3 winheight=3 winminheight=3
+set equalalways nowinfixwidth nowinfixheight winminwidth=1 winheight=3 winminheight=1
 set termguicolors cpoptions+=I guioptions-=e nowarn noconfirm
 set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 
@@ -105,12 +105,12 @@ if has('nvim') && !exists('g:vscode')
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'kevinhwang91/nvim-bqf'
 " Plug 'romgrk/nvim-treesitter-context'
-Plug 'kristijanhusak/orgmode.nvim'
+" Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'adamheins/vim-highlight-match-under-cursor' " TODO(builtin)
 hi CurrentSearchWord guibg=deeppink
-Plug 'sindrets/diffview.nvim'
 Plug 'nacro90/numb.nvim'
 endif
+" Plug 'github/copilot.vim'
 Plug 'vimwiki/vimwiki', {'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiDiaryIndex']}
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 " Plug 'fatih/vim-go', {'for': 'go'}
@@ -175,7 +175,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme srcery
+colorscheme gruvbox
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -442,7 +442,6 @@ nnoremap <silent> gj       :call keymap#n#next_diff_or_chunk()<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_definition()<CR>
 nnoremap <silent> <C-]>      :<C-u>call keymap#n#peek_definition()<CR>
-nnoremap <silent> <C-x>      :<C-u>call keymap#n#peek_definition()<CR>
 nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call mycoc#showdoc()<CR>
 nmap <silent> <C-w><C-j> <C-W>v<C-j>zz
@@ -569,6 +568,7 @@ if has('nvim')
   nnoremap <M-j> <C-w>j
   nnoremap <M-k> <C-w>k
   nnoremap <M-l> <C-w>l
+  nnoremap <C-w>d :call keymap#n#quick_split()<CR>
   inoremap <M-h> <Esc><C-w>h
   inoremap <M-j> <Esc><C-w>j
   inoremap <M-k> <Esc><C-w>k
@@ -744,6 +744,7 @@ let g:coc_global_extensions = [
       \ 'coc-rust-analyzer',
       \ 'coc-syntax',
       \ 'coc-snippets',
+      \ 'coc-styled-components',
       \ 'coc-tag',
       \ 'coc-tasks',
       \ 'coc-translator',
@@ -1159,7 +1160,7 @@ require('nvim-treesitter.configs').setup {
   },
   highlight = {
     enable = true,
-    disable = { 'markdown', 'json', 'yaml' },
+    disable = { 'markdown', 'json', 'yaml', 'python' },
   },
   indent = {
     enable = false
@@ -1220,45 +1221,12 @@ require('nvim-treesitter.configs').setup {
 }
 EOF
 
-" sindrets/diffview.nvim
-lua <<EOF
-local cb = require'diffview.config'.diffview_callback
-require'diffview'.setup {
-  diff_binaries = false,    -- Show diffs for binaries
-  file_panel = {
-    width = 35,
-    -- use_icons = true        -- Requires nvim-web-devicons
-  },
-  key_bindings = {
-    -- The `view` bindings are active in the diff buffers, only when the current
-    -- tabpage is a Diffview.
-    view = {
-      ["<tab>"]     = cb("select_next_entry"),  -- Open the diff for the next file
-      ["<s-tab>"]   = cb("select_prev_entry"),  -- Open the diff for the previous file
-    },
-    file_panel = {
-      ["j"]         = cb("next_entry"),         -- Bring the cursor to the next file entry
-      ["<down>"]    = cb("next_entry"),
-      ["k"]         = cb("prev_entry"),         -- Bring the cursor to the previous file entry.
-      ["<up>"]      = cb("prev_entry"),
-      ["<cr>"]      = cb("select_entry"),       -- Open the diff for the selected entry.
-      ["o"]         = cb("select_entry"),
-      ["R"]         = cb("refresh_files"),      -- Update stats and entries in the file list.
-      ["<tab>"]     = cb("select_next_entry"),
-      ["<s-tab>"]   = cb("select_prev_entry"),
-      ["<leader>e"] = cb("focus_files"),
-      ["<leader>b"] = cb("toggle_files"),
-    }
-  }
-}
-EOF
-
 " /kristijanhusak/orgmode
 lua <<EOF
-require('orgmode').setup({
-  org_agenda_files = {'~/.config/org/*', '~/my-orgs/**/*'},
-  org_default_notes_file = '~/.config/org/refile.org',
-})
+-- require('orgmode').setup({
+--   org_agenda_files = {'~/.config/org/*', '~/my-orgs/**/*'},
+--   org_default_notes_file = '~/.config/org/refile.org',
+-- })
 EOF
 
 " kevinhwang91/nvim-bqf
@@ -1285,13 +1253,12 @@ function! Coc_qf_jump2loc(locs) abort
 endfunction
 lua <<EOF
 require('bqf').setup({
-  auto_enable = true,
   auto_resize_height = false,
   preview = {
-    win_height = 18,
+    win_height = 25,
     win_vheight = 18,
     delay_syntax = 80,
-    border_chars = {'┃', '┃', '━', '━', '┏', '┓', '┗', '┛', '█'}
+    border_chars = {'│', '│', '─', '─', '╭', '╮', '╰', '╯', '█'}
   },
   func_map = {
     open = 'o',

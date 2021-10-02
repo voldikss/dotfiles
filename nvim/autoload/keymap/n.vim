@@ -317,3 +317,8 @@ function! keymap#n#ex_repeat_previous_command() abort
     call feedkeys(":".ch, 'nt')
   endif
 endfunction
+
+function! keymap#n#quick_split() abort
+  topleft 4 split
+  wincmd p
+endfunction

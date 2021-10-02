@@ -34,7 +34,7 @@
 [github]
     user = voldikss
 [pull]
-	rebase = false
+	rebase = true
 [fetch]
 	prune = true
 [push]
