@@ -1812,7 +1812,7 @@ cat > $ANTIGEN_CACHE <<EOC
 $(functions -- _antigen)
 antigen () {
   local MATCH MBEGIN MEND
-  [[ "\$ZSH_EVAL_CONTEXT" =~ "toplevel:*" || "\$ZSH_EVAL_CONTEXT" =~ "cmdarg:*" ]] && source "$_ANTIGEN_INSTALL_DIR/antigen.zsh" && eval antigen \$@;
+  [[ "\$ZSH_EVAL_CONTEXT" =~ "toplevel:*" || "\$ZSH_EVAL_CONTEXT" =~ "cmdarg:*" ]] && source "$_ANTIGEN_INSTALL_DIR/.antigen.zsh" && eval antigen \$@;
   return 0;
 }
 typeset -gaU fpath path

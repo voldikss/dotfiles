@@ -30,6 +30,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zdharma/fast-syntax-highlighting
 antigen bundle momo-lab/zsh-abbrev-alias
 antigen bundle hlissner/zsh-autopair
+antigen bundle wfxr/forgit
 
 antigen bundle skywind3000/z.lua
 ZLUA_EXEC=$(which luajit)
@@ -66,8 +67,8 @@ source $HOME/.aliases
 #=============================================================================
 # misc
 #=============================================================================
-export VISUAL=/usr/bin/nvim
-# export EDITOR=/usr/bin/nvim
+export VISUAL=/usr/local/bin/nvim
+# export EDITOR=/usr/local/bin/nvim
 # export MANPAGER="nvim '+set ft=man' -"
 export REACT_EDITOR=code
 
@@ -108,6 +109,8 @@ export GOROOT=/usr/lib/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export GOPATH="$HOME/go"
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 # It would slow down zsh startup, disable it for the moment

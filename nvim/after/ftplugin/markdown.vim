@@ -3,10 +3,10 @@ setlocal shiftwidth=4
 setlocal softtabstop=4
 setlocal nomodeline
 setlocal formatoptions+=tl
-setlocal textwidth=78
+" setlocal textwidth=78
 iabbrev <buffer> i I
 
-setlocal spell
+setlocal nospell
 setlocal spelllang=en_us
 
 " coc-pairs

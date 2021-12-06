@@ -27,7 +27,7 @@ set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:�
 set noshowcmd noruler rulerformat= laststatus=2
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
 set nocursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
-set list listchars=tab:\|\ ,extends:>,precedes:< synmaxcol=3000 ambiwidth=single
+set nolist synmaxcol=3000 ambiwidth=single
 set nosplitbelow nosplitright nostartofline linespace=0 whichwrap=b,s scrolloff=5 sidescroll=0
 set equalalways nowinfixwidth nowinfixheight winminwidth=1 winheight=3 winminheight=1
 set termguicolors cpoptions+=I guioptions-=e nowarn noconfirm
@@ -113,7 +113,8 @@ endif
 " Plug 'github/copilot.vim'
 Plug 'vimwiki/vimwiki', {'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiDiaryIndex']}
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
-" Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 Plug 'posva/vim-vue', {'for': 'vue'}
@@ -128,7 +129,7 @@ endif
 " Style
 " Plug 'Yggdroot/indentLine'
 Plug 'kshenoy/vim-signature'
-Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -150,7 +151,6 @@ Plug 'andrewradev/sideways.vim'
 Plug 'foosoft/vim-argwrap', {'on': '<Plug>(ArgWrapToggle)'}
 Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
-Plug 'junegunn/vim-peekaboo'
 Plug 'liuchengxu/vista.vim'
 " Plug 'liuchengxu/vim-clap'
 Plug 'matze/vim-move'
@@ -175,7 +175,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme gruvbox
+colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -276,6 +276,12 @@ augroup TerminalSettings
     autocmd!
     autocmd TermOpen *  set filetype=terminal " source after/ftplugin/terminal.vim
   endif
+augroup END
+
+augroup PreserveYankForSelectionMode
+  autocmd!
+  autocmd ModeChanged *:s set clipboard=
+  autocmd ModeChanged s:* set clipboard=unnamedplus
 augroup END
 
 augroup HlGroupSettings
@@ -603,6 +609,8 @@ endif
 nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
 " Plugins:
 " TMP
+noremap  <silent> <Leader>e             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
+tnoremap <silent> <Leader>e             <C-\><C-n>:exe 'CocCommand explorer ' . getcwd()<CR>
 noremap  <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
 noremap! <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
 tnoremap <silent> <F2>             <C-\><C-n>:exe 'CocCommand explorer ' . getcwd()<CR>
@@ -728,6 +736,7 @@ let g:coc_global_extensions = [
       \ 'coc-explorer',
       \ 'coc-floaterm',
       \ 'coc-git',
+      \ 'coc-go',
       \ 'coc-highlight',
       \ 'coc-html',
       \ 'coc-html-css-support',
@@ -752,6 +761,7 @@ let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
       \ 'coc-word',
+      \ 'coc-webpack',
       \ 'coc-yank'
       \ ]
 " Yggdroot/indentLine
@@ -899,6 +909,7 @@ nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer --all<CR>
 nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
 nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
+nnoremap <silent> <C-p> :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
 " nnoremap <silent> <Leader>ff :Leaderf file<CR>
 nnoremap <silent> <Leader>fg :Leaderf rg<CR>
 nnoremap <silent> <Leader>fh :Leaderf cmdHistory<CR>
@@ -926,11 +937,13 @@ let g:Lf_IndexTimeLimit       = 10
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+      " \ "--glob=!**/e2e/*",
 let g:Lf_RgConfig = [
       \ "--glob=!OmegaOptions.bak",
       \ "--glob=!logs",
       \ "--glob=!logs-meta",
       \ "--glob=!node_modules",
+      \ "--glob=!dist",
       \ "--glob=!lib/**/*.js",
       \ "--glob=!yarn.lock",
       \ "--glob=!package-lock.json",
@@ -965,6 +978,7 @@ let g:Lf_WildIgnore = {
     \ '.gradle',
     \ '.IntelliJIdea*',
     \ 'node_modules',
+    \ 'dist',
     \ 'build'
   \ ],
   \ 'file': [
@@ -997,6 +1011,7 @@ let g:translator_history_enable = 1
 let g:translator_default_engines = ['bing', 'google', 'haici', 'youdao']
 let g:translator_window_max_height = 0.7
 let g:translator_window_max_width = 0.7
+let g:translator_proxy_url = 'socks5://127.0.0.1:1081'
 " voldikss/vim-floaterm
 let g:floaterm_exec_status = ''
 let g:floaterm_title = 'floaterm ($1|$2)'
@@ -1152,15 +1167,17 @@ require('nvim-treesitter.configs').setup {
     'java',
     'javascript',
     'json',
+    'markdown',
     'python',
     'rust',
     'toml',
     'tsx',
-    'typescript'
+    'typescript',
+    'yaml'
   },
   highlight = {
     enable = true,
-    disable = { 'markdown', 'json', 'yaml', 'python' },
+    disable = {},
   },
   indent = {
     enable = false
@@ -1266,3 +1283,16 @@ require('bqf').setup({
   }
 })
 EOF
+nnoremap <silent> <Space>e :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
+function! s:enter_explorer()
+  if &filetype == 'coc-explorer'
+    " statusline
+    setl statusline=coc-explorer
+    call CocActionAsync('runCommand', 'explorer.doAction', 0, ['reveal:previousBuffer'])
+  endif
+endfunction
+
+autocmd BufEnter * call <SID>enter_explorer()
+
+nmap ;t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)

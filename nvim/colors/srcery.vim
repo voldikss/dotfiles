@@ -230,40 +230,43 @@ endif
 
 " Normal text
 "
-hi Normal guifg=#FCE8C3 guibg=#111111
+hi Normal guifg=#FCE8C3 guibg=#1E1E1E
 
-if v:version >= 700
-  " Screen line that the cursor is
-  call s:HL('CursorLine',   s:none, s:bright_black)
-  " Screen column that the cursor is
-  hi! link CursorColumn CursorLine
+" Screen line that the cursor is
+call s:HL('CursorLine', s:none, s:bright_black)
+" Screen column that the cursor is
+hi! link CursorColumn CursorLine
 
 
-  if g:srcery_transparent_background == 1 && !has('gui_running')
-    " Tab pages line filler
-    call s:HL('TabLineFill', s:green, s:none)
-    " Active tab page label
-    call s:HL('TabLineSel', s:red, s:none, s:bold)
-  else
-    call s:HL('TabLineFill', s:green, s:black)
-    call s:HL('TabLineSel', s:red, s:black, s:bold)
-  endif
+if g:srcery_transparent_background == 1 && !has('gui_running')
+  " Tab pages line filler
+  call s:HL('TabLineFill', s:green, s:none)
+  " Active tab page label
+  call s:HL('TabLineSel', s:red, s:none, s:bold)
+else
+  call s:HL('TabLineFill', s:green, s:black)
+  call s:HL('TabLineSel', s:red, s:black, s:bold)
+endif
 
-  " Not active tab page label
-  hi! link TabLine TabLineFill
+" Not active tab page label
+hi! link TabLine TabLineFill
 
-  " Match paired bracket under the cursor
-  "
-  if g:srcery_inverse_match_paren == 1
-    call s:HL('MatchParen', s:bright_magenta, s:none, s:inverse . s:bold)
-  else
-    call s:HL('MatchParen', s:bright_magenta, s:none, s:bold)
-  endif
+" Match paired bracket under the cursor
+"
+if g:srcery_inverse_match_paren == 1
+  call s:HL('MatchParen', s:bright_magenta, s:none, s:inverse . s:bold)
+else
+  call s:HL('MatchParen', s:bright_magenta, s:none, s:bold)
 endif
 
 if v:version >= 703
   " Highlighted screen columns
-  call s:HL('ColorColumn',  s:none, s:bright_black)
+  " call s:HL('ColorColumn',  s:none, s:bright_black)
+  " #6272a4
+  " #d65d0e
+  " #EF5939
+  " #4F4F4F
+  hi CursorLine guibg=#3d85c7
 
   " Concealed element: \lambda → λ
   call s:HL('Conceal', s:blue, s:none)
@@ -310,7 +313,8 @@ else
 endif
 
 " Directory names, special names in listing
-hi! link Directory SrceryGreenBold
+" hi! link Directory SrceryGreenBold
+hi Directory guibg=NONE guifg=skyblue
 
 " Titles for output from :set all, :autocmd, etc.
 hi! link Title SrceryGreenBold
@@ -568,6 +572,11 @@ hi! link StartifyHeader Type
 hi! link StartifyFooter Normal
 hi! link StartifySpecial Comment
 hi! link StartifySection Identifier
+
+" }}}
+" coc.nvim {{{
+
+hi! CocFloating guibg=#2f2f2f
 
 " }}}
 

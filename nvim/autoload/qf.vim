@@ -25,7 +25,7 @@ function! qf#ctoggle() abort
     endif
   endfor
 
-  belowright copen
+  botright copen
 endfunction
 
 " toggle location(:lopen)
@@ -46,7 +46,7 @@ function! qf#ltoggle() abort
   endfor
 
   if !empty(getloclist(win_getid()))
-    belowright lopen
+    botright lopen
   else
     call util#show_msg('No location list', 'warning')
   endif

@@ -71,7 +71,7 @@ endfunction
 
 function! buffer#write() abort
   if empty(bufname()) 
-    let filename = strftime('%Y%m%d%I%M')
+    let filename = strftime('%Y%m%d%I%M%S')
     execute printf('write /tmp/nvim/%s.txt', filename)
   else
     write

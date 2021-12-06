@@ -133,15 +133,20 @@
   "git.semanticCommit.scope": true,
   "git.showCommitInFloating": true,
   "git.topRemovedSign.hlGroup": "GitDeleteTop",
-  // "http.proxy": "socks5://127.0.0.1:1081",
-  // "http.proxyStrictSSL": true,
+  "go.goplsOptions": {
+    "env": {
+      "CGO_LDFLAGS_ALLOW": ".*",
+      "CGO_CFLAGS_ALLOW": ".*"
+    }
+  },
+  "go.goplsPath": "/usr/bin/gopls",
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh", "zsh", "make"],
       "ignoredRootPaths": ["~"]
-    },
+    }
     // "ccls": {
     //   "command": "ccls",
     //   "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
@@ -163,11 +168,11 @@
     //     "index": {"onChange": false, "initialNoLinkage": true, "threads": 2}
     //   }
     // },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim", ".git"],
-      "filetypes": ["go"]
-    }
+    // "golang": {
+    //   "command": "gopls",
+    //   "rootPatterns": ["go.mod", ".vim", ".git"],
+    //   "filetypes": ["go"]
+    // }
   },
   "leetcode.language": "cpp",
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
@@ -196,6 +201,7 @@
   "prettier.tabWidth": 2,
   "prettier.bracketSpacing": false,
   "python.formatting.provider": "black",
+  "python.venvPath": "~/.cache/pypoetry/virtualenvs",
   "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
@@ -241,11 +247,11 @@
   "suggest.labelMaxLength": 75,
   "suggest.languageSourcePriority": 99,
   "suggest.noselect": false,
-  "suggest.numberSelect": false,
   "suggest.removeDuplicateItems": true,
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
   "translator.enableHover": false,
+  "translator.proxy": "socks://localhost:1081",
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,

@@ -55,6 +55,7 @@ alias gps='git push'
 
 # rm 进 trash
 alias rm='trash -r'
+alias clear_trash='sudo rm -r ~/.local/share/Trash/files ~/.local/share/Trash/info'
 
 # fzf
 alias fzfvim='vim $(fzf)'

@@ -1,4 +1,4 @@
-adobe-source-han-sans-cn-fonts
+adobe-source-han-sans-otc-fonts
 akonadi-calendar-tools
 akonadi-import-wizard
 akonadiconsole

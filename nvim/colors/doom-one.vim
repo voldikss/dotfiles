@@ -407,7 +407,8 @@ call s:_('FoldColumn',       s:fg_alt, s:bg_widget, '')
 call s:_('SignColumn',       '',       s:bg_widget, '')
 call s:_('ColorColumn',      '',       s:bg_highlight, '')
 
-call s:_('CursorLine',       '',          s:bg_highlight)
+" call s:_('CursorLine',       '',          s:bg_highlight)
+hi CursorLine guibg=#4F4F4F
 call s:_('CursorColumn',     '',          s:bg_highlight)
 call s:_('CursorLineNr',     s:highlight, s:bg_highlight, 'none')
 call s:_('LineNr',           s:fg_linenr, s:bg_widget,    'none')
