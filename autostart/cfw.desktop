@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+NoDisplay=true
+Terminal=false
+Name=Clash
+Exec=$HOME/Apps/clash/cfw

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+NoDisplay=true
+Terminal=false
+Name=GoldenDict
+Exec=/usr/bin/goldendict
+

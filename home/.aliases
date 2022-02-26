@@ -89,7 +89,9 @@ alias npmdisablepkglock='npm config set package-lock false'
 alias p='sudo pacman'
 alias S='sudo pacman -S'
 alias Ss='sudo pacman -Ss'
-alias Rn='sudo pacman -Rn'
+alias Rns='sudo pacman -Rns'
+alias Qi='sudo pacman -Qi'
+alias Qs='sudo pacman -Qs'
 alias yS='yay -S'
 alias ySs='yay -Ss'
 
@@ -101,8 +103,8 @@ alias dos2unix_all='find . -type f -print0 | xargs -0 dos2unix'
 alias cgdb_nvim="gdb -p $(ps auxx | grep '[.]/build/bin/nvim' | awk '{print $2}')"
 
 # pacman package list backup and restore
-alias pacman_pkglist_backup='pacman -Qqe > $HOME/dotfiles/misc/pacman/package_list.txt'
-alias pacman_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pacman/package_list.txt); do sudo pacman -S $x --noconfirm; done'
+alias pacman_pkglist_backup='comm -23 <(pacman -Qeq|sort) <(pacman -Qmq|sort) > $HOME/dotfiles/misc/pacman/pkglist'
+alias pacman_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pacman/pkglist); do sudo pacman -S $x --noconfirm; done'
 
 # screen record
 alias screenrecord='ffmpeg -f x11grab -video_size 1920x1080 -framerate 25 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac'
@@ -158,3 +160,6 @@ alias_dotfiles $DOTFILES/scripts
 # cpp_dump_memory_layout
 # usage: cpp_dump_memory_layout <cppfile>
 alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdump-vtable-layouts'
+
+alias grep='grep --ignore-case --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
+

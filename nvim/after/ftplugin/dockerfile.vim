@@ -16,6 +16,7 @@ function! DockerfileReplaceInstruction(original, replacement)
 endfunction
 
 inoreabbr <silent> <buffer> from <C-R>=DockerfileReplaceInstruction("from", "FROM")<CR>
+inoreabbr <silent> <buffer> as <C-R>=DockerfileReplaceInstruction("as", "AS")<CR>
 inoreabbr <silent> <buffer> maintainer <C-R>=DockerfileReplaceInstruction("maintainer", "MAINTAINER")<CR>
 inoreabbr <silent> <buffer> run <C-R>=DockerfileReplaceInstruction("run", "RUN")<CR>
 inoreabbr <silent> <buffer> cmd <C-R>=DockerfileReplaceInstruction("cmd", "CMD")<CR>

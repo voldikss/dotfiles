@@ -1,38 +1,96 @@
-# vim:ft=sh
-#!/bin/zsh
-# Author: VOLDIKSS
-# Date  : 2019-03-22
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
 
 
-#=============================================================================
-# antigen
-#=============================================================================
-source $HOME/.antigen.zsh
+#############################################
+# Zinit Plugins
+#############################################
+zinit light Aloxaf/fzf-tab
 
-antigen bundle command-not-found
-antigen bundle common-aliases
-antigen bundle colorize
-# antigen bundle git # it has too many alias...
-antigen bundle git-extras
-antigen bundle git-flow
-antigen bundle github
-antigen bundle gradle
-antigen bundle mercurial
-antigen bundle pip
-antigen bundle pyenv
-antigen bundle pylint
-antigen bundle python
-antigen bundle repo
+zinit ice lucid wait='0' atinit='zpcompinit'
+zinit light zdharma-continuum/fast-syntax-highlighting
 
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zdharma/fast-syntax-highlighting
-antigen bundle momo-lab/zsh-abbrev-alias
-antigen bundle hlissner/zsh-autopair
-antigen bundle wfxr/forgit
+zinit ice lucid wait="0" atload='_zsh_autosuggest_start'
+zinit light zsh-users/zsh-autosuggestions
 
-antigen bundle skywind3000/z.lua
+zinit ice lucid wait="0"
+zinit light zsh-users/zsh-completions
+
+zinit ice lucid wait="0"
+zinit light momo-lab/zsh-abbrev-alias
+
+zinit light djui/alias-tips                          # Give tips when not using aliases
+zinit light wfxr/forgit                              # Git FZF utility tool
+zinit light b4b4r07/emoji-cli                        # Emoji cli
+zinit light hlissner/zsh-autopair                    # Autopair
+zinit light bonnefoa/kubectl-fzf
+zinit light olivierverdier/zsh-git-prompt            # git-prompt
+
+zinit ice lucid wait='1'
+zinit light skywind3000/z.lua
+
+zinit snippet OMZP::golang
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::ssh-agent
+zinit snippet OMZP::command-not-found
+zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit snippet OMZ::lib/completion.zsh
+zinit snippet OMZ::lib/history.zsh
+zinit snippet OMZ::lib/key-bindings.zsh
+zinit snippet OMZ::lib/theme-and-appearance.zsh
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
+zinit snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/pip/pip.plugin.zsh
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/git-extras/git-extras.plugin.zsh
+# zinit ice wait lucid
+# zinit snippet OMZ::plugins/git-flow/git-flow.plugin.zsh
+
+zinit ice src"zshrc"
+zinit light adinhodovic/docker-alias
+zinit ice src"zshrc"
+zinit light adinhodovic/docker-compose-alias
+zinit ice src"zshrc"
+zinit light adinhodovic/ansible-alias
+zinit ice src"zshrc"
+zinit light adinhodovic/git-alias
+zinit ice src"zshrc"
+zinit light adinhodovic/terraform-alias
+zinit ice src"zshrc"
+zinit light adinhodovic/kubernetes-alias
+
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
+############################################
+
+
+
+############################################
+# Plugins Configuration
+############################################
 ZLUA_EXEC=$(which luajit)
 export _ZL_MATCH_MODE=1
 export _ZL_ADD_ONCE=1
@@ -43,29 +101,16 @@ alias jz='j -i'      # 使用交互式选择模式
 alias jf='j -I'      # 使用 fzf 对多个结果进行选择
 alias jb='j -b'      # 快速回到父目录
 
-antigen apply
 
 
-#=============================================================================
-# oh-my-zsh
-# NOTE: this must be put after antigen apply
-#=============================================================================
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="gnzh"
-source $ZSH/oh-my-zsh.sh
-# source $HOME/.af-magic.zsh-theme    # theme
+############################################
+# My Configuration
+############################################
 source $HOME/.aliases
 
 
 #=============================================================================
-# completion
-#=============================================================================
-# comment because ohmyzsh already set this
-# autoload -U compinit && compinit
-# setopt complete_in_word
-
-#=============================================================================
-# misc
+# Environment Variables
 #=============================================================================
 export VISUAL=/usr/local/bin/nvim
 # export EDITOR=/usr/local/bin/nvim
@@ -73,7 +118,7 @@ export VISUAL=/usr/local/bin/nvim
 export REACT_EDITOR=code
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+export ENABLE_CORRECTION="true"
 
 # You may need to manually set your language environment
 export LANG=zh_CN.UTF-8
@@ -97,9 +142,9 @@ export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-#=============================================================================
-# path
-#=============================================================================
+############################################
+# Path Environment Variables
+############################################
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # Yarn
@@ -115,6 +160,7 @@ export GOPROXY=https://goproxy.cn
 export PATH="$HOME/.cargo/bin:$PATH"
 # It would slow down zsh startup, disable it for the moment
 # source /usr/share/nvm/init-nvm.sh
+export PATH=/opt/openresty/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -140,3 +186,9 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# Zinit & nvm's slowness
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

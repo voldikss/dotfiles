@@ -1,0 +1,7 @@
+xf86-input-libinput
+xorg-xinput
+
+flameshot
+scrot
+
+betterlockscreen

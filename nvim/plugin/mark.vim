@@ -4,7 +4,7 @@
 " GitHub: https://github.com/voldikss
 " ============================================================================
 
-let g:mark_case_sensitive = get(g:, 'mark_case_sensitive', 0)
+let g:mark_case_sensitive = get(g:, 'mark_case_sensitive', 1)
 
 nnoremap <silent> <Plug>MarkSet   :call mark#do('n')<CR>
 vnoremap <silent> <Plug>MarkSet   :call mark#do('v')<CR>

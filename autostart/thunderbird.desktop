@@ -1,0 +1,24 @@
+[Desktop Action ComposeMessage]
+Exec=/usr/lib/thunderbird/thunderbird -compose
+Name[zh_CN]=编写新消息
+Name=Write new message
+
+[Desktop Action OpenAddressBook]
+Exec=/usr/lib/thunderbird/thunderbird -addressbook
+Name[zh_CN]=打开通讯录
+Name=Open address book
+
+[Desktop Entry]
+Actions=ComposeMessage;OpenAddressBook;
+Categories=Network;Email;
+Comment[zh_CN]=阅读邮件或新闻
+Comment=Send and receive mail with Thunderbird
+Exec=/usr/lib/thunderbird/thunderbird %u
+GenericName[zh_CN]=邮件新闻客户端
+GenericName=Mail Client
+Icon=thunderbird
+MimeType=message/rfc822;x-scheme-handler/mailto;application/x-xpinstall;
+Name=Thunderbird
+StartupNotify=true
+Terminal=false
+Type=Application

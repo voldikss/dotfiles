@@ -114,7 +114,7 @@ endif
 Plug 'vimwiki/vimwiki', {'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiDiaryIndex']}
 Plug 'sakhnik/nvim-gdb', {'do': ':!./install.sh', 'on': 'GdbStart'} " use to debug nvim itself
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
-Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
 Plug 'posva/vim-vue', {'for': 'vue'}
@@ -175,7 +175,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme srcery
+colorscheme doom-one
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -762,6 +762,7 @@ let g:coc_global_extensions = [
       \ 'coc-vimtex',
       \ 'coc-word',
       \ 'coc-webpack',
+      \ 'coc-yaml',
       \ 'coc-yank'
       \ ]
 " Yggdroot/indentLine

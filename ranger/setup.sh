@@ -8,3 +8,6 @@ ensure_folder "$CONFIG_DIR"
 
 # TODO
 ln -sf "$__dirname/config" "$CONFIG_DIR"
+
+ensure_installed python
+pip install ueberzug

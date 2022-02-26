@@ -1,0 +1,7 @@
+! caps lock to escape
+
+! original
+! keycode   9 = Escape NoSymbol Escape
+! keycode  66 = Caps_Lock NoSymbol Caps_Lock
+
+keycode 66 = Escape NoSymbol Escape

@@ -1,0 +1,16 @@
+[Desktop Entry]
+Categories=Office;Application;
+Comment[zh_CN]=飞书整合即时消息、日历、音视频会议、云文档、工作台等功能于一体，成就团队和个人，更高效、更愉悦。
+Comment=Feishu is an all-in-one platform that integrates instant communication, calendar, video meeting, collaborative documents, workplace, and various features. Feishu aims to make your work more enjoyable while achieving better organizational results.
+Exec=/usr/bin/bytedance-feishu-beta %U
+GenericName[zh_CN]=飞书
+GenericName=Feishu
+Icon=bytedance-feishu
+MimeType=x-scheme-handler/lark;
+Name[zh_CN]=飞书
+Name=Feishu
+StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.0
+X-KDE-DBUS-Restricted-Interfaces=org.kde.kwin.Screenshot

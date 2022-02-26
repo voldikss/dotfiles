@@ -1,0 +1,5 @@
+- [clash 规则] https://www.v2rayssr.com/clash.html
+- https://www.10101.io/2020/02/12/use-clash-proxy-provider-with-subconverter
+- https://www.codein.icu/clashtutorial/
+- https://akillcool.github.io/post/clash-with-auto-update-config/
+

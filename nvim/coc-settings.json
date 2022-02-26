@@ -146,6 +146,11 @@
       "args": ["start"],
       "filetypes": ["sh", "zsh", "make"],
       "ignoredRootPaths": ["~"]
+    },
+    "nginx-language-server": {
+      "command": "nginx-language-server",
+      "filetypes": ["nginx"],
+      "rootPatterns": ["nginx.conf", ".git"]
     }
     // "ccls": {
     //   "command": "ccls",
