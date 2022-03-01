@@ -1,6 +1,6 @@
 [user]
-	name = yunzhi.duan
-	email = yunzhi.duan@arkie.cn
+	name = dyz
+	email = duanyunzhi@currentcad.com
 	# name = voldikss
 	# email = dyzplus@gmail.com
 [alias]
@@ -23,6 +23,7 @@
     autocrlf = false
     safecrlf = true
 	eol = lf
+	pager = less -+X -+F
 [color]
 	ui = auto
 [diff]
@@ -44,3 +45,8 @@
 	abbrevCommit = true
 [diff "color"]
 	commit = blue
+[init]
+	defaultBranch = main
+[branch]
+	autosetupmerge = true
+	autosetuprebase = always

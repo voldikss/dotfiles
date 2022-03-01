@@ -1,0 +1,6 @@
+Host currentcad-gitlab
+    HostName ${IP}
+    Port 22
+    User alan
+    IdentityFile ~/.ssh/id_rsa
+    TCPKeepAlive yes

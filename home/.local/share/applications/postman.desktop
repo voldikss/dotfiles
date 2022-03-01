@@ -2,8 +2,8 @@
 Type=Application
 Name=Postman
 Comment=Postman
-Exec=$HOME/Apps/Postman/Postman
-Icon=$HOME/Apps/Postman/app/resources/app/assets/icon.png
+Exec=/home/alan/Apps/Postman/Postman
+Icon=/home/alan/Apps/Postman/app/resources/app/assets/icon.png
 Terminal=false
 StartupNotify=true
 Categories=Development;

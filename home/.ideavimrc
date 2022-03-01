@@ -52,8 +52,9 @@ nnoremap ;p "+p
 nnoremap ;P "+P
 " 全选
 nnoremap <silent> ;sa <Esc>ggVG
+" nnoremap <silent> <C-a> <Esc>ggVG
 " 复制当前到行尾
-nnoremap Y y$
+nnoremap Y <Esc>ggVG"+y
 " 快速退出
 nnoremap ;q <Esc>:q<CR>
 nnoremap gd <Esc>:q<CR>

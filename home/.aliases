@@ -1,4 +1,14 @@
 # vim:ft=sh
+
+alias ...='../..'
+alias ....='../../..'
+alias .....='../../../..'
+alias ......='../../../../..'
+alias md='mkdir -p'
+alias rd=rmdir
+alias rmrf='rm -rf'
+alias -- -='cd -'
+
 # ls
 alias ll='ls -laFh'
 alias la='ls -laFh'
@@ -91,6 +101,7 @@ alias S='sudo pacman -S'
 alias Ss='sudo pacman -Ss'
 alias Rns='sudo pacman -Rns'
 alias Qi='sudo pacman -Qi'
+alias Qo='sudo pacman -Qo' # 该命令属于哪个软件包
 alias Qs='sudo pacman -Qs'
 alias yS='yay -S'
 alias ySs='yay -Ss'

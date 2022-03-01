@@ -1,7 +1,9 @@
+# vim:syn=dosini
 [start]
 command=:AsyncTask file-build-and-run
 command=:AsyncTask cmake-build-and-run
 command=:AsyncTask qmake-build-and-run
+cwd=<root>
 
 [file-build-and-run]
 command:c=gcc -g "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/a.out" && "$(VIM_FILEDIR)/a.out"

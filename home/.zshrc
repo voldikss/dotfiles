@@ -23,8 +23,6 @@ autoload -Uz _zinit
 #############################################
 # Zinit Plugins
 #############################################
-zinit light Aloxaf/fzf-tab
-
 zinit ice lucid wait='0' atinit='zpcompinit'
 zinit light zdharma-continuum/fast-syntax-highlighting
 
@@ -37,22 +35,20 @@ zinit light zsh-users/zsh-completions
 zinit ice lucid wait="0"
 zinit light momo-lab/zsh-abbrev-alias
 
-zinit light djui/alias-tips                          # Give tips when not using aliases
-zinit light wfxr/forgit                              # Git FZF utility tool
-zinit light b4b4r07/emoji-cli                        # Emoji cli
+zinit ice lucid wait="0"
 zinit light hlissner/zsh-autopair                    # Autopair
-zinit light bonnefoa/kubectl-fzf
+
+zinit ice lucid wait="0"
 zinit light olivierverdier/zsh-git-prompt            # git-prompt
 
-zinit ice lucid wait='1'
+zinit ice lucid wait="0"
 zinit light skywind3000/z.lua
 
 zinit snippet OMZP::golang
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::ssh-agent
 zinit snippet OMZP::command-not-found
 zinit snippet OMZ::lib/git.zsh
 zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit snippet OMZ::plugins/git-extras/git-extras.plugin.zsh
 zinit snippet OMZ::lib/completion.zsh
 zinit snippet OMZ::lib/history.zsh
 zinit snippet OMZ::lib/key-bindings.zsh
@@ -60,27 +56,7 @@ zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 zinit snippet OMZ::plugins/sudo/sudo.plugin.zsh
 zinit snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
-
-zinit ice wait lucid
 zinit snippet OMZ::plugins/pip/pip.plugin.zsh
-
-zinit ice wait lucid
-zinit snippet OMZ::plugins/git-extras/git-extras.plugin.zsh
-# zinit ice wait lucid
-# zinit snippet OMZ::plugins/git-flow/git-flow.plugin.zsh
-
-zinit ice src"zshrc"
-zinit light adinhodovic/docker-alias
-zinit ice src"zshrc"
-zinit light adinhodovic/docker-compose-alias
-zinit ice src"zshrc"
-zinit light adinhodovic/ansible-alias
-zinit ice src"zshrc"
-zinit light adinhodovic/git-alias
-zinit ice src"zshrc"
-zinit light adinhodovic/terraform-alias
-zinit ice src"zshrc"
-zinit light adinhodovic/kubernetes-alias
 
 zinit ice depth=1
 zinit light romkatv/powerlevel10k
@@ -137,6 +113,9 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
+# less
+export LESS='RX'
+
 # fzf integration
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -162,33 +141,17 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # source /usr/share/nvm/init-nvm.sh
 export PATH=/opt/openresty/bin:$PATH
 
+# NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use
+alias node='unalias node ; unalias npm ; nvm use default ; node $@'
+alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Zinit & nvm's slowness
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PNPM_HOME="/home/alan/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"

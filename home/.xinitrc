@@ -7,3 +7,7 @@ export QT_IM_MODULE=fcitx5
 export XMODIFIERS=@im=fcitx5
 
 fcitx5 -d &
+
+if [ -s ~/.Xmodmap ]; then
+    xmodmap ~/.Xmodmap
+fi

@@ -43,7 +43,7 @@ function! mylightline#FileFormat()
   if !&buflisted
     return ''
   endif
-  return &fileformat == 'unix' ? '' : &fileformat
+  return &fileformat
 endfunction
 
 " FileType:

@@ -2,8 +2,8 @@
 Type=Application
 Name=Data Grip
 Comment=Data Grip
-Exec=$HOME/Apps/DataGrip-2021.2/bin/datagrip.sh
-Icon=$HOME/Apps/DataGrip-2021.2/bin/datagrip.svg
+Exec=/home/alan/Apps/DataGrip-2021.2/bin/datagrip.sh
+Icon=/home/alan/Apps/DataGrip-2021.2/bin/datagrip.svg
 Terminal=false
 StartupNotify=true
 Categories=Development;IDE;

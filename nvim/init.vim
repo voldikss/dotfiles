@@ -24,7 +24,7 @@ set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set number norelativenumber background=dark display=lastline,uhex nowrap wrapmargin=0
 set showmode shortmess+=I cmdheight=1 cmdwinheight=10 showbreak= breakindent breakindentopt=
 set showmatch matchtime=0 matchpairs+=<:>,《:》,（:）,【:】,“:”,‘:’
-set noshowcmd noruler rulerformat= laststatus=2
+set noshowcmd noruler rulerformat= laststatus=3
 set title ruler titlelen=100 titleold= titlestring=%f noicon norightleft showtabline=2
 set nocursorline nocursorcolumn colorcolumn=9999 concealcursor=nvc conceallevel=0
 set nolist synmaxcol=3000 ambiwidth=single
@@ -36,7 +36,7 @@ set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 " Editing
 set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
 set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
-set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
+set foldclose= foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
 set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
 set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
 set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
@@ -102,8 +102,11 @@ endif
 call plug#begin('~/.cache/nvim/plugged')
 " Languages
 if has('nvim') && !exists('g:vscode')
+Plug 'seandewar/killersheep.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'justinmk/vim-dirvish', {'on': '<Plug>(dirvish_up)'}
 Plug 'kevinhwang91/nvim-bqf'
+" Plug 'dstein64/nvim-scrollview'
 " Plug 'romgrk/nvim-treesitter-context'
 " Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'adamheins/vim-highlight-match-under-cursor' " TODO(builtin)
@@ -175,7 +178,7 @@ call plug#end()
 " }}}
 
 " put this after plugxxx, do not source colorscheme twice
-colorscheme doom-one
+colorscheme srcery
 
 " Autocmds: {{{
 " autocmd CmdlineEnter * call feedkeys("\<C-p>")
@@ -254,15 +257,15 @@ augroup ExternalOpen
   autocmd BufEnter *.png,*.jpg,*.gif,*.pdf execute 'ExternalOpen'|bw
 augroup END
 
-augroup OpenDirectory
-  autocmd!
-  autocmd BufEnter *
-        \ let g:justavalname = expand('<afile>:p') |
-        \ if isdirectory(g:justavalname) |
-          \ bdelete! |
-          \ call timer_start(100, { -> execute('FloatermNew lf ' . g:justavalname) }) |
-        \ endif
-augroup END
+" augroup OpenDirectory
+"   autocmd!
+"   autocmd BufEnter *
+"         \ let g:justavalname = expand('<afile>:p') |
+"         \ if isdirectory(g:justavalname) |
+"           \ bdelete! |
+"           \ call timer_start(100, { -> execute('FloatermNew lf ' . g:justavalname) }) |
+"         \ endif
+" augroup END
 
 augroup AutoMkdir
   if exists('*mkdir')
@@ -281,7 +284,7 @@ augroup END
 augroup PreserveYankForSelectionMode
   autocmd!
   autocmd ModeChanged *:s set clipboard=
-  autocmd ModeChanged s:* set clipboard=unnamedplus
+  autocmd ModeChanged s:* set clipboard=unnamed
 augroup END
 
 augroup HlGroupSettings
@@ -302,7 +305,8 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi CocErrorSign          guifg=#ff0000 guibg=' . signcolumn_bg
   exe 'hi CursorLineNr          guibg='               . signcolumn_bg
 
-  hi VertSplit                  guifg=deeppink
+  hi VertSplit                  guifg=gray
+  hi WinSeparator                  guifg=gray
   hi CursorLineNr               guifg=orange
   " hi Normal                     guibg=#111111 guifg=#eeeeee
   hi PmenuThumb                  guifg=white guibg=white
@@ -445,6 +449,10 @@ nnoremap <silent> <C-up>   :call keymap#n#prev_diff_or_chunk()<CR>
 nnoremap <silent> <C-down> :call keymap#n#next_diff_or_chunk()<CR>
 nnoremap <silent> gk       :call keymap#n#prev_diff_or_chunk()<CR>
 nnoremap <silent> gj       :call keymap#n#next_diff_or_chunk()<CR>
+" Git:
+nmap <silent> gh       <Plug>(coc-git-prevconflict)
+nmap <silent> gl       <Plug>(coc-git-nextconflict)
+nnoremap <silent> gb       :G blame<CR>
 " Jump:
 nnoremap <silent> <C-j>      :<C-u>call keymap#n#goto_definition()<CR>
 nnoremap <silent> <C-]>      :<C-u>call keymap#n#peek_definition()<CR>
@@ -887,6 +895,8 @@ nmap <Leader>7 <Plug>lightline#bufferline#go(7)
 nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
+" vim-dirvish
+nmap - <Plug>(dirvish_up)
 " skywind3000/asyncrun.vim
 let g:asyncrun_status = ''  " asyncrun is lazy loaded
 let g:asyncrun_open = 9
@@ -908,7 +918,7 @@ let g:Lf_Extensions.man = {
 \ }
 nnoremap z= :Leaderf spell <cword> <CR>
 nnoremap <silent> <Leader>fb :Leaderf buffer --all<CR>
-nnoremap <silent> <Leader>fc :Leaderf! --recall --stayOpen<CR>
+nnoremap <silent> <Leader>fc :Leaderf! --recall<CR>
 nnoremap <silent> <Leader>ff :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
 nnoremap <silent> <C-p> :<C-U><C-R>=printf("Leaderf file %s", path#get_root())<CR><CR>
 " nnoremap <silent> <Leader>ff :Leaderf file<CR>

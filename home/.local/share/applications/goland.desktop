@@ -2,8 +2,8 @@
 Type=Application
 Name=Goland
 Comment=Goland
-Exec=$HOME/Apps/GoLand-2021.3.3/bin/goland.sh
-Icon=$HOME/Apps/GoLand-2021.3.3/bin/goland.svg
+Exec=/home/alan/Apps/GoLand-2021.3.3/bin/goland.sh
+Icon=/home/alan/Apps/GoLand-2021.3.3/bin/goland.svg
 Terminal=false
 StartupNotify=true
 Categories=Development;IDE;
