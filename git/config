@@ -24,6 +24,7 @@
     safecrlf = true
 	eol = lf
 	pager = less -+X -+F
+	hooksPath = /home/alan/dotfiles/git/hooks
 [color]
 	ui = auto
 [diff]

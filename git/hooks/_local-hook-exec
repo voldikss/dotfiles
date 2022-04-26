@@ -1,0 +1,18 @@
+#!/bin/bash
+
+declare GIT_ROOT=`git rev-parse --show-superproject-working-tree --show-toplevel | head -1`
+declare HOOK_NAME=`basename $0`
+declare LOCAL_HOOK="${GIT_ROOT}/.git/hooks/${HOOK_NAME}"
+declare scriptDir=$(cd $(dirname $0);pwd)
+declare IGNORE_GLOBAL_HOOKS="$(dirname "${scriptDir}")/IGNORE_GLOBAL_HOOKS"
+# Prefer project's hook than global hooks
+if [ -e $LOCAL_HOOK ]; then
+    $LOCAL_HOOK
+fi
+
+if [ -f "${IGNORE_GLOBAL_HOOKS}" ]
+then
+    if cat "${IGNORE_GLOBAL_HOOKS}" | grep -q "${GIT_ROOT}"; then
+        exit 0
+    fi
+fi

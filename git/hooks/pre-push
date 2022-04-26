@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source $(dirname "${0}")/_local-hook-exec
+
+branch=$(git branch --show-current)
+repo=$(pwd)
+
+if [[ ${branch} =~ ^main|dev$ ]] && [[ ! ${repo} =~ dotfiles ]]; then
+    echo "Do not push to dev!!!"
+    exit 1
+fi
