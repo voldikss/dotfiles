@@ -4,6 +4,9 @@ nnoremap <silent> <buffer> <CR> <C-]>
 " Jump back with backspace
 nnoremap <silent> <buffer> <BS> <C-T>
 
+" help
+map <buffer> <C-J> <C-K>
+
 " open help file in the left window
 " alternative: e.g. vert help syntax
 autocmd BufWinEnter <buffer> wincmd H

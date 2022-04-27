@@ -158,6 +158,9 @@ function! s:fallback(...) abort
   if s:gf()
     return
   endif
+  if s:help()
+    return
+  endif
   call s:gd()
 endfunction
 
@@ -194,6 +197,19 @@ function! s:gd() abort
   catch /E349:/
     call util#show_msg('No identifier under cursor', 'error')
   endtry
+endfunction
+
+" gd command
+function! s:help() abort
+  if (index(['help'], &filetype) >= 0)
+    let cword = expand('<cword>')
+    try
+      execute 'h ' . cword
+      return v:true
+    catch
+      call util#show_msg('No help for ' . cword, 'error')
+    endtry
+  endif
 endfunction
 
 " PeekDefinition:

@@ -5,6 +5,7 @@
 " ============================================================================
 
 function! s:defered_settings() abort
+  nnoremap <buffer><nowait> <silent> <Space> :exec g:Lf_py "fileExplManager._previewResult(True)"<CR>
   set modifiable
 endfunction
 

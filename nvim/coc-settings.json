@@ -91,7 +91,6 @@
     "x": "cutFile",
     "p": "pasteFile",
     "P": "preview:content",
-    "<Space>": "preview:content",
     "D": "delete",
     "a": "addFile",
     "A": "addDirectory",
@@ -144,12 +143,12 @@
   },
   "go.goplsPath": "/usr/bin/gopls",
   "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh", "zsh", "make"],
-      "ignoredRootPaths": ["~"]
-    },
+    // "bash": {
+    //   "command": "bash-language-server",
+    //   "args": ["start"],
+    //   "filetypes": ["sh", "zsh", "make"],
+    //   "ignoredRootPaths": ["~"]
+    // },
     "nginx-language-server": {
       "command": "nginx-language-server",
       "filetypes": ["nginx"],
@@ -219,7 +218,8 @@
     "cpp": ["c"],
     "typescript": ["javascript"],
     "javascriptreact": ["javascript"],
-    "typescriptreact": ["typescript"]
+    "typescriptreact": ["typescript"],
+    "vue": ["javascript"]
   },
   "snippets.priority": -10,
   "suggest.acceptSuggestionOnCommitCharacter": true,

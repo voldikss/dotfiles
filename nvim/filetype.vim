@@ -45,6 +45,10 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead .ccls             setfiletype ccls
 
   autocmd BufNewFile,BufRead *.toml,Gopkg.lock,Cargo.lock,*/.cargo/config,*/.cargo/credentials,Pipfile setfiletype toml
+
+  autocmd BufNewFile,BufRead */.kube/config    setfiletype yaml
+
+  autocmd BufNewFile,BufRead Dockerfile*       setfiletype dockerfile
 augroup END
 
 let did_load_my_filetypes=1

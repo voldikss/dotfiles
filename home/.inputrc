@@ -74,3 +74,12 @@ set completion-ignore-case on
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward"]""]"
+
+# NOTE: try `bindkey`
+# bindkey '^[[1;5C' forward-word # [Ctrl-RightArrow] - move forward one word
+# bindkey '^[[1;5D' backward-word # [Ctrl-LeftArrow] - move backward one word
+# maybe for BASH: bind '"\C-w":backward-kill-word'
+"\Ch": backward-char
+"\Cl": forward-char
+" bind '"\C-w":backward-kill-word'
+C-w: backward-kill-word'

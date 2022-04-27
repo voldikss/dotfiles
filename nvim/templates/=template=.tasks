@@ -1,4 +1,4 @@
-# vim:syn=dosini
+# vim:syn=dosini ft=tasks
 [start]
 command=:AsyncTask file-build-and-run
 command=:AsyncTask cmake-build-and-run

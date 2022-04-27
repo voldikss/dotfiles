@@ -16,6 +16,8 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
+alias k=kubectl
+
 # less
 alias le=less
 
@@ -94,6 +96,9 @@ alias npmtaobao='npm config set registry https://registry.npm.taobao.org'
 alias npmorigin='npm config set registry https://registry.npmjs.org'
 alias npmcheckupdates='ncu -u && npm i' # need `npm install -g npm-check-updates`
 alias npmdisablepkglock='npm config set package-lock false'
+
+#
+alias pi='pnpm i'
 
 # pacman && yay
 alias p='sudo pacman'

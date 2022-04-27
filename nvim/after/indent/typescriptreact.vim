@@ -6,13 +6,13 @@
 " https://github.com/peitalin/vim-jsx-typescript/issues/4#issuecomment-564519091
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-runtime! indent/typescript.vim
+runtime! after/indent/typescript.vim
 
 let b:did_indent = 1
 
-if !exists('*GetTypescriptIndent') | finish | endif
+if !exists('*MyGetTypescriptIndent') | finish | endif
 
-setlocal indentexpr=GetTsxIndent()
+setlocal indentexpr=MyGetTsxIndent()
 setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e,*<Return>,<>>,<<>,/
 
 if exists('*shiftwidth')
@@ -65,7 +65,7 @@ function! s:SynJSXContinues(cursyn, prevsyn)
       \ (prevdepth == curdepth + 1 && get(a:cursyn, -1) ==# 'tsxRegion')
 endfunction
 
-function! GetTsxIndent()
+function! MyGetTsxIndent()
   let cursyn  = s:SynSOL(v:lnum)
   let prevsyn = s:SynEOL(v:lnum - 1)
   let nextsyn = s:SynEOL(v:lnum + 1)
@@ -144,7 +144,7 @@ function! GetTsxIndent()
       let ind = ind - s:sw()
     endif
   else
-    let ind = GetTypescriptIndent()
+    let ind = MyGetTypescriptIndent()
   endif
   return ind
 endfunction

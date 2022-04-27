@@ -8,6 +8,7 @@
 " Basic: {{{
 " Disabled:
 let g:loaded_netrwPlugin = 1
+let g:did_load_filetypes = 1
 
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
@@ -104,10 +105,15 @@ call plug#begin('~/.cache/nvim/plugged')
 if has('nvim') && !exists('g:vscode')
 Plug 'seandewar/killersheep.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'folke/tokyonight.nvim'
 Plug 'justinmk/vim-dirvish', {'on': '<Plug>(dirvish_up)'}
 Plug 'kevinhwang91/nvim-bqf'
 " Plug 'dstein64/nvim-scrollview'
 " Plug 'romgrk/nvim-treesitter-context'
+
+" Plug 'wellle/context.vim'
+" let g:context_add_mappings = 0
+
 " Plug 'kristijanhusak/orgmode.nvim'
 " Plug 'adamheins/vim-highlight-match-under-cursor' " TODO(builtin)
 hi CurrentSearchWord guibg=deeppink
@@ -136,6 +142,9 @@ Plug 'kshenoy/vim-signature'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'nvim-lualine/lualine.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'romgrk/barbar.nvim'
 Plug 'mhinz/vim-startify', {'on': 'Startify'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/vim-cursorword'
@@ -762,6 +771,7 @@ let g:coc_global_extensions = [
       \ 'coc-syntax',
       \ 'coc-snippets',
       \ 'coc-styled-components',
+      \ 'coc-svg',
       \ 'coc-tag',
       \ 'coc-tasks',
       \ 'coc-translator',
@@ -841,8 +851,8 @@ let g:lightline = {
     \ 'right': []
   \ },
   \ 'tabline': {
-    \ 'left': [['vim_logo', 'buffers']],
-    \ 'right': [['close']],
+    \ 'left': [['buffers']],
+    \ 'right': [[]],
     \ 'subseparator': {
       \ 'left': '│',
       \ 'right': '│'
@@ -851,7 +861,6 @@ let g:lightline = {
   \ 'component': {
     \ 'lineinfo': ' %l,%-v',
     \ 'percent': '%p%%',
-    \ 'vim_logo': "#"
   \ },
   \ 'component_function': {
     \ 'asyncrun_status': 'mylightline#AsyncRunStatus',
@@ -876,11 +885,14 @@ let g:lightline = {
   \ }
 \ }
 " mengelbrecht/lightline-bufferline
+let g:lightline#bufferline#clickable = 1
+let g:lightline#bufferline#disable_more_buffers_indicator = 1
+let g:lightline.component_raw = {'buffers': 1}
 let g:lightline#bufferline#unnamed = '[No Name]'
 let g:lightline#bufferline#filename_modifier = ':t'
-let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#enable_devicons = 0
 let g:lightline#bufferline#unicode_symbols = 1
-let g:lightline#bufferline#show_number  = 3
+let g:lightline#bufferline#show_number  = 0
 let g:lightline#bufferline#number_map = {
       \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
       \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
@@ -947,6 +959,10 @@ let g:Lf_HideHelp             = 1
 let g:Lf_IndexTimeLimit       = 10
 let g:Lf_MruFileExclude = ['*.so','*.py[c0]','*.exe','*.sw?']
 let g:Lf_PreviewInPopup = 1
+let g:Lf_PopupShowBorder = 1
+let g:Lf_PopupBorders = ["─","│","─","│","╭","╮","╯","╰"]
+let g:Lf_PopupPreviewPosition = 'right'
+let g:Lf_WindowPosition = 'bottom'
 let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
       " \ "--glob=!**/e2e/*",
 let g:Lf_RgConfig = [
@@ -962,6 +978,7 @@ let g:Lf_RgConfig = [
       \ "--glob=!tags",
       \ "--glob=!build",
       \ "--glob=!.git",
+      \ "--glob=!.yarn",
       \ "--glob=!.ccls-cache",
       \ "--max-columns=150",
       \ "--hidden"
@@ -1059,7 +1076,18 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " tomtom/tcomment_vim
-let g:tcomment_types = {'c': '// %s', 'jsonc': '// %s'}
+let g:tcomment_types = {
+  \ 'c': '// %s',
+  \ 'jsonc': '// %s',
+  \ 'javascript_inline': '/** %s */',
+  \ 'javascript_block': {
+    \ 'commentstring': '/** %s */',
+    \ 'middle': ' * ',
+    \ 'rxbeg': '\*\+',
+    \ 'rxend': '',
+    \ 'rxmid': '',
+  \ },
+  \ }
 nnoremap <silent> gC vil:TCommentInline<CR>
 vnoremap <silent> gC :TCommentBlock<CR>
 " matze/vim-move
@@ -1205,10 +1233,10 @@ require('nvim-treesitter.configs').setup {
   },
   refactor = {
     highlight_definitions = {
-      enable = false
+      enable = true
     },
     highlight_current_scope = {
-      enable = false
+      enable = true
     },
     smart_rename = {
       enable = true,
@@ -1307,3 +1335,12 @@ autocmd BufEnter * call <SID>enter_explorer()
 
 nmap ;t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
+map <C-LeftMouse> <C-i>
+map <C-RightMouse> <C-o>
+map <2-LeftMouse> <C-j>
+map <RightMouse> <C-o>
+map <MiddleMouse> <C-K>
+noremap <LeftRelease> <LeftRelease>y<ESC>
+" lua << END
+" require('lualine').setup()
+" END
