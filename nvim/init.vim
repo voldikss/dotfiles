@@ -39,7 +39,7 @@ set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstrin
 set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
 set foldclose= foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
 set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
-set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
+set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,[,]
 set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
 set tags=./tags,../tags,../../tags,../../../tags
 
@@ -108,6 +108,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'folke/tokyonight.nvim'
 Plug 'justinmk/vim-dirvish', {'on': '<Plug>(dirvish_up)'}
 Plug 'kevinhwang91/nvim-bqf'
+Plug 'ZhiyuanLck/smart-pairs'
 " Plug 'dstein64/nvim-scrollview'
 " Plug 'romgrk/nvim-treesitter-context'
 
@@ -433,7 +434,7 @@ noremap  H  ^
 noremap  L  $
 " Esc:
 inoremap <C-c> <Esc>
-inoremap <C-[> <C-R>=keymap#i#Esc()<CR>
+" inoremap <C-[> <C-R>=keymap#i#Esc()<CR> " conflict
 "cannot use noremap
 nmap     M  %
 omap     M  %
@@ -764,7 +765,6 @@ let g:coc_global_extensions = [
       \ 'coc-leetcode',
       \ 'coc-lists',
       \ 'coc-marketplace',
-      \ 'coc-pairs',
       \ 'coc-prettier',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
@@ -829,7 +829,7 @@ hi CursorWord0 guibg=#404D3D
 hi link CursorWord1 CursorLine
 " itchyny/lightline.vim
 let g:lightline = {
-  \ 'colorscheme': 'srcery',
+  \ 'colorscheme': 'powerline',
   \ 'active': {
     \ 'left': [
       \ ['mode'],
@@ -1079,6 +1079,7 @@ nmap <silent> cxx <Plug>(ExchangeLine)
 let g:tcomment_types = {
   \ 'c': '// %s',
   \ 'jsonc': '// %s',
+  \ 'vue': '// %s',
   \ 'javascript_inline': '/** %s */',
   \ 'javascript_block': {
     \ 'commentstring': '/** %s */',
@@ -1212,6 +1213,7 @@ require('nvim-treesitter.configs').setup {
     'toml',
     'tsx',
     'typescript',
+    'vue',
     'yaml'
   },
   highlight = {
@@ -1322,6 +1324,26 @@ require('bqf').setup({
   }
 })
 EOF
+" lua << END
+" require('lualine').setup()
+" END
+
+" ZhiyuanLck/smart-pairs
+lua << END
+require('pairs'):setup({
+  delete = {
+    enable_mapping  = false,
+  },
+  space = {
+    enable_mapping  = false,
+  },
+  enter = {
+    enable_mapping  = false,
+  }
+})
+END
+
+
 nnoremap <silent> <Space>e :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 function! s:enter_explorer()
   if &filetype == 'coc-explorer'
@@ -1341,6 +1363,3 @@ map <2-LeftMouse> <C-j>
 map <RightMouse> <C-o>
 map <MiddleMouse> <C-K>
 noremap <LeftRelease> <LeftRelease>y<ESC>
-" lua << END
-" require('lualine').setup()
-" END

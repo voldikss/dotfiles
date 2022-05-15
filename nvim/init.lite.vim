@@ -37,9 +37,9 @@ set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
 " Editing
 set iminsert=0 imsearch=0 nopaste pastetoggle= nogdefault comments& commentstring=#\ %s
 set smartindent autoindent shiftround shiftwidth=4 expandtab tabstop=4 smarttab softtabstop=4
-set foldclose=all foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
+set foldclose= foldcolumn=0 nofoldenable foldlevel=0 foldmarker& foldmethod=indent
 set textwidth=0 backspace=2 nrformats=hex formatoptions=cmMj nojoinspaces selectmode=mouse
-set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,<,>,[,]
+set hidden autoread autowrite noautowriteall nolinebreak mouse=a modeline whichwrap=b,s,[,]
 set noautochdir write nowriteany writedelay=0 verbose=0 verbosefile= notildeop noinsertmode
 set tags=./tags,../tags,../../tags,../../../tags
 
@@ -405,7 +405,6 @@ noremap  H  ^
 noremap  L  $
 " Esc:
 inoremap <C-c> <Esc>
-inoremap <C-[> <C-R>=keymap#i#Esc()<CR>
 "cannot use noremap
 nmap     M  %
 omap     M  %
