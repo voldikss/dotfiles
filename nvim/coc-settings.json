@@ -23,7 +23,7 @@
   // "coc.preferences.jumpCommand": "wincmd o | vsplit",
   "coc.preferences.messageLevel": "more",
   "coc.preferences.promptInput": false,
-  "coc.preferences.promptWorkspaceEdit": true,
+  "coc.preferences.enableMessageDialog": true,
   "coc.preferences.rootPatterns": [
     ".git",
     "Cargo.toml",
@@ -181,7 +181,6 @@
     //   "filetypes": ["go"]
     // }
   },
-  "leetcode.language": "cpp",
   "list.source.grep.defaultArgs": ["-smartcase", "-regex"],
   "list.indicator": ">",
   "list.insertMappings": {
@@ -211,6 +210,7 @@
   "python.venvPath": "~/.cache/pypoetry/virtualenvs",
   "pyright.disableDiagnostics": true,
   "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
+  "rust-analyzer.disableProgressNotifications": true,
   "session.directory": "~/.cache/nvim/session",
   "session.saveOnVimLeave": false,
   "signature.preferShownAbove": false,
@@ -260,15 +260,12 @@
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
   "translator.enableHover": false,
-  "translator.proxy": "socks://localhost:1081",
+  "translator.proxy": "socks://127.0.0.1:1081",
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,
   "vimlsp.filetypes": ["vim", "vader"],
   "vimlsp.indexes.runtimepath": false,
   "vimlsp.suggest.fromRuntimepath": false,
-  "vimlsp.suggest.fromVimruntime": false,
-  "yank.enableCompletion": false,
-  "yank.highlight.enable": false,
-  "yank.priority": 4
+  "vimlsp.suggest.fromVimruntime": false
 }

@@ -109,17 +109,7 @@ function! mylightline#ActiveFileinfo()
   else
     let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
   endif
-  let maxwidth = winwidth(0) - 40
-  if len(filepath) > maxwidth
-    let filepath = pathshorten(filepath)
-  endif
-  if len(filepath) > maxwidth
-    let filepath = expand('%:t')
-  endif
-  if len(filepath) > maxwidth
-    let filepath = ''
-  endif
-  return filepath
+  return s:get_file_path_in_project()
 endfunction
 
 " InactiveFileinfo: no pathshorten
@@ -127,20 +117,22 @@ function! mylightline#InactiveFileinfo()
   if &filetype =~ s:special_filetypes_pattern
     return s:special_filetypes[&filetype]
   endif
+  return s:get_file_path_in_project()
+endfunction
+
+function! s:get_file_path_in_project() abort
+  let filepath = getbufvar(bufnr('%'), 'lightline_filepath', v:null)
+  if filepath
+    return filepath
+  endif
   if empty(bufname())
-    let filepath = getcwd()
+    let filefullpath = getcwd()
   else
-    let filepath = substitute(expand('%:p'), $HOME, '~', 'g')
+    let filefullpath = expand('%:p')
   endif
-  let winwidth = winwidth(0)
-  if len(filepath) > winwidth
-    let filepath = pathshorten(filepath)
-  endif
-  if len(filepath) > winwidth
-    let filepath = expand('%:t')
-  endif
-  if len(filepath) > winwidth
-    let filepath = ''
-  endif
+  let rootfullpath = path#get_root()
+  let dir_for_root = fnamemodify(rootfullpath, ':h')
+  let filepath = strcharpart(filefullpath, len(dir_for_root) + 1)
+  call setbufvar(bufnr('%'), 'lightline_filepath', filepath)
   return filepath
 endfunction

@@ -1,0 +1,14 @@
+# vim:ft=bash
+# 简单的自定义命令
+
+docker_find_child_images_by_parent_id() {
+    if [[ $1 == "h" || $1 == "help" ]]; then
+        echo "列出所有在指定 image 之后创建的 image 的父 image"
+        return 0
+    fi
+    if [[ $1 == "" ]]; then
+        echo "Usage: docker_find_child_images_by_parent_id <image id>"
+        return 0
+    fi
+    docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker image ls -q --filter since=$1)
+}

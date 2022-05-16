@@ -10,13 +10,14 @@ function! file#autoformat() abort
     return
   endif
 
-  let curpos = getpos('.')
+  let save_view = winsaveview()
   " 1. remove whitespace
   call s:remove_white_spaces()
   " 2. remove blank line
   call s:remove_blank_lines()
   " 3. use coc
   if index(['typescript', 'javascript', 'json', 'jsonc'], &ft) > -1
+    update | e
     CocCommand prettier.formatFile
   else
     silent! call CocAction('format')
@@ -26,7 +27,7 @@ function! file#autoformat() abort
     update
   endif
 
-  call setpos('.', curpos)
+    call winrestview(save_view)
 endfunction
 
 " AutoSave:

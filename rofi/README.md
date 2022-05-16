@@ -1,1 +1,3 @@
-Mostly from https://github.com/ayamir/i3-dotfiles
+entry: config.rasi
+
+Online documentation: https://www.mankier.com/1/rofi

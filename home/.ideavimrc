@@ -4,7 +4,7 @@ set commentary
 set easymotion
 set multiple-cursors
 set number
-set relativenumber
+" set relativenumber
 set hlsearch
 set incsearch
 set ignorecase
@@ -63,8 +63,10 @@ nnoremap Q  <Esc>:q<CR>
 " tab切换
 nnoremap <C-l> gt
 nnoremap <C-h> gT
-noremap <C-n> gt
-noremap <C-p> gT
+" noremap <C-n> gt
+" noremap <C-p> gT
+
+noremap <C-k> :action QuickJavaDoc<CR>
 
 " Normal mode
 " inoremap jj <Esc>
@@ -98,6 +100,7 @@ cnoremap <C-f> <S-Right>
 
 nnoremap <C-j> <C-]>
 nnoremap ;d <Esc>:q<CR>
+nnoremap q :q<CR>
 nnoremap ;w <Esc>:w<CR>
 
 noremap <c-o> :action Back<cr>
@@ -116,6 +119,7 @@ noremap <Leader>o       :action FileStructurePopup<cr>
 noremap <Leader>e       :action SearchEverywhere<cr>
 noremap <Leader>g       :action Git.Menu<CR>
 noremap <Leader>b       :action RecentFiles<CR>
+noremap <Leader>rf       :action FindUsages<CR>
 
 " Run
 noremap <Leader>x :action Run<cr>

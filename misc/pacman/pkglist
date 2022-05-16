@@ -56,6 +56,7 @@ ffmpegthumbs
 file
 filelight
 findutils
+firefox
 fish
 flake8
 flameshot
@@ -77,6 +78,7 @@ groff
 grub
 gwenview
 gzip
+helix
 hexedit
 htop
 httpie
@@ -85,9 +87,12 @@ i3-gaps
 i3lock-color
 i3status
 inetutils
+intel-gpu-tools
 intel-ucode
+iperf
 itinerary
 iwd
+jdk
 juk
 k3b
 k9s
@@ -134,9 +139,8 @@ kimagemapeditor
 kinfocenter
 kio-extras
 kio-gdrive
-kipi-plugins
 kirigami-gallery
-kiten
+kitty
 kleopatra
 klettres
 kmag
@@ -145,12 +149,7 @@ kmix
 kmousetool
 kmouth
 kmplot
-kolourpaint
-konqueror
-konsole
-kontrast
-konversation
-kopete
+kompose
 krdc
 krfb
 kruler
@@ -169,7 +168,6 @@ kwalletmanager
 kwallet-pam
 kwave
 kwayland-integration
-kwayland-server
 kwin
 kwordquiz
 layer-shell-qt
@@ -199,6 +197,7 @@ memcached
 milou
 minikube
 minuet
+mkcert
 mlocate
 mpc
 mpd
@@ -233,6 +232,7 @@ parley
 partitionmanager
 patch
 peek
+perl-rename
 picom
 pkgconf
 plasma-browser-integration
@@ -257,8 +257,8 @@ proxychains-ng
 python2
 python-pip
 python-poetry
-qemu
-qemu-arch-extra
+qemu-desktop
+qemu-emulators-full
 ranger
 redis
 ripgrep
@@ -280,6 +280,7 @@ sudo
 svgpart
 sweeper
 systemsettings
+teamviewer
 telegram-desktop
 telepathy-kde-accounts-kcm
 telepathy-kde-approver
@@ -316,9 +317,9 @@ valgrind
 vbetool
 vifm
 vim
-wezterm
 wget
 which
+whois
 wmctrl
 wpa_supplicant
 wqy-zenhei

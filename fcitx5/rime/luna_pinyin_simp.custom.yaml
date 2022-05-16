@@ -11,15 +11,21 @@ patch:
       states: [漢字, 汉字]
 
   # 常用符号一键上屏
-  punctuator/full_shape:
-    '/': '、'
-    '\': 、
+  # punctuator/full_shape:
+  #   '/': '、'
+  #   '\': 、
 
-  punctuator/half_shape:
-    '/': '、'
-    '*': '*'
-    '%': '%'
-    '~': '~'
-    '\': 、
+  # punctuator/half_shape:
+  #   '/': '、'
+  #   '*': '*'
+  #   '%': '%'
+  #   '~': '~'
+  #   '\': 、
 
   translator/dictionary: luna_pinyin_simp.extended
+
+__patch:
+# Rx: emoji:customize:schema=luna_pinyin_simp {
+  - patch/+:
+      __include: emoji_suggestion:/patch
+# }

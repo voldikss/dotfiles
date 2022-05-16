@@ -47,16 +47,16 @@ function! keymap#i#CR() abort
 endfunction
 
 " Insert: <Esc>
-" function! keymap#i#Esc()
-"   echom 'asdf'
-"   let colnr = getpos('.')[2]
-"   let linelen = len(getline('.'))
-"   if colnr == (linelen + 1)
-"     return "\<Esc>"
-"   else
-"     return "\<Esc>\<Right>"
-"   endif
-" endfunction
+function! keymap#i#Esc()
+  echom 'asdf'
+  let colnr = getpos('.')[2]
+  let linelen = len(getline('.'))
+  if colnr == (linelen + 1)
+    return "\<Esc>"
+  else
+    return "\<Esc>\<Right>"
+  endif
+endfunction
 
 " Insert: FlyOutPairs
 function! keymap#i#flyoutpairs(key)

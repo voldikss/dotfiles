@@ -1,3 +1,4 @@
+" could be annoyed
 runtime! ftplugin/html/closetag.vim
 
 setlocal shiftwidth=2

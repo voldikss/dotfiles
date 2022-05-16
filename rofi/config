@@ -1,4 +1,0 @@
-configuration {
-    modi: "combi,drun";
-    theme: "~/.config/rofi/awel.rasi";
-}

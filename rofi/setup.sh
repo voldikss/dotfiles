@@ -7,4 +7,3 @@ CONFIG_DIR="$HOME/.config/rofi"
 ensure_folder "$CONFIG_DIR"
 
 ln -sf "$__dirname" "$CONFIG_DIR"
-

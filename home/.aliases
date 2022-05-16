@@ -1,9 +1,10 @@
 # vim:ft=sh
 
-alias ...='../..'
-alias ....='../../..'
-alias .....='../../../..'
-alias ......='../../../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 alias md='mkdir -p'
 alias rd=rmdir
 alias rmrf='rm -rf'
@@ -16,21 +17,29 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
-alias k=kubectl
+alias k='kubectl'
+alias d=docker
 
 # less
 alias le=less
 
 # bat
-alias cat=bat
+# 比较常用，所以确保只有安装了 bat 才做 alias，否则不做 alias，要保证总是有命令是可用的
+if [[ ! $(command -v bat &> /dev/null) ]]; then
+    alias cat=bat
+fi
 
 # vim
-alias vim=nvim
-alias vi=nvim
-alias v=nvim
+if [[ ! $(command -v nvim &> /dev/null) ]]; then
+    alias vim=nvim
+    alias vi=nvim
+    alias v=nvim
+fi
 
 # python
-alias python=python3
+if [[ $(uname -r) =~ "arch" ]]; then
+    alias python=python3
+fi
 alias pip_upgrade_all_packages="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip install -U"
 alias pip_pkglist_backup='pip list > $HOME/dotfiles/misc/pip/pip_list.txt'
 alias pip_pkglist_restore='for x in $(cat $HOME/dotfiles/misc/pip/pip_list.txt); do pip install $x; done'
@@ -66,12 +75,16 @@ alias gpl='git pull'
 alias gps='git push'
 
 # rm 进 trash
-alias rm='trash -r'
-alias clear_trash='sudo rm -r ~/.local/share/Trash/files ~/.local/share/Trash/info'
+if [[ ! $(command -v trash &> /dev/null) ]]; then
+    alias rm='trash -r'
+    alias clear_trash='sudo rm -r ~/.local/share/Trash/files ~/.local/share/Trash/info'
+fi
 
 # fzf
 alias fzfvim='vim $(fzf)'
-alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+if [[ ! $(command -v fzf &> /dev/null) ]]; then
+    alias fzf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
+fi
 
 # prettyping
 # alias ping='prettyping'
@@ -87,18 +100,20 @@ alias sizeof='/usr/bin/du -sh'
 alias nnn='nnn -d'
 
 # where proxy
-alias proxyon='export https_proxy=http://127.0.0.1:1081 http_proxy=http://127.0.0.1:1081 all_proxy=socks5://127.0.0.1:1081'
-alias proxyoff='unset http_proxy https_proxy all_proxy'
+alias proxyon='export HTTPS_PROXY=http://127.0.0.1:1081 HTTP_PROXY=http://127.0.0.1:1081 ALL_PROXY=socks5://127.0.0.1:1081'
+alias proxyoff='unset HTTP_PROXY HTTPS_PROXY ALL_PROXY'
 alias pc=proxychains
 
 # npm registry
-alias npmtaobao='npm config set registry https://registry.npm.taobao.org'
+alias npmmirror='npm config set registry https://registry.npmmirror.com'
 alias npmorigin='npm config set registry https://registry.npmjs.org'
 alias npmcheckupdates='ncu -u && npm i' # need `npm install -g npm-check-updates`
 alias npmdisablepkglock='npm config set package-lock false'
 
 #
 alias pi='pnpm i'
+alias pa='pnpm add'
+alias pb='pnpm build'
 
 # pacman && yay
 alias p='sudo pacman'
@@ -151,31 +166,32 @@ alias space='df -P -kHl'
 
 # scripts
 DOTFILES=$HOME/dotfiles
-# usage: alias_dotfiles <dir>
-function alias_dotfiles() {
-  for f in $(ls $1)
-  do
-    if [ -d $1/$f ]
-    then
-      alias_dotfiles $1/$f
-    else
-      IN=$f
-      if [[ $(readlink /proc/$$/exe) == *zsh* ]]
-      then
-        IFS='.' read -rA ADDR <<< "$IN"
-        alias ${ADDR[1]}=$1/$f
-      else
-        IFS='.' read -ra ADDR <<< "$IN"
-        alias ${ADDR[0]}=$1/$f
-      fi
-    fi
-  done
-}
-alias_dotfiles $DOTFILES/scripts
+if [[ -d $DOTFILES ]]; then
+    # usage: alias_dotfiles <dir>
+    function alias_dotfiles() {
+    for f in $(ls $1)
+    do
+        if [ -d $1/$f ]
+        then
+        alias_dotfiles $1/$f
+        else
+        IN=$f
+        if [[ $(readlink /proc/$$/exe) == *zsh* ]]
+        then
+            IFS='.' read -rA ADDR <<< "$IN"
+            alias ${ADDR[1]}=$1/$f
+        else
+            IFS='.' read -ra ADDR <<< "$IN"
+            alias ${ADDR[0]}=$1/$f
+        fi
+        fi
+    done
+    }
+    alias_dotfiles $DOTFILES/scripts
+fi
 
 # cpp_dump_memory_layout
 # usage: cpp_dump_memory_layout <cppfile>
 alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdump-vtable-layouts'
 
 alias grep='grep --ignore-case --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
-

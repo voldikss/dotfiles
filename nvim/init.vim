@@ -12,7 +12,7 @@ let g:did_load_filetypes = 1
 
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
-  let g:python3_host_prog='D:\Applications\Python39\python.exe'
+  let g:python3_host_prog=trim(system('where python'))
 else
   let g:python3_host_prog='/usr/bin/python3'
 endif
@@ -105,12 +105,12 @@ call plug#begin('~/.cache/nvim/plugged')
 if has('nvim') && !exists('g:vscode')
 Plug 'seandewar/killersheep.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'folke/tokyonight.nvim'
 Plug 'justinmk/vim-dirvish', {'on': '<Plug>(dirvish_up)'}
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'ZhiyuanLck/smart-pairs'
+" Plug 'ZhiyuanLck/smart-pairs'
 " Plug 'dstein64/nvim-scrollview'
-" Plug 'romgrk/nvim-treesitter-context'
 
 " Plug 'wellle/context.vim'
 " let g:context_add_mappings = 0
@@ -127,14 +127,15 @@ Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 " Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app && npm install'}
 Plug 'lervag/vimtex'
-Plug 'posva/vim-vue', {'for': 'vue'}
+" Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'jparise/vim-graphql'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 " Completion
 if !exists('g:vscode') " TODO: use packer.nvim's `cond`
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'commit': 'be514c7f'}
+Plug 'yaegassy/coc-volar', {'do': 'yarn install --frozen-lockfile'} " TODO: tmp
 endif
 " Style
 " Plug 'Yggdroot/indentLine'
@@ -326,7 +327,9 @@ function! s:OnColorSchemeLoaded() abort
   exe 'hi EndOfBuffer           guifg=' . normal_bg
 
   " coclist will(might) change my cursor highlight
-  hi Cursor gui=reverse guifg=NONE guibg=NONE
+  hi Cursor gui=reverse guifg=NONE guibg=NONE cterm=reverse
+  " https://github.com/neovim/neovim/issues/12626
+  " hi Cursor guibg=fg guifg=bg
 
   hi link CocRustTypeHint Comment
   hi link CocRustChainingHint Comment
@@ -434,7 +437,15 @@ noremap  H  ^
 noremap  L  $
 " Esc:
 inoremap <C-c> <Esc>
-" inoremap <C-[> <C-R>=keymap#i#Esc()<CR> " conflict
+nnoremap <C-c> <Esc>
+cnoremap <C-c> <Esc>
+vnoremap <C-c> <Esc>
+inoremap <C-;> <Esc>
+nnoremap <C-;> <Esc>
+cnoremap <C-;> <Esc>
+vnoremap <C-;> <Esc>
+tnoremap <C-;> <C-\><C-n>
+inoremap <C-[> <C-R>=keymap#i#Esc()<CR>
 "cannot use noremap
 nmap     M  %
 omap     M  %
@@ -469,6 +480,9 @@ nnoremap <silent> <C-]>      :<C-u>call keymap#n#peek_definition()<CR>
 nnoremap <silent> <C-o>      <C-o>zz
 nnoremap <silent> <C-k>      :<C-u>call mycoc#showdoc()<CR>
 nmap <silent> <C-w><C-j> <C-W>v<C-j>zz
+" Fold:
+" TODO: 做完这个
+" vnoremap <silent> zf :<C-u>call fold#fold()<CR>
 " Search:
 nnoremap <expr>   n 'Nn'[v:searchforward].'zzzv'
 nnoremap <expr>   N 'nN'[v:searchforward].'zzzv'
@@ -628,7 +642,6 @@ nnoremap <silent> <BS>            :noh<bar>echo ''<CR>
 " Plugins:
 " TMP
 noremap  <silent> <Leader>e             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
-tnoremap <silent> <Leader>e             <C-\><C-n>:exe 'CocCommand explorer ' . getcwd()<CR>
 noremap  <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
 noremap! <silent> <F2>             <Esc>:exe 'CocCommand explorer ' . getcwd()<CR>
 tnoremap <silent> <F2>             <C-\><C-n>:exe 'CocCommand explorer ' . getcwd()<CR>
@@ -673,7 +686,7 @@ let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 let g:vimtex_compiler_latexrun_engines = {'_': 'xelatex'}
 " iamcco/markdown-preview.nvim
 let g:mkdp_auto_close = 0
-Plug 'kristijanhusak/vim-dadbod-ui'
+" 'kristijanhusak/vim-dadbod-ui'
 let g:dbs = {
   \ 'dev': 'mongodb://root:root123@localhost:3717/amazon?authSource=admin'
 \ }
@@ -738,39 +751,38 @@ endfunction
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 " coc extensions
+      " \ 'coc-dash-complete',
+      " \ 'coc-just-complete',
+      " \ 'coc-browser',
+      " \ 'coc-clang-format-style-options',
+      " \ 'coc-floaterm',
+      " \ 'coc-java',
+      " \ 'coc-marketplace',
+      " \ 'coc-styled-components',
+      " \ 'coc-webpack',
 let g:coc_global_extensions = [
-      \ 'coc-browser',
       \ 'coc-clangd',
-      \ 'coc-clang-format-style-options',
-      \ 'coc-clock',
       \ 'coc-cmake',
       \ 'coc-css',
       \ 'coc-diagnostic',
       \ 'coc-dictionary',
       \ 'coc-docker',
       \ 'coc-emmet',
-      \ 'coc-emoji',
       \ 'coc-eslint',
       \ 'coc-explorer',
-      \ 'coc-floaterm',
       \ 'coc-git',
       \ 'coc-go',
       \ 'coc-highlight',
       \ 'coc-html',
       \ 'coc-html-css-support',
-      \ 'coc-java',
       \ 'coc-json',
-      \ 'coc-dash-complete',
-      \ 'coc-just-complete',
-      \ 'coc-leetcode',
       \ 'coc-lists',
-      \ 'coc-marketplace',
+      \ 'coc-pairs',
       \ 'coc-prettier',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
       \ 'coc-syntax',
       \ 'coc-snippets',
-      \ 'coc-styled-components',
       \ 'coc-svg',
       \ 'coc-tag',
       \ 'coc-tasks',
@@ -779,9 +791,7 @@ let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
       \ 'coc-word',
-      \ 'coc-webpack',
       \ 'coc-yaml',
-      \ 'coc-yank'
       \ ]
 " Yggdroot/indentLine
 let g:indentLine_char = '│'
@@ -976,7 +986,6 @@ let g:Lf_RgConfig = [
       \ "--glob=!package-lock.json",
       \ "--glob=!target",
       \ "--glob=!tags",
-      \ "--glob=!build",
       \ "--glob=!.git",
       \ "--glob=!.yarn",
       \ "--glob=!.ccls-cache",
@@ -1076,12 +1085,21 @@ xmap <silent> X   <Plug>(Exchange)
 nmap <silent> cxc <Plug>(ExchangeClear)
 nmap <silent> cxx <Plug>(ExchangeLine)
 " tomtom/tcomment_vim
+let g:tcomment#filetype#guess_vue = 0
 let g:tcomment_types = {
   \ 'c': '// %s',
   \ 'jsonc': '// %s',
   \ 'vue': '// %s',
   \ 'javascript_inline': '/** %s */',
   \ 'javascript_block': {
+    \ 'commentstring': '/** %s */',
+    \ 'middle': ' * ',
+    \ 'rxbeg': '\*\+',
+    \ 'rxend': '',
+    \ 'rxmid': '',
+  \ },
+  \ 'typescript_inline': '/** %s */',
+  \ 'typescript_block': {
     \ 'commentstring': '/** %s */',
     \ 'middle': ' * ',
     \ 'rxbeg': '\*\+',
@@ -1218,7 +1236,10 @@ require('nvim-treesitter.configs').setup {
   },
   highlight = {
     enable = true,
-    disable = {},
+    disable = function(lang, bufnr) -- Disable in large buffers
+                local linecnt = vim.api.nvim_buf_line_count(bufnr)
+                return lang == "cpp" and linecnt > 50000 or lang == "typescript" and linecnt > 1500
+              end
   },
   indent = {
     enable = false
@@ -1330,17 +1351,59 @@ EOF
 
 " ZhiyuanLck/smart-pairs
 lua << END
-require('pairs'):setup({
-  delete = {
-    enable_mapping  = false,
-  },
-  space = {
-    enable_mapping  = false,
-  },
-  enter = {
-    enable_mapping  = false,
-  }
-})
+-- require('pairs'):setup({
+--   delete = {
+--     enable_mapping  = true,
+--     enable_cond     = true,
+--   },
+--   space = {
+--     enable_mapping  = true,
+--     enable_cond     = true,
+--   },
+--   enter = {
+--     enable_mapping  = true,
+--     enable_cond     = true
+--   }
+-- })
+END
+
+lua <<END
+require'treesitter-context'.setup{
+    enable = true, -- Disabled default
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- For all filetypes
+        -- Note that setting an entry here replaces all other patterns for this entry.
+        -- By setting the 'default' entry below, you can control which nodes you want to
+        -- appear in the context window.
+        default = {
+            'class',
+            'function',
+            'method',
+            'for', -- These won't appear in the context
+            'while',
+            'if',
+            'switch',
+            'case',
+        },
+        -- Example for a specific filetype.
+        -- If a pattern is missing, *open a PR* so everyone can benefit.
+        --   rust = {
+        --       'impl_item',
+        --   },
+    },
+    exact_patterns = {
+        -- Example for a specific filetype with Lua patterns
+        -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+        -- exactly match "impl_item" only)
+        -- rust = true,
+    },
+
+    -- [!] The options below are exposed but shouldn't require your attention,
+    --     you can safely ignore them.
+
+    zindex = 20, -- The Z-index of the context window
+}
 END
 
 

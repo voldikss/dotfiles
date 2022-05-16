@@ -266,7 +266,8 @@ if v:version >= 703
   " #d65d0e
   " #EF5939
   " #4F4F4F
-  hi CursorLine guibg=#3d85c7
+  " #3d85c7
+  hi CursorLine guibg=#4F4F4F
 
   " Concealed element: \lambda → λ
   call s:HL('Conceal', s:blue, s:none)

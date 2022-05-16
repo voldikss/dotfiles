@@ -77,12 +77,17 @@ alias jz='j -i'      # 使用交互式选择模式
 alias jf='j -I'      # 使用 fzf 对多个结果进行选择
 alias jb='j -b'      # 快速回到父目录
 
+############################################
+# Options
+############################################
+setopt interactivecomments
 
 
 ############################################
 # My Configuration
 ############################################
 source $HOME/.aliases
+source $HOME/.functions
 
 
 #=============================================================================
@@ -130,9 +135,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # GoLang
 export GOROOT=/usr/lib/go
+export GOPATH="$HOME/go"
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
-export GOPATH="$HOME/go"
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 # Cargo
@@ -153,9 +158,11 @@ alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
 # Zinit & nvm's slowness
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-export PNPM_HOME="/home/alan/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+export NPM_BIN_PATH="$HOME/.nvm/versions/node/v17.4.0/bin/"
+export PATH="$NPM_BIN_PATH:$PATH"
 
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+# kitty
+# NOTE: 会导致 ssl -L 不工作
+# [[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"

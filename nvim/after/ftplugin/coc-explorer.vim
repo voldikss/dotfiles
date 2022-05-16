@@ -15,7 +15,7 @@ map <buffer> <3-LeftMouse> <CR>
 map <buffer> <RightMouse> h
 map <buffer> <2-RightMouse> <BS>
 
-map <buffer> <MiddleMouse> <BS>
+map <buffer> <MiddleMouse> P
 
 " preview
-map <buffer><nowait> <Space> <P>
+map <buffer><nowait> <Space> P

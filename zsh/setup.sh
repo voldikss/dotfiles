@@ -10,6 +10,7 @@ then
 fi
 
 ln -sf "$__dirname/../home/.aliases" $HOME
+ln -sf "$__dirname/../home/.functions" $HOME
 ln -sf "$__dirname/../home/.zshrc" $HOME
 ln -sf "$__dirname/../home/.antigen.zsh" $HOME
 ln -sf "$__dirname/../home/.af-magic.zsh-theme" $HOME
