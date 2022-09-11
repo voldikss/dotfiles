@@ -4,8 +4,8 @@
 " GitHub: https://github.com/voldik
 " ============================================================================
 
-" AutoFormat:
-function! file#autoformat() abort
+" Format:
+function! file#format() abort
   if &readonly || !&modifiable
     return
   endif

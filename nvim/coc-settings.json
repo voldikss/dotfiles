@@ -1,20 +1,21 @@
 // vim:ft=jsonc
 {
-  "signature.floatConfig": {
+  "suggest.pumFloatConfig": {
+    "border": false,
+    "highlight": "CocPum"
+  },
+  "hover.floatConfig": {
     "border": true
   },
   "diagnostic.floatConfig": {
     "border": true,
     "highlight": "PreProc"
   },
-  "hover.floatConfig": {
-    "border": true
-  },
   "suggest.floatConfig": {
     "border": true,
     "borderhighlight": "PreProc"
   },
-  "browser.priority": 0,
+  "clangd.inlayHints.enable": false,
   "clangd.arguments": ["--header-insertion=never"],
   "cmake.formatter": "cmake-format",
   "cmake.lsp.enable": false,

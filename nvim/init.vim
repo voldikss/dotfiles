@@ -134,7 +134,7 @@ Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 " Completion
 if !exists('g:vscode') " TODO: use packer.nvim's `cond`
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'commit': 'be514c7f'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yaegassy/coc-volar', {'do': 'yarn install --frozen-lockfile'} " TODO: tmp
 endif
 " Style
@@ -392,7 +392,7 @@ call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
-command! AutoFormat call file#autoformat()
+command! Format call file#format()
 command! OpenFileExplorer call command#open_file_explorer()
 command! CdRoot call path#cd_root()
 command! PythonREPL  :FloatermNew --wintype=vsplit --width=0.5 --position=rightbelow python
@@ -538,8 +538,9 @@ nnoremap <silent> <Leader>p "+p
 nnoremap <silent> <Leader>P "+P
 vnoremap <silent> <Leader>p pgvy
 " InsertMode: move
-inoremap <silent> <C-k> <Up>
-inoremap <silent> <C-j> <Down>
+" do not use nore map
+imap <silent> <C-k> <Up>
+imap <silent> <C-j> <Down>
 " snoremap <silent> <C-j> <Down>
 inoremap <silent> <C-h> <Left>
 inoremap <silent> <C-l> <Right>
@@ -654,9 +655,9 @@ noremap! <silent> <F5>             <Esc>:RunTask<CR>
 noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
 noremap  <silent> <Space>c         <Esc>:call qf#ctoggle()<CR>
 noremap  <silent> <Space>l         <Esc>:call qf#ltoggle()<CR>
-noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
-noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
-noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
+noremap  <silent> <F6>             <Esc>:Format<CR>
+noremap  <silent> <Leader><Leader> <Esc>:Format<CR>
+noremap! <silent> <F6>             <Esc>:Format<CR>
 noremap  <silent> <F10>            <Esc>:Vista!!<CR>
 noremap! <silent> <F10>            <Esc>:Vista!!<CR>
 tnoremap <silent> <F10>            <C-\><C-n>:Vista!!<CR>
@@ -664,7 +665,9 @@ noremap  <silent> <F12>            <Esc>:FloatermToggle<CR>
 noremap! <silent> <F12>            <Esc>:FloatermToggle<CR>
 tnoremap <silent> <F12>            <C-\><C-n>:FloatermToggle<CR>
 nnoremap <expr>   <CR>             keymap#n#CR() . "\<Esc>"
-inoremap <expr>   <CR>             keymap#i#CR()
+" inoremap <expr>   <CR>             keymap#i#CR()
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <expr>   <BS>             keymap#i#BS()
 " }}}
 
@@ -691,6 +694,14 @@ let g:dbs = {
   \ 'dev': 'mongodb://root:root123@localhost:3717/amazon?authSource=admin'
 \ }
 " neoclide/coc.nvim
+hi clear CocMenuSel
+hi link CocMenuSel PmenuSel
+
+hi clear CocPum
+hi link CocPum Pmenu
+
+" hi CocSymbol
+
 let g:coc_data_home = '~/.config/coc'
 nnoremap <silent><nowait> <C-b> :call keymap#n#scroll_win(0)<CR>
 nnoremap <silent><nowait> <C-f> :call keymap#n#scroll_win(1)<CR>
@@ -741,10 +752,12 @@ nnoremap <silent> gcu :CocCommand git.chunkUndo<CR>
 " coc-snippets
 " 不要改动
 inoremap <silent><expr> <TAB>
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-function! s:check_back_space() abort
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -768,6 +781,7 @@ let g:coc_global_extensions = [
       \ 'coc-dictionary',
       \ 'coc-docker',
       \ 'coc-emmet',
+      \ 'coc-emoji',
       \ 'coc-eslint',
       \ 'coc-explorer',
       \ 'coc-git',

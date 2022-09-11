@@ -37,6 +37,8 @@ function! keymap#i#CR() abort
   let line = getline('.') " can not use trim
   if pumvisible()
     return "\<C-y>"
+  elseif coc#pum#visible()
+    return coc#pum#confirm()
   elseif index([')', ']', '}', '`'], strcharpart(line, getpos('.')[2]-1, 1)) >= 0
     return "\<CR>\<Esc>O"
   elseif strcharpart(line, getpos('.')[2]-1,2) == '</'

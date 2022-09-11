@@ -283,7 +283,7 @@ call s:SetCommandAbbrs('W', '%!sudo tee >/dev/null %')
 " }}}
 
 " Commands: {{{
-command! AutoFormat call file#autoformat()
+command! Format call file#format()
 command! OpenFileExplorer call command#open_file_explorer()
 command! CdRoot call path#cd_root()
 command! PythonREPL  :FloatermNew --wintype=vsplit --width=0.5 --position=rightbelow python
@@ -530,9 +530,9 @@ noremap  <silent> <F5>             <Esc>:RunTask<CR>
 noremap! <silent> <F5>             <Esc>:RunTask<CR>
 noremap  <silent> <Leader>x        <Esc>:RunTask<CR>
 " noremap  <silent> <Leader><Space>  <Esc>:call qf#ctoggle()<CR>
-noremap  <silent> <F6>             <Esc>:AutoFormat<CR>
-noremap  <silent> <Leader><Leader> <Esc>:AutoFormat<CR>
-noremap! <silent> <F6>             <Esc>:AutoFormat<CR>
+noremap  <silent> <F6>             <Esc>:Format<CR>
+noremap  <silent> <Leader><Leader> <Esc>:Format<CR>
+noremap! <silent> <F6>             <Esc>:Format<CR>
 noremap  <silent> <F10>            <Esc>:Vista!!<CR>
 noremap! <silent> <F10>            <Esc>:Vista!!<CR>
 tnoremap <silent> <F10>            <C-\><C-n>:Vista!!<CR>

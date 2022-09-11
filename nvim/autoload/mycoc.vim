@@ -13,7 +13,7 @@ function! mycoc#showdoc() abort
     catch
       call util#show_msg('No help for ' . cword, 'error')
     endtry
-  elseif coc#rpc#ready()
+  elseif CocAction('hasProvider', 'hover')
     call CocActionAsync('definitionHover')
   else
     call util#show_msg('No info', 'warning')
