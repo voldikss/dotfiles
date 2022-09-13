@@ -12,7 +12,7 @@ let g:did_load_filetypes = 1
 
 " HostProg:
 if has('win32') || has('win64') || has('win32unix')
-  let g:python3_host_prog=trim(system('where python'))
+  let g:python3_host_prog=trim(split(system('where python'), '\n')[0])
 else
   let g:python3_host_prog='/usr/bin/python3'
 endif
@@ -800,6 +800,7 @@ let g:coc_global_extensions = [
       \ 'coc-svg',
       \ 'coc-tag',
       \ 'coc-tasks',
+      \ 'coc-toml',
       \ 'coc-translator',
       \ 'coc-tsserver',
       \ 'coc-vimlsp',
@@ -1030,7 +1031,6 @@ let g:Lf_WildIgnore = {
     \ '.IntelliJIdea*',
     \ 'node_modules',
     \ 'dist',
-    \ 'build'
   \ ],
   \ 'file': [
     \ '*.sw?',
@@ -1252,7 +1252,7 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     disable = function(lang, bufnr) -- Disable in large buffers
                 local linecnt = vim.api.nvim_buf_line_count(bufnr)
-                return lang == "cpp" and linecnt > 50000 or lang == "typescript" and linecnt > 1500
+                return lang == 'yaml' or lang == "cpp" and linecnt > 50000 or lang == "typescript" and linecnt > 1500
               end
   },
   indent = {

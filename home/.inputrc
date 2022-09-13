@@ -81,5 +81,5 @@ set completion-ignore-case on
 # maybe for BASH: bind '"\C-w":backward-kill-word'
 "\Ch": backward-char
 "\Cl": forward-char
-bind '"\C-w":backward-kill-word'
-C-w: backward-kill-word'
+# bind '"\C-w":backward-kill-word'
+# C-w: backward-kill-word'

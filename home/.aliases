@@ -20,6 +20,9 @@ alias l='ls -lh'
 alias k='kubectl'
 alias d=docker
 
+# system
+alias pgrep='pgrep -a'
+
 # less
 alias le=less
 
@@ -195,3 +198,12 @@ fi
 alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdump-vtable-layouts'
 
 alias grep='grep --ignore-case --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
+
+# k8s
+alias k9sprod='cp ~/.kube/config.prod ~/.kube/config && k9s'
+alias k9sdev='cp ~/.kube/config.dev ~/.kube/config && k9s'
+alias k9sshared='cp ~/.kube/config.shared ~/.kube/config && k9s'
+alias k9sselfhosted='cp ~/.kube/config.selfhosted ~/.kube/config && k9s'
+alias k9sops='cp ~/.kube/config.devops ~/.kube/config && k9s'
+alias k9sminikube='cp ~/.kube/config.minikube ~/.kube/config && k9s'
+alias k9ssit='cp ~/.kube/config.sit ~/.kube/config && k9s'

@@ -166,3 +166,7 @@ export PATH="$NPM_BIN_PATH:$PATH"
 # kitty
 # NOTE: 会导致 ssl -L 不工作
 # [[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
