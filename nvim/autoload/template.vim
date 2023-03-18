@@ -5,15 +5,15 @@
 " Description: modified from vim-template
 " ============================================================================
 
-function s:EscapeRegex(raw)
+function s:escape_regex(raw)
   return escape(a:raw, '/')
 endfunction
 
-function s:TExpand(variable, value)
-  silent! execute "%s/\\V%" . s:EscapeRegex(a:variable) . "%/" .  s:EscapeRegex(a:value) . "/g"
+function s:expand(variable, value)
+  silent! execute "%s/\\V%" . s:escape_regex(a:variable) . "%/" .  s:escape_regex(a:value) . "/g"
 endfunction
 
-function s:TExpandVars()
+function s:expand_vars()
   " Date/time values
   let day        = strftime("%d")
   let year       = strftime("%Y")
@@ -54,32 +54,32 @@ function s:TExpandVars()
   endif
 
   " Finally, perform expansions
-  call s:TExpand("DAY",   day)
-  call s:TExpand("YEAR",  year)
-  call s:TExpand("DATE",  date)
-  call s:TExpand("TIME",  time)
-  call s:TExpand("USER",  user)
-  call s:TExpand("FDATE", fdate)
-  call s:TExpand("MONTH", month)
-  call s:TExpand("MONTHSHORT", monshort)
-  call s:TExpand("MONTHFULL",  monfull)
-  call s:TExpand("FILE",  filen)
-  call s:TExpand("FFILE", filec)
-  call s:TExpand("FDIR",  fdir)
-  call s:TExpand("EXT",   filex)
-  call s:TExpand("MAIL",  email)
-  call s:TExpand("HOST",  hostn)
-  call s:TExpand("GUARD", guard)
-  call s:TExpand("CLASS", class)
-  call s:TExpand("MACROCLASS", macroclass)
-  call s:TExpand("CAMELCLASS", camelclass)
-  call s:TExpand("LICENSE", license)
+  call s:expand("DAY",   day)
+  call s:expand("YEAR",  year)
+  call s:expand("DATE",  date)
+  call s:expand("TIME",  time)
+  call s:expand("USER",  user)
+  call s:expand("FDATE", fdate)
+  call s:expand("MONTH", month)
+  call s:expand("MONTHSHORT", monshort)
+  call s:expand("MONTHFULL",  monfull)
+  call s:expand("FILE",  filen)
+  call s:expand("FFILE", filec)
+  call s:expand("FDIR",  fdir)
+  call s:expand("EXT",   filex)
+  call s:expand("MAIL",  email)
+  call s:expand("HOST",  hostn)
+  call s:expand("GUARD", guard)
+  call s:expand("CLASS", class)
+  call s:expand("MACROCLASS", macroclass)
+  call s:expand("CAMELCLASS", camelclass)
+  call s:expand("LICENSE", license)
   " 执行系统命令展开
   " e.g. %(node -v)% for .nvmrc
   silent! execute "%s/%\\((.*)\\)%/\\=trim(system(submatch(1)))/g"
 endfunction
 
-function s:TPutCursor()
+function s:put_cursor()
   0  " Go to first line before searching
   if search("%HERE%", "W")
     let column = col(".")
@@ -89,40 +89,53 @@ function s:TPutCursor()
   endif
 endfunction
 
-function s:NeuterFileName(filename)
+function s:neuter_filename(filename)
   let neutered = fnameescape(a:filename)
   return neutered
 endfunction
 
-function s:TLoadTemplate(template)
-  let tpath = s:NeuterFileName(a:template)
+function s:load_template(template)
+  let tpath = s:neuter_filename(a:template)
   execute "keepalt 0r " . tpath
-  call s:TExpandVars()
+  call s:expand_vars()
 
   " Loading a template into an empty buffer leaves an extra blank line at the
   " bottom, delete it
   let lastlnum = len(readfile(tpath)) + 1
-  if empty(trim(getline(lastlnum))) 
+  if empty(trim(getline(lastlnum)))
     execute len(readfile(tpath)) + 1 . "d"
   endif
 
-  call s:TPutCursor()
+  call s:put_cursor()
   setlocal nomodified
 endfunction
 
-function template#TLoad(ext)
+function! s:get_all_templates() abort
+  return globpath(&rtp, 'templates/*.template', 0, 1) + globpath(&rtp, 'templates/.*.template', 0, 1)
+endfunction
+
+function! s:trim_suffix(str) abort
+  return substitute(a:str, '.template$', '', 'g')
+endfunction
+
+function! s:is_matched(template_full_path) abort
+  let template_filename = fnamemodify(a:template_full_path, ':t')
+  return expand('%') =~ s:trim_suffix(template_filename)
+endfunction
+
+function template#load(ext)
   if empty(a:ext)
     let tfiles = filter(
-          \ globpath(&rtp, 'templates/=template=*', 0, 1),
-          \ { _,v -> expand('%') =~ matchstr(v, '=template=\zs.*\ze') . '$' }
+          \ s:get_all_templates(),
+          \ { _,v -> s:is_matched(v) }
           \ )
   else
-    let tfiles = globpath(&rtp, 'templates/=template=.'.a:ext, 0, 1)
+    let tfiles = globpath(&rtp, printf('templates/.%s.template', a:ext), 0, 1)
   endif
   if empty(tfiles)
     call util#show_msg('No templates for this filetype', 'error')
   else
     let tfile = sort(tfiles, { a,b -> len(b) - len(a) })[0]
-    call s:TLoadTemplate(tfile)
+    call s:load_template(tfile)
   endif
 endfunction

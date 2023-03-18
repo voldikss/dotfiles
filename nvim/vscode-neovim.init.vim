@@ -293,7 +293,7 @@ command! Wcolor echo "hi<" . synIDattr(synID(line("."),col("."), v:true),"name")
       \ "> trans<" . synIDattr(synID(line("."),col("."), v:false),"name") .
       \ "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"name") .
       \ "> fg:" . synIDattr(synIDtrans(synID(line("."),col("."), v:true)),"fg#")
-command! -nargs=* Template call template#TLoad(<q-args>)
+command! -nargs=* Template call template#load(<q-args>)
 command! -nargs=* Zeal call command#zeal(<q-args>)
 
 command! -nargs=? Line call command#insert_line('light', <f-args>)

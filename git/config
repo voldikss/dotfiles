@@ -1,8 +1,8 @@
 [user]
-	name = duanyunzhi
-	email = duanyunzhi@currentcad.com
-	# name = voldikss
-	# email = dyzplus@gmail.com
+	# name = duanyunzhi
+	# email = duanyunzhi@currentcad.com
+	name = voldikss
+	email = dyzplus@gmail.com
     signingkey = 4303109B34AF02524281C1ECA2C58EA89AF5ADB3
 [alias]
     co = checkout

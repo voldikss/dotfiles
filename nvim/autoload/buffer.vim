@@ -70,9 +70,10 @@ function! buffer#clean(bang) abort
 endfunction
 
 function! buffer#write() abort
-  if empty(bufname()) 
-    let filename = strftime('%Y%m%d%I%M%S')
-    execute printf('write /tmp/nvim/%s.txt', filename)
+  if empty(bufname())
+    let tmpdir = fnamemodify(tempname(), ':p:h')
+    let filename = strftime('%Y%m%d-%I%M%S')
+    execute printf('write %s/%s', tmpdir, filename)
   else
     write
   endif

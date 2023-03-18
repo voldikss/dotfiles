@@ -98,3 +98,6 @@ linkedlist
 FloatermNew
 JSON
 Metadata
+env
+rabbitmq
+redis
