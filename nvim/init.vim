@@ -979,6 +979,7 @@ let g:Lf_Ctags                = "ctags"
 let g:Lf_DefaultExternalTool = ""
 let g:Lf_FilerShowDevIcons = 1
 let g:Lf_GtagsAutoGenerate = 0
+let g:Lf_GtagsAutoUpdate = 0
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_HideHelp             = 1
 let g:Lf_IndexTimeLimit       = 10
