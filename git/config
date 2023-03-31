@@ -57,3 +57,7 @@
 	# gpgsign = true
 [safe]
 	directory = /home/alan/code/neovim
+[ssh]
+        postBuffer = 524288000
+[http]
+        postBuffer = 524288000
