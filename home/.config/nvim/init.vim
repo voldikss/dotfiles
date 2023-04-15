@@ -89,7 +89,7 @@ set updatetime=100 timeout timeoutlen=500 ttimeout ttimeoutlen=50 nolazyredraw
 set noerrorbells visualbell t_vb=
 
 " neovim only
-if matchstr(execute('silent version'), 'NVIM v\zs[^\n-]*') >= '0.4.0'
+if matchstr(execute('silent version'), 'NVIM') == 'NVIM'
   set shada='20,<50,s10
   set inccommand=nosplit
   set wildoptions+=pum

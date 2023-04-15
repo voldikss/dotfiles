@@ -121,7 +121,6 @@
     "filetypes": ["vista", "qf"],
     "floatingWindows": true
   },
-  "explorer.file.cdCommand": "cd",
   "explorer.previewAction.onHover": false,
   "explorer.quitOnOpen": false,
   "explorer.trash.command": "trash-put %s",
@@ -199,7 +198,7 @@
     "<C-t>": "do:toggle"
   },
   "list.previewSplitRight": false,
-  "prettier.disableLanguages": ["typescript", "html"],
+  "prettier.disableLanguages": ["typescript", "html", "yaml"],
   "prettier.formatterPriority": 1,
   "prettier.printWidth": 85,
   "prettier.semi": false,
