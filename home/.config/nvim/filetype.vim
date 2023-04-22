@@ -50,6 +50,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead */.kube/config    setfiletype yaml
 
   autocmd BufNewFile,BufRead Dockerfile*       setfiletype dockerfile
+
+  autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl,helmfile*.yaml setfiletype helm
 augroup END
 
 let did_load_my_filetypes=1
