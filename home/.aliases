@@ -151,8 +151,7 @@ alias gz='tar -xzvf'
 alias tgz='tar -xzvf'
 alias zip='unzip'
 alias bz2='tar -xjvf'
-alias tar='tar zcvf'
-alias untar='tar zxvf'
+alias untar='tar -zxvf'
 
 # floaterm
 alias f=floaterm
