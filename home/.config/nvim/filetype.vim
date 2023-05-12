@@ -39,6 +39,8 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead *.inc             setfiletype cpp
 
+  autocmd BufNewFile,BufRead yaml.j2           setfiletype yaml "TOOD: to be more generic
+
   autocmd BufNewFile,BufRead *.h               setfiletype c   " do not set to cpp
 
   autocmd BufNewFile,BufRead .tasks,tasks.ini  setfiletype tasks
