@@ -54,6 +54,8 @@ augroup filetypedetect
   autocmd BufNewFile,BufRead Dockerfile*       setfiletype dockerfile
 
   autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl,helmfile*.yaml setfiletype helm
+
+  autocmd BufRead,BufNewFile requirements.txt  setfiletype requirements
 augroup END
 
 let did_load_my_filetypes=1
