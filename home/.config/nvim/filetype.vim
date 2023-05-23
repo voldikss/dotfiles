@@ -56,6 +56,8 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl,helmfile*.yaml setfiletype helm
 
   autocmd BufRead,BufNewFile requirements.txt  setfiletype requirements
+
+  autocmd BufRead,BufNewFile *.typ             setfiletype=typst
 augroup END
 
 let did_load_my_filetypes=1
