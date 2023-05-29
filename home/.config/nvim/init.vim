@@ -143,7 +143,7 @@ Plug 'kshenoy/vim-signature'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'mengelbrecht/lightline-bufferline', {'commit': '7b0d302'}
 " Plug 'nvim-lualine/lualine.nvim'
 " Plug 'kyazdani42/nvim-web-devicons'
 " Plug 'romgrk/barbar.nvim'
