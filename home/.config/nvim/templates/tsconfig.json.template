@@ -1,0 +1,16 @@
+// vim:ft=jsonc
+{
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "checkJs": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*"]
+}
