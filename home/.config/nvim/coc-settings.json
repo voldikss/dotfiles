@@ -262,6 +262,8 @@
   "tasks.filetypes": ["tasks"],
   "translator.enableHover": false,
   "translator.proxy": "socks://127.0.0.1:1081",
+  "tsserver.useLocalTsdk": true,
+  "tsserver.tsdk": "${workspaceFolder}/node_modules/typescript/lib",
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "typescript.suggestionActions.enabled": false,
