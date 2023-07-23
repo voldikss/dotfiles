@@ -138,9 +138,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yaegassy/coc-volar', {'do': 'yarn install --frozen-lockfile'} " TODO: tmp
 endif
 " Style
-" Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine', {'for': ['yaml']}
+Plug 'lukas-reineke/indent-blankline.nvim', {'for': 'yaml'}
 Plug 'kshenoy/vim-signature'
-" Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline', {'commit': '7b0d302'}
@@ -826,6 +826,7 @@ let g:indentLine_fileTypeExclude = [
       \ ]
 " lukas-reineke/indent-blankline.nvim
 let g:indent_blankline_char_highlight = 'Delimiter'
+let g:indent_blankline_filetype = ['yaml']
 " mhinz/vim-startify
 let g:webdevicons_enable_startify = 1
 nnoremap <silent> <Leader><Space> <Esc>:Startify<CR>
@@ -989,7 +990,18 @@ let g:Lf_PopupShowBorder = 1
 let g:Lf_PopupBorders = ["─","│","─","│","╭","╮","╯","╰"]
 let g:Lf_PopupPreviewPosition = 'right'
 let g:Lf_WindowPosition = 'bottom'
-let g:Lf_PreviewResult        = {'Function':0, 'BufTag':0}
+let g:Lf_PreviewResult = {
+      \ 'File': 0,
+      \ 'Buffer': 0,
+      \ 'Mru': 0,
+      \ 'Tag': 0,
+      \ 'BufTag': 0,
+      \ 'Function': 0,
+      \ 'Line': 0,
+      \ 'Colorscheme': 1,
+      \ 'Rg': 0,
+      \ 'Gtags': 0
+      \ }
       " \ "--glob=!**/e2e/*",
 let g:Lf_RgConfig = [
       \ "--glob=!OmegaOptions.bak",
