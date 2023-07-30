@@ -86,8 +86,20 @@ setopt interactivecomments
 ############################################
 # My Configuration
 ############################################
-source $HOME/.aliases
-source $HOME/.functions
+for file in ~/.config/zsh/{functions,env,aliases,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+
+############################################
+# Completions
+############################################
+autoload -Uz compinit && compinit
+if [ -d "$HOME/.config/zsh/completions" ];then
+    source $HOME/.config/zsh/completions/helmfile.zsh
+    # fpath+=($HOME/.config/zsh/completions) # XXX: not work?
+fi
 
 
 #=============================================================================

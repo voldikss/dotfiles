@@ -50,7 +50,6 @@ endfunction
 
 " Insert: <Esc>
 function! keymap#i#Esc()
-  echom 'asdf'
   let colnr = getpos('.')[2]
   let linelen = len(getline('.'))
   if colnr == (linelen + 1)
