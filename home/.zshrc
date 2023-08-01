@@ -86,7 +86,7 @@ setopt interactivecomments
 ############################################
 # My Configuration
 ############################################
-for file in ~/.config/zsh/{functions,env,aliases,extra}; do
+for file in ~/.config/zsh/{functions,env,aliases,extra}.zsh; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
