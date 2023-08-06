@@ -4,6 +4,7 @@
     "border": false,
     "highlight": "CocPum"
   },
+  "Lua.diagnostics.globals": ["vim"],
   "hover.floatConfig": {
     "border": true
   },
