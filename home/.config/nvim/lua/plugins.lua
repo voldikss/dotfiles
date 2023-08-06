@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = ' ' -- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.mapleader = ';' -- Make sure to set `mapleader` before lazy so your mappings are correct
 require('lazy').setup({
   {
     'nvim-tree/nvim-tree.lua',
@@ -220,11 +220,7 @@ require('lazy').setup({
       vim.g.mkdp_auto_close = 0
     end
   },
-  'lervag/vimtex',
-  'jparise/vim-graphql',
   'rust-lang/rust.vim',
-  'tpope/vim-dadbod',
-  'kristijanhusak/vim-dadbod-ui',
   {
     'neoclide/coc.nvim',
     branch = 'release',
@@ -234,26 +230,32 @@ require('lazy').setup({
       vim.g.coc_data_home = '~/.config/coc'
       vim.keymap.set('n', '<C-b>', ':call keymap#n#scroll_win(0)<CR>', { silent = true })
       vim.keymap.set('n', '<C-f>', ':call keymap#n#scroll_win(1)<CR>', { silent = true })
-      vim.cmd [[
+      vim.cmd([[
         inoremap <silent><nowait><expr> <C-f>
-              \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
-              \ "<C-r>=keymap#exec('normal! w')<CR>"
+        \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" :
+        \ "<C-r>=keymap#exec('normal! w')<CR>"
         inoremap <silent><nowait><expr> <C-b>
-              \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
-              \ "<C-r>=keymap#exec('normal! b')<CR>"
+        \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" :
+        \ "<C-r>=keymap#exec('normal! b')<CR>"
         " coc-snippets
         " 不要改动
         inoremap <silent><expr> <TAB>
-              \ coc#pum#visible() ? coc#pum#next(1) :
-              \ CheckBackspace() ? "\<Tab>" :
-              \ coc#refresh()
+        \ coc#pum#visible() ? coc#pum#next(1) :
+        \ CheckBackspace() ? "\<Tab>" :
+        \ coc#refresh()
         inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
         function! CheckBackspace() abort
           let col = col('.') - 1
           return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
-      ]]
+
+        augroup CocRelatedAutocmds
+          autocmd!
+          autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+          autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup END
+      ]])
       -- general
       vim.keymap.set('n', '<M-n>', '<Plug>(coc-diagnostic-next)', { silent = true })
       vim.keymap.set('n', '<M-p>', '<Plug>(coc-diagnostic-prev)', { silent = true })
@@ -273,12 +275,12 @@ require('lazy').setup({
       vim.keymap.set('o', 'if', '<Plug>(coc-git-chunk-inner)', { silent = true })
 
       -- coc-git
-      vim.keymap.set('n', 'gs ', ':CocCommand git.chunkStage<CR>', { silent = true })
-      vim.keymap.set('n', 'go ', ':CocCommand git.browserOpen<CR>', { silent = true })
-      vim.keymap.set('n', 'gd ', ':CocCommand git.chunkInfo<CR>', { silent = true })
-      vim.keymap.set('n', 'gm ', ':CocCommand git.showCommit<CR>', { silent = true })
-      vim.keymap.set('n', 'gw ', ':call file#refresh()<CR>:Gw<CR>:call file#refresh()<CR>', { silent = true })
-      vim.keymap.set('n', 'gW ', ':AsyncRun -cwd=<root> -silent=1 git add .<CR>', { silent = true })
+      vim.keymap.set('n', 'gs', ':CocCommand git.chunkStage<CR>', { silent = true })
+      vim.keymap.set('n', 'go', ':CocCommand git.browserOpen<CR>', { silent = true })
+      vim.keymap.set('n', 'gd', ':CocCommand git.chunkInfo<CR>', { silent = true })
+      vim.keymap.set('n', 'gm', ':CocCommand git.showCommit<CR>', { silent = true })
+      vim.keymap.set('n', 'gw', ':call file#refresh()<CR>:Gw<CR>:call file#refresh()<CR>', { silent = true })
+      vim.keymap.set('n', 'gW', ':AsyncRun -cwd=<root> -silent=1 git add .<CR>', { silent = true })
       vim.keymap.set('n', 'gca', ':Git commit --amend -v<CR>', { silent = true })
       vim.keymap.set('n', 'gcm', ':Git commit -v<CR>', { silent = true })
       vim.keymap.set('n', 'gcu', ':CocCommand git.chunkUndo<CR>', { silent = true })
@@ -325,7 +327,6 @@ require('lazy').setup({
         'coc-translator',
         'coc-tsserver',
         'coc-vimlsp',
-        'coc-vimtex',
         'coc-word',
         'coc-yaml',
       }
@@ -462,7 +463,7 @@ require('lazy').setup({
     },
     config = function()
       vim.g.webdevicons_enable_startify = 1
-      vim.cmd [[
+      vim.cmd([[
         nnoremap <silent> <Leader><Space> <Esc>:Startify<CR>
         function! s:stdpath_config() abort
           if has('nvim')
@@ -472,18 +473,23 @@ require('lazy').setup({
           endif
         endfunction
         let g:startify_bookmarks = [
-              \ {'c': <SID>stdpath_config() . '/coc-settings.json'},
-              \ {'v': <SID>stdpath_config() . '/init.vim'}
-              \ ]
-      ]]
+        \ {'c': <SID>stdpath_config() . '/coc-settings.json'},
+        \ {'v': <SID>stdpath_config() . '/init.vim'}
+        \ ]
+
+        augroup StartifyAutocmds
+          autocmd!
+          autocmd User Startified setlocal buflisted
+        augroup END
+      ]])
       vim.g.startify_files_number = 8
       vim.g.startify_padding_left = 15
-      vim.cmd [[
+      vim.cmd([[
         highlight StartifyHeader guifg=#FF00FF
         highlight StartifyNumber guifg=#00FF00
         highlight StartifyPath   guifg=#00AFFF
         highlight StartifySlash  guifg=#DF875F
-      ]]
+      ]])
     end
   },
   {
@@ -492,11 +498,11 @@ require('lazy').setup({
   {
     'itchyny/vim-cursorword',
     config = function()
-      vim.cmd [[
+      vim.cmd([[
         let g:cursorword_highlight = 1
         hi CursorWord0 guibg=#404D3D
         hi link CursorWord1 CursorLine
-      ]]
+      ]])
     end
   },
   'tpope/vim-fugitive',

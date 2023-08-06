@@ -118,7 +118,6 @@ augroup FileTypeAutocmds
   autocmd!
   autocmd FileType * set formatoptions-=cro
   autocmd FileType * syntax sync minlines=50
-  autocmd BufEnter * if &bt == 'nofile' | syntax sync fromstart | endif " for `:CocCommand git.showCommit`
   autocmd FileType *
         \ call matchadd('Special', '\W\<\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)\>') |
         \ call matchadd('Special', '\W\<\(NOTE\|INFO\|IDEA\|NOTICE\|TMP\)\>') |
@@ -160,17 +159,6 @@ augroup Checktime
   autocmd!
   autocmd FocusGained * checktime
   autocmd BufEnter * checktime
-augroup END
-
-augroup CocRelatedAutocmds
-  autocmd!
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup END
-
-augroup StartifyAutocmds
-  autocmd!
-  autocmd User Startified setlocal buflisted
 augroup END
 
 augroup ExternalOpen
