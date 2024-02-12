@@ -75,7 +75,7 @@ export _ZL_HYPHEN=1
 alias jc='j -c'      # 严格匹配当前路径的子路径
 alias jz='j -i'      # 使用交互式选择模式
 alias jf='j -I'      # 使用 fzf 对多个结果进行选择
-alias jb='j -b'      # 快速回到父目录
+# alias jb='j -b'      # 快速回到父目录
 
 ############################################
 # Options
@@ -175,6 +175,9 @@ export PATH="$PNPM_HOME:$PATH"
 export NPM_BIN_PATH="$HOME/.nvm/versions/node/v17.4.0/bin/"
 export PATH="$NPM_BIN_PATH:$PATH"
 
+
+export MAKEFLAGS=--no-print-directory
+
 # kitty
 # NOTE: 会导致 ssl -L 不工作
 # [[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
@@ -182,3 +185,28 @@ export PATH="$NPM_BIN_PATH:$PATH"
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+#compdef k3s
+_cli_zsh_autocomplete() {
+
+	local -a opts
+	local cur
+	cur=${words[-1]}
+	if [[ "$cur" == "-"* ]]; then
+	opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} ${cur} --generate-bash-completion)}")
+	else
+	opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} --generate-bash-completion)}")
+	fi
+
+	if [[ "${opts[1]}" != "" ]]; then
+	_describe 'values' opts
+	else
+	_files
+	fi
+
+	return
+}
+
+compdef _cli_zsh_autocomplete k3s

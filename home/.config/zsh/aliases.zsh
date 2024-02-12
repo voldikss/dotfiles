@@ -203,5 +203,6 @@ alias k9sops='cp ~/.kube/config.devops ~/.kube/config && k9s'
 alias k9sminikube='cp ~/.kube/config.minikube ~/.kube/config && k9s'
 alias k9ssit='cp ~/.kube/config.sit ~/.kube/config && k9s'
 alias k9sarch='cp ~/.kube/config.arch ~/.kube/config && k9s'
+alias k9sk3s='cp ~/.kube/config.k3s ~/.kube/config && k9s'
 
 minikube_setup='minikube start --cpus 8 --memory 8192 --nodes 1 --kubernetes-version 1.23.15 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --profile minikube'

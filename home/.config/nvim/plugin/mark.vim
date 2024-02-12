@@ -11,3 +11,7 @@ vnoremap <silent> <Plug>MarkSet   :call mark#do('v')<CR>
 nnoremap <silent> <Plug>MarkClear :call mark#uncolor_all()<CR>
 nnoremap <silent> <Plug>MarkNext  :call mark#jump(1)<CR>
 nnoremap <silent> <Plug>MarkPrev  :call mark#jump(0)<CR>
+
+nmap <silent> <Leader>k <Plug>MarkSet
+vmap <silent> <Leader>k <Plug>MarkSet
+nmap <silent> <Leader>K <Plug>MarkClear

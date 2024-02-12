@@ -495,16 +495,16 @@ require('lazy').setup({
   {
     'ryanoasis/vim-devicons'
   },
-  {
-    'itchyny/vim-cursorword',
-    config = function()
-      vim.cmd([[
-        let g:cursorword_highlight = 1
-        hi CursorWord0 guibg=#404D3D
-        hi link CursorWord1 CursorLine
-      ]])
-    end
-  },
+  -- {
+  --   'itchyny/vim-cursorword',
+  --   config = function()
+  --     vim.cmd([[
+  --       let g:cursorword_highlight = 1
+  --       hi CursorWord0 guibg=#404D3D
+  --       hi link CursorWord1 CursorLine
+  --     ]])
+  --   end
+  -- },
   'tpope/vim-fugitive',
   'tpope/vim-git',
   {
@@ -742,6 +742,9 @@ require('lazy').setup({
   },
   {
     'skywind3000/asynctasks.vim',
+    dependencies = {
+      'skywind3000/asyncrun.vim'
+    },
     config = function()
       vim.g.asynctasks_term_pos = 'bottom'
       vim.g.asynctasks_term_reuse = 0
@@ -761,7 +764,7 @@ require('lazy').setup({
   },
   {
     'tomtom/tcomment_vim',
-    keys = { 'gC', 'gc' },
+    keys = { { 'gC', mode = { "n", "v" } }, { 'gc', mode = { "n", "v" } } },
     config = function()
       vim.g['tcomment#filetype#guess_vue'] = 0
       vim.g.tcomment_types = {
@@ -848,4 +851,5 @@ require('lazy').setup({
   },
   'wellle/targets.vim',
   'yianwillis/vimcdoc',
+  'wuelnerdotexe/vim-enfocado'
 })

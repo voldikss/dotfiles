@@ -586,8 +586,6 @@ endfunction
 
 autocmd BufEnter * call <SID>enter_explorer()
 
-nmap ;t <Plug>(coc-translator-p)
-vmap <Leader>t <Plug>(coc-translator-pv)
 map <C-LeftMouse> <C-i>
 map <C-RightMouse> <C-o>
 map <2-LeftMouse> <C-j>

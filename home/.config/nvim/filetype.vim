@@ -53,7 +53,8 @@ augroup filetypedetect
 
   autocmd BufNewFile,BufRead Dockerfile*       setfiletype dockerfile
 
-  autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl setfiletype helm
+  " autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl setfiletype helm
+  autocmd BufRead,BufNewFile */templates/*.yaml,*/templates/*.tpl,*.gotmpl,*/templates/**/*.yaml,*/templates/**/*.tpl,*.gotmpl  call timer_start(10, { -> execute('setfiletype helm') })
 
   autocmd BufRead,BufNewFile requirements.txt  setfiletype requirements
 

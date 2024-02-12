@@ -209,6 +209,7 @@
   "python.formatting.provider": "black",
   "python.venvPath": "~/.cache/pypoetry/virtualenvs",
   "pyright.disableDiagnostics": true,
+  "pyright.inlayHints.parameterTypes": false,
   "pyright.inlayHints.functionReturnTypes": false,
   "pyright.inlayHints.variableTypes": false,
   "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
@@ -271,5 +272,9 @@
   "vimlsp.filetypes": ["vim", "vader"],
   "vimlsp.indexes.runtimepath": false,
   "vimlsp.suggest.fromRuntimepath": false,
-  "vimlsp.suggest.fromVimruntime": false
+  "vimlsp.suggest.fromVimruntime": false,
+  "coc.source.vimtex.filetypes": [
+    "tex",
+    "plaintex"
+  ]
 }
