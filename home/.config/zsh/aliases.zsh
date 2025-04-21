@@ -15,7 +15,6 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
-alias k='kubectl'
 alias d=docker
 
 # system
@@ -194,7 +193,12 @@ alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdu
 
 alias grep='grep --ignore-case --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 
-# k8s
+# kubectl
+alias k='kubectl'
+alias ka='kubectl apply'
+alias kc='kubectl create'
+alias kd='kubectl delete'
+alias kg='kubectl get'
 alias k9sprod='cp ~/.kube/config.prod ~/.kube/config && k9s'
 alias k9sdev='cp ~/.kube/config.dev ~/.kube/config && k9s'
 alias k9sshared='cp ~/.kube/config.shared ~/.kube/config && k9s'
@@ -204,5 +208,6 @@ alias k9sminikube='cp ~/.kube/config.minikube ~/.kube/config && k9s'
 alias k9ssit='cp ~/.kube/config.sit ~/.kube/config && k9s'
 alias k9sarch='cp ~/.kube/config.arch ~/.kube/config && k9s'
 alias k9sk3s='cp ~/.kube/config.k3s ~/.kube/config && k9s'
+alias k9srke='cp ~/.kube/config.rke ~/.kube/config && k9s'
 
 minikube_setup='minikube start --cpus 8 --memory 8192 --nodes 1 --kubernetes-version 1.23.15 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --profile minikube'

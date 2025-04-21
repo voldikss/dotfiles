@@ -27,7 +27,7 @@ k9s:
         - kube-system
         - default
       view:
-        active: pods
+        active: deploy
       featureGates:
         nodeShell: false
       shellPod:

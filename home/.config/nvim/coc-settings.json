@@ -17,6 +17,7 @@
     "borderhighlight": "PreProc"
   },
   "clangd.arguments": ["--header-insertion=never"],
+  "inlayHint.enable": false,
   "cmake.formatter": "cmake-format",
   "cmake.lsp.enable": false,
   "coc.preferences.extensionUpdateCheck": "weekly",
@@ -78,7 +79,8 @@
     "K": ["toggleSelection", "normal:k"],
     "gl": "expand:recursive",
     "gh": "collapse:recursive",
-    "o": ["expanded?", "collapse", "expand"],
+    // "o": ["expanded?", "collapse", "expand"],
+    "o": "systemExecute",
     "O": "systemExecute",
     "<cr>": "open",
     "<C-l>": "open:select:keep",

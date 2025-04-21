@@ -851,5 +851,16 @@ require('lazy').setup({
   },
   'wellle/targets.vim',
   'yianwillis/vimcdoc',
-  'wuelnerdotexe/vim-enfocado'
+  'wuelnerdotexe/vim-enfocado',
+  {
+    'lervag/vimtex',
+    ft = 'tex',
+    build = 'cd app && npm install',
+    config = function()
+      vim.g.mkdp_auto_close = 0
+    end
+  },
+  {
+    'github/copilot.vim',
+  },
 })

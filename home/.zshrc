@@ -98,6 +98,8 @@ unset file;
 autoload -Uz compinit && compinit
 if [ -d "$HOME/.config/zsh/completions" ];then
     source $HOME/.config/zsh/completions/helmfile.zsh
+    source $HOME/.config/zsh/completions/istioctl.zsh
+    source $HOME/.config/zsh/completions/k3s.zsh
     # fpath+=($HOME/.config/zsh/completions) # XXX: not work?
 fi
 
@@ -179,34 +181,15 @@ export PATH="$NPM_BIN_PATH:$PATH"
 export MAKEFLAGS=--no-print-directory
 
 # kitty
-# NOTE: 会导致 ssl -L 不工作
-# [[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
+if [[ "$TERM" == "xterm-kitty" ]]; then
+    # NOTE: 会导致 ssl -L 不工作
+    alias s="kitty +kitten ssh"
+    # NOTE: 会导致提示补全颜色异常
+    # export TERM=xterm
+fi
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-#compdef k3s
-_cli_zsh_autocomplete() {
-
-	local -a opts
-	local cur
-	cur=${words[-1]}
-	if [[ "$cur" == "-"* ]]; then
-	opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} ${cur} --generate-bash-completion)}")
-	else
-	opts=("${(@f)$(_CLI_ZSH_AUTOCOMPLETE_HACK=1 ${words[@]:0:#words[@]-1} --generate-bash-completion)}")
-	fi
-
-	if [[ "${opts[1]}" != "" ]]; then
-	_describe 'values' opts
-	else
-	_files
-	fi
-
-	return
-}
-
-compdef _cli_zsh_autocomplete k3s
