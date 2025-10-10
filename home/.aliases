@@ -78,7 +78,7 @@ alias gpl='git pull'
 alias gps='git push'
 
 # rm 进 trash
-if [[ ! $(command -v trash &> /dev/null) ]]; then
+if command -v trash &> /dev/null); then
     alias rm='trash -r'
     alias clear_trash='sudo rm -r ~/.local/share/Trash/files ~/.local/share/Trash/info'
 fi
