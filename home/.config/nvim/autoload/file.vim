@@ -16,12 +16,11 @@ function! file#format() abort
   " 2. remove blank line
   call s:remove_blank_lines()
   " 3. use coc
-  if index(['typescript', 'javascript', 'json', 'jsonc'], &ft) > -1
-    update | e
-    CocCommand prettier.formatFile
-  else
+  " if index(['typescript', 'javascript', 'json', 'jsonc'], &ft) > -1
+  "   CocCommand prettier.formatFile<CR>
+  " else
     silent! call CocAction('format')
-  endif
+  " endif
 
   if expand('%') != ''
     update
