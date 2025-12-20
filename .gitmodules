@@ -1,0 +1,3 @@
+[submodule "home/.config/kitty/kitty-themes"]
+	path = home/.config/kitty/kitty-themes
+	url = git@github.com:kovidgoyal/kitty-themes.git

@@ -212,3 +212,5 @@ alias k9sk3s='cp ~/.kube/config.k3s ~/.kube/config && k9s'
 alias k9srke='cp ~/.kube/config.rke ~/.kube/config && k9s'
 
 minikube_setup='minikube start --cpus 8 --memory 8192 --nodes 1 --kubernetes-version 1.23.15 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --profile minikube'
+
+# sudo pacman -Rns $(pacman -Qdtq)
