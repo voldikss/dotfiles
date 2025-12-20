@@ -194,8 +194,7 @@ alias cpp_dump_memory_layout='clang++ -cc1 -emit-llvm -fdump-record-layouts -fdu
 alias grep='grep --ignore-case --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 
 # kubectl
-# alias k='kubectl'
-alias k='kubecolor'
+alias k='kubectl'
 alias ka='kubectl apply'
 alias kc='kubectl create'
 alias kd='kubectl delete'

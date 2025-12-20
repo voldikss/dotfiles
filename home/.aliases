@@ -17,8 +17,7 @@ alias lh='ls -lh'
 alias lR='ls -lR'
 alias l='ls -lh'
 
-# alias k='kubectl'
-alias k='kubecolor'
+alias k='kubectl'
 alias d=docker
 
 # system
