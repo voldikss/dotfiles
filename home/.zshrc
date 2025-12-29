@@ -108,7 +108,7 @@ fi
 # Environment Variables
 #=============================================================================
 export VISUAL=/usr/local/bin/nvim
-# export EDITOR=/usr/local/bin/nvim
+export EDITOR=nvim
 # export MANPAGER="nvim '+set ft=man' -"
 export REACT_EDITOR=code
 

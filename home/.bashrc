@@ -136,3 +136,6 @@ alias gr='git reset --hard HEAD'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. <(k3s completion bash)  # Added by k3s-ansible
+export KUBECONFIG=~/.kube/config # Added by k3s-ansible
+. <(kubectl completion bash)  # Added by k3s-ansible
