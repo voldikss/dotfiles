@@ -12,3 +12,25 @@ docker_find_child_images_by_parent_id() {
     fi
     docker image inspect --format='{{.RepoTags}} {{.Id}} {{.Parent}}' $(docker image ls -q --filter since=$1)
 }
+
+install_k3s() {
+    sudo mkdir -p /var/lib/rancher/k3s/agent/images/
+    withproxy curl -L -o k3s-airgap-images-amd64.tar.zst "https://github.com/k3s-io/k3s/releases/download/v1.35.0%2Bk3s1/k3s-airgap-images-amd64.tar.zst"
+    sudo cp k3s-airgap-images-amd64.tar.zst /var/lib/rancher/k3s/agent/images/
+    cat <<EOF>/etc/rancher/k3s/registry.yaml
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://docker.1ms.run"
+EOF
+    sudo chmod 644 /etc/rancher/k3s/registry.yaml
+    curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_SKIP_DOWNLOAD=true sh -
+    sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+    sudo chmod -R 644 $HOME/.kube/config
+    rm -f k3s-airgap-images-amd64.tar.zst
+}
+
+uninstall_k3s() {
+    k3s-uninstall.sh
+    sudo rm -rf /etc/rancher/k3s /var/lib/rancher/k3s
+}

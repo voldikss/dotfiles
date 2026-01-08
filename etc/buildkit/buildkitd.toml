@@ -1,0 +1,21 @@
+[registry."docker.io"]
+  mirrors = [
+    "https://2a6bf1988cb6428c877f723ec7530dbc.mirror.swr.myhuaweicloud.com",
+    "https://dockerpull.pw",
+    "https://hub.mirrorify.net",
+    "https://image.cloudlayer.icu",
+    "https://dockerproxy.net",
+    "https://hub.fast360.xyz",
+    "https://docker.1ms.run",
+    "https://hub1.nat.tf",
+    "https://hub2.nat.tf",
+    "https://docker.m.daocloud.io",
+    "https://dockerproxy.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://docker.nju.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com",
+    "https://up4196fd.mirror.aliyuncs.com",
+    "https://ghcr.io.mirrors.ustc.edu.cn",
+    "https://ghcr.tencent-cloud.com"
+  ]
