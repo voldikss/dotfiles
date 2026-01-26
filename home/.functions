@@ -48,6 +48,7 @@ mirrors:
   ghcr.io:
     endpoint:
       - "https://ghcr.nju.edu.cn"
+      - "https://ghcr.linkos.org"
 EOF
     sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
     sudo chmod -R 644 $HOME/.kube/config
