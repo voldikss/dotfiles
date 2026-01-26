@@ -24,7 +24,7 @@ mirrors:
       - "https://docker.1ms.run"
 EOF
     sudo chmod 644 /etc/rancher/k3s/registry.yaml
-    curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_SKIP_DOWNLOAD=true sh -
+    curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_SKIP_DOWNLOAD=true INSTALL_K3S_SKIP_DOWNLOAD=true INSTALL_K3S_EXEC="server --node-ip=127.0.0.1 --advertise-address=127.0.0.1 --tls-san=127.0.0.1" sh -
     sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
     sudo chmod -R 644 $HOME/.kube/config
     rm -f k3s-airgap-images-amd64.tar.zst
