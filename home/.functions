@@ -30,6 +30,25 @@ CONTAINERD_HTTP_PROXY=http://127.0.0.1:1081
 CONTAINERD_HTTPS_PROXY=http://127.0.0.1:1081
 CONTAINERD_NO_PROXY=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 EOF
+    cat <<EOF>/etc/rancher/k3s/registries.yaml
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://docker.1ms.run"
+      - "https://docker.1ms.run"
+      - "https://docker.kejilion.pro"
+      - "https://docker.m.ixdev.cn"
+      - "https://hub.mirrorify.net"
+      - "https://2a6bf1988cb6428c877f723ec7530dbc.mirror.swr.myhuaweicloud.com"
+      - "https://d.yydy.link:2023"
+      - "https://hub3.nat.tf"
+      - "https://docker.etcd.fun"
+      - "https://dockerproxy.net"
+      - "https://hub2.nat.tf"
+  ghcr.io:
+    endpoint:
+      - "https://ghcr.nju.edu.cn"
+EOF
     sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
     sudo chmod -R 644 $HOME/.kube/config
     rm -f k3s-airgap-images-amd64.tar.zst
