@@ -34,12 +34,12 @@ EOF
 mirrors:
   docker.io:
     endpoint:
+      - "https://2a6bf1988cb6428c877f723ec7530dbc.mirror.swr.myhuaweicloud.com"
       - "https://docker.1ms.run"
       - "https://docker.1ms.run"
       - "https://docker.kejilion.pro"
       - "https://docker.m.ixdev.cn"
       - "https://hub.mirrorify.net"
-      - "https://2a6bf1988cb6428c877f723ec7530dbc.mirror.swr.myhuaweicloud.com"
       - "https://d.yydy.link:2023"
       - "https://hub3.nat.tf"
       - "https://docker.etcd.fun"
@@ -49,6 +49,9 @@ mirrors:
     endpoint:
       - "https://ghcr.nju.edu.cn"
       - "https://ghcr.linkos.org"
+  registry.k8s.io:
+    endpoint:
+      - "https://registry-k8s-io.mirrors.sjtug.sjtu.edu.cn"
 EOF
     sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
     sudo chmod -R 644 $HOME/.kube/config
