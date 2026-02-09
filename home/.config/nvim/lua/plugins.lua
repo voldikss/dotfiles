@@ -68,7 +68,7 @@ require('lazy').setup({
           enable = true,
           disable = function(lang, bufnr) -- Disable in large buffers
             local linecnt = vim.api.nvim_buf_line_count(bufnr)
-            return lang == 'yaml' or lang == "cpp" and linecnt > 50000 or lang == "typescript" and linecnt > 1500
+            return lang == "cpp" and linecnt > 50000 or lang == "typescript" and linecnt > 1500
           end
         },
         indent = {
@@ -133,41 +133,9 @@ require('lazy').setup({
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      require 'treesitter-context'.setup({
-        enable = true, -- Disabled default
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        patterns = {   -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-          -- For all filetypes
-          -- Note that setting an entry here replaces all other patterns for this entry.
-          -- By setting the 'default' entry below, you can control which nodes you want to
-          -- appear in the context window.
-          default = {
-            'class',
-            'function',
-            'method',
-            'for', -- These won't appear in the context
-            'while',
-            'if',
-            'switch',
-            'case',
-          },
-          -- Example for a specific filetype.
-          -- If a pattern is missing, *open a PR* so everyone can benefit.
-          --   rust = {
-          --       'impl_item',
-          --   },
-        },
-        exact_patterns = {
-          -- Example for a specific filetype with Lua patterns
-          -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
-          -- exactly match "impl_item" only)
-          -- rust = true,
-        },
-
-        -- [!] The options below are exposed but shouldn't require your attention,
-        --     you can safely ignore them.
-
-        zindex = 20, -- The Z-index of the context window
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'yaml', 'typescript', 'python', 'javascript', 'go' },
+        callback = function() vim.treesitter.start() end,
       })
     end
   },
