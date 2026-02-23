@@ -95,14 +95,9 @@ unset file;
 ############################################
 # Completions
 ############################################
-autoload -Uz compinit && compinit
-if [ -d "$HOME/.config/zsh/completions" ];then
-    source $HOME/.config/zsh/completions/helmfile.zsh
-    source $HOME/.config/zsh/completions/istioctl.zsh
-    source $HOME/.config/zsh/completions/k3s.zsh
-    # fpath+=($HOME/.config/zsh/completions) # XXX: not work?
-fi
-
+fpath+=(/home/alan/.config/zsh/completions)
+autoload -Uz compinit
+compinit
 
 #=============================================================================
 # Environment Variables
