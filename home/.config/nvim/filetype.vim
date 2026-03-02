@@ -59,6 +59,8 @@ augroup filetypedetect
   autocmd BufRead,BufNewFile requirements.txt  setfiletype requirements
 
   autocmd BufRead,BufNewFile *.typ             setfiletype=typst
+
+  autocmd BufRead,BufNewFile *.alloy             setfiletype=alloy
 augroup END
 
 let did_load_my_filetypes=1
