@@ -189,5 +189,4 @@ fi
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
-# Vite+ bin (https://viteplus.dev)
-. "$HOME/.vite-plus/env"
+[[ -f ~/.zshrc.local ]] && . ~/.zshrc.local

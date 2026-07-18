@@ -10,7 +10,7 @@ ensure_python() {
 
 ensure_nodejs() {
     __dirname="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if ! command -v nodejs &> /dev/null
+    if ! command -v node &> /dev/null
     then
         bash "$__dirname/nodejs/setup.sh"
     fi
@@ -21,7 +21,7 @@ ensure_proxychains() {
 }
 
 ensure_folder() {
-    if ! test -d "$1"
+    if test -d "$1"
     then
         rm -rf "$1"
     fi
