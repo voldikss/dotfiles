@@ -169,7 +169,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-export NPM_BIN_PATH="$HOME/.nvm/versions/node/v17.4.0/bin/"
+export NPM_BIN_PATH="$HOME/.nvm/versions/node/$(nvm version default)/bin/"
 export PATH="$NPM_BIN_PATH:$PATH"
 
 
