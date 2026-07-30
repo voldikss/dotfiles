@@ -23,6 +23,12 @@ autoload -Uz _zinit
 #############################################
 # Zinit Plugins
 #############################################
+# >>> cc-switch completions >>>
+if [ -d "$HOME/.local/share/zsh/site-functions" ]; then
+  fpath=("$HOME/.local/share/zsh/site-functions" $fpath)
+fi
+# <<< cc-switch completions <<<
+
 zinit ice lucid wait='0' atinit='zpcompinit'
 zinit light zdharma-continuum/fast-syntax-highlighting
 
