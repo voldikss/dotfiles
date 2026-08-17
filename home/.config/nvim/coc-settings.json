@@ -264,6 +264,8 @@
   "suggest.removeDuplicateItems": true,
   "suggest.triggerAfterInsertEnter": false,
   "tasks.filetypes": ["tasks"],
+  "tombi.updates.checkOnStartup": false,
+  "tombi.updates.prompt": false,
   "translator.enableHover": false,
   "translator.proxy": "socks://127.0.0.1:1081",
   "tsserver.useLocalTsdk": true,
