@@ -188,7 +188,7 @@ require('lazy').setup({
       require('numb').setup()
     end
   },
-  'tversteeg/registers.nvim',
+  'https://codeberg.org/fosk/registers.nvim.git',
   {
     'iamcco/markdown-preview.nvim',
     ft = 'markdown',
@@ -489,7 +489,7 @@ require('lazy').setup({
     cmd = 'GV'
   },
   {
-    'phaazon/hop.nvim',
+    'https://github.com/smoka7/hop.nvim',
     keys = {
       { "'", '<Cmd>HopWord<CR>' }
     },
