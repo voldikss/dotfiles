@@ -21,44 +21,5 @@ call timer_start(10, { -> s:asyncrun_settings() })
 
 nnoremap <silent><buffer> q :q<CR>
 
-" NOTE: do not use `augroup` && `autocmd!` in the ftplugin/xxx.vim if already
-" using `autocmd <buffer>`. Otherwise if I've opened mutltiple terminals,
-" there would be only one autocmd for one terminal buffer (When opening a
-" terminal, the previous terminal's autocmd would be deleted by `autocmd!`).
-" Instead, use `autocmd! * <buffer>`
-let b:enabled_enterinsert = v:true
-autocmd FileType floaterm ++once call timer_start(10, { -> execute('startinsert') })
-augroup enter_intert_mode
-  autocmd! * <buffer>
-  autocmd BufEnter <buffer> 
-        \ if b:enabled_enterinsert                                              |
-        \   call timer_start(10, { -> execute('startinsert') })     |
-        \ else                                                      |
-        \   stopinsert                                              |
-        \ endif
-augroup END
-
-augroup should_del_bufenter
-  autocmd! * <buffer>
-  autocmd BufLeave <buffer>
-        \ if line('.') >= s:lastnonblank()   |
-        \   let b:enabled_enterinsert = v:true           |
-        \ else                               |
-        \   let b:enabled_enterinsert = v:false          |
-        \ endif
-augroup END
-
-function! s:lastnonblank() abort
-  let lastlnum = line('$')
-  while lastlnum > 0
-    if empty(getline(lastlnum))
-      let lastlnum -= 1
-    else
-      return lastlnum
-    endif
-  endwhile
-  return lastlnum
-endfunction
-
 " @voldikss: quit without type Enter to confirm
 " autocmd TermClose <buffer> call feedkeys("\<CR>")
