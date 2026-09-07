@@ -196,3 +196,5 @@ fi
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [[ -f ~/.zshrc.local ]] && . ~/.zshrc.local
+
+source /home/alan/.config/broot/launcher/bash/br

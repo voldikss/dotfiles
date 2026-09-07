@@ -139,3 +139,5 @@ export NVM_DIR="$HOME/.nvm"
 . <(k3s completion bash)  # Added by k3s-ansible
 export KUBECONFIG=~/.kube/config # Added by k3s-ansible
 . <(kubectl completion bash)  # Added by k3s-ansible
+
+source /home/alan/.config/broot/launcher/bash/br

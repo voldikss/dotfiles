@@ -792,7 +792,7 @@ require('lazy').setup({
       vim.g.floaterm_height        = 0.65
       vim.g.floaterm_position      = 'center'
       vim.g.floaterm_opener        = 'edit'
-      vim.g.floaterm_autoclose     = 2
+      vim.g.floaterm_autoclose     = 'smart'
       vim.g.floaterm_autohide      = true
       vim.g.floaterm_keymap_new    = '<F7>'
       vim.g.floaterm_keymap_prev   = '<F8>'
