@@ -11,6 +11,7 @@ Usage:
   ./install.sh [options] [package ...]
 
   Install GNU Stow packages from this repository.
+  GNU Stow is installed automatically using the available package manager.
 
 Options:
   -s, --system    install system packages instead of home packages
@@ -31,11 +32,49 @@ list_packages() {
   find "$dir" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
 }
 
-require_stow() {
+run_with_privileges() {
+  if [ "$(id -u)" -eq 0 ]; then
+    "$@"
+  elif command -v sudo >/dev/null 2>&1; then
+    sudo "$@"
+  else
+    echo "error: sudo is required to install GNU Stow, but it is not available." >&2
+    echo "Install stow manually or run this script as root." >&2
+    exit 1
+  fi
+}
+
+install_stow() {
+  if command -v stow >/dev/null 2>&1; then
+    return
+  fi
+
+  echo "GNU Stow is not installed; installing it..."
+
+  if command -v pacman >/dev/null 2>&1; then
+    run_with_privileges pacman -S --needed --noconfirm stow
+  elif command -v apt-get >/dev/null 2>&1; then
+    run_with_privileges env DEBIAN_FRONTEND=noninteractive apt-get install -y stow
+  elif command -v dnf >/dev/null 2>&1; then
+    run_with_privileges dnf install -y stow
+  elif command -v yum >/dev/null 2>&1; then
+    run_with_privileges yum install -y stow
+  elif command -v zypper >/dev/null 2>&1; then
+    run_with_privileges zypper --non-interactive install stow
+  elif command -v apk >/dev/null 2>&1; then
+    run_with_privileges apk add stow
+  elif command -v brew >/dev/null 2>&1; then
+    brew install stow
+  elif command -v emerge >/dev/null 2>&1; then
+    run_with_privileges emerge --ask=n app-admin/stow
+  else
+    echo "error: could not find a supported package manager to install GNU Stow." >&2
+    echo "Install stow manually, then run this script again." >&2
+    exit 1
+  fi
+
   if ! command -v stow >/dev/null 2>&1; then
-    echo "error: GNU Stow is not installed." >&2
-    echo "Install it first, e.g.: sudo pacman -S stow   # Arch" >&2
-    echo "                      sudo apt install stow    # Debian/Ubuntu" >&2
+    echo "error: GNU Stow installation did not complete successfully." >&2
     exit 1
   fi
 }
@@ -44,16 +83,17 @@ MODE=home
 ALL=0
 LIST=0
 
-while getopts "sahl" OPT; do
-  case "$OPT" in
-    s) MODE=system ;;
-    a) ALL=1 ;;
-    l) LIST=1 ;;
-    h) usage; exit 0 ;;
-    *) usage >&2; exit 2 ;;
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -s|--system) MODE=system; shift ;;
+    -a|--all) ALL=1; shift ;;
+    -l|--list) LIST=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; break ;;
+    -*) usage >&2; exit 2 ;;
+    *) break ;;
   esac
 done
-shift $((OPTIND - 1))
 
 if [ "$LIST" -eq 1 ]; then
   if [ "$MODE" = home ]; then
@@ -93,16 +133,20 @@ fi
 for pkg in "${PACKAGES[@]}"; do
   if [ ! -d "$STOW_DIR/$pkg" ]; then
     echo "error: unknown package: $pkg" >&2
-    echo "Run './install.sh $([ "$MODE" = home ] || echo -n "-s ")-l' to list available packages." >&2
+    if [ "$MODE" = home ]; then
+      echo "Run './install.sh -l' to list available packages." >&2
+    else
+      echo "Run './install.sh -s -l' to list available packages." >&2
+    fi
     exit 1
   fi
 done
 
-require_stow
+install_stow
 
 if [ "$MODE" = system ] && [ "$(id -u)" -ne 0 ]; then
   echo "Re-running with sudo for system packages..."
-  exec sudo "$0" --system "${PACKAGES[@]}"
+  exec sudo "$0" -s "${PACKAGES[@]}"
 fi
 
 stow --dir="$STOW_DIR" --target="$TARGET" --restow "${PACKAGES[@]}"

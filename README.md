@@ -18,17 +18,7 @@ Makefile    常用命令封装
 
 ## 准备
 
-1. 安装依赖：
-
-   ```sh
-   # Arch
-   sudo pacman -S stow git
-
-   # Debian/Ubuntu
-   sudo apt install stow git
-   ```
-
-2. 克隆仓库。`kitty` 主题是 git submodule，需要递归克隆：
+1. 安装 Git 并克隆仓库。`kitty` 主题是 git submodule，需要递归克隆：
 
    ```sh
    git clone --recurse-submodules git@github.com:<you>/dotfiles.git ~/dotfiles
@@ -40,6 +30,8 @@ Makefile    常用命令封装
    ```sh
    git submodule update --init --recursive
    ```
+
+`install.sh` 首次运行时会自动检测并安装 GNU Stow。目前支持 `pacman`、`apt-get`、`dnf`、`yum`、`zypper`、`apk`、`brew` 和 `emerge`；使用系统包管理器时会通过 `sudo` 获取权限。
 
 ## 使用
 
@@ -69,13 +61,13 @@ Makefile    常用命令封装
 
 ```sh
 ./install.sh -s pacman network docker
-sudo ./install.sh -s caddy samba v2ray
+./install.sh -s caddy samba v2ray
 ```
 
 安装全部系统配置：
 
 ```sh
-sudo ./install.sh -s -a
+./install.sh -s -a
 ```
 
 也可以用 Makefile：
