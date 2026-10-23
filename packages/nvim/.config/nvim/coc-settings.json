@@ -280,5 +280,11 @@
   "coc.source.vimtex.filetypes": [
     "tex",
     "plaintex"
-  ]
+  ],
+  "json.schemaDownload.trustedDomains": {
+    "https://opencode.ai": true,
+    "https://models.dev": true,
+    "https://www.schemastore.org": true,
+    "https://json.schemastore.org": true
+  }
 }

@@ -16,12 +16,14 @@ Usage:
 Options:
   -s, --system    install system packages instead of home packages
   -a, --all       install all packages for the selected mode
+  -f, --force     replace conflicting files and symlinks (not directories)
   -l, --list      list available packages for the selected mode
   -h, --help      show this help
 
 Examples:
   ./install.sh zsh git tmux nvim
   ./install.sh -a
+  ./install.sh -f python
   ./install.sh -s -l
   sudo ./install.sh -s pacman network docker
 USAGE
@@ -79,14 +81,71 @@ install_stow() {
   fi
 }
 
+remove_conflicts() {
+  local pkg source relative target_path parent
+  local -a conflicts=()
+  local -A seen=()
+
+  for pkg in "${PACKAGES[@]}"; do
+    while IFS= read -r -d '' source; do
+      relative="${source#"$STOW_DIR/$pkg/"}"
+      target_path="$TARGET/$relative"
+
+      if [ -d "$source" ] && [ ! -L "$source" ]; then
+        if [ -d "$target_path" ]; then
+          if [ -L "$target_path" ] && [ ! "$source" -ef "$target_path" ]; then
+            echo "error: refusing to replace symlinked directory: $target_path" >&2
+            return 1
+          fi
+          continue
+        fi
+      elif [ -d "$target_path" ] && [ ! -L "$target_path" ]; then
+        echo "error: refusing to replace directory: $target_path" >&2
+        return 1
+      fi
+
+      if [ ! -e "$target_path" ] && [ ! -L "$target_path" ]; then
+        continue
+      fi
+      if [ "$source" -ef "$target_path" ]; then
+        continue
+      fi
+
+      parent="${target_path%/*}"
+      while [ "$parent" != "$TARGET" ] && [ "$parent" != / ]; do
+        if [ -L "$parent" ]; then
+          echo "error: refusing to replace file beneath symlinked directory: $target_path" >&2
+          return 1
+        fi
+        parent="${parent%/*}"
+      done
+
+      if [ -n "${seen[$target_path]+x}" ] && [ "${seen[$target_path]}" != "$source" ]; then
+        echo "error: multiple packages would replace the same target: $target_path" >&2
+        return 1
+      fi
+      if [ -z "${seen[$target_path]+x}" ]; then
+        seen[$target_path]="$source"
+        conflicts+=("$target_path")
+      fi
+    done < <(find "$STOW_DIR/$pkg" -mindepth 1 \( -name .git -o -name .stow-local-ignore \) -prune -o -print0)
+  done
+
+  for target_path in "${conflicts[@]}"; do
+    rm -- "$target_path"
+  done
+}
+
 MODE=home
 ALL=0
 LIST=0
+FORCE=0
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
     -s|--system) MODE=system; shift ;;
     -a|--all) ALL=1; shift ;;
+    -f|--force) FORCE=1; shift ;;
     -l|--list) LIST=1; shift ;;
     -h|--help) usage; exit 0 ;;
     --) shift; break ;;
@@ -131,7 +190,7 @@ else
 fi
 
 for pkg in "${PACKAGES[@]}"; do
-  if [ ! -d "$STOW_DIR/$pkg" ]; then
+  if [ "$pkg" = . ] || [ "$pkg" = .. ] || [[ "$pkg" == */* ]] || [ ! -d "$STOW_DIR/$pkg" ]; then
     echo "error: unknown package: $pkg" >&2
     if [ "$MODE" = home ]; then
       echo "Run './install.sh -l' to list available packages." >&2
@@ -146,7 +205,14 @@ install_stow
 
 if [ "$MODE" = system ] && [ "$(id -u)" -ne 0 ]; then
   echo "Re-running with sudo for system packages..."
+  if [ "$FORCE" -eq 1 ]; then
+    exec sudo "$0" -s -f "${PACKAGES[@]}"
+  fi
   exec sudo "$0" -s "${PACKAGES[@]}"
+fi
+
+if [ "$FORCE" -eq 1 ]; then
+  remove_conflicts
 fi
 
 stow --dir="$STOW_DIR" --target="$TARGET" --restow "${PACKAGES[@]}"
