@@ -1,0 +1,133 @@
+#!/bin/bash
+
+rssbot::usage() {
+    cat <<'USAGE'
+用法: rssbotctl <命令> [参数]
+  start [token]             启动并启用服务；首次创建服务时需要 token
+  stop|status|restart       管理现有服务
+  upgrade [语言] [目标路径] 下载最新版本（默认 zh、/opt/rssbot/rssbot）
+  help                      显示帮助
+USAGE
+}
+
+rssbot::start() {
+    local token="${1:-}"
+    local service=/etc/systemd/system/rssbot.service
+    if [[ -n "$token" ]]; then
+        # Token 作为 systemd 参数写入，拒绝空白及 systemd 特殊字符。
+        if [[ ! "$token" =~ ^[a-zA-Z0-9_:-]+$ ]]; then
+            echo "错误: token 格式无效。" >&2
+            return 1
+        fi
+        if ! (umask 077; cat > "$service" <<EOF_SERVICE
+[Unit]
+Description=rssbot
+After=network.target
+[Service]
+Type=simple
+User=root
+ExecStart=/opt/rssbot/rssbot --admin=285640808 --database=/opt/rssbot/rssbot.json --max-feed-size=0 $token
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF_SERVICE
+        ); then
+            echo "错误: 无法写入服务文件（可能需要 root 权限）。" >&2
+            return 1
+        fi
+        systemctl daemon-reload || return
+    elif [[ ! -f "$service" ]]; then
+        echo "错误: 服务文件不存在，请使用 start <token> 创建。" >&2
+        return 1
+    fi
+    systemctl enable rssbot || return
+    systemctl start rssbot
+}
+
+rssbot::upgrade() (
+    local locale="${1:-zh}" output="${2:-/opt/rssbot/rssbot}"
+    local machine target json download_url tmp backup='' was_active=0
+    local repo=iovxw/rssbot
+
+    if [[ ! "$locale" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+        echo "错误: 语言参数格式无效。" >&2
+        return 1
+    fi
+    for cmd in curl jq; do
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+            echo "错误: 需要安装 $cmd。" >&2
+            return 1
+        fi
+    done
+    machine="$(uname -m)" || return
+    case "$machine" in
+        x86_64|amd64) target=x86_64-unknown-linux-musl ;;
+        aarch64|arm64) target=aarch64-unknown-linux-musl ;;
+        *) echo "错误: 不支持的 CPU 架构: $machine" >&2; return 1 ;;
+    esac
+
+    echo "正在获取最新 Release 信息 ($locale / $target)..." >&2
+    if ! json="$(curl -fsSL "https://api.github.com/repos/${repo}/releases/latest")"; then
+        echo "错误: 无法获取 Release 信息。" >&2
+        return 1
+    fi
+    if ! download_url="$(printf '%s' "$json" | jq -er --arg name "rssbot-${locale}-${target}" \
+        '[.assets[] | select(.name == $name) | .browser_download_url | select(type == "string" and startswith("https://"))] | first // empty')"; then
+        echo "错误: 无法解析 Release 信息或找不到匹配的资产。" >&2
+        return 1
+    fi
+    if [[ -L "$output" || ( -e "$output" && ! -f "$output" ) ]]; then
+        echo "错误: 目标路径必须是普通文件，不能是符号链接或目录: $output" >&2
+        return 1
+    fi
+    tmp="$(mktemp "${output}.tmp.XXXXXXXX")" || return
+    trap '[[ -z "$tmp" ]] || rm -f -- "$tmp"' EXIT
+    echo "正在下载到临时文件..." >&2
+    if ! curl -fL --progress-bar "$download_url" -o "$tmp" || [[ ! -s "$tmp" ]]; then
+        echo "错误: 下载失败或文件为空，原文件未修改。" >&2
+        return 1
+    fi
+    chmod 755 "$tmp" || return
+    if [[ -e "$output" ]]; then
+        backup="$(mktemp "${output}.bak.XXXXXXXX")" || return
+        if ! cp -p -- "$output" "$backup"; then
+            rm -f -- "$backup"
+            echo "错误: 备份失败，原文件未修改。" >&2
+            return 1
+        fi
+        echo "备份已保存到: $backup" >&2
+    fi
+    if [[ "$output" == /opt/rssbot/rssbot ]] && systemctl is-active --quiet rssbot; then
+        was_active=1
+    fi
+    mv -f -- "$tmp" "$output" || return
+    tmp=''
+    if (( was_active )) && ! systemctl restart rssbot; then
+        echo "错误: 重启失败，正在尝试回滚。" >&2
+        if [[ -n "$backup" ]]; then
+            tmp="$(mktemp "${output}.tmp.XXXXXXXX")" || return 1
+            if cp -p -- "$backup" "$tmp" && mv -f -- "$tmp" "$output" && systemctl restart rssbot; then
+                tmp=''
+                echo "已恢复旧版本。" >&2
+            else
+                echo "错误: 自动回滚失败，请检查备份 $backup 和服务状态。" >&2
+            fi
+        else
+            echo "没有可用的旧版本备份，请手动检查服务。" >&2
+        fi
+        return 1
+    fi
+    echo "升级完成: $output" >&2
+)
+
+command="${1:-help}"
+(( $# == 0 )) || shift
+case "$command" in
+    start)   if (( $# > 1 )); then rssbot::usage >&2; exit 2; fi; rssbot::start "$@" ;;
+    stop|status|restart)
+        if (( $# != 0 )); then rssbot::usage >&2; exit 2; fi
+        systemctl "$command" rssbot ;;
+    upgrade) if (( $# > 2 )); then rssbot::usage >&2; exit 2; fi; rssbot::upgrade "$@" ;;
+    help|-h|--help) rssbot::usage ;;
+    *) echo "错误: 未知命令: $command" >&2; rssbot::usage >&2; exit 2 ;;
+esac
