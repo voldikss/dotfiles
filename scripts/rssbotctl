@@ -44,6 +44,16 @@ EOF_SERVICE
     systemctl start rssbot
 }
 
+rssbot::delete() {
+    local service=/etc/systemd/system/rssbot.service
+    if [[ -f "$service" ]]; then
+        systemctl stop rssbot || true
+        systemctl disable rssbot || true
+        rm -f -- "$service" || return
+        systemctl daemon-reload || return
+    fi
+}
+
 rssbot::upgrade() (
     local locale="${1:-zh}" output="${2:-/opt/rssbot/rssbot}"
     local machine target json download_url tmp backup='' was_active=0
@@ -124,6 +134,8 @@ command="${1:-help}"
 (( $# == 0 )) || shift
 case "$command" in
     start)   if (( $# > 1 )); then rssbot::usage >&2; exit 2; fi; rssbot::start "$@" ;;
+    delete)
+        if (( $# != 0 )); then rssbot::usage >&2; exit 2; fi; rssbot::delete ;;
     stop|status|restart)
         if (( $# != 0 )); then rssbot::usage >&2; exit 2; fi
         systemctl "$command" rssbot ;;
