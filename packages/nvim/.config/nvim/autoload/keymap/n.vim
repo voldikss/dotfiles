@@ -73,7 +73,7 @@ function! keymap#n#safe_bdelete() abort
       bdelete!
     endif
   else
-    let bufnr = bufnr()
+    let target_bufnr = bufnr('%')
     let jumplist = split(execute('jumps'), '\n')
     if len(jumplist) > 2
       let cur_idx = 0
@@ -93,25 +93,23 @@ function! keymap#n#safe_bdelete() abort
       endif
     endif
 
-    if winnr('$') == 1
-      execute 'bdelete!' bufnr
-    else
-      " NOTE: I have to set `equalalways` to true, otherwise CocList would throw
-      " `No enough rooms` error. But I like `noequalalways` much more.
-      "Also note that setting winfixheight/winfixwidth can block `equalalways`
-      let width = winwidth(0)
-      let height = winheight(0)
-      if bufnr == bufnr()
-        bn | vs | bp
-      else
-        vs | execute 'b' bufnr
-      endif
-      if !bufexists(bufnr) | return | endif
-      execute 'bdelete!' bufnr
-      execute 'resize ' height
-      execute 'vertical resize ' width
-      redraw!
+    " Reuse an already listed buffer so deleting the target cannot close a window.
+    let replacement = bufnr('%')
+    if replacement == target_bufnr || !buflisted(replacement)
+      for info in getbufinfo({'buflisted': 1})
+        if info.bufnr != target_bufnr
+          let replacement = info.bufnr
+          break
+        endif
+      endfor
     endif
+
+    for info in getwininfo()
+      if info.bufnr == target_bufnr
+        call win_execute(info.winid, 'buffer ' . replacement)
+      endif
+    endfor
+    execute 'bdelete!' target_bufnr
   endif
 endfunction
 
