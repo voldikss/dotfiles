@@ -57,6 +57,8 @@ Makefile    常用命令封装
 
 如果目标位置已有普通文件或符号链接，可以用 `-f` / `--force` 覆盖（例如 `./install.sh -f python`）。此操作会删除冲突文件，不会修改仓库中的配置；不会递归删除目录，建议先备份重要配置。系统配置同样支持 `./install.sh -s -f <module>`。
 
+`agents` 包用于管理 `~/.agents`。首次接管已有的 Agent 配置时，仓库已包含当前目录内容，可运行 `./install.sh -f agents` 将其链接到仓库。
+
 ### 按需安装系统配置
 
 系统配置会写入 `/`，需要 root 权限。脚本会自动通过 `sudo` 重跑：
@@ -84,6 +86,7 @@ make system SYSTEM_PACKAGES="pacman docker"
 
 | 包名 | 内容 |
 | --- | --- |
+| `agents` | `~/.agents`（个人 Agent Skills 与安装锁文件） |
 | `alacritty` | `~/.config/alacritty` |
 | `applications` | `~/.local/share/applications` |
 | `autostart` | `~/.config/autostart` |
